@@ -56,6 +56,70 @@ export default function RootLayout({
   `}
         </Script>
         {children}
+        {/* Footer - 4-Row Network-Ready */}
+        <footer className="bg-slate-900 text-slate-400 py-12 text-sm">
+          <div className="max-w-5xl mx-auto px-6">
+            {/* ROW 1: Navigation Columns */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+              <div>
+                <h3 className="font-bold text-slate-300 mb-3">Compare</h3>
+                <ul className="space-y-2">
+                  <li><Link href="/credit-cards" className="hover:text-white transition-colors">Cards for Bad Credit</Link></li>
+                  <li><Link href="/credit-cards" className="hover:text-white transition-colors">Secured Cards</Link></li>
+                  <li><Link href="/credit-cards" className="hover:text-white transition-colors">Credit Builder</Link></li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="font-bold text-slate-300 mb-3">Learn</h3>
+                <ul className="space-y-2">
+                  <li><Link href="/education" className="hover:text-white transition-colors">Education Center</Link></li>
+                  <li><Link href="/education" className="hover:text-white transition-colors">How Credit Scores Work</Link></li>
+                  <li><Link href="/how-we-rank-cards" className="hover:text-white transition-colors">How We Rank Cards</Link></li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="font-bold text-slate-300 mb-3">Company</h3>
+                <ul className="space-y-2">
+                  <li><Link href="/about" className="hover:text-white transition-colors">About</Link></li>
+                  <li><Link href="/contact" className="hover:text-white transition-colors">Contact</Link></li>
+                  <li><a href="/sitemap.xml" className="hover:text-white transition-colors">Sitemap</a></li>
+                </ul>
+              </div>
+            </div>
+            {/* ROW 2: Legal Links */}
+            <div className="flex flex-wrap gap-4 mb-8 border-t border-slate-700 pt-8">
+              <Link href="/terms" className="hover:text-white transition-colors">Terms of Use</Link>
+              <Link href="/privacy" className="hover:text-white transition-colors">Privacy Policy</Link>
+              <Link href="/advertiser-disclosure" className="hover:text-white transition-colors">Advertiser Disclosure</Link>
+              <Link href="/editorial-disclaimer" className="hover:text-white transition-colors">Editorial Disclaimer</Link>
+              <Link href="/accessibility-statement" className="hover:text-white transition-colors">Accessibility Statement</Link>
+              <Link href="/state-privacy-law-notice" className="hover:text-white transition-colors">State Privacy Law Notice</Link>
+              <Link href="/your-privacy-choices" className="hover:text-white transition-colors">Your Privacy Choices</Link>
+            </div>
+            {/* ROW 3: Disclaimers */}
+            <div className="space-y-4 mb-8 border-t border-slate-700 pt-8">
+              <p className="text-xs text-slate-500 leading-relaxed">
+                <strong className="text-slate-400">Advertiser Disclosure:</strong> BadCreditFirst is an independent, advertising-supported comparison service. The offers that appear on this site are from companies from which BadCreditFirst receives compensation. This compensation may impact how and where products appear on this site.
+              </p>
+              <p className="text-xs text-slate-500 leading-relaxed">
+                <strong className="text-slate-400">Editorial Disclaimer:</strong> Content on BadCreditFirst is independently researched and written. Opinions, reviews, and recommendations are those of BadCreditFirst alone and have not been reviewed, approved, or otherwise endorsed by any credit card issuer.
+              </p>
+              <p className="text-xs text-slate-500 leading-relaxed">
+                <strong className="text-slate-400">General Disclaimer:</strong> BadCreditFirst is operated by Carlos Acosta. BadCreditFirst provides independent information and is not a lender. BadCreditFirst may receive compensation when users apply for offers listed on this site.
+              </p>
+            </div>
+            {/* ROW 4: Brand Anchor */}
+            <div className="border-t border-slate-700 pt-8 text-center">
+              <Link href="/" className="inline-flex items-center gap-2 text-white font-bold text-lg mb-4 hover:opacity-90 transition-opacity">
+                <ShieldCheck className="w-6 h-6 text-slate-400" />
+                BadCreditFirst
+              </Link>
+              <p className="text-xs text-slate-500 mb-1">Operated by BadCreditFirst | Contact: carlos.acosta@badcreditfirst.com</p>
+              <p className="text-xs text-slate-500 mb-1">1631 Del Prado Blvd S #1124, Cape Coral, FL 33990</p>
+              <p className="text-xs text-slate-500">© 2026 BadCreditFirst. All Rights Reserved.</p>
+            </div>
+          </div>
+        </footer>
       </body>
     </html>
   );

@@ -7,6 +7,11 @@ const pageTitles: Record<string, string> = {
   terms: 'Terms',
   contact: 'Contact',
   'advertiser-disclosure': 'Advertiser Disclosure',
+  'editorial-disclaimer': 'Editorial Disclaimer',
+  'accessibility-statement': 'Accessibility Statement',
+  'your-privacy-choices': 'Your Privacy Choices',
+  'state-privacy-law-notice': 'State Privacy Law Notice',
+  'how-we-rank-cards': 'How We Rank Cards',
   'credit-cards': 'Credit Cards',
 };
 
@@ -27,6 +32,11 @@ export default function CatchAllPage({
   const isPrivacy = slugSegment === 'privacy';
   const isAbout = slugSegment === 'about';
   const isEducation = slugSegment === 'education';
+  const isAccessibilityStatement = slugSegment === 'accessibility-statement';
+  const isYourPrivacyChoices = slugSegment === 'your-privacy-choices';
+  const isStatePrivacyLawNotice = slugSegment === 'state-privacy-law-notice';
+  const isEditorialDisclaimer = slugSegment === 'editorial-disclaimer';
+  const isHowWeRankCards = slugSegment === 'how-we-rank-cards';
 
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900">
@@ -147,13 +157,58 @@ export default function CatchAllPage({
                 We reserve the right to modify these terms at any time.
               </p>
             </>
+          ) : isAccessibilityStatement ? (
+            <>
+              <h1 className="text-3xl font-bold tracking-tight text-slate-900 mb-6">
+                Accessibility Statement
+              </h1>
+              <p className="text-slate-600 leading-relaxed mb-8">
+                BadCreditFirst is committed to providing a website that is accessible to all users, regardless of technology or ability. We are actively working to increase the accessibility and usability of our website and in doing so adhere to many of the available standards and guidelines. If you experience any difficulty in accessing any part of this website, please contact us at carlos.acosta@badcreditfirst.com.
+              </p>
+            </>
+          ) : isYourPrivacyChoices ? (
+            <>
+              <h1 className="text-3xl font-bold tracking-tight text-slate-900 mb-6">
+                Your Privacy Choices
+              </h1>
+              <p className="text-slate-600 leading-relaxed mb-8">
+                You have the right to opt-out of the sale or sharing of your personal information. BadCreditFirst respects your right to privacy. To exercise your privacy rights, including the right to opt-out of cross-context behavioral advertising, please contact us or adjust your browser settings to disable third-party cookies.
+              </p>
+            </>
+          ) : isStatePrivacyLawNotice ? (
+            <>
+              <h1 className="text-3xl font-bold tracking-tight text-slate-900 mb-6">
+                State Privacy Law Notice
+              </h1>
+              <p className="text-slate-600 leading-relaxed mb-8">
+                Residents of certain states (including California, Virginia, Colorado, Connecticut, and Utah) may have additional rights regarding their personal information. These rights include the right to request access to, correction of, or deletion of your personal data. BadCreditFirst complies with all applicable state privacy laws.
+              </p>
+            </>
           ) : isAdvertiserDisclosure ? (
             <>
               <h1 className="text-3xl font-bold tracking-tight text-slate-900 mb-6">
                 Advertiser Disclosure
               </h1>
               <p className="text-slate-600 leading-relaxed mb-8">
-                BadCreditFirst is an independent, advertising-supported comparison service. The offers that appear on this site are from companies from which BadCreditFirst receives compensation. This compensation may impact how and where products appear on this site (including, for example, the order in which they appear). BadCreditFirst does not include all card companies or all available card offers.
+                BadCreditFirst is an independent, advertising-supported comparison service. The offers that appear on this site are from companies from which BadCreditFirst receives compensation. This compensation may impact how and where products appear on this site, including the order in which they appear. BadCreditFirst does not include all card companies or all available credit offers.
+              </p>
+            </>
+          ) : isEditorialDisclaimer ? (
+            <>
+              <h1 className="text-3xl font-bold tracking-tight text-slate-900 mb-6">
+                Editorial Disclaimer
+              </h1>
+              <p className="text-slate-600 leading-relaxed mb-8">
+                Content on BadCreditFirst is independently researched and written. Opinions, reviews, and recommendations are those of BadCreditFirst alone and have not been reviewed, approved, or otherwise endorsed by any credit card issuer.
+              </p>
+            </>
+          ) : isHowWeRankCards ? (
+            <>
+              <h1 className="text-3xl font-bold tracking-tight text-slate-900 mb-6">
+                How We Rank Cards
+              </h1>
+              <p className="text-slate-600 leading-relaxed mb-8">
+                BadCreditFirst evaluates credit cards and credit-building products based on multiple factors, including fees, reporting practices, accessibility for consumers with poor or limited credit, and general product transparency. Rankings may also consider approval likelihood and overall consumer value.
               </p>
             </>
           ) : (

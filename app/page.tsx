@@ -1,4 +1,3 @@
-import Link from 'next/link';
 import DetailedCardRow from '../components/DetailedCardRow';
 
 const cardData = [
@@ -91,29 +90,6 @@ export default function Home() {
         {/* Methodology */}
         <MethodologySection />
       </main>
-
-      {/* Footer */}
-      <footer className="bg-slate-900 text-slate-300">
-        <div className="max-w-5xl mx-auto px-6 py-12">
-          <div className="flex flex-wrap gap-6 mb-6">
-            <Link href="/privacy" className="hover:text-white transition-colors">
-              Privacy
-            </Link>
-            <Link href="/terms" className="hover:text-white transition-colors">
-              Terms
-            </Link>
-            <Link href="/advertiser-disclosure" className="hover:text-white transition-colors">
-              Advertiser Disclosure
-            </Link>
-            <Link href="/contact" className="hover:text-white transition-colors">
-              Contact
-            </Link>
-          </div>
-          <p className="text-sm text-slate-500 leading-relaxed max-w-2xl mx-auto text-center">
-            BadCreditFirst is operated by Carlos Acosta. BadCreditFirst provides independent information and is not a lender. BadCreditFirst may receive compensation when users apply for offers listed on this site.
-          </p>
-        </div>
-      </footer>
     </div>
   );
 }
