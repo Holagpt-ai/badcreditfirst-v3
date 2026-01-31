@@ -60,26 +60,6 @@ function MethodologySection() {
 export default function Home() {
   return (
     <div className="min-h-screen bg-white text-slate-900 flex flex-col">
-      {/* Header */}
-      <header className="border-b border-slate-200 sticky top-0 bg-white z-10">
-        <div className="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between">
-          <Link href="/" className="text-xl font-bold text-slate-900 hover:text-slate-900">
-            BadCreditFirst
-          </Link>
-          <nav className="flex items-center gap-8">
-            <Link href="/credit-cards" className="text-slate-600 hover:text-blue-600 font-medium transition-colors">
-              Credit Cards
-            </Link>
-            <Link href="/education" className="text-slate-600 hover:text-blue-600 font-medium transition-colors">
-              Education
-            </Link>
-            <Link href="/about" className="text-slate-600 hover:text-blue-600 font-medium transition-colors">
-              About
-            </Link>
-          </nav>
-        </div>
-      </header>
-
       <main className="flex-1">
         {/* Hero */}
         <section className="max-w-5xl mx-auto px-6 py-12 text-center">

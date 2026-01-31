@@ -24,26 +24,6 @@ export default function CatchAllPage({
 
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900">
-      {/* Header */}
-      <header className="border-b border-slate-200 bg-white sticky top-0 z-10">
-        <div className="max-w-4xl mx-auto px-6 py-4 flex items-center justify-between">
-          <Link href="/" className="text-xl font-bold text-slate-900 hover:text-slate-900">
-            BadCreditFirst
-          </Link>
-          <nav className="flex items-center gap-6">
-            <Link href="/credit-cards" className="text-slate-600 hover:text-blue-600 font-medium transition-colors">
-              Credit Cards
-            </Link>
-            <Link href="/education" className="text-slate-600 hover:text-blue-600 font-medium transition-colors">
-              Education
-            </Link>
-            <Link href="/about" className="text-slate-600 hover:text-blue-600 font-medium transition-colors">
-              About
-            </Link>
-          </nav>
-        </div>
-      </header>
-
       <main className="max-w-4xl mx-auto px-6 py-12">
         <div className="bg-white border border-slate-200 rounded-xl shadow-sm p-8">
           <h1 className="text-3xl font-bold tracking-tight text-slate-900 mb-6">
