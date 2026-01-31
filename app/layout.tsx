@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import Script from "next/script";
+import Link from "next/link";
+import { ShieldCheck } from "lucide-react";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -18,6 +20,28 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
+        {/* Header */}
+        <header className="border-b border-slate-200 sticky top-0 bg-white z-10">
+          <div className="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between">
+            <Link href="/">
+              <span className="text-2xl font-black tracking-tighter text-blue-900 flex items-center gap-2">
+                <ShieldCheck className="w-8 h-8 text-blue-600" />
+                BadCreditFirst
+              </span>
+            </Link>
+            <nav className="flex items-center gap-8">
+              <Link href="/credit-cards" className="text-sm font-medium text-slate-600 hover:text-blue-600 transition-colors">
+                Credit Cards
+              </Link>
+              <Link href="/education" className="text-sm font-medium text-slate-600 hover:text-blue-600 transition-colors">
+                Education
+              </Link>
+              <Link href="/about" className="text-sm font-medium text-slate-600 hover:text-blue-600 transition-colors">
+                About
+              </Link>
+            </nav>
+          </div>
+        </header>
         {/* Google Analytics (gtag.js) */}
         <Script
           strategy="afterInteractive"
