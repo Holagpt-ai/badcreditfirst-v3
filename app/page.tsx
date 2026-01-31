@@ -1,6 +1,49 @@
 import Link from 'next/link';
 import DetailedCardRow from '../components/DetailedCardRow';
 
+const cardData = [
+  {
+    title: 'OpenSky® Secured Visa® Credit Card',
+    label: 'Best for No Credit Check',
+    highlights: ['No credit check to apply', 'Refundable deposit starts at $200', 'Reports to all 3 credit bureaus'],
+    fees: '$35 Annual Fee',
+    creditScore: 'No Credit Check',
+    slug: 'opensky-secured-visa',
+  },
+  {
+    title: 'First Progress Platinum Prestige Mastercard®',
+    label: 'Best for Credit Rebuilding',
+    highlights: ['Reports to all 3 bureaus', 'No credit history required', '24/7 Online Account Access'],
+    fees: '$49 Annual Fee',
+    creditScore: 'Poor to Fair',
+    slug: 'first-progress-platinum',
+  },
+  {
+    title: 'Self - Credit Builder Account',
+    label: 'Best Alternative to a Credit Card',
+    highlights: ['No hard pull on your credit', 'Build credit while you save', 'Plans start at $25/mo'],
+    fees: '$25/mo',
+    creditScore: 'Building',
+    slug: 'self-credit-builder',
+  },
+  {
+    title: 'Mission Lane Visa® Credit Card',
+    label: 'Coming Soon',
+    highlights: ['Unsecured option', 'No security deposit', 'Clear fee structure'],
+    fees: '—',
+    creditScore: '—',
+    slug: 'mission-lane',
+  },
+  {
+    title: 'Credit One Bank® Platinum Visa®',
+    label: 'Coming Soon',
+    highlights: ['Cash back rewards', 'Regular account reviews', 'Free credit score access'],
+    fees: '—',
+    creditScore: '—',
+    slug: 'credit-one-platinum',
+  },
+];
+
 function MethodologySection() {
   return (
     <section className="bg-slate-50 border-t border-slate-200">
@@ -44,49 +87,24 @@ export default function Home() {
             Credit Card Options for Bad or Limited Credit
           </h1>
           <p className="text-lg text-slate-500 max-w-2xl mx-auto">
-            Independent information to help you find the right path. We are not a lender.
+            Compare secured cards and credit-builder accounts designed for scores under 600. No lender bias. No obligation.
           </p>
         </section>
 
         {/* Offer Stack - Sandwich Layout */}
         <section className="max-w-5xl mx-auto px-6 pb-12">
           <div className="divide-y divide-slate-200 border border-slate-200 rounded-xl overflow-hidden bg-white shadow-sm">
-            <DetailedCardRow
-              title="OpenSky® Secured Visa® Credit Card"
-              label="Best for No Credit Check"
-              highlights={[
-                'No credit check to apply',
-                'Refundable deposit starts at $200',
-                'Reports to all 3 credit bureaus',
-              ]}
-              fees="$35 Annual Fee"
-              creditScore="No Credit Check"
-              slug="opensky-secured-visa"
-            />
-            <DetailedCardRow
-              title="First Progress Platinum Prestige Mastercard®"
-              label="Best for Credit Rebuilding"
-              highlights={[
-                'Reports to all 3 bureaus',
-                'No credit history required',
-                '24/7 Online Account Access',
-              ]}
-              fees="$49 Annual Fee"
-              creditScore="Poor to Fair"
-              slug="first-progress-platinum"
-            />
-            <DetailedCardRow
-              title="Self - Credit Builder Account"
-              label="Best Alternative to a Credit Card"
-              highlights={[
-                'No hard pull on your credit',
-                'Build credit while you save',
-                'Plans start at $25/mo',
-              ]}
-              fees="$25/mo"
-              creditScore="Building"
-              slug="self-credit-builder"
-            />
+            {cardData.map((card) => (
+              <DetailedCardRow
+                key={card.slug}
+                title={card.title}
+                label={card.label}
+                highlights={card.highlights}
+                fees={card.fees}
+                creditScore={card.creditScore}
+                slug={card.slug}
+              />
+            ))}
           </div>
         </section>
 

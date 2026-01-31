@@ -1,11 +1,9 @@
 import React from 'react';
-import { Star, Check, Info, CreditCard, ArrowRight } from 'lucide-react';
+import { Star, Check, CreditCard, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 interface DetailedCardRowProps { title: string; label: string; highlights: string[]; fees: string; creditScore: string; slug: string; affiliateLink?: string; }
 
 export default function DetailedCardRow({ title, label, highlights, fees, creditScore, slug, affiliateLink = '#' }: DetailedCardRowProps) {
-  const isPreApproval = process.env.NEXT_PUBLIC_SITE_MODE === 'pre_approval';
-
   return (
 
   <div className="flex flex-col md:flex-row">
@@ -59,34 +57,19 @@ export default function DetailedCardRow({ title, label, highlights, fees, credit
     </div>
     {/* RIGHT: Action Area */}
     <div className="w-full md:w-[280px] p-6 bg-slate-50 flex flex-col justify-center border-t md:border-t-0 md:border-l border-slate-100">
-        {/* BUTTON DEAD SWITCH */}
-        {isPreApproval ? (
-          <button
-            disabled
-            className="w-full py-4 bg-slate-200 text-slate-400 font-bold rounded-lg cursor-not-allowed border border-slate-300 shadow-none"
-          >
-            Check Availability
-            <span className="block text-xs font-normal opacity-75 mt-1">(Launching Soon)</span>
-          </button>
-        ) : (
-          <a
-            href={affiliateLink}
-            target="_blank"
-            rel="nofollow noreferrer"
-            className="w-full py-4 bg-green-600 hover:bg-green-700 text-white font-bold rounded-lg shadow-sm hover:shadow-md transition-all text-center flex items-center justify-center group"
-          >
-            Apply Now
-            <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
-          </a>
-        )}
-        <Link 
-          href={`/reviews/${slug}`}
-          className="mt-4 text-center text-blue-600 text-sm font-semibold hover:underline flex items-center justify-center"
+        <Link
+          href={`/credit-cards/${slug}`}
+          className="w-full py-4 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-lg shadow-sm hover:shadow-md transition-all text-center flex items-center justify-center group"
         >
-          <Info className="w-4 h-4 mr-1" />
-          View Full Review
+          View Offer Details
+          <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
         </Link>
-        
+        <Link
+          href={`/credit-cards/${slug}`}
+          className="mt-3 text-center text-blue-600 text-sm hover:underline block"
+        >
+          View Full Review →
+        </Link>
         <p className="mt-4 text-[10px] text-center text-slate-400 leading-tight">
           Terms and conditions apply. <br/> Rates subject to change.
         </p>
