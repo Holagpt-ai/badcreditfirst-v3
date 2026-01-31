@@ -129,8 +129,8 @@ export default function Home() {
               Contact
             </Link>
           </div>
-          <p className="text-sm text-slate-400 leading-relaxed max-w-2xl">
-            BadCreditFirst is operated by [Entity Name]. We provide independent information and are not a lender. Terms and conditions apply. Rates subject to change.
+          <p className="text-sm text-slate-500 leading-relaxed max-w-2xl mx-auto text-center">
+            BadCreditFirst is operated by Carlos Acosta. BadCreditFirst provides independent information and is not a lender. BadCreditFirst may receive compensation when users apply for offers listed on this site.
           </p>
         </div>
       </footer>
