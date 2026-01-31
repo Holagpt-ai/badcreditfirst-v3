@@ -1,113 +1,121 @@
-import Image from "next/image";
+import Link from 'next/link';
+import DetailedCardRow from '../components/DetailedCardRow';
+
+function MethodologySection() {
+  return (
+    <section className="bg-slate-50 border-t border-slate-200">
+      <div className="max-w-4xl mx-auto px-6 py-12">
+        <h2 className="text-xl font-bold text-slate-900 mb-4">How We Evaluate Options</h2>
+        <p className="text-slate-600 leading-relaxed">
+          We rank products based on fee transparency, approval likelihood, and reporting to major credit bureaus.
+        </p>
+      </div>
+    </section>
+  );
+}
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">app/page.tsx</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:size-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
+    <div className="min-h-screen bg-white text-slate-900 flex flex-col">
+      {/* Header */}
+      <header className="border-b border-slate-200 sticky top-0 bg-white z-10">
+        <div className="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between">
+          <Link href="/" className="text-xl font-bold text-slate-900 hover:text-slate-900">
+            BadCreditFirst
+          </Link>
+          <nav className="flex items-center gap-8">
+            <Link href="/credit-cards" className="text-slate-600 hover:text-blue-600 font-medium transition-colors">
+              Credit Cards
+            </Link>
+            <Link href="/education" className="text-slate-600 hover:text-blue-600 font-medium transition-colors">
+              Education
+            </Link>
+            <Link href="/about" className="text-slate-600 hover:text-blue-600 font-medium transition-colors">
+              About
+            </Link>
+          </nav>
         </div>
-      </div>
+      </header>
 
-      <div className="relative z-[-1] flex place-items-center before:absolute before:h-[300px] before:w-full before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-full after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 sm:before:w-[480px] sm:after:w-[240px] before:lg:h-[360px]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className="mb-32 grid text-center lg:mb-0 lg:w-full lg:max-w-5xl lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Docs{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Find in-depth information about Next.js features and API.
+      <main className="flex-1">
+        {/* Hero */}
+        <section className="max-w-5xl mx-auto px-6 py-12 text-center">
+          <h1 className="text-4xl font-bold tracking-tight text-slate-900 mb-4">
+            Credit Card Options for Bad or Limited Credit
+          </h1>
+          <p className="text-lg text-slate-500 max-w-2xl mx-auto">
+            Independent information to help you find the right path. We are not a lender.
           </p>
-        </a>
+        </section>
 
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Learn{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
+        {/* Offer Stack - Sandwich Layout */}
+        <section className="max-w-5xl mx-auto px-6 pb-12">
+          <div className="divide-y divide-slate-200 border border-slate-200 rounded-xl overflow-hidden bg-white shadow-sm">
+            <DetailedCardRow
+              title="OpenSky® Secured Visa® Credit Card"
+              label="Best for No Credit Check"
+              highlights={[
+                'No credit check to apply',
+                'Refundable deposit starts at $200',
+                'Reports to all 3 credit bureaus',
+              ]}
+              fees="$35 Annual Fee"
+              creditScore="No Credit Check"
+              slug="opensky-secured-visa"
+            />
+            <DetailedCardRow
+              title="First Progress Platinum Prestige Mastercard®"
+              label="Best for Credit Rebuilding"
+              highlights={[
+                'Reports to all 3 bureaus',
+                'No credit history required',
+                '24/7 Online Account Access',
+              ]}
+              fees="$49 Annual Fee"
+              creditScore="Poor to Fair"
+              slug="first-progress-platinum"
+            />
+            <DetailedCardRow
+              title="Self - Credit Builder Account"
+              label="Best Alternative to a Credit Card"
+              highlights={[
+                'No hard pull on your credit',
+                'Build credit while you save',
+                'Plans start at $25/mo',
+              ]}
+              fees="$25/mo"
+              creditScore="Building"
+              slug="self-credit-builder"
+            />
+          </div>
+        </section>
 
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Templates{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Explore starter templates for Next.js.
-          </p>
-        </a>
+        {/* Methodology */}
+        <MethodologySection />
+      </main>
 
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Deploy{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-balance text-sm opacity-50">
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
+      {/* Footer */}
+      <footer className="bg-slate-900 text-slate-300">
+        <div className="max-w-5xl mx-auto px-6 py-12">
+          <div className="flex flex-wrap gap-6 mb-6">
+            <Link href="/privacy" className="hover:text-white transition-colors">
+              Privacy
+            </Link>
+            <Link href="/terms" className="hover:text-white transition-colors">
+              Terms
+            </Link>
+            <Link href="/advertiser-disclosure" className="hover:text-white transition-colors">
+              Advertiser Disclosure
+            </Link>
+            <Link href="/contact" className="hover:text-white transition-colors">
+              Contact
+            </Link>
+          </div>
+          <p className="text-sm text-slate-400 leading-relaxed max-w-2xl">
+            BadCreditFirst is operated by [Entity Name]. We provide independent information and are not a lender. Terms and conditions apply. Rates subject to change.
           </p>
-        </a>
-      </div>
-    </main>
+        </div>
+      </footer>
+    </div>
   );
 }
