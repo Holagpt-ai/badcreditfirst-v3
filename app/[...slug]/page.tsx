@@ -22,6 +22,8 @@ export default function CatchAllPage({
   const slugSegment = params.slug?.[0] ?? 'page';
   const pageName = getPageTitle(slugSegment);
   const isContact = slugSegment === 'contact';
+  const isTerms = slugSegment === 'terms';
+  const isAdvertiserDisclosure = slugSegment === 'advertiser-disclosure';
 
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900">
@@ -42,6 +44,24 @@ export default function CatchAllPage({
               </div>
               <p className="text-slate-500 text-sm italic mb-8">
                 Note: We are not a bank and cannot assist with specific credit card account issues.
+              </p>
+            </>
+          ) : isTerms ? (
+            <>
+              <h1 className="text-3xl font-bold tracking-tight text-slate-900 mb-6">
+                Terms of Use
+              </h1>
+              <p className="text-slate-600 leading-relaxed mb-8">
+                By accessing BadCreditFirst, you agree to these terms. All content is for informational purposes only and does not constitute financial advice. We are not a lender and do not make credit decisions. We strive for accuracy but cannot guarantee that all information is up-to-date. Users should verify terms with the card issuer before applying.
+              </p>
+            </>
+          ) : isAdvertiserDisclosure ? (
+            <>
+              <h1 className="text-3xl font-bold tracking-tight text-slate-900 mb-6">
+                Advertiser Disclosure
+              </h1>
+              <p className="text-slate-600 leading-relaxed mb-8">
+                BadCreditFirst is an independent, advertising-supported comparison service. The offers that appear on this site are from companies from which BadCreditFirst receives compensation. This compensation may impact how and where products appear on this site (including, for example, the order in which they appear). BadCreditFirst does not include all card companies or all available card offers.
               </p>
             </>
           ) : (
