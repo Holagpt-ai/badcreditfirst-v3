@@ -489,7 +489,7 @@ export default function EducationArticlePage({
           <h1 className="text-3xl md:text-4xl font-bold tracking-tight text-slate-900 mb-4">
             {article.title}
           </h1>
-          <p className="text-slate-500 text-sm mb-1">By Sofia Acosta</p>
+          <p className="text-slate-500 text-sm mb-1">By Carlos Acosta</p>
           <p className="text-slate-400 text-sm">Last Updated: February 2026</p>
         </header>
 
@@ -507,7 +507,8 @@ export default function EducationArticlePage({
         {/* Author Bio */}
         <footer className="border-t border-slate-200 pt-8 mt-12">
           <p className="text-sm text-slate-500">
-            <strong className="text-slate-700">About Sofia Acosta:</strong> Sofia is a financial researcher specializing in credit repair strategies.
+            <strong className="text-slate-700">About Carlos Acosta:</strong> Carlos Acosta is the founder of BadCreditFirst and a fintech entrepreneur focused on credit education and product comparison for consumers with bad or limited credit.{' '}
+            <Link href="/author/carlos-acosta" className="text-blue-600 hover:underline">View author page</Link>.
           </p>
           <Link href="/education" className="inline-block mt-6 text-blue-600 hover:underline text-sm font-medium">
             ← Back to Education Center

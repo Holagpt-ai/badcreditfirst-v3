@@ -81,20 +81,21 @@ export function getFAQSchema(faq: FAQItem[], siteUrl: string = SITE_URL) {
   };
 }
 
-/** Product schema (for review pages). */
+/** Product schema (for review pages). ratingValue as string (e.g. "4.5"); reviewCount omitted per Google guidance. */
 export function getProductSchema(options: {
   siteUrl?: string;
   name: string;
   url: string;
-  ratingValue: number;
+  ratingValue: string | number;
   bestRating: number;
-  reviewCount: number;
   price?: number;
   priceCurrency?: string;
   priceValidUntil?: string;
   description?: string;
 }) {
   const siteUrl = options.siteUrl ?? SITE_URL;
+  const ratingValue =
+    typeof options.ratingValue === 'string' ? options.ratingValue : String(options.ratingValue);
   const schema: Record<string, unknown> = {
     '@context': 'https://schema.org',
     '@type': 'Product',
@@ -102,9 +103,8 @@ export function getProductSchema(options: {
     url: options.url,
     aggregateRating: {
       '@type': 'AggregateRating',
-      ratingValue: options.ratingValue,
+      ratingValue,
       bestRating: options.bestRating,
-      reviewCount: options.reviewCount,
     },
   };
   if (options.price != null && options.price > 0) {
@@ -119,27 +119,27 @@ export function getProductSchema(options: {
   return schema;
 }
 
-/** Review schema (wraps Product as itemReviewed). */
+/** Review schema (wraps Product as itemReviewed). ratingValue as string; reviewCount omitted per Google guidance. */
 export function getReviewSchema(options: {
   siteUrl?: string;
   productSchema: Record<string, unknown>;
   reviewUrl: string;
   authorName?: string;
   authorUrl?: string;
-  ratingValue: number;
+  ratingValue: string | number;
   bestRating: number;
-  reviewCount: number;
 }) {
   const siteUrl = options.siteUrl ?? SITE_URL;
+  const ratingValue =
+    typeof options.ratingValue === 'string' ? options.ratingValue : String(options.ratingValue);
   return {
     '@context': 'https://schema.org',
     '@type': 'Review',
     itemReviewed: options.productSchema,
     reviewRating: {
       '@type': 'Rating',
-      ratingValue: options.ratingValue,
+      ratingValue,
       bestRating: options.bestRating,
-      reviewCount: options.reviewCount,
     },
     author: {
       '@type': 'Organization',

@@ -1,0 +1,2463 @@
+﻿========================================
+FILE: page.tsx
+========================================
+import Link from 'next/link';
+
+export default function AboutPage() {
+  return (
+    <div className="min-h-screen bg-slate-50 text-slate-900">
+      <main className="max-w-4xl mx-auto px-6 py-12">
+        <div className="bg-white border border-slate-200 rounded-xl shadow-sm p-8">
+          <h1 className="text-3xl font-bold tracking-tight text-slate-900 mb-6">
+            About BadCreditFirst
+          </h1>
+          <p className="text-slate-600 leading-relaxed mb-6">
+            BadCreditFirst is an independent, advertising-supported website that helps consumers compare credit cards and credit-building products designed for people with bad or limited credit. We provide information to help you make informed decisions. We are not a lender and do not make credit decisions.
+          </p>
+          <p className="text-slate-600 leading-relaxed mb-6">
+            BadCreditFirst operates as an independent publisher and does not accept payment to alter editorial opinions or educational content. Product information is evaluated using internal comparison criteria designed to help consumers better understand credit-building options.
+          </p>
+          <h2 className="text-lg font-bold text-slate-900 mt-6 mb-2">Editorial Independence</h2>
+          <p className="text-slate-600 leading-relaxed mb-6">
+            Our editorial content is created independently. While we receive compensation from partners when you apply through our links, our reviews and rankings are based on our own evaluation criteria. Compensation does not influence our editorial opinions.
+          </p>
+          <h2 className="text-lg font-bold text-slate-900 mt-6 mb-2">How We Evaluate Products</h2>
+          <p className="text-slate-600 leading-relaxed mb-6">
+            We rank products based on fee transparency, approval likelihood, reporting to major credit bureaus, and value for consumers with limited credit history.
+          </p>
+          <h2 className="text-lg font-bold text-slate-900 mt-6 mb-2">Important Disclaimer</h2>
+          <p className="text-slate-600 leading-relaxed mb-8">
+            All content is for informational purposes only and does not constitute financial advice. We strive for accuracy but cannot guarantee that all information is up-to-date. Users should verify terms with the card issuer before applying.
+          </p>
+          <p className="text-slate-600 leading-relaxed mb-8 text-sm italic">
+            BadCreditFirst is not a credit card issuer, lender, or financial advisor and does not make credit approval decisions.
+          </p>
+          <Link href="/" className="text-blue-600 hover:underline text-sm font-medium">
+            â† Return to Home
+          </Link>
+        </div>
+      </main>
+    </div>
+  );
+}
+
+
+
+========================================
+FILE: page.tsx
+========================================
+import type { Metadata } from 'next';
+import Link from 'next/link';
+
+const AUTHOR_ARTICLES = [
+  { slug: 'what-is-a-good-credit-score', title: 'What Is a Good Credit Score?' },
+  { slug: 'how-is-my-score-calculated', title: 'How Is My Score Calculated?' },
+  { slug: 'what-is-a-bad-credit-score', title: 'What Is a Bad Credit Score?' },
+  { slug: 'fico-vs-vantagescore', title: 'FICOÂ® vs. VantageScore' },
+  { slug: 'secured-vs-unsecured', title: 'Secured vs. Unsecured Credit Cards' },
+  { slug: 'credit-builder-loans', title: 'Credit Builder Loans Explained' },
+] as const;
+
+export const metadata: Metadata = {
+  title: 'Carlos Acosta | Author & Founder',
+  description: 'Fintech Entrepreneur & Credit Researcher. Founder of BadCreditFirst. Learn how we review credit cards and our methodology.',
+};
+
+export default function AuthorCarlosAcostaPage() {
+  return (
+    <div className="min-h-screen bg-slate-50 text-slate-900">
+      <main className="max-w-4xl mx-auto px-6 py-12">
+        <div className="bg-white border border-slate-200 rounded-xl shadow-sm p-8">
+          <h1 className="text-3xl font-bold tracking-tight text-slate-900 mb-2">
+            Carlos Acosta
+          </h1>
+          <p className="text-lg font-medium text-blue-600 mb-6">
+            Fintech Entrepreneur & Credit Researcher
+          </p>
+
+          <section className="mb-8">
+            <h2 className="text-xl font-bold text-slate-900 mb-3">Credentials</h2>
+            <ul className="list-disc list-inside text-slate-600 space-y-1 mb-4">
+              <li>Founder, BadCreditFirst</li>
+              <li>Credit researcher and product comparison specialist</li>
+              <li>Focus: fee transparency, bureau reporting, approval accessibility</li>
+            </ul>
+          </section>
+
+          <section className="mb-8">
+            <h2 className="text-xl font-bold text-slate-900 mb-3">Bio</h2>
+            <p className="text-slate-600 leading-relaxed mb-4">
+            Carlos Acosta is the founder of BadCreditFirst and a fintech entrepreneur focused on credit education and product comparison for consumers with bad or limited credit. As a credit researcher, he evaluates credit cards and credit-building products based on fee transparency, bureau reporting, and approval accessibilityâ€”not on affiliate payouts. His goal is to help people understand their options and make informed decisions when rebuilding credit.
+            </p>
+            <p className="text-slate-600 leading-relaxed">
+            BadCreditFirst is operated by Carlos Acosta and provides independent information; it is not a lender. The site may receive compensation when users apply for offers listed here. All editorial content is created independently and reflects BadCreditFirst&apos;s own evaluation criteria.
+            </p>
+          </section>
+
+          <section className="mb-8">
+            <h2 className="text-xl font-bold text-slate-900 mb-3">Methodology</h2>
+            <p className="text-slate-600 leading-relaxed mb-4">
+            How we review cards at BadCreditFirst:
+            </p>
+            <ol className="space-y-4 list-decimal list-inside text-slate-600">
+              <li>
+                <strong className="text-slate-800">Fee transparency</strong> â€” We prioritize products that clearly disclose annual fees and avoid hidden monthly charges. We call out fee risks in each review.
+              </li>
+              <li>
+                <strong className="text-slate-800">Bureau reporting</strong> â€” We only recommend cards that report to at least one major credit bureau (Equifax, Experian, or TransUnion). Reporting is essential for rebuilding credit.
+              </li>
+              <li>
+                <strong className="text-slate-800">Approval odds & fit</strong> â€” We focus on products designed for consumers with poor or no credit. Each review includes approval odds and who the card is best for in the real world.
+              </li>
+              <li>
+                <strong className="text-slate-800">Rebuilding path</strong> â€” We highlight upgrade paths and next steps so you can plan beyond your first card.
+              </li>
+            </ol>
+            <p className="text-slate-600 leading-relaxed mt-4">
+            We do not rank cards by compensation. Our reviews and rankings are based on the criteria above. For more detail, see our <Link href="/how-we-rank-cards" className="text-blue-600 hover:underline">How We Rank Cards</Link> page.
+            </p>
+          </section>
+
+          <section className="mb-8">
+            <h2 className="text-xl font-bold text-slate-900 mb-3">Articles</h2>
+            <p className="text-slate-600 mb-4">Credit education articles on BadCreditFirst:</p>
+            <ul className="space-y-2">
+              {AUTHOR_ARTICLES.map((a) => (
+                <li key={a.slug}>
+                  <Link href={`/education/${a.slug}`} className="text-blue-600 hover:underline text-sm font-medium">
+                    {a.title}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+            <Link href="/education" className="inline-block mt-3 text-blue-600 hover:underline text-sm font-medium">
+              View all Education Center articles â†’
+            </Link>
+          </section>
+
+          <div className="border-t border-slate-200 pt-6 flex flex-wrap gap-4">
+            <Link href="/" className="text-blue-600 hover:underline text-sm font-medium">
+              â† Home
+            </Link>
+            <Link href="/about" className="text-blue-600 hover:underline text-sm font-medium">
+              About BadCreditFirst
+            </Link>
+            <Link href="/credit-cards" className="text-blue-600 hover:underline text-sm font-medium">
+              Credit Cards
+            </Link>
+          </div>
+        </div>
+      </main>
+    </div>
+  );
+}
+
+
+
+========================================
+FILE: page.tsx
+========================================
+import type { Metadata } from 'next';
+import DetailedCardRow from '../../../../components/DetailedCardRow';
+import { cardData } from '../../../../lib/card-data';
+import { categories, categoryContent } from '../../../../lib/categories';
+import { getCollectionPageSchema, getFAQSchema } from '../../../../lib/schema';
+
+const TRUST_SIGNAL_DATE = 'Updated Feb 2026';
+
+type Props = { params: { slug: string } };
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const category = categories[params.slug];
+  if (!category) return { title: 'Category Not Found' };
+  return {
+    title: `${category.title} (2026) | BadCreditFirst`,
+    description: `Compare ${category.title.toLowerCase()} for bad credit and no credit. Independent reviews, fees, and approval tips.`,
+  };
+}
+
+export default function CreditCardCategoryPage({
+  params,
+}: {
+  params: { slug: string };
+}) {
+  const { slug } = params;
+  const category = categories[slug];
+  const content = categoryContent[slug];
+
+  if (!category) {
+    return <div>Page Not Found</div>;
+  }
+
+  const filteredCards = cardData.filter((c) => category.filter(c.title));
+  const categoryUrl = `/credit-cards/category/${slug}`;
+  const itemUrls = filteredCards.map((c) => c.reviewUrl);
+
+  const collectionSchema = getCollectionPageSchema({
+    name: category.title,
+    url: categoryUrl,
+    description: content?.quickAnswer,
+    itemUrls,
+  });
+  const faqSchema = content?.faq?.length ? getFAQSchema(content.faq) : null;
+
+  return (
+    <div className="min-h-screen bg-white text-slate-900">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionSchema) }}
+      />
+      {faqSchema && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+        />
+      )}
+      <main className="max-w-5xl mx-auto px-6 py-12">
+        {/* Hero: H1 + Trust Signals */}
+        <header className="mb-10">
+          <h1 className="text-4xl font-bold tracking-tight text-slate-900 mb-3">
+            {category.title}
+          </h1>
+          <p className="text-sm text-slate-500 font-medium">
+            {TRUST_SIGNAL_DATE}
+          </p>
+        </header>
+
+        {/* Quick Answer Box (Featured Snippet target) */}
+        {content?.quickAnswer && (
+          <section className="mb-10 p-6 bg-slate-50 border border-slate-200 rounded-xl">
+            <h2 className="text-lg font-bold text-slate-900 mb-3 sr-only">
+              Quick Answer
+            </h2>
+            <p className="text-slate-700 leading-relaxed">
+              {content.quickAnswer}
+            </p>
+          </section>
+        )}
+
+        {/* Who This Is For / Not For */}
+        {content && (
+          <section className="mb-10 grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div>
+              <h2 className="text-xl font-bold text-slate-900 mb-4">
+                Who This Is For
+              </h2>
+              <ul className="list-disc list-inside space-y-2 text-slate-600">
+                {content.whoThisIsFor.map((item, i) => (
+                  <li key={i}>{item}</li>
+                ))}
+              </ul>
+            </div>
+            <div>
+              <h2 className="text-xl font-bold text-slate-900 mb-4">
+                Who This Is Not For
+              </h2>
+              <ul className="list-disc list-inside space-y-2 text-slate-600">
+                {content.whoThisIsNotFor.map((item, i) => (
+                  <li key={i}>{item}</li>
+                ))}
+              </ul>
+            </div>
+          </section>
+        )}
+
+        {/* Methodology Summary: How We Chose These Cards */}
+        {content?.methodologySummary && (
+          <section className="mb-10">
+            <h2 className="text-xl font-bold text-slate-900 mb-4">
+              How We Chose These Cards
+            </h2>
+            <ul className="space-y-4">
+              <li>
+                <strong className="text-slate-800">Approval:</strong>{' '}
+                <span className="text-slate-600">{content.methodologySummary.approval}</span>
+              </li>
+              <li>
+                <strong className="text-slate-800">Fees:</strong>{' '}
+                <span className="text-slate-600">{content.methodologySummary.fees}</span>
+              </li>
+              <li>
+                <strong className="text-slate-800">Reporting:</strong>{' '}
+                <span className="text-slate-600">{content.methodologySummary.reporting}</span>
+              </li>
+            </ul>
+          </section>
+        )}
+
+        {/* Card List */}
+        <section className="mb-12" aria-label="Product comparison">
+          <h2 className="text-xl font-bold text-slate-900 mb-4">
+            Compare Options
+          </h2>
+          <div className="divide-y divide-slate-200 border border-slate-200 rounded-xl overflow-hidden bg-white shadow-sm">
+            {filteredCards.map((c) => (
+              <DetailedCardRow
+                key={c.slug}
+                title={c.title}
+                label={c.label}
+                highlights={c.highlights}
+                fees={c.fees}
+                creditScore={c.creditScore}
+                slug={c.slug}
+                reviewUrl={c.reviewUrl}
+              />
+            ))}
+          </div>
+        </section>
+
+        {/* Deep Education: How This Category Helps Rebuild Credit */}
+        {content?.deepEducation && (
+          <section className="mb-10">
+            <h2 className="text-xl font-bold text-slate-900 mb-4">
+              How This Category Helps Rebuild Credit
+            </h2>
+            <div className="text-slate-600 leading-relaxed space-y-4">
+              {content.deepEducation.split(/\n\n+/).map((para, i) => (
+                <p key={i}>{para}</p>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {/* Risks & Downsides */}
+        {content?.risksDownsides && (
+          <section className="mb-10">
+            <h2 className="text-xl font-bold text-slate-900 mb-4">
+              Risks & Downsides
+            </h2>
+            <div className="bg-amber-50 border border-amber-200 rounded-lg p-6 text-amber-900">
+              <p className="text-sm font-semibold mb-2">âš  Warning</p>
+              <p className="text-slate-700 leading-relaxed">
+                {content.risksDownsides}
+              </p>
+            </div>
+          </section>
+        )}
+
+        {/* Graduation Path: What to Apply For Next */}
+        {content?.graduationPath && (
+          <section className="mb-10">
+            <h2 className="text-xl font-bold text-slate-900 mb-4">
+              What to Apply For Next
+            </h2>
+            <p className="text-slate-600 leading-relaxed">
+              {content.graduationPath}
+            </p>
+          </section>
+        )}
+
+        {/* FAQs */}
+        {content?.faq?.length ? (
+          <section className="mb-12">
+            <h2 className="text-xl font-bold text-slate-900 mb-4">
+              Frequently Asked Questions
+            </h2>
+            <dl className="space-y-4">
+              {content.faq.map((item, i) => (
+                <div
+                  key={i}
+                  className="border-b border-slate-100 pb-4 last:border-0"
+                >
+                  <dt className="font-semibold text-slate-900 mb-1">
+                    {item.q}
+                  </dt>
+                  <dd className="text-slate-600 leading-relaxed">{item.a}</dd>
+                </div>
+              ))}
+            </dl>
+          </section>
+        ) : null}
+      </main>
+    </div>
+  );
+}
+
+
+
+========================================
+FILE: page.tsx
+========================================
+import type { Metadata } from 'next';
+import Link from 'next/link';
+import DetailedCardRow from '../../../../components/DetailedCardRow';
+import { cardData } from '../../../../lib/card-data';
+import { getSegmentDisplayName, isValidSegment, getCardsForSegment } from '../../../../lib/segment';
+
+type Props = { params: { segment: string } };
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const segment = params.segment;
+  if (!isValidSegment(segment)) return { title: 'Results Not Found' };
+  const name = getSegmentDisplayName(segment);
+  return {
+    title: `Best Options for ${name} (2026) | BadCreditFirst`,
+    description: `Compare the best credit cards and credit-building options for ${name}. Independent reviews and rankings.`,
+  };
+}
+
+export default function CreditCardsResultsPage({
+  params,
+}: {
+  params: { segment: string };
+}) {
+  const { segment } = params;
+
+  if (!isValidSegment(segment)) {
+    return (
+      <div className="min-h-screen bg-slate-50 text-slate-900 flex items-center justify-center">
+        <div className="text-center">
+          <h1 className="text-xl font-bold text-slate-900 mb-2">Results Not Found</h1>
+          <Link href="/" className="text-blue-600 hover:underline text-sm">
+            â† Back to Home
+          </Link>
+        </div>
+      </div>
+    );
+  }
+
+  const segmentName = getSegmentDisplayName(segment);
+  const orderedCards = getCardsForSegment(cardData, segment);
+
+  return (
+    <div className="min-h-screen bg-slate-50 text-slate-900">
+      <main className="max-w-5xl mx-auto px-6 py-12">
+        <header className="mb-10">
+          <h1 className="text-3xl font-bold tracking-tight text-slate-900 mb-2">
+            Best Options for {segmentName}
+          </h1>
+          <p className="text-slate-600">
+            We ranked these options for your situation. Compare fees, approval odds, and reporting.
+          </p>
+          <p className="mt-4">
+            <Link href="/" className="text-blue-600 hover:underline text-sm font-medium">
+              â† Start over
+            </Link>
+          </p>
+        </header>
+
+        <section className="divide-y divide-slate-200 border border-slate-200 rounded-xl overflow-hidden bg-white shadow-sm">
+          {orderedCards.map((card, index) => (
+            <DetailedCardRow
+              key={card.slug}
+              title={card.title}
+              label={card.label}
+              highlights={card.highlights}
+              fees={card.fees}
+              creditScore={card.creditScore}
+              slug={card.slug}
+              reviewUrl={card.reviewUrl}
+              segment={segment}
+              position={index + 1}
+            />
+          ))}
+        </section>
+
+        <p className="mt-8 text-center">
+          <Link href="/credit-cards" className="text-blue-600 hover:underline text-sm font-medium">
+            View all credit card categories
+          </Link>
+        </p>
+      </main>
+    </div>
+  );
+}
+
+
+
+========================================
+FILE: page.tsx
+========================================
+import type { Metadata } from 'next';
+import Link from 'next/link';
+import { Star, CreditCard } from 'lucide-react';
+import { getCardBySlug, getAffiliateLink } from '../../../../lib/card-data';
+import { categories } from '../../../../lib/categories';
+import { getProductSchema, getReviewSchema, getBreadcrumbSchema } from '../../../../lib/schema';
+
+const baseUrl = 'https://www.badcreditfirst.com';
+
+/** Contextual education link shown on every review. */
+const EDUCATION_LINK = { href: '/education/how-is-my-score-calculated', label: 'How Credit Scores Work' };
+
+type Props = { params: { slug: string } };
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const card = getCardBySlug(params.slug);
+  if (!card) return { title: 'Review Not Found' };
+  return {
+    title: `${card.title} Review (2026) | BadCreditFirst`,
+    description: `Independent review of ${card.title}. ${card.label}. Compare fees, approval odds, and credit-building value.`,
+  };
+}
+
+export default function CreditCardReviewPage({
+  params,
+}: {
+  params: { slug: string };
+}) {
+  const { slug } = params;
+  const card = getCardBySlug(slug);
+
+  if (!card) {
+    return <div>Page Not Found</div>;
+  }
+
+  const { approvalOdds, realWorldUseCase, feeRisk, upgradePath, title, fees, badFor, categorySlug } = card;
+  const applyHref = getAffiliateLink(slug);
+  const reviewUrl = `${baseUrl}${card.reviewUrl}`;
+  const ratingValue = 4.5;
+  const bestRating = 5;
+  const reviewCount = 1;
+  const feesText = fees ?? '';
+  const annualFeeMatch = feesText.match(/\$(\d+)/);
+  const priceValue = annualFeeMatch ? parseFloat(annualFeeMatch[1]) : 0;
+  const priceValidUntil = new Date(Date.now() + 365 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10);
+
+  const parentCategory = categorySlug ? categories[categorySlug] : null;
+  const categoryTitle = parentCategory?.title ?? 'Credit Cards';
+  const categoryHref = parentCategory ? `/credit-cards/category/${categorySlug}` : '/credit-cards';
+
+  const productSchema = getProductSchema({
+    name: title,
+    url: card.issuerUrl,
+    ratingValue,
+    bestRating,
+    reviewCount,
+    ...(priceValue > 0 && {
+      price: priceValue,
+      priceCurrency: 'USD',
+      priceValidUntil,
+      description: feesText,
+    }),
+  });
+
+  const reviewSchema = getReviewSchema({
+    productSchema,
+    reviewUrl,
+    ratingValue,
+    bestRating,
+    reviewCount,
+  });
+
+  const breadcrumbSchema = getBreadcrumbSchema([
+    { name: 'Home', url: '/' },
+    { name: 'Credit Cards', url: '/credit-cards' },
+    { name: title, url: card.reviewUrl },
+  ]);
+
+  return (
+    <div className="min-h-screen bg-slate-50 text-slate-900">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(reviewSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+      <main className="max-w-4xl mx-auto px-6 py-12">
+        <div className="mb-8">
+          <h1 className="text-3xl font-bold tracking-tight text-slate-900 mb-1">
+            {title}
+          </h1>
+          <p className="text-slate-500 font-medium">Review & Details</p>
+        </div>
+        <div className="bg-white border border-slate-200 rounded-xl shadow-sm overflow-hidden">
+          {/* Card image placeholder */}
+          <div className="p-8 flex justify-center border-b border-slate-100 bg-slate-50">
+            <div className="w-full max-w-sm aspect-[1.586] rounded-xl bg-gradient-to-br from-slate-200 via-slate-100 to-slate-300 shadow-inner border border-slate-300 flex items-center justify-center relative overflow-hidden">
+              <div className="absolute inset-0 bg-white/10" />
+              <CreditCard className="w-16 h-16 text-slate-400 opacity-50" aria-hidden="true" />
+            </div>
+          </div>
+
+          {/* Rating */}
+          <div className="px-8 pt-6 flex items-center gap-2" aria-label="Rating: 4.5 out of 5">
+            {[1, 2, 3, 4].map((i) => (
+              <Star key={i} className="w-5 h-5 fill-yellow-400 text-yellow-400" aria-hidden="true" />
+            ))}
+            <Star className="w-5 h-5 fill-yellow-400 text-yellow-400 opacity-50" aria-hidden="true" />
+            <span className="text-sm text-slate-500 ml-2 font-medium">4.5/5</span>
+          </div>
+
+          {/* BadCreditFirst Verdict â€” at top, prominent */}
+          <div className="mx-8 mt-6 p-6 bg-blue-50 border border-blue-200 rounded-xl">
+            <h2 className="text-lg font-bold text-slate-900 mb-4">
+              BadCreditFirst Verdict
+            </h2>
+            <div className="space-y-3 text-slate-700">
+              {approvalOdds && (
+                <p>
+                  <strong className="text-slate-900">Approval odds:</strong>{' '}
+                  {approvalOdds}
+                </p>
+              )}
+              {realWorldUseCase && (
+                <p>
+                  <strong className="text-slate-900">Real-world use:</strong>{' '}
+                  {realWorldUseCase}
+                </p>
+              )}
+            </div>
+          </div>
+
+          {/* Risks & Downsides â€” feeRisk + badFor */}
+          {(feeRisk ?? badFor) && (
+            <div className="px-8 py-6 border-t border-slate-100">
+              <h2 className="text-lg font-bold text-slate-900 mb-4">
+                Risks & Downsides
+              </h2>
+              <div className="bg-amber-50 border border-amber-200 rounded-lg p-4 text-amber-900">
+                <p className="text-sm font-semibold mb-2">âš  Honest take</p>
+                <ul className="space-y-2 text-slate-700">
+                  {feeRisk && (
+                    <li><strong className="text-slate-800">Fees:</strong> {feeRisk}</li>
+                  )}
+                  {badFor && (
+                    <li><strong className="text-slate-800">Not for:</strong> {badFor}</li>
+                  )}
+                </ul>
+              </div>
+            </div>
+          )}
+
+          {/* Pros & Cons */}
+          <div className="px-8 py-6 border-t border-slate-100">
+            <h2 className="text-lg font-bold text-slate-900 mb-4">Pros & Cons</h2>
+            <div className="space-y-3 text-slate-600">
+              <p>Good for building credit. Reports to all bureaus. Designed for limited or no credit history.</p>
+              <p>Consider fees and deposit requirements before applying. Terms and conditions apply.</p>
+            </div>
+          </div>
+
+          {/* Upgrade Path */}
+          {upgradePath && (
+            <div className="px-8 py-6 border-t border-slate-100">
+              <h2 className="text-lg font-bold text-slate-900 mb-4">Upgrade Path</h2>
+              <p className="text-slate-600 leading-relaxed">{upgradePath}</p>
+            </div>
+          )}
+
+          {/* CTA + Internal links */}
+          <div className="px-8 pb-8 border-t border-slate-100">
+            <a
+              href={applyHref}
+              target="_blank"
+              rel="nofollow noreferrer"
+              className="w-full py-4 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-lg shadow-sm hover:shadow-md transition-all text-center flex items-center justify-center"
+            >
+              Visit Issuer Website
+            </a>
+            <p className="mt-3 text-xs text-slate-500 text-center">
+              You will be redirected to the issuer&apos;s official website.
+            </p>
+            <p className="mt-6 text-xs text-slate-400 text-center leading-relaxed">
+              BadCreditFirst may receive compensation if you apply through links on this page.
+            </p>
+
+            {/* Internal linking: back to parent category + education */}
+            <div className="mt-6 pt-6 border-t border-slate-200 flex flex-wrap gap-4 justify-center text-sm">
+              <Link href={categoryHref} className="text-blue-600 hover:underline font-medium">
+                â† Back to {categoryTitle}
+              </Link>
+              <Link href="/credit-cards" className="text-blue-600 hover:underline font-medium">
+                All Credit Cards
+              </Link>
+              <Link href={EDUCATION_LINK.href} className="text-blue-600 hover:underline font-medium">
+                Read: {EDUCATION_LINK.label}
+              </Link>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  );
+}
+
+
+
+========================================
+FILE: page.tsx
+========================================
+import Link from 'next/link';
+
+export default function CreditCardsIndexPage() {
+  return (
+    <div className="min-h-screen bg-slate-50 text-slate-900">
+      <main className="max-w-4xl mx-auto px-6 py-12">
+        <div className="bg-white border border-slate-200 rounded-xl shadow-sm p-8">
+          <h1 className="text-3xl font-bold tracking-tight text-slate-900 mb-6">
+            Credit Card Reviews & Comparisons
+          </h1>
+          <p className="text-slate-600 leading-relaxed mb-6">
+            BadCreditFirst provides reviews and comparisons of credit cards and credit-building products designed for consumers with bad or limited credit.
+          </p>
+          <ul className="list-disc list-inside text-slate-600 leading-relaxed space-y-2 mb-8">
+            <li>We focus on options that do not require perfect credit.</li>
+            <li>Help establish or rebuild credit history.</li>
+            <li>Offer transparent fees and terms.</li>
+          </ul>
+          <h2 className="text-xl font-bold text-slate-900 mb-4">
+            Types of Products Reviewed
+          </h2>
+          <ul className="list-disc list-inside text-slate-600 leading-relaxed space-y-2 mb-8">
+            <li>Secured credit cards</li>
+            <li>Credit builder accounts</li>
+            <li>Credit-building alternatives</li>
+          </ul>
+          <p className="text-slate-500 text-sm italic mb-8">
+            BadCreditFirst does not include all available offers. Users should review issuer terms before applying.
+          </p>
+          <Link
+            href="/"
+            className="inline-flex items-center justify-center px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-lg shadow-sm hover:shadow-md transition-all"
+          >
+            View Top Recommended Cards
+          </Link>
+        </div>
+      </main>
+    </div>
+  );
+}
+
+
+
+========================================
+FILE: page.tsx
+========================================
+import type { Metadata } from 'next';
+import Link from 'next/link';
+import { notFound } from 'next/navigation';
+import type { ReactNode } from 'react';
+import { getArticleSchema, getPersonSchema } from '../../../lib/schema';
+
+const articleContent: Record<string, { title: string; quickAnswer?: string; body: ReactNode }> = {
+  'what-is-a-good-credit-score': {
+    title: 'What Is a Good Credit Score? (2026 Guide)',
+    quickAnswer:
+      'A good FICOÂ® score is generally considered to be 670 or higher. Scores above 740 are considered "Very Good", while scores above 800 are "Exceptional".',
+    body: (
+      <>
+        {/* CSS Bar Chart */}
+        <div className="my-8">
+          <p className="text-sm font-semibold text-slate-600 mb-2">FICOÂ® Score Ranges</p>
+          <div className="flex h-10 rounded-lg overflow-hidden border border-slate-200 shadow-inner">
+            <div className="bg-red-500 min-w-0" style={{ flex: '279' }} title="300-579 Poor" />
+            <div className="bg-orange-400 min-w-0" style={{ flex: '90' }} title="580-669 Fair" />
+            <div className="bg-yellow-400 min-w-0" style={{ flex: '70' }} title="670-739 Good" />
+            <div className="bg-lime-400 min-w-0" style={{ flex: '60' }} title="740-799 Very Good" />
+            <div className="bg-green-600 min-w-0" style={{ flex: '50' }} title="800-850 Excellent" />
+          </div>
+          <div className="flex justify-between mt-2 text-xs text-slate-500 gap-1">
+            <span>Poor</span>
+            <span>Fair</span>
+            <span>Good</span>
+            <span>Very Good</span>
+            <span>Excellent</span>
+          </div>
+        </div>
+
+        <h2 className="text-xl font-bold text-slate-900 mt-8 mb-4">The 5 Factors of Credit</h2>
+        <div className="space-y-6 text-slate-600 leading-relaxed">
+          <section>
+            <h3 className="font-bold text-slate-800 mb-2">1. Payment History (35%)</h3>
+            <p>Whether you pay bills on time. Late payments, collections, and bankruptcies hurt your score.</p>
+          </section>
+          <section>
+            <h3 className="font-bold text-slate-800 mb-2">2. Amounts Owed / Utilization (30%)</h3>
+            <p>How much of your available credit you use. Keeping balances below 30% of your limit is recommended.</p>
+          </section>
+          <section>
+            <h3 className="font-bold text-slate-800 mb-2">3. Length of Credit History (15%)</h3>
+            <p>How long your accounts have been open. Older accounts in good standing help your score.</p>
+          </section>
+          <section>
+            <h3 className="font-bold text-slate-800 mb-2">4. New Credit (10%)</h3>
+            <p>Recent applications and new accounts. Too many hard inquiries in a short period can lower your score.</p>
+          </section>
+          <section>
+            <h3 className="font-bold text-slate-800 mb-2">5. Credit Mix (10%)</h3>
+            <p>Variety of account types (cards, loans). A healthy mix can help, but it is not required to have a good score.</p>
+          </section>
+        </div>
+      </>
+    ),
+  },
+  'how-credit-scores-work': {
+    title: 'How Credit Scores Work',
+    body: (
+      <p className="text-slate-600 leading-relaxed">
+        Your credit score is calculated based on data from Equifax, Experian, and TransUnion. The most important factor is Payment History (35%). Amounts owed, length of credit history, new credit, and credit mix make up the rest. Lenders use these scores to decide whether to approve you and at what rate.
+      </p>
+    ),
+  },
+  'what-is-a-bad-credit-score': {
+    title: 'What Is a Bad Credit Score? (And The Path Back)',
+    quickAnswer:
+      'A score below 670 is generally considered fair or poor. Scores below 580 are considered "Very Poor" and make it difficult to get approved for traditional credit cards or loans without paying high interest rates/fees.',
+    body: (
+      <>
+        {/* 5-color bar chart with opacity on yellow/lime/green */}
+        <div className="my-8">
+          <p className="text-sm font-semibold text-slate-600 mb-2">FICOÂ® Score Ranges (Danger Zones Emphasized)</p>
+          <div className="flex h-10 rounded-lg overflow-hidden border border-slate-200 shadow-inner">
+            <div className="bg-red-500 min-w-0" style={{ flex: '279' }} title="300-579 Poor" />
+            <div className="bg-orange-400 min-w-0" style={{ flex: '90' }} title="580-669 Fair" />
+            <div className="bg-yellow-400 opacity-30 min-w-0" style={{ flex: '70' }} title="670-739 Good" />
+            <div className="bg-lime-400 opacity-30 min-w-0" style={{ flex: '60' }} title="740-799 Very Good" />
+            <div className="bg-green-600 opacity-30 min-w-0" style={{ flex: '50' }} title="800-850 Excellent" />
+          </div>
+          <div className="flex justify-between mt-2 text-xs text-slate-500 gap-1">
+            <span>Poor</span>
+            <span>Fair</span>
+            <span>Good</span>
+            <span>Very Good</span>
+            <span>Excellent</span>
+          </div>
+        </div>
+
+        <h2 className="text-xl font-bold text-slate-900 mt-8 mb-4">The Real-World Costs of Bad Credit</h2>
+        <p className="text-slate-600 leading-relaxed mb-6">
+          A bad credit score can lead to application denials, higher security deposits for utilities and rentals, and much higher APR on any credit you do get. Lenders see you as higher risk and charge more or require collateral.
+        </p>
+
+        <h2 className="text-xl font-bold text-slate-900 mt-8 mb-4">Common Causes</h2>
+        <p className="text-slate-600 leading-relaxed">
+          Late or missed payments, maxed-out credit cards, and accounts in collections or default all drag your score down. Rebuilding starts with paying on time and reducing balances.
+        </p>
+      </>
+    ),
+  },
+  'how-is-my-score-calculated': {
+    title: 'How Is My Credit Score Calculated? The 5 Factors',
+    quickAnswer:
+      'Your FICOÂ® score is calculated using five weighted data points from your credit report. The most important factors are your Payment History (35%) and your Credit Utilization (30%).',
+    body: (
+      <>
+        {/* 5 stacked progress bars */}
+        <div className="my-8 space-y-4">
+          <p className="text-sm font-semibold text-slate-600 mb-4">Factor Weights (FICOÂ®)</p>
+          <div>
+            <p className="text-sm text-slate-700 mb-1">Payment History â€” 35%</p>
+            <div className="h-6 rounded bg-slate-100 overflow-hidden">
+              <div className="h-full bg-blue-500 rounded" style={{ width: '35%' }} />
+            </div>
+          </div>
+          <div>
+            <p className="text-sm text-slate-700 mb-1">Amounts Owed (Utilization) â€” 30%</p>
+            <div className="h-6 rounded bg-slate-100 overflow-hidden">
+              <div className="h-full bg-purple-500 rounded" style={{ width: '30%' }} />
+            </div>
+          </div>
+          <div>
+            <p className="text-sm text-slate-700 mb-1">Length of Credit History â€” 15%</p>
+            <div className="h-6 rounded bg-slate-100 overflow-hidden">
+              <div className="h-full bg-green-500 rounded" style={{ width: '15%' }} />
+            </div>
+          </div>
+          <div>
+            <p className="text-sm text-slate-700 mb-1">Credit Mix â€” 10%</p>
+            <div className="h-6 rounded bg-slate-100 overflow-hidden">
+              <div className="h-full bg-yellow-500 rounded" style={{ width: '10%' }} />
+            </div>
+          </div>
+          <div>
+            <p className="text-sm text-slate-700 mb-1">New Credit â€” 10%</p>
+            <div className="h-6 rounded bg-slate-100 overflow-hidden">
+              <div className="h-full bg-orange-500 rounded" style={{ width: '10%' }} />
+            </div>
+          </div>
+        </div>
+
+        <h2 className="text-xl font-bold text-slate-900 mt-8 mb-4">1. Payment History (35%)</h2>
+        <p className="text-slate-600 leading-relaxed mb-6">
+          Whether you pay bills on time. Late payments, missed payments, collections, and bankruptcies hurt your score. To optimize: pay every bill by the due date, even if only the minimum.
+        </p>
+
+        <h2 className="text-xl font-bold text-slate-900 mt-8 mb-4">2. Amounts Owed / Utilization (30%)</h2>
+        <p className="text-slate-600 leading-relaxed mb-6">
+          How much of your available credit you use. High utilization signals risk. To optimize: keep balances below 30% of your total credit limit; paying down cards helps quickly.
+        </p>
+
+        <h2 className="text-xl font-bold text-slate-900 mt-8 mb-4">3. Length of Credit History (15%)</h2>
+        <p className="text-slate-600 leading-relaxed mb-6">
+          How long your accounts have been open and the age of your oldest account. To optimize: keep old accounts open when possible; avoid closing your longest-standing card.
+        </p>
+
+        <h2 className="text-xl font-bold text-slate-900 mt-8 mb-4">4. Credit Mix (10%)</h2>
+        <p className="text-slate-600 leading-relaxed mb-6">
+          Variety of account types (revolving credit like cards, installment loans like auto or student loans). To optimize: a healthy mix can help, but do not open accounts just for mixâ€”only what you need.
+        </p>
+
+        <h2 className="text-xl font-bold text-slate-900 mt-8 mb-4">5. New Credit (10%)</h2>
+        <p className="text-slate-600 leading-relaxed mb-6">
+          Recent applications and new accounts. Too many hard inquiries in a short period can lower your score. To optimize: space out applications and avoid applying for many cards at once.
+        </p>
+      </>
+    ),
+  },
+  'fico-vs-vantagescore': {
+    title: 'FICOÂ® vs. VantageScore: What\'s the Difference?',
+    quickAnswer:
+      'FICOÂ® is used by 90% of top lenders for lending decisions. VantageScore is commonly used by free credit monitoring sites for educational purposes. While their models differ slightly, they both use data from the three major bureaus.',
+    body: (
+      <>
+        {/* Comparison table */}
+        <div className="my-8 overflow-x-auto rounded-lg border border-slate-200">
+          <table className="w-full text-sm text-left">
+            <thead>
+              <tr className="bg-slate-100 border-b border-slate-200">
+                <th className="px-4 py-3 font-semibold text-slate-800">Feature</th>
+                <th className="px-4 py-3 font-semibold text-slate-800">FICOÂ® Score</th>
+                <th className="px-4 py-3 font-semibold text-slate-800">VantageScore 3.0/4.0</th>
+              </tr>
+            </thead>
+            <tbody className="text-slate-600">
+              <tr className="border-b border-slate-100">
+                <td className="px-4 py-3 font-medium text-slate-700">Used By Lenders?</td>
+                <td className="px-4 py-3">Yes (90% market share)</td>
+                <td className="px-4 py-3">Rarely</td>
+              </tr>
+              <tr className="border-b border-slate-100">
+                <td className="px-4 py-3 font-medium text-slate-700">Score Range</td>
+                <td className="px-4 py-3">300â€“850</td>
+                <td className="px-4 py-3">300â€“850</td>
+              </tr>
+              <tr>
+                <td className="px-4 py-3 font-medium text-slate-700">Min. History Needed</td>
+                <td className="px-4 py-3">6 months of data</td>
+                <td className="px-4 py-3">1 month of data</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2 className="text-xl font-bold text-slate-900 mt-8 mb-4">Why FICO Matters More for Mortgages and Cars</h2>
+        <p className="text-slate-600 leading-relaxed mb-6">
+          When you apply for a mortgage or auto loan, most lenders pull your FICOÂ® score (or a FICO-based model). That is why improving your FICOÂ® score has the most direct impact on approval and rates for big-ticket borrowing.
+        </p>
+
+        <h2 className="text-xl font-bold text-slate-900 mt-8 mb-4">Why VantageScore Is Still Useful</h2>
+        <p className="text-slate-600 leading-relaxed">
+          VantageScore is still useful for tracking trends over time. Many free credit monitoring tools show VantageScore; if your VantageScore goes up, your FICOÂ® score often moves in a similar direction. Use it as a guide, but focus on FICOÂ® when preparing for a major application.
+        </p>
+      </>
+    ),
+  },
+  // â€”â€”â€” PILLAR 2: NEGATIVE ITEMS â€”â€”â€”
+  'how-long-do-items-stay': {
+    title: 'How Long Do Negative Items Stay on Your Report?',
+    quickAnswer:
+      'Most negative items fall off after 7 years. Chapter 7 bankruptcy stays for 10 years, while hard inquiries fall off after 2 years.',
+    body: (
+      <>
+        <div className="my-8">
+          <p className="text-sm font-semibold text-slate-600 mb-3">Timeline</p>
+          <ul className="space-y-3 border-l-4 border-slate-200 pl-6">
+            <li className="text-slate-700"><strong>2 Years:</strong> Hard Inquiries</li>
+            <li className="text-slate-700"><strong>7 Years:</strong> Late Payments, Collections, Charge-Offs</li>
+            <li className="text-slate-700"><strong>10 Years:</strong> Chapter 7 Bankruptcy</li>
+          </ul>
+        </div>
+        <p className="text-slate-600 leading-relaxed">
+          Negative items are removed automatically when the reporting period ends. You do not need to pay to have them removed early, but paying or settling can sometimes help with approval in the meantime.
+        </p>
+      </>
+    ),
+  },
+  'removing-collections': {
+    title: 'How to Remove Collections (Pay for Delete)',
+    quickAnswer:
+      'You can negotiate a "Pay for Delete" agreement where the collector agrees to remove the account in exchange for payment. Always get this in writing before paying.',
+    body: (
+      <>
+        <div className="my-8 flex flex-col gap-4 max-w-sm">
+          <div className="border border-slate-200 rounded-lg p-4 bg-slate-50 text-center font-medium text-slate-700">1. Contact collector</div>
+          <div className="text-slate-400 text-center">â†“</div>
+          <div className="border border-slate-200 rounded-lg p-4 bg-slate-50 text-center font-medium text-slate-700">2. Request Pay for Delete in writing</div>
+          <div className="text-slate-400 text-center">â†“</div>
+          <div className="border border-slate-200 rounded-lg p-4 bg-slate-50 text-center font-medium text-slate-700">3. Get agreement in writing</div>
+          <div className="text-slate-400 text-center">â†“</div>
+          <div className="border border-slate-200 rounded-lg p-4 bg-slate-50 text-center font-medium text-slate-700">4. Pay only after written agreement</div>
+        </div>
+        <p className="text-slate-600 leading-relaxed">
+          Not all collectors agree to pay-for-delete. If they refuse, you can still pay or settle to show a zero balance, which can help your score over time.
+        </p>
+      </>
+    ),
+  },
+  'hard-inquiries-explained': {
+    title: 'Hard vs. Soft Inquiries: What\'s the Difference?',
+    quickAnswer:
+      'Hard inquiries happen when you apply for credit and can drop your score by 5-10 points. Soft inquiries (checking your own score) have zero impact.',
+    body: (
+      <>
+        <div className="my-8 overflow-x-auto rounded-lg border border-slate-200">
+          <table className="w-full text-sm text-left">
+            <thead>
+              <tr className="bg-slate-100 border-b border-slate-200">
+                <th className="px-4 py-3 font-semibold text-slate-800">Feature</th>
+                <th className="px-4 py-3 font-semibold text-slate-800">Hard Inquiry</th>
+                <th className="px-4 py-3 font-semibold text-slate-800">Soft Inquiry</th>
+              </tr>
+            </thead>
+            <tbody className="text-slate-600">
+              <tr className="border-b border-slate-100"><td className="px-4 py-3 font-medium text-slate-700">When</td><td className="px-4 py-3">You apply for credit</td><td className="px-4 py-3">You check your own score</td></tr>
+              <tr className="border-b border-slate-100"><td className="px-4 py-3 font-medium text-slate-700">Impact on score</td><td className="px-4 py-3">Can drop 5â€“10 points</td><td className="px-4 py-3">Zero impact</td></tr>
+              <tr><td className="px-4 py-3 font-medium text-slate-700">Stays on report</td><td className="px-4 py-3">Up to 2 years</td><td className="px-4 py-3">Not shown to lenders</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p className="text-slate-600 leading-relaxed">
+          Rate-shopping for a mortgage or auto loan within a short window (e.g., 14â€“45 days) is often counted as one inquiry. Space out other applications to limit impact.
+        </p>
+      </>
+    ),
+  },
+  'bankruptcy-and-rebuilding': {
+    title: 'Rebuilding Credit After Bankruptcy',
+    quickAnswer:
+      'Recovery takes time, but you can start rebuilding immediately with secured cards. Your score can rebound significantly within 12-24 months of discharge.',
+    body: (
+      <p className="text-slate-600 leading-relaxed">
+        After bankruptcy, focus on secured cards and credit-builder products that report to all three bureaus. Pay on time every month and keep utilization low. Avoid new debt until you have a stable emergency fund. Many people see meaningful score improvement within 12â€“24 months of discharge.
+      </p>
+    ),
+  },
+  // â€”â€”â€” PILLAR 3: REPORTS & RIGHTS â€”â€”â€”
+  'reading-your-credit-report': {
+    title: 'How to Read Your Credit Report',
+    body: (
+      <div className="space-y-6 text-slate-600 leading-relaxed">
+        <section>
+          <h2 className="text-xl font-bold text-slate-900 mb-2">Personal Info</h2>
+          <p>Your name, address, date of birth, and SSN (often partially masked). Check for errors or signs of identity theft.</p>
+        </section>
+        <section>
+          <h2 className="text-xl font-bold text-slate-900 mb-2">Account History</h2>
+          <p>Each credit account with balance, limit, payment status, and age. Look for late payments, high utilization, or accounts you do not recognize.</p>
+        </section>
+        <section>
+          <h2 className="text-xl font-bold text-slate-900 mb-2">Public Records</h2>
+          <p>Bankruptcies, tax liens, or civil judgments. These can stay for 7â€“10 years and have a large impact.</p>
+        </section>
+        <section>
+          <h2 className="text-xl font-bold text-slate-900 mb-2">Inquiries</h2>
+          <p>Hard inquiries (when you applied for credit) and sometimes soft inquiries. Hard inquiries stay for about 2 years.</p>
+        </section>
+      </div>
+    ),
+  },
+  'how-to-dispute-errors': {
+    title: 'How to Dispute Errors (DIY Repair)',
+    quickAnswer:
+      'You have the right to dispute inaccurate info under the FCRA. The bureau must investigate within 30 days.',
+    body: (
+      <>
+        <div className="my-8 flex flex-col items-center gap-2">
+          <div className="w-24 h-24 rounded-full border-4 border-blue-500 flex items-center justify-center bg-slate-50">
+            <span className="text-lg font-bold text-slate-800">30</span>
+          </div>
+          <p className="text-sm text-slate-500 text-center">days to investigate</p>
+        </div>
+        <div className="my-8">
+          <p className="text-slate-600 leading-relaxed">
+            Send a dispute letter to the bureau (Equifax, Experian, or TransUnion) that lists the error and any proof. The bureau must investigate and respond within 30 days. If the furnisher cannot verify the info, it must be removed or corrected.
+          </p>
+        </div>
+      </>
+    ),
+  },
+  'fair-credit-reporting-act': {
+    title: 'Your Rights Under the Fair Credit Reporting Act (FCRA)',
+    body: (
+      <div className="space-y-4 text-slate-600 leading-relaxed">
+        <p><strong className="text-slate-800">Right to accuracy:</strong> You can dispute inaccurate or incomplete information. Bureaus must investigate within 30 days.</p>
+        <p><strong className="text-slate-800">Right to privacy:</strong> Your report can only be accessed for permissible purposes (e.g., lending, employment with your consent).</p>
+        <p><strong className="text-slate-800">Right to know what is in your file:</strong> You are entitled to a free copy of your report from each bureau once every 12 months at annualcreditreport.com.</p>
+      </div>
+    ),
+  },
+  'freezing-your-credit': {
+    title: 'How to Freeze Your Credit',
+    quickAnswer:
+      'A security freeze prevents lenders from viewing your report, stopping identity thieves from opening new accounts. It is free and does not hurt your score.',
+    body: (
+      <>
+        <div className="my-8 flex items-center gap-4">
+          <div className="w-14 h-14 rounded-lg bg-slate-200 flex items-center justify-center text-2xl">ðŸ”’</div>
+          <div>
+            <p className="font-semibold text-slate-800">Freeze = Lock</p>
+            <p className="text-sm text-slate-600">Lenders cannot pull your report until you lift the freeze. You can thaw temporarily when you apply for credit.</p>
+          </div>
+        </div>
+        <p className="text-slate-600 leading-relaxed">
+          Place a freeze with Equifax, Experian, and TransUnion (all three). It is free and does not affect your score. Unfreeze when you need to apply; you can refreeze afterward.
+        </p>
+      </>
+    ),
+  },
+  // â€”â€”â€” PILLAR 4: REBUILDING â€”â€”â€”
+  'the-30-percent-utilization-rule': {
+    title: 'The 30% Utilization Rule Explained',
+    quickAnswer:
+      'Keep your credit card balances below 30% of your limit to maximize your score. For the best results, keep it below 10%.',
+    body: (
+      <>
+        <div className="my-8 space-y-6">
+          <div>
+            <p className="text-sm font-semibold text-slate-600 mb-2">Healthy: Under 30%</p>
+            <div className="h-6 rounded bg-slate-100 overflow-hidden">
+              <div className="h-full bg-green-500 rounded" style={{ width: '30%' }} />
+            </div>
+          </div>
+          <div>
+            <p className="text-sm font-semibold text-slate-600 mb-2">Risky: 90% utilization</p>
+            <div className="h-6 rounded bg-slate-100 overflow-hidden">
+              <div className="h-full bg-red-500 rounded" style={{ width: '90%' }} />
+            </div>
+          </div>
+        </div>
+        <p className="text-slate-600 leading-relaxed">
+          Utilization is the share of your total credit limit you use. Pay down balances before the statement date so your reported utilization stays low. Under 10% is ideal; under 30% is still good.
+        </p>
+      </>
+    ),
+  },
+  'authorized-user-strategy': {
+    title: 'The Authorized User Strategy (Piggybacking)',
+    quickAnswer:
+      'Being added as an authorized user on a family member\'s old, positive account can instantly add years of history to your report.',
+    body: (
+      <p className="text-slate-600 leading-relaxed">
+        The primary account holder adds you as an authorized user. If the card issuer reports authorized users to the bureaus, the account history (age, payment history, utilization) can appear on your report and may boost your score. Choose an account with a long history of on-time payments and low utilization. You do not need a card or access to the account for the history to help.
+      </p>
+    ),
+  },
+  'secured-vs-unsecured': {
+    title: 'Secured vs. Unsecured Credit Cards',
+    quickAnswer:
+      'Secured cards require a refundable deposit that usually becomes your credit limit. Unsecured cards do not require a deposit but are harder to get with bad credit.',
+    body: (
+      <p className="text-slate-600 leading-relaxed">
+        Secured cards are designed for people rebuilding credit; the deposit reduces risk for the issuer. Unsecured cards do not require a deposit but typically require better credit. Both can report to the bureausâ€”pay on time and keep utilization low to build your score.
+      </p>
+    ),
+  },
+  'credit-builder-loans': {
+    title: 'Credit Builder Loans Explained',
+    quickAnswer:
+      'A credit builder loan holds the loan amount in an account while you make payments. Those payments are reported to the bureaus, building your history.',
+    body: (
+      <p className="text-slate-600 leading-relaxed">
+        You make fixed payments over a set term (e.g., 6â€“24 months). The lender reports each payment to the bureaus. At the end, you receive the funds (or they pay off the â€œloanâ€). Ideal for people with no credit or thin files who want to build history without a credit card.
+      </p>
+    ),
+  },
+};
+
+const AUTHOR_NAME = 'Carlos Acosta';
+const AUTHOR_URL = '/author/carlos-acosta';
+const DATE_PUBLISHED = '2026-01-15';
+const DATE_MODIFIED = '2026-02-01';
+
+type Props = { params: { slug: string } };
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const article = articleContent[params.slug];
+  if (!article) return { title: 'Article Not Found' };
+  return {
+    title: `${article.title} | BadCreditFirst`,
+    description: article.quickAnswer ?? `Learn about ${article.title} and credit-building strategies.`,
+  };
+}
+
+export default function EducationArticlePage({
+  params,
+}: {
+  params: { slug: string };
+}) {
+  const { slug } = params;
+  const article = articleContent[slug];
+
+  if (!article) {
+    notFound();
+  }
+
+  const articleUrl = `/education/${slug}`;
+  const articleSchema = getArticleSchema({
+    title: article.title,
+    url: articleUrl,
+    description: article.quickAnswer,
+    authorName: AUTHOR_NAME,
+    authorUrl: AUTHOR_URL,
+    datePublished: DATE_PUBLISHED,
+    dateModified: DATE_MODIFIED,
+  });
+  const authorSchema = getPersonSchema({
+    name: AUTHOR_NAME,
+    url: AUTHOR_URL,
+    description: 'Fintech Entrepreneur & Credit Researcher. Founder of BadCreditFirst.',
+  });
+
+  return (
+    <div className="min-h-screen bg-white text-slate-900">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(authorSchema) }}
+      />
+      <article className="max-w-3xl mx-auto px-6 py-12 prose prose-slate">
+        {/* Hero */}
+        <header className="mb-8">
+          <h1 className="text-3xl md:text-4xl font-bold tracking-tight text-slate-900 mb-4">
+            {article.title}
+          </h1>
+          <p className="text-slate-500 text-sm mb-1">By Carlos Acosta</p>
+          <p className="text-slate-400 text-sm">Last Updated: February 2026</p>
+        </header>
+
+        {/* Quick Answer (if present) */}
+        {article.quickAnswer && (
+          <div className="bg-slate-100 border border-slate-200 rounded-lg p-6 mb-8 text-slate-700">
+            <p className="font-semibold text-slate-800 mb-2">Quick Answer</p>
+            <p className="leading-relaxed">{article.quickAnswer}</p>
+          </div>
+        )}
+
+        {/* Body */}
+        <div className="mb-12">{article.body}</div>
+
+        {/* Author Bio */}
+        <footer className="border-t border-slate-200 pt-8 mt-12">
+          <p className="text-sm text-slate-500">
+            <strong className="text-slate-700">About Carlos Acosta:</strong> Carlos Acosta is the founder of BadCreditFirst and a fintech entrepreneur focused on credit education and product comparison for consumers with bad or limited credit.{' '}
+            <Link href="/author/carlos-acosta" className="text-blue-600 hover:underline">View author page</Link>.
+          </p>
+          <Link href="/education" className="inline-block mt-6 text-blue-600 hover:underline text-sm font-medium">
+            â† Back to Education Center
+          </Link>
+        </footer>
+      </article>
+    </div>
+  );
+}
+
+
+
+========================================
+FILE: page.tsx
+========================================
+import Link from 'next/link';
+import { BarChart3, AlertTriangle, FileText, TrendingUp } from 'lucide-react';
+
+export default function EducationPage() {
+  return (
+    <div className="min-h-screen bg-white text-slate-900">
+      <main className="max-w-6xl mx-auto px-6 py-12">
+        {/* Header */}
+        <div className="text-center mb-12">
+          <h1 className="text-4xl font-bold tracking-tight text-slate-900 mb-4">
+            Credit Education Center
+          </h1>
+          <p className="text-lg text-slate-600 max-w-2xl mx-auto mb-4">
+            Our Education Center is designed to help consumers understand credit cards, secured cards, and credit-building tools before applying for any financial product.
+          </p>
+          <p className="text-lg text-slate-500 max-w-2xl mx-auto">
+            Expert guides to understanding and improving your credit score.
+          </p>
+        </div>
+
+        {/* 4-Pillar Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          {/* Column 1: Understanding Scores */}
+          <div className="bg-slate-50 border border-slate-200 rounded-lg p-6">
+            <div className="flex items-center gap-3 mb-4">
+              <BarChart3 className="w-6 h-6 text-blue-600" />
+              <h2 className="text-lg font-bold text-slate-900">Understanding Scores</h2>
+            </div>
+            <ul>
+              <li><Link href="/education/what-is-a-good-credit-score" className="text-slate-600 hover:text-blue-600 hover:underline block mb-2">What is a Good Credit Score?</Link></li>
+              <li><Link href="/education/what-is-a-bad-credit-score" className="text-slate-600 hover:text-blue-600 hover:underline block mb-2">What is a Bad Credit Score?</Link></li>
+              <li><Link href="/education/how-is-my-score-calculated" className="text-slate-600 hover:text-blue-600 hover:underline block mb-2">How is My Score Calculated?</Link></li>
+              <li><Link href="/education/fico-vs-vantagescore" className="text-slate-600 hover:text-blue-600 hover:underline block mb-2">FICOÂ® vs. VantageScore</Link></li>
+            </ul>
+          </div>
+
+          {/* Column 2: Negative Items */}
+          <div className="bg-slate-50 border border-slate-200 rounded-lg p-6">
+            <div className="flex items-center gap-3 mb-4">
+              <AlertTriangle className="w-6 h-6 text-yellow-600" />
+              <h2 className="text-lg font-bold text-slate-900">Negative Items</h2>
+            </div>
+            <ul>
+              <li><Link href="/education/how-long-do-items-stay" className="text-slate-600 hover:text-blue-600 hover:underline block mb-2">How Long Do Items Stay?</Link></li>
+              <li><Link href="/education/removing-collections" className="text-slate-600 hover:text-blue-600 hover:underline block mb-2">Removing Collections</Link></li>
+              <li><Link href="/education/hard-inquiries-explained" className="text-slate-600 hover:text-blue-600 hover:underline block mb-2">Hard Inquiries Explained</Link></li>
+              <li><Link href="/education/bankruptcy-and-rebuilding" className="text-slate-600 hover:text-blue-600 hover:underline block mb-2">Bankruptcy & Rebuilding</Link></li>
+            </ul>
+          </div>
+
+          {/* Column 3: Reports & Rights */}
+          <div className="bg-slate-50 border border-slate-200 rounded-lg p-6">
+            <div className="flex items-center gap-3 mb-4">
+              <FileText className="w-6 h-6 text-green-600" />
+              <h2 className="text-lg font-bold text-slate-900">Reports & Rights</h2>
+            </div>
+            <ul>
+              <li><Link href="/education/reading-your-credit-report" className="text-slate-600 hover:text-blue-600 hover:underline block mb-2">Reading Your Credit Report</Link></li>
+              <li><Link href="/education/how-to-dispute-errors" className="text-slate-600 hover:text-blue-600 hover:underline block mb-2">How to Dispute Errors</Link></li>
+              <li><Link href="/education/fair-credit-reporting-act" className="text-slate-600 hover:text-blue-600 hover:underline block mb-2">Fair Credit Reporting Act</Link></li>
+              <li><Link href="/education/freezing-your-credit" className="text-slate-600 hover:text-blue-600 hover:underline block mb-2">Freezing Your Credit</Link></li>
+            </ul>
+          </div>
+
+          {/* Column 4: Rebuilding Strategy */}
+          <div className="bg-slate-50 border border-slate-200 rounded-lg p-6">
+            <div className="flex items-center gap-3 mb-4">
+              <TrendingUp className="w-6 h-6 text-purple-600" />
+              <h2 className="text-lg font-bold text-slate-900">Rebuilding Strategy</h2>
+            </div>
+            <ul>
+              <li><Link href="/education/secured-vs-unsecured" className="text-slate-600 hover:text-blue-600 hover:underline block mb-2">Secured vs. Unsecured</Link></li>
+              <li><Link href="/education/credit-builder-loans" className="text-slate-600 hover:text-blue-600 hover:underline block mb-2">Credit Builder Loans</Link></li>
+              <li><Link href="/education/the-30-percent-utilization-rule" className="text-slate-600 hover:text-blue-600 hover:underline block mb-2">The 30% Utilization Rule</Link></li>
+              <li><Link href="/education/authorized-user-strategy" className="text-slate-600 hover:text-blue-600 hover:underline block mb-2">Authorized User Strategy</Link></li>
+            </ul>
+          </div>
+        </div>
+      </main>
+    </div>
+  );
+}
+
+
+
+========================================
+FILE: page.tsx
+========================================
+import Link from 'next/link';
+
+export default function HowWeRankCardsPage() {
+  return (
+    <div className="min-h-screen bg-slate-50 text-slate-900">
+      <main className="max-w-4xl mx-auto px-6 py-12">
+        <div className="bg-white border border-slate-200 rounded-xl shadow-sm p-8">
+          <h1 className="text-3xl font-bold tracking-tight text-slate-900 mb-6">
+            How We Rank Cards
+          </h1>
+          <p className="text-slate-600 leading-relaxed mb-8">
+            At BadCreditFirst, we do not rank cards based on who pays us the most. We evaluate products based on three core criteria:
+          </p>
+          <ol className="space-y-6 list-none pl-0">
+            <li>
+              <h2 className="text-lg font-bold text-slate-900 mb-2">1. Fee Transparency</h2>
+              <p className="text-slate-600 leading-relaxed">
+                We prioritize cards that clearly disclose annual fees and avoid hidden monthly charges.
+              </p>
+            </li>
+            <li>
+              <h2 className="text-lg font-bold text-slate-900 mb-2">2. Bureau Reporting</h2>
+              <p className="text-slate-600 leading-relaxed">
+                We only recommend cards that report to at least one major credit bureau (Equifax, Experian, or TransUnion).
+              </p>
+            </li>
+            <li>
+              <h2 className="text-lg font-bold text-slate-900 mb-2">3. Approval Odds</h2>
+              <p className="text-slate-600 leading-relaxed">
+                We focus on products specifically designed for consumers with credit scores under 600.
+              </p>
+            </li>
+          </ol>
+          <Link href="/" className="inline-block mt-8 text-blue-600 hover:underline text-sm font-medium">
+            â† Return to Home
+          </Link>
+        </div>
+      </main>
+    </div>
+  );
+}
+
+
+
+========================================
+FILE: page.tsx
+========================================
+import Link from 'next/link';
+
+export default function PrivacyPage() {
+  return (
+    <div className="min-h-screen bg-slate-50 text-slate-900">
+      <main className="max-w-4xl mx-auto px-6 py-12">
+        <div className="bg-white border border-slate-200 rounded-xl shadow-sm p-8">
+          <h1 className="text-3xl font-bold tracking-tight text-slate-900 mb-6">
+            Privacy Policy
+          </h1>
+          <p className="text-slate-600 leading-relaxed mb-4">
+            BadCreditFirst (&quot;BadCreditFirst,&quot; &quot;we,&quot; &quot;our,&quot; or &quot;us&quot;) respects your privacy. This policy describes how we collect, use, and protect your information when you visit our website.
+          </p>
+          <h2 className="text-lg font-bold text-slate-900 mt-6 mb-2">Information We Collect</h2>
+          <ul className="list-disc list-inside text-slate-600 leading-relaxed space-y-1 mb-4">
+            <li>Information you provide when contacting us (email, name)</li>
+            <li>Usage data such as pages visited and time spent on the site</li>
+            <li>Device and browser information</li>
+            <li>IP address and general location data</li>
+          </ul>
+          <h2 className="text-lg font-bold text-slate-900 mt-6 mb-2">How We Use Information</h2>
+          <ul className="list-disc list-inside text-slate-600 leading-relaxed space-y-1 mb-4">
+            <li>To improve our website and user experience</li>
+            <li>To respond to your inquiries</li>
+            <li>To analyze site traffic and performance</li>
+            <li>To comply with legal obligations</li>
+          </ul>
+          <h2 className="text-lg font-bold text-slate-900 mt-6 mb-2">Your Privacy Rights</h2>
+          <p className="text-slate-600 leading-relaxed mb-4">
+            Residents of certain states may have rights regarding their personal information, including the right to request access or deletion. BadCreditFirst does not sell personal information. Requests related to privacy may be submitted by contacting carlos.acosta@badcreditfirst.com.
+          </p>
+          <h2 className="text-lg font-bold text-slate-900 mt-6 mb-2">Contact Information</h2>
+          <p className="text-slate-600 leading-relaxed mb-8">
+            For privacy-related questions, contact us at carlos.acosta@badcreditfirst.com or write to 1631 Del Prado Blvd S #1124, Cape Coral, FL 33990.
+          </p>
+          <Link href="/" className="text-blue-600 hover:underline text-sm font-medium">
+            â† Return to Home
+          </Link>
+        </div>
+      </main>
+    </div>
+  );
+}
+
+
+
+========================================
+FILE: page.tsx
+========================================
+import Link from 'next/link';
+
+export default function SiteMapPage() {
+  return (
+    <div className="min-h-screen bg-slate-50 text-slate-900">
+      <main className="max-w-6xl mx-auto px-6 py-12">
+        <div className="bg-white border border-slate-200 rounded-xl shadow-sm p-8">
+          <h1 className="text-3xl font-bold tracking-tight text-slate-900 mb-8">
+            Site Map
+          </h1>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {/* Column 1: Credit Cards By Category */}
+            <div>
+              <h2 className="text-lg font-bold text-slate-900 mb-4">Credit Cards By Category</h2>
+              <ul className="space-y-2">
+                <li><Link href="/credit-cards/category/secured-cards" className="text-blue-600 hover:underline text-sm block">Secured Credit Cards</Link></li>
+                <li><Link href="/credit-cards/category/bad-credit" className="text-blue-600 hover:underline text-sm block">Unsecured Cards for Bad Credit</Link></li>
+                <li><Link href="/credit-cards/category/credit-builder" className="text-blue-600 hover:underline text-sm block">Credit Builder Accounts</Link></li>
+                <li><Link href="/credit-cards/category/secured-cards" className="text-blue-600 hover:underline text-sm block">No Credit Check Cards</Link></li>
+                <li><Link href="/credit-cards/category/bad-credit" className="text-blue-600 hover:underline text-sm block">Cards for Rebuilding Credit</Link></li>
+              </ul>
+            </div>
+
+            {/* Column 2: Credit Cards by Issuer */}
+            <div>
+              <h2 className="text-lg font-bold text-slate-900 mb-4">Credit Cards by Issuer</h2>
+              <ul className="space-y-2">
+                <li><Link href="/credit-cards/review/opensky-secured-visa" className="text-blue-600 hover:underline text-sm block">OpenSkyÂ®</Link></li>
+                <li><Link href="/credit-cards/review/first-progress-platinum" className="text-blue-600 hover:underline text-sm block">First Progress</Link></li>
+                <li><Link href="/credit-cards/review/self-credit-builder" className="text-blue-600 hover:underline text-sm block">Self Financial</Link></li>
+                <li><Link href="/credit-cards/review/mission-lane" className="text-blue-600 hover:underline text-sm block">Mission Lane</Link></li>
+                <li><Link href="/credit-cards/review/credit-one-platinum" className="text-blue-600 hover:underline text-sm block">Credit One BankÂ®</Link></li>
+              </ul>
+
+              <h2 className="text-lg font-bold text-slate-900 mb-4 mt-8">Credit Cards by Credit Quality</h2>
+              <ul className="space-y-2">
+                <li><Link href="/credit-cards" className="text-blue-600 hover:underline text-sm block">Bad Credit (Score &lt; 600)</Link></li>
+                <li><Link href="/credit-cards" className="text-blue-600 hover:underline text-sm block">Fair Credit (Score 600-660)</Link></li>
+                <li><Link href="/credit-cards" className="text-blue-600 hover:underline text-sm block">Limited / No Credit History</Link></li>
+              </ul>
+            </div>
+
+            {/* Column 3: Education Center + Company Info */}
+            <div>
+              <h2 className="text-lg font-bold text-slate-900 mb-4">4. Education Center</h2>
+              <h3 className="text-sm font-semibold text-slate-700 mt-4 mb-2">Understanding Scores</h3>
+              <ul className="space-y-2">
+                <li><Link href="/education/what-is-a-good-credit-score" className="text-blue-600 hover:underline text-sm block">What Is a Good Credit Score?</Link></li>
+                <li><Link href="/education/what-is-a-bad-credit-score" className="text-blue-600 hover:underline text-sm block">What Is a Bad Credit Score?</Link></li>
+                <li><Link href="/education/how-is-my-score-calculated" className="text-blue-600 hover:underline text-sm block">How Is My Score Calculated?</Link></li>
+                <li><Link href="/education/fico-vs-vantagescore" className="text-blue-600 hover:underline text-sm block">FICOÂ® vs. VantageScore</Link></li>
+              </ul>
+              <h3 className="text-sm font-semibold text-slate-700 mt-4 mb-2">Negative Items</h3>
+              <ul className="space-y-2">
+                <li><Link href="/education/how-long-do-items-stay" className="text-blue-600 hover:underline text-sm block">How Long Items Stay on Report</Link></li>
+                <li><Link href="/education/removing-collections" className="text-blue-600 hover:underline text-sm block">Removing Collections</Link></li>
+                <li><Link href="/education/hard-inquiries-explained" className="text-blue-600 hover:underline text-sm block">Hard Inquiries Explained</Link></li>
+                <li><Link href="/education/bankruptcy-and-rebuilding" className="text-blue-600 hover:underline text-sm block">Bankruptcy & Rebuilding</Link></li>
+              </ul>
+              <h3 className="text-sm font-semibold text-slate-700 mt-4 mb-2">Reports & Rights</h3>
+              <ul className="space-y-2">
+                <li><Link href="/education/reading-your-credit-report" className="text-blue-600 hover:underline text-sm block">Reading Your Credit Report</Link></li>
+                <li><Link href="/education/how-to-dispute-errors" className="text-blue-600 hover:underline text-sm block">How to Dispute Errors</Link></li>
+                <li><Link href="/education/fair-credit-reporting-act" className="text-blue-600 hover:underline text-sm block">Fair Credit Reporting Act Rights</Link></li>
+                <li><Link href="/education/freezing-your-credit" className="text-blue-600 hover:underline text-sm block">Freezing Your Credit</Link></li>
+              </ul>
+              <h3 className="text-sm font-semibold text-slate-700 mt-4 mb-2">Rebuilding Strategy</h3>
+              <ul className="space-y-2">
+                <li><Link href="/education/secured-vs-unsecured" className="text-blue-600 hover:underline text-sm block">Secured vs. Unsecured Cards</Link></li>
+                <li><Link href="/education/credit-builder-loans" className="text-blue-600 hover:underline text-sm block">Credit Builder Loans</Link></li>
+                <li><Link href="/education/the-30-percent-utilization-rule" className="text-blue-600 hover:underline text-sm block">The 30% Utilization Rule</Link></li>
+                <li><Link href="/education/authorized-user-strategy" className="text-blue-600 hover:underline text-sm block">Authorized User Strategy</Link></li>
+              </ul>
+
+              <h2 className="text-lg font-bold text-slate-900 mb-4 mt-8">5. Company Info</h2>
+              <ul className="space-y-2">
+                <li><Link href="/about" className="text-blue-600 hover:underline text-sm block">About BadCreditFirst</Link></li>
+                <li><Link href="/contact" className="text-blue-600 hover:underline text-sm block">Contact Us</Link></li>
+                <li><Link href="/privacy" className="text-blue-600 hover:underline text-sm block">Privacy Policy</Link></li>
+                <li><Link href="/terms" className="text-blue-600 hover:underline text-sm block">Terms of Use</Link></li>
+                <li><Link href="/advertiser-disclosure" className="text-blue-600 hover:underline text-sm block">Advertiser Disclosure</Link></li>
+                <li><Link href="/editorial-disclaimer" className="text-blue-600 hover:underline text-sm block">Editorial Disclaimer</Link></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  );
+}
+
+
+
+========================================
+FILE: page.tsx
+========================================
+import Link from 'next/link';
+
+export default function TermsPage() {
+  return (
+    <div className="min-h-screen bg-slate-50 text-slate-900">
+      <main className="max-w-4xl mx-auto px-6 py-12">
+        <div className="bg-white border border-slate-200 rounded-xl shadow-sm p-8">
+          <h1 className="text-3xl font-bold tracking-tight text-slate-900 mb-6">
+            Terms of Use
+          </h1>
+          <p className="text-slate-600 leading-relaxed mb-4">
+            By accessing BadCreditFirst, you agree to these terms. All content is for informational purposes only and does not constitute financial advice. We are not a lender and do not make credit decisions. We strive for accuracy but cannot guarantee that all information is up-to-date. Users should verify terms with the card issuer before applying.
+          </p>
+          <h2 className="text-lg font-bold text-slate-900 mt-6 mb-2">Limitation of Liability</h2>
+          <p className="text-slate-600 leading-relaxed mb-4">
+            To the fullest extent permitted by law, BadCreditFirst shall not be liable for any damages resulting from your use of this site.
+          </p>
+          <h2 className="text-lg font-bold text-slate-900 mt-6 mb-2">Intellectual Property</h2>
+          <p className="text-slate-600 leading-relaxed mb-4">
+            All content on BadCreditFirst, including text, graphics, and site design, is the property of BadCreditFirst and may not be reproduced without permission.
+          </p>
+          <h2 className="text-lg font-bold text-slate-900 mt-6 mb-2">Governing Law</h2>
+          <p className="text-slate-600 leading-relaxed mb-4">
+            These Terms of Use are governed by the laws of the State of Florida, without regard to conflict of law principles.
+          </p>
+          <h2 className="text-lg font-bold text-slate-900 mt-6 mb-2">Changes</h2>
+          <p className="text-slate-600 leading-relaxed mb-8">
+            We reserve the right to modify these terms at any time.
+          </p>
+          <Link href="/" className="text-blue-600 hover:underline text-sm font-medium">
+            â† Return to Home
+          </Link>
+        </div>
+      </main>
+    </div>
+  );
+}
+
+
+
+========================================
+FILE: page.tsx
+========================================
+import Link from 'next/link';
+
+const pageTitles: Record<string, string> = {
+  about: 'About Us',
+  education: 'Education',
+  privacy: 'Privacy Policy',
+  terms: 'Terms',
+  contact: 'Contact',
+  'advertiser-disclosure': 'Advertiser Disclosure',
+  'editorial-disclaimer': 'Editorial Disclaimer',
+  'accessibility-statement': 'Accessibility Statement',
+  'your-privacy-choices': 'Your Privacy Choices',
+  'state-privacy-law-notice': 'State Privacy Law Notice',
+  'how-we-rank-cards': 'How We Rank Cards',
+  'how-credit-scores-work': 'How Credit Scores Work',
+  'secured-cards': 'Compare Credit Options',
+  'cards-for-bad-credit': 'Compare Credit Options',
+  'credit-builder': 'Compare Credit Options',
+  'credit-cards': 'Credit Cards',
+};
+
+function getPageTitle(slug: string): string {
+  return pageTitles[slug] ?? slug.charAt(0).toUpperCase() + slug.slice(1).replace(/-/g, ' ');
+}
+
+export default function CatchAllPage({
+  params,
+}: {
+  params: { slug: string[] };
+}) {
+  const slugSegment = params.slug?.[0] ?? 'page';
+  const pageName = getPageTitle(slugSegment);
+  const isContact = slugSegment === 'contact';
+  const isTerms = slugSegment === 'terms';
+  const isAdvertiserDisclosure = slugSegment === 'advertiser-disclosure';
+  const isPrivacy = slugSegment === 'privacy';
+  const isAbout = slugSegment === 'about';
+  const isEducation = slugSegment === 'education';
+  const isAccessibilityStatement = slugSegment === 'accessibility-statement';
+  const isYourPrivacyChoices = slugSegment === 'your-privacy-choices';
+  const isStatePrivacyLawNotice = slugSegment === 'state-privacy-law-notice';
+  const isEditorialDisclaimer = slugSegment === 'editorial-disclaimer';
+  const isHowWeRankCards = slugSegment === 'how-we-rank-cards';
+  const isHowCreditScoresWork = slugSegment === 'how-credit-scores-work';
+  const isCompareCreditOptions = slugSegment === 'secured-cards' || slugSegment === 'cards-for-bad-credit' || slugSegment === 'credit-builder';
+
+  return (
+    <div className="min-h-screen bg-slate-50 text-slate-900">
+      <main className="max-w-4xl mx-auto px-6 py-12">
+        <div className="bg-white border border-slate-200 rounded-xl shadow-sm p-8">
+          {isContact ? (
+            <>
+              <h1 className="text-3xl font-bold tracking-tight text-slate-900 mb-6">
+                Contact Us
+              </h1>
+              <p className="text-slate-600 leading-relaxed mb-6">
+                We value your feedback. For questions regarding our reviews or partnerships, please contact us.
+              </p>
+              <div className="text-slate-600 leading-relaxed space-y-2 mb-6">
+                <p><strong>Email:</strong> carlos.acosta@badcreditfirst.com</p>
+                <p><strong>Phone:</strong> (305) 619-3497</p>
+                <p><strong>Mailing Address:</strong> 1631 Del Prado Blvd S #1124, Cape Coral, FL 33990</p>
+              </div>
+              <p className="text-slate-500 text-sm italic mb-8">
+                Note: We are not a bank and cannot assist with specific credit card account issues.
+              </p>
+            </>
+          ) : isPrivacy ? (
+            <>
+              <h1 className="text-3xl font-bold tracking-tight text-slate-900 mb-6">
+                Privacy Policy
+              </h1>
+              <p className="text-slate-600 leading-relaxed mb-4">
+                BadCreditFirst (&quot;BadCreditFirst,&quot; &quot;we,&quot; &quot;our,&quot; or &quot;us&quot;) respects your privacy. This policy describes how we collect, use, and protect your information when you visit our website.
+              </p>
+              <h2 className="text-lg font-bold text-slate-900 mt-6 mb-2">Information We Collect</h2>
+              <ul className="list-disc list-inside text-slate-600 leading-relaxed space-y-1 mb-4">
+                <li>Information you provide when contacting us (email, name)</li>
+                <li>Usage data such as pages visited and time spent on the site</li>
+                <li>Device and browser information</li>
+                <li>IP address and general location data</li>
+              </ul>
+              <h2 className="text-lg font-bold text-slate-900 mt-6 mb-2">How We Use Information</h2>
+              <ul className="list-disc list-inside text-slate-600 leading-relaxed space-y-1 mb-4">
+                <li>To improve our website and user experience</li>
+                <li>To respond to your inquiries</li>
+                <li>To analyze site traffic and performance</li>
+                <li>To comply with legal obligations</li>
+              </ul>
+              <h2 className="text-lg font-bold text-slate-900 mt-6 mb-2">Contact Information</h2>
+              <p className="text-slate-600 leading-relaxed mb-8">
+                For privacy-related questions, contact us at carlos.acosta@badcreditfirst.com or write to 1631 Del Prado Blvd S #1124, Cape Coral, FL 33990.
+              </p>
+            </>
+          ) : isAbout ? (
+            <>
+              <h1 className="text-3xl font-bold tracking-tight text-slate-900 mb-6">
+                About BadCreditFirst
+              </h1>
+              <p className="text-slate-600 leading-relaxed mb-6">
+                BadCreditFirst is an independent, advertising-supported website that helps consumers compare credit cards and credit-building products designed for people with bad or limited credit. We provide information to help you make informed decisions. We are not a lender and do not make credit decisions.
+              </p>
+              <h2 className="text-lg font-bold text-slate-900 mt-6 mb-2">Editorial Independence</h2>
+              <p className="text-slate-600 leading-relaxed mb-6">
+                Our editorial content is created independently. While we receive compensation from partners when you apply through our links, our reviews and rankings are based on our own evaluation criteria. Compensation does not influence our editorial opinions.
+              </p>
+              <h2 className="text-lg font-bold text-slate-900 mt-6 mb-2">How We Evaluate Products</h2>
+              <p className="text-slate-600 leading-relaxed mb-6">
+                We rank products based on fee transparency, approval likelihood, reporting to major credit bureaus, and value for consumers with limited credit history.
+              </p>
+              <h2 className="text-lg font-bold text-slate-900 mt-6 mb-2">Important Disclaimer</h2>
+              <p className="text-slate-600 leading-relaxed mb-8">
+                All content is for informational purposes only and does not constitute financial advice. We strive for accuracy but cannot guarantee that all information is up-to-date. Users should verify terms with the card issuer before applying.
+              </p>
+            </>
+          ) : isEducation ? (
+            <>
+              <h1 className="text-3xl font-bold tracking-tight text-slate-900 mb-6">
+                Credit Education
+              </h1>
+              <p className="text-slate-600 leading-relaxed mb-6">
+                Understanding credit is the first step toward improving your financial health. We provide educational content to help you learn how credit works, how to build or rebuild your score, and how to choose the right products for your situation.
+              </p>
+              <h2 className="text-lg font-bold text-slate-900 mt-6 mb-2">Topics We Cover</h2>
+              <ul className="list-disc list-inside text-slate-600 leading-relaxed space-y-1 mb-6">
+                <li>Credit scores and reports</li>
+                <li>Secured vs. unsecured cards</li>
+                <li>Credit-building strategies</li>
+                <li>Fee structures and APR</li>
+                <li>How to avoid common mistakes</li>
+              </ul>
+              <h2 className="text-lg font-bold text-slate-900 mt-6 mb-2">Upcoming Articles</h2>
+              <ul className="list-disc list-inside text-slate-600 leading-relaxed space-y-1 mb-8">
+                <li>How Credit Scores Work</li>
+                <li>Secured Credit Cards Explained</li>
+                <li>Building Credit Without a Credit Card</li>
+                <li>Understanding Your Credit Report</li>
+                <li>Choosing the Right Card for Your Score</li>
+              </ul>
+            </>
+          ) : isTerms ? (
+            <>
+              <h1 className="text-3xl font-bold tracking-tight text-slate-900 mb-6">
+                Terms of Use
+              </h1>
+              <p className="text-slate-600 leading-relaxed mb-4">
+                By accessing BadCreditFirst, you agree to these terms. All content is for informational purposes only and does not constitute financial advice. We are not a lender and do not make credit decisions. We strive for accuracy but cannot guarantee that all information is up-to-date. Users should verify terms with the card issuer before applying.
+              </p>
+              <h2 className="text-lg font-bold text-slate-900 mt-6 mb-2">Limitation of Liability</h2>
+              <p className="text-slate-600 leading-relaxed mb-4">
+                To the fullest extent permitted by law, BadCreditFirst shall not be liable for any damages resulting from your use of this site.
+              </p>
+              <h2 className="text-lg font-bold text-slate-900 mt-6 mb-2">Intellectual Property</h2>
+              <p className="text-slate-600 leading-relaxed mb-4">
+                All content on this site is the property of BadCreditFirst and protected by copyright laws.
+              </p>
+              <h2 className="text-lg font-bold text-slate-900 mt-6 mb-2">Governing Law</h2>
+              <p className="text-slate-600 leading-relaxed mb-4">
+                These terms are governed by the laws of the State of Florida.
+              </p>
+              <h2 className="text-lg font-bold text-slate-900 mt-6 mb-2">Changes</h2>
+              <p className="text-slate-600 leading-relaxed mb-8">
+                We reserve the right to modify these terms at any time.
+              </p>
+            </>
+          ) : isAccessibilityStatement ? (
+            <>
+              <h1 className="text-3xl font-bold tracking-tight text-slate-900 mb-6">
+                Accessibility Statement
+              </h1>
+              <p className="text-slate-600 leading-relaxed mb-8">
+                BadCreditFirst is committed to providing a website that is accessible to all users, regardless of technology or ability. We are actively working to increase the accessibility and usability of our website and in doing so adhere to many of the available standards and guidelines. If you experience any difficulty in accessing any part of this website, please contact us at carlos.acosta@badcreditfirst.com.
+              </p>
+            </>
+          ) : isYourPrivacyChoices ? (
+            <>
+              <h1 className="text-3xl font-bold tracking-tight text-slate-900 mb-6">
+                Your Privacy Choices
+              </h1>
+              <p className="text-slate-600 leading-relaxed mb-8">
+                You have the right to opt-out of the sale or sharing of your personal information. BadCreditFirst respects your right to privacy. To exercise your privacy rights, including the right to opt-out of cross-context behavioral advertising, please contact us or adjust your browser settings to disable third-party cookies.
+              </p>
+            </>
+          ) : isStatePrivacyLawNotice ? (
+            <>
+              <h1 className="text-3xl font-bold tracking-tight text-slate-900 mb-6">
+                State Privacy Law Notice
+              </h1>
+              <p className="text-slate-600 leading-relaxed mb-8">
+                Residents of certain states (including California, Virginia, Colorado, Connecticut, and Utah) may have additional rights regarding their personal information. These rights include the right to request access to, correction of, or deletion of your personal data. BadCreditFirst complies with all applicable state privacy laws.
+              </p>
+            </>
+          ) : isAdvertiserDisclosure ? (
+            <>
+              <h1 className="text-3xl font-bold tracking-tight text-slate-900 mb-6">
+                Advertiser Disclosure
+              </h1>
+              <p className="text-slate-600 leading-relaxed mb-8">
+                BadCreditFirst is an independent, advertising-supported comparison service. The offers that appear on this site are from companies from which BadCreditFirst receives compensation. This compensation may impact how and where products appear on this site, including the order in which they appear. BadCreditFirst does not include all card companies or all available credit offers.
+              </p>
+            </>
+          ) : isEditorialDisclaimer ? (
+            <>
+              <h1 className="text-3xl font-bold tracking-tight text-slate-900 mb-6">
+                Editorial Disclaimer
+              </h1>
+              <p className="text-slate-600 leading-relaxed mb-8">
+                Content on BadCreditFirst is independently researched and written. Opinions, reviews, and recommendations are those of BadCreditFirst alone and have not been reviewed, approved, or otherwise endorsed by any credit card issuer.
+              </p>
+            </>
+          ) : isHowWeRankCards ? (
+            <>
+              <h1 className="text-3xl font-bold tracking-tight text-slate-900 mb-6">
+                How We Rank Cards
+              </h1>
+              <p className="text-slate-600 leading-relaxed mb-8">
+                BadCreditFirst evaluates credit cards and credit-building products based on multiple factors, including fees, reporting practices, accessibility for consumers with poor or limited credit, and general product transparency. Rankings may also consider approval likelihood and overall consumer value.
+              </p>
+            </>
+          ) : isHowCreditScoresWork ? (
+            <>
+              <h1 className="text-3xl font-bold tracking-tight text-slate-900 mb-6">
+                How Credit Scores Work
+              </h1>
+              <p className="text-slate-600 leading-relaxed mb-4">
+                Your credit score is a three-digit number, typically between 300 and 850, that tells lenders how likely you are to repay debt. It is calculated based on five key factors:
+              </p>
+              <ol className="list-decimal list-inside text-slate-600 leading-relaxed space-y-2 mb-4">
+                <li><strong>Payment History (35%):</strong> Do you pay on time?</li>
+                <li><strong>Amounts Owed (30%):</strong> How much of your available credit are you using?</li>
+                <li><strong>Length of Credit History (15%):</strong> How long have you had accounts open?</li>
+                <li><strong>New Credit (10%):</strong> Have you applied for a lot of credit recently?</li>
+                <li><strong>Credit Mix (10%):</strong> Do you have different types of loans?</li>
+              </ol>
+              <p className="text-slate-600 leading-relaxed mb-8">
+                Improving your score starts with paying bills on time and keeping balances low.
+              </p>
+            </>
+          ) : isCompareCreditOptions ? (
+            <>
+              <h1 className="text-3xl font-bold tracking-tight text-slate-900 mb-6">
+                Compare Credit Options
+              </h1>
+              <p className="text-slate-600 leading-relaxed mb-4">
+                You are looking for specific credit products. We have compiled our top recommendations in our main comparison hub.
+              </p>
+              <p className="text-slate-600 leading-relaxed mb-4">
+                Secured Cards require a refundable deposit. Credit Builder accounts are effectively installment loans that report payment history.
+              </p>
+              <p className="text-slate-600 leading-relaxed mb-8">
+                Click the button below to view all current offers.
+              </p>
+            </>
+          ) : (
+            <>
+              <h1 className="text-3xl font-bold tracking-tight text-slate-900 mb-6">
+                {pageName}
+              </h1>
+              <p className="text-slate-600 leading-relaxed mb-8">
+                We are currently updating our {pageName} page. Please check back shortly for the full content.
+              </p>
+            </>
+          )}
+          <Link
+            href={isCompareCreditOptions ? '/credit-cards' : '/'}
+            className="inline-flex items-center justify-center px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-lg shadow-sm hover:shadow-md transition-all"
+          >
+            {isCompareCreditOptions ? 'View All Offers' : 'Return to Home'}
+          </Link>
+        </div>
+      </main>
+    </div>
+  );
+}
+
+
+
+========================================
+FILE: globals.css
+========================================
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+  }
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(
+      to bottom,
+      transparent,
+      rgb(var(--background-end-rgb))
+    )
+    rgb(var(--background-start-rgb));
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+
+
+========================================
+FILE: layout.tsx
+========================================
+import type { Metadata } from "next";
+import { Inter } from "next/font/google";
+import Script from "next/script";
+import Link from "next/link";
+import { ShieldCheck } from "lucide-react";
+import { getOrganizationSchema, getWebSiteSchema } from "./lib/schema";
+import "./globals.css";
+
+const inter = Inter({ subsets: ["latin"] });
+
+const SITE_URL = "https://www.badcreditfirst.com";
+const organizationSchema = getOrganizationSchema(SITE_URL);
+const websiteSchema = getWebSiteSchema(SITE_URL);
+
+export const metadata: Metadata = {
+  metadataBase: new URL("https://www.badcreditfirst.com"),
+  title: "BadCreditFirst | Build Credit with Confidence (2026)",
+  description: "Compare the best secured credit cards and credit builder loans for 2026. Independent reviews for bad credit, no credit, and bankruptcy recovery.",
+};
+
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+  return (
+    <html lang="en">
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(organizationSchema),
+          }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(websiteSchema),
+          }}
+        />
+      </head>
+      <body className={inter.className}>
+        {/* Header */}
+        <header className="border-b border-slate-200 sticky top-0 bg-white z-10">
+          <div className="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between">
+            <Link href="/">
+              <span className="text-2xl font-black tracking-tighter text-blue-900 flex items-center gap-2">
+                <ShieldCheck className="w-8 h-8 text-blue-600" />
+                BadCreditFirst
+              </span>
+            </Link>
+            <nav className="flex items-center gap-8">
+              <Link href="/credit-cards" className="text-sm font-medium text-slate-600 hover:text-blue-600 transition-colors">
+                Credit Cards
+              </Link>
+              <Link href="/education" className="text-sm font-medium text-slate-600 hover:text-blue-600 transition-colors">
+                Education
+              </Link>
+              <Link href="/about" className="text-sm font-medium text-slate-600 hover:text-blue-600 transition-colors">
+                About
+              </Link>
+            </nav>
+          </div>
+        </header>
+        {/* Google Analytics (gtag.js) */}
+        <Script
+          strategy="afterInteractive"
+          src="https://www.googletagmanager.com/gtag/js?id=G-5JXXYC365C"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-5JXXYC365C');
+  `}
+        </Script>
+        {children}
+        {/* Footer - 4-Row Network-Ready */}
+        <footer className="bg-slate-900 text-slate-400 py-12 text-sm">
+          <div className="max-w-5xl mx-auto px-6">
+            {/* ROW 1: Navigation Columns */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+              <div>
+                <h3 className="font-bold text-slate-300 mb-3">Compare</h3>
+                <ul className="space-y-2">
+                  <li><Link href="/credit-cards/category/bad-credit" className="hover:text-white transition-colors">Cards for Bad Credit</Link></li>
+                  <li><Link href="/credit-cards/category/secured-cards" className="hover:text-white transition-colors">Secured Cards</Link></li>
+                  <li><Link href="/credit-cards/category/credit-builder" className="hover:text-white transition-colors">Credit Builder</Link></li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="font-bold text-slate-300 mb-3">Learn</h3>
+                <ul className="space-y-2">
+                  <li><Link href="/education" className="hover:text-white transition-colors">Education Center</Link></li>
+                  <li><Link href="/education" className="hover:text-white transition-colors">How Credit Scores Work</Link></li>
+                  <li><Link href="/how-we-rank-cards" className="hover:text-white transition-colors">How We Rank Cards</Link></li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="font-bold text-slate-300 mb-3">Company</h3>
+                <ul className="space-y-2">
+                  <li><Link href="/about" className="hover:text-white transition-colors">About</Link></li>
+                  <li><Link href="/contact" className="hover:text-white transition-colors">Contact</Link></li>
+                  <li><Link href="/site-map" className="hover:text-white transition-colors">Sitemap</Link></li>
+                </ul>
+              </div>
+            </div>
+            {/* ROW 2: Legal Links */}
+            <div className="flex flex-wrap gap-4 mb-8 border-t border-slate-700 pt-8">
+              <Link href="/terms" className="hover:text-white transition-colors">Terms of Use</Link>
+              <Link href="/privacy" className="hover:text-white transition-colors">Privacy Policy</Link>
+              <Link href="/advertiser-disclosure" className="hover:text-white transition-colors">Advertiser Disclosure</Link>
+              <Link href="/editorial-disclaimer" className="hover:text-white transition-colors">Editorial Disclaimer</Link>
+              <Link href="/accessibility-statement" className="hover:text-white transition-colors">Accessibility Statement</Link>
+              <Link href="/state-privacy-law-notice" className="hover:text-white transition-colors">State Privacy Law Notice</Link>
+              <Link href="/your-privacy-choices" className="hover:text-white transition-colors">Your Privacy Choices</Link>
+            </div>
+            {/* ROW 3: Disclaimers */}
+            <div className="space-y-4 mb-8 border-t border-slate-700 pt-8">
+              <p className="text-xs text-slate-500 leading-relaxed">
+                <strong className="text-slate-400">Advertiser Disclosure:</strong> BadCreditFirst is an independent, advertising-supported comparison service. The offers that appear on this site are from companies from which BadCreditFirst receives compensation. This compensation may impact how and where products appear on this site. Products are ranked based on factors such as fees, credit bureau reporting practices, approval accessibility for consumers with poor credit, and overall consumer value.
+              </p>
+              <p className="text-xs text-slate-500 leading-relaxed">
+                <strong className="text-slate-400">Editorial Disclaimer:</strong> Content on BadCreditFirst is independently researched and written. Opinions, reviews, and recommendations are those of BadCreditFirst alone and have not been reviewed, approved, or otherwise endorsed by any credit card issuer.
+              </p>
+              <p className="text-xs text-slate-500 leading-relaxed">
+                <strong className="text-slate-400">General Disclaimer:</strong> BadCreditFirst is operated by Carlos Acosta. BadCreditFirst provides independent information and is not a lender. BadCreditFirst may receive compensation when users apply for offers listed on this site.
+              </p>
+            </div>
+            {/* ROW 4: Brand Anchor */}
+            <div className="border-t border-slate-700 pt-8 text-center">
+              <Link href="/" className="inline-flex items-center gap-2 text-white font-bold text-lg mb-4 hover:opacity-90 transition-opacity">
+                <ShieldCheck className="w-6 h-6 text-slate-400" />
+                BadCreditFirst
+              </Link>
+              <p className="text-xs text-slate-500 mb-1">Operated by BadCreditFirst | Contact: carlos.acosta@badcreditfirst.com</p>
+              <p className="text-xs text-slate-500 mb-1">1631 Del Prado Blvd S #1124, Cape Coral, FL 33990</p>
+              <p className="text-xs text-slate-500 mb-1">BadCreditFirst is an independent comparison and education platform and does not guarantee approval for any financial product.</p>
+              <p className="text-xs text-slate-500">Â© 2026 BadCreditFirst. All Rights Reserved.</p>
+            </div>
+          </div>
+        </footer>
+      </body>
+    </html>
+  );
+}
+
+
+
+========================================
+FILE: page.tsx
+========================================
+import DetailedCardRow from '../components/DetailedCardRow';
+import FunnelSelector from '../components/FunnelSelector';
+import WelcomeBackBanner from '../components/WelcomeBackBanner';
+import { cardData } from '../lib/card-data';
+
+function MethodologySection() {
+  return (
+    <section className="bg-slate-50 border-t border-slate-200">
+      <div className="max-w-4xl mx-auto px-6 py-12">
+        <h2 className="text-xl font-bold text-slate-900 mb-4">How We Evaluate Options</h2>
+        <p className="text-slate-600 leading-relaxed">
+          We rank products based on fee transparency, approval likelihood, and reporting to major credit bureaus.
+        </p>
+      </div>
+    </section>
+  );
+}
+
+export default function Home() {
+  return (
+    <div className="min-h-screen bg-white text-slate-900 flex flex-col">
+      <main className="flex-1">
+        {/* Welcome back banner when user has a saved segment from funnel */}
+        <WelcomeBackBanner />
+        {/* Segmentation Funnel â€” multi-step wizard at top */}
+        <FunnelSelector />
+
+        {/* Hero */}
+        <section className="max-w-5xl mx-auto px-6 py-12 text-center">
+          <h1 className="text-4xl font-bold tracking-tight text-slate-900 mb-4">
+            Credit Card Options for Bad or Limited Credit
+          </h1>
+          <p className="text-lg text-slate-500 max-w-2xl mx-auto">
+            Compare secured cards and credit-builder accounts designed for scores under 600. No lender bias. No obligation.
+          </p>
+        </section>
+
+        {/* Offer Stack - Sandwich Layout */}
+        <section className="max-w-5xl mx-auto px-6 pb-12">
+          <div className="divide-y divide-slate-200 border border-slate-200 rounded-xl overflow-hidden bg-white shadow-sm">
+            {cardData.map((card) => (
+              <DetailedCardRow
+                key={card.slug}
+                title={card.title}
+                label={card.label}
+                highlights={card.highlights}
+                fees={card.fees}
+                creditScore={card.creditScore}
+                slug={card.slug}
+                reviewUrl={card.reviewUrl}
+              />
+            ))}
+          </div>
+        </section>
+
+        {/* Methodology */}
+        <MethodologySection />
+      </main>
+    </div>
+  );
+}
+
+
+
+========================================
+FILE: sitemap.ts
+========================================
+import { MetadataRoute } from 'next'
+
+export default function sitemap(): MetadataRoute.Sitemap {
+  const baseUrl = 'https://www.badcreditfirst.com'
+
+  return [
+    { url: baseUrl, lastModified: new Date(), changeFrequency: 'daily', priority: 1 },
+    { url: `${baseUrl}/credit-cards`, lastModified: new Date(), changeFrequency: 'daily', priority: 0.9 },
+    { url: `${baseUrl}/credit-cards/category/bad-credit`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.7 },
+    { url: `${baseUrl}/credit-cards/category/secured-cards`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.7 },
+    { url: `${baseUrl}/credit-cards/category/credit-builder`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.7 },
+    { url: `${baseUrl}/credit-cards/review/opensky-secured-visa`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.7 },
+    { url: `${baseUrl}/credit-cards/review/first-progress-platinum`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.7 },
+    { url: `${baseUrl}/credit-cards/review/self-credit-builder`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.7 },
+    { url: `${baseUrl}/credit-cards/review/mission-lane`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.7 },
+    { url: `${baseUrl}/credit-cards/review/credit-one-platinum`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.7 },
+    { url: `${baseUrl}/education`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.8 },
+    { url: `${baseUrl}/education/what-is-a-good-credit-score`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.7 },
+    { url: `${baseUrl}/education/what-is-a-bad-credit-score`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.7 },
+    { url: `${baseUrl}/education/how-is-my-score-calculated`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.7 },
+    { url: `${baseUrl}/education/fico-vs-vantagescore`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.7 },
+    { url: `${baseUrl}/education/how-long-do-items-stay`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.7 },
+    { url: `${baseUrl}/education/removing-collections`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.7 },
+    { url: `${baseUrl}/education/hard-inquiries-explained`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.7 },
+    { url: `${baseUrl}/education/bankruptcy-and-rebuilding`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.7 },
+    { url: `${baseUrl}/education/reading-your-credit-report`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.7 },
+    { url: `${baseUrl}/education/how-to-dispute-errors`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.7 },
+    { url: `${baseUrl}/education/fair-credit-reporting-act`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.7 },
+    { url: `${baseUrl}/education/freezing-your-credit`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.7 },
+    { url: `${baseUrl}/education/secured-vs-unsecured`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.7 },
+    { url: `${baseUrl}/education/credit-builder-loans`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.7 },
+    { url: `${baseUrl}/education/the-30-percent-utilization-rule`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.7 },
+    { url: `${baseUrl}/education/authorized-user-strategy`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.7 },
+    { url: `${baseUrl}/about`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.5 },
+    { url: `${baseUrl}/author/carlos-acosta`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.5 },
+    { url: `${baseUrl}/contact`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.5 },
+    { url: `${baseUrl}/privacy`, lastModified: new Date(), changeFrequency: 'yearly', priority: 0.3 },
+    { url: `${baseUrl}/terms`, lastModified: new Date(), changeFrequency: 'yearly', priority: 0.3 },
+  ]
+}
+
+
+
+========================================
+FILE: DetailedCardRow.tsx
+========================================
+import React from 'react';
+import { Star, Check, CreditCard, ArrowRight } from 'lucide-react';
+import Link from 'next/link';
+import { getAffiliateLink } from '../lib/card-data';
+
+interface DetailedCardRowProps {
+  title: string;
+  label: string;
+  highlights: string[];
+  fees: string;
+  creditScore: string;
+  slug: string;
+  /** Path to the single-card review page, e.g. /credit-cards/review/opensky-secured-visa */
+  reviewUrl: string;
+  /** Optional: segment from funnel for affiliate subid (e.g. no-credit-deposit). */
+  segment?: string;
+  /** Optional: position in list for affiliate subid (1-based). */
+  position?: number;
+}
+
+export default function DetailedCardRow({ title, label, highlights, fees, creditScore, slug, reviewUrl, segment, position }: DetailedCardRowProps) {
+  const applyHref = getAffiliateLink(slug, segment, position);
+  return (
+
+  <div className="flex flex-col md:flex-row">
+    {/* LEFT: Compliant Image Placeholder (No Logos) */}
+    <div className="w-full md:w-[220px] p-6 flex flex-col items-center justify-center border-b md:border-b-0 md:border-r border-slate-100 bg-slate-50">
+       <div className="w-full aspect-[1.586] rounded-xl bg-gradient-to-br from-slate-200 via-slate-100 to-slate-300 shadow-inner border border-slate-300 flex items-center justify-center relative overflow-hidden">
+          <div className="absolute inset-0 bg-white/10" aria-hidden="true" />
+          <CreditCard className="w-10 h-10 text-slate-400 opacity-50" aria-hidden="true" />
+       </div>
+       <p className="mt-3 text-xs text-slate-400 font-medium">Image for illustration</p>
+    </div>
+    {/* MIDDLE: Card Data */}
+    <div className="flex-1 p-6">
+      <div className="flex flex-col h-full justify-between">
+        <div>
+          <div className="flex items-start justify-between mb-2">
+            <h3 className="text-lg font-bold text-slate-900 leading-tight hover:text-blue-600 transition-colors">
+              <Link href={reviewUrl}>
+                {title}
+              </Link>
+            </h3>
+          </div>
+          
+          <div className="flex items-center mb-4 space-x-1" aria-label="Rating: 4.5 out of 5">
+            {[1, 2, 3, 4].map((i) => (
+              <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" aria-hidden="true" />
+            ))}
+            <Star className="w-4 h-4 fill-yellow-400 text-yellow-400 opacity-50" aria-hidden="true" />
+            <span className="text-xs text-slate-500 ml-2 font-medium">4.5/5</span>
+          </div>
+          <div className="grid grid-cols-2 gap-4 text-sm mb-4">
+            <div>
+              <p className="text-slate-500 text-xs uppercase font-semibold">Annual Fee</p>
+              <p className="font-bold text-slate-800">{fees}</p>
+            </div>
+            <div>
+              <p className="text-slate-500 text-xs uppercase font-semibold">Credit Rec.</p>
+              <p className="font-bold text-slate-800">{creditScore}</p>
+            </div>
+          </div>
+          <ul className="space-y-2">
+            {highlights.map((item, idx) => (
+              <li key={idx} className="flex items-start text-sm text-slate-600">
+                <Check className="w-4 h-4 text-green-500 mr-2 mt-0.5 shrink-0" aria-hidden="true" />
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </div>
+    {/* RIGHT: Action Area */}
+    <div className="w-full md:w-[280px] p-6 bg-slate-50 flex flex-col justify-center border-t md:border-t-0 md:border-l border-slate-100">
+        <a
+          href={applyHref}
+          target="_blank"
+          rel="nofollow noreferrer"
+          className="w-full py-4 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-lg shadow-sm hover:shadow-md transition-all text-center flex items-center justify-center group"
+        >
+          Apply Now
+          <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" aria-hidden="true" />
+        </a>
+        <Link
+          href={reviewUrl}
+          className="mt-3 text-center text-blue-600 text-sm hover:underline block"
+        >
+          View Full Review <span aria-hidden="true">{'\u2192'}</span>
+        </Link>
+        <p className="mt-4 text-[10px] text-center text-slate-400 leading-tight">
+          Terms and conditions apply. <br/> Rates subject to change.
+        </p>
+    </div>
+  </div>
+); }
+
+
+
+========================================
+FILE: FunnelSelector.tsx
+========================================
+'use client';
+
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { ArrowRight, Loader2 } from 'lucide-react';
+
+const SITUATIONS = [
+  { id: 'no-credit', label: 'No Credit', description: 'I have no credit history' },
+  { id: 'bad-credit', label: 'Bad Credit', description: 'Collection, late payments, or low score' },
+  { id: 'denied', label: 'Denied', description: "I've been denied for other cards" },
+  { id: 'rebuilding', label: 'Rebuilding', description: 'After bankruptcy or major setback' },
+] as const;
+
+const DEPOSIT_OPTIONS = [
+  { id: 'deposit', label: 'Yes', description: 'I can pay a security deposit' },
+  { id: 'no-deposit', label: 'No', description: "I'd prefer no deposit" },
+] as const;
+
+const TRUST_DELAY_MS = 1800;
+
+export default function FunnelSelector() {
+  const router = useRouter();
+  const [step, setStep] = useState<1 | 2 | 3>(1);
+  const [situation, setSituation] = useState<string | null>(null);
+  const [deposit, setDeposit] = useState<string | null>(null);
+
+  const handleSituation = (id: string) => {
+    setSituation(id);
+    setStep(2);
+  };
+
+  const handleDeposit = (id: string) => {
+    setDeposit(id);
+    setStep(3);
+    const segment = `${situation}-${id}`;
+    try {
+      if (typeof window !== 'undefined') window.localStorage.setItem('bcf_segment', segment);
+    } catch {
+      // ignore
+    }
+    setTimeout(() => {
+      router.push(`/credit-cards/results/${segment}`);
+    }, TRUST_DELAY_MS);
+  };
+
+  const handleBack = () => {
+    if (step === 2) {
+      setSituation(null);
+      setStep(1);
+    } else if (step === 3) {
+      setDeposit(null);
+      setStep(2);
+    }
+  };
+
+  return (
+    <section className="max-w-5xl mx-auto px-6 py-8 bg-slate-50 border-y border-slate-200">
+      {/* Step 1: What is your situation? */}
+      {step === 1 && (
+        <div>
+          <h2 className="text-xl font-bold text-slate-900 mb-2 text-center">
+            What is your situation?
+          </h2>
+          <p className="text-sm text-slate-500 text-center mb-6">
+            Choose the option that best describes you.
+          </p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {SITUATIONS.map((opt) => (
+              <button
+                key={opt.id}
+                type="button"
+                onClick={() => handleSituation(opt.id)}
+                className="group flex items-center justify-between gap-4 p-5 bg-white border border-slate-200 rounded-xl shadow-sm hover:shadow-md hover:border-blue-200 transition-all text-left"
+              >
+                <div className="min-w-0 flex-1">
+                  <p className="font-semibold text-slate-900 group-hover:text-blue-600 transition-colors">
+                    {opt.label}
+                  </p>
+                  <p className="text-sm text-slate-500 mt-0.5">{opt.description}</p>
+                </div>
+                <ArrowRight className="w-5 h-5 text-slate-400 group-hover:text-blue-600 group-hover:translate-x-1 transition-all shrink-0" aria-hidden="true" />
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Step 2: Can you pay a deposit? */}
+      {step === 2 && (
+        <div>
+          <button
+            type="button"
+            onClick={handleBack}
+            className="text-sm text-slate-500 hover:text-blue-600 mb-4"
+          >
+            â† Back
+          </button>
+          <h2 className="text-xl font-bold text-slate-900 mb-2 text-center">
+            Can you pay a deposit?
+          </h2>
+          <p className="text-sm text-slate-500 text-center mb-6">
+            Many secured cards require a refundable security deposit.
+          </p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-md mx-auto">
+            {DEPOSIT_OPTIONS.map((opt) => (
+              <button
+                key={opt.id}
+                type="button"
+                onClick={() => handleDeposit(opt.id)}
+                className="group flex items-center justify-between gap-4 p-5 bg-white border border-slate-200 rounded-xl shadow-sm hover:shadow-md hover:border-blue-200 transition-all text-left"
+              >
+                <div className="min-w-0 flex-1">
+                  <p className="font-semibold text-slate-900 group-hover:text-blue-600 transition-colors">
+                    {opt.label}
+                  </p>
+                  <p className="text-sm text-slate-500 mt-0.5">{opt.description}</p>
+                </div>
+                <ArrowRight className="w-5 h-5 text-slate-400 group-hover:text-blue-600 group-hover:translate-x-1 transition-all shrink-0" aria-hidden="true" />
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Step 3: Trust screen */}
+      {step === 3 && (
+        <div className="text-center py-12">
+          <Loader2 className="w-12 h-12 text-blue-600 animate-spin mx-auto mb-4" aria-hidden="true" />
+          <h2 className="text-xl font-bold text-slate-900 mb-2">
+            Finding best matches...
+          </h2>
+          <p className="text-slate-500 text-sm">
+            We&apos;re ranking options for your situation.
+          </p>
+        </div>
+      )}
+    </section>
+  );
+}
+
+
+
+========================================
+FILE: WelcomeBackBanner.tsx
+========================================
+'use client';
+
+import { useState, useEffect } from 'react';
+import Link from 'next/link';
+
+const STORAGE_KEY = 'bcf_segment';
+
+const SEGMENT_DISPLAY: Record<string, string> = {
+  'no-credit-deposit': 'No Credit (Can Pay Deposit)',
+  'no-credit-no-deposit': 'No Credit (No Deposit)',
+  'bad-credit-deposit': 'Bad Credit (Can Pay Deposit)',
+  'bad-credit-no-deposit': 'Bad Credit (No Deposit)',
+  'denied-deposit': 'Recently Denied (Can Pay Deposit)',
+  'denied-no-deposit': 'Recently Denied (No Deposit)',
+  'rebuilding-deposit': 'Rebuilding (Can Pay Deposit)',
+  'rebuilding-no-deposit': 'Rebuilding (No Deposit)',
+};
+
+export default function WelcomeBackBanner() {
+  const [segment, setSegment] = useState<string | null>(null);
+
+  useEffect(() => {
+    try {
+      if (typeof window === 'undefined') return;
+      const saved = window.localStorage.getItem(STORAGE_KEY);
+      if (saved && SEGMENT_DISPLAY[saved]) setSegment(saved);
+    } catch {
+      // ignore
+    }
+  }, []);
+
+  if (!segment) return null;
+
+  const displayName = SEGMENT_DISPLAY[segment];
+  const resultsHref = `/credit-cards/results/${segment}`;
+
+  return (
+    <div className="bg-blue-50 border-b border-blue-200">
+      <div className="max-w-5xl mx-auto px-6 py-3 flex flex-wrap items-center justify-center gap-2 text-sm">
+        <span className="text-slate-700 font-medium">Welcome back!</span>
+        <Link
+          href={resultsHref}
+          className="text-blue-600 hover:text-blue-700 font-semibold underline"
+        >
+          View your results for {displayName}
+        </Link>
+      </div>
+    </div>
+  );
+}
+
+
+

@@ -36,9 +36,8 @@ export default function CreditCardReviewPage({
   const { approvalOdds, realWorldUseCase, feeRisk, upgradePath, title, fees, badFor, categorySlug } = card;
   const applyHref = getAffiliateLink(slug);
   const reviewUrl = `${baseUrl}${card.reviewUrl}`;
-  const ratingValue = 4.5;
+  const ratingValue = '4.5';
   const bestRating = 5;
-  const reviewCount = 1;
   const feesText = fees ?? '';
   const annualFeeMatch = feesText.match(/\$(\d+)/);
   const priceValue = annualFeeMatch ? parseFloat(annualFeeMatch[1]) : 0;
@@ -67,7 +66,6 @@ export default function CreditCardReviewPage({
     reviewUrl,
     ratingValue,
     bestRating,
-    reviewCount,
   });
 
   const breadcrumbSchema = getBreadcrumbSchema([
