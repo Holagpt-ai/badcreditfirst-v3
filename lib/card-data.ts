@@ -25,6 +25,8 @@ export interface CardItem {
   upgradePath: string;
   /** Who this product is bad for, e.g. "People who can't deposit $200". */
   badFor: string;
+  /** Parent category slug for internal linking, e.g. secured-cards, credit-builder, bad-credit. */
+  categorySlug: string;
   /** One-line risk summary (optional). */
   riskSummary?: string;
   /** Who this product is a bad fit for (optional; use badFor for canonical). */
@@ -47,6 +49,7 @@ export const cardData: CardItem[] = [
     feeRisk: 'Annual fee charged immediately.',
     upgradePath: 'Unsecured Platinum after 6 months.',
     badFor: "People who can't deposit $200 or need rewards.",
+    categorySlug: 'secured-cards',
     riskSummary: 'Annual fee is charged upfront; missing a payment can hurt your new credit file.',
     whoThisIsBadFor: 'Not for people who need a high credit limit or rewards.',
   },
@@ -65,6 +68,7 @@ export const cardData: CardItem[] = [
     feeRisk: 'Annual fee charged in first year; factor into budget.',
     upgradePath: 'Unsecured cards after 12 months of on-time payments.',
     badFor: 'People who can qualify for a no-annual-fee secured card elsewhere.',
+    categorySlug: 'secured-cards',
     riskSummary: 'High fee risk in year one; the $49 annual fee is non-refundable.',
     whoThisIsBadFor: 'Not for people who can qualify for a no-annual-fee secured card elsewhere.',
   },
@@ -83,6 +87,7 @@ export const cardData: CardItem[] = [
     feeRisk: 'Monthly plans start at $25; confirm total cost before committing.',
     upgradePath: 'Secured card after completing the term.',
     badFor: 'People who need cash now or already have several positive tradelines.',
+    categorySlug: 'credit-builder',
     riskSummary: 'You do not get the money until the term ends; not suitable if you need cash now.',
     whoThisIsBadFor: 'Not for people who already have several positive tradelines and want revolving credit.',
   },
@@ -101,6 +106,7 @@ export const cardData: CardItem[] = [
     feeRisk: 'Check current fee schedule on issuer site before applying.',
     upgradePath: 'Compare other unsecured options after improving score.',
     badFor: 'People with no credit history or very low scores.',
+    categorySlug: 'bad-credit',
     riskSummary: 'Unsecured cards for fair credit can have variable rates and fees; check the offer.',
     whoThisIsBadFor: 'Not for people with no credit history or very low scores.',
   },
@@ -119,6 +125,7 @@ export const cardData: CardItem[] = [
     feeRisk: 'Fees vary by applicant; review your offer carefully before accepting.',
     upgradePath: 'Cards with clearer fee structures after building history.',
     badFor: 'People who want a single, transparent annual fee.',
+    categorySlug: 'bad-credit',
     riskSummary: 'Fees vary by applicant; your offer may differ from marketing.',
     whoThisIsBadFor: 'Not for people who want a single, transparent annual fee.',
   },
