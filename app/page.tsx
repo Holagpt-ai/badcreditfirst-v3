@@ -1,48 +1,6 @@
 import DetailedCardRow from '../components/DetailedCardRow';
 import FunnelSelector from '../components/FunnelSelector';
-
-const cardData = [
-  {
-    title: 'OpenSky® Secured Visa® Credit Card',
-    label: 'Best for No Credit Check',
-    highlights: ['No credit check to apply', 'Refundable deposit starts at $200', 'Reports to all 3 credit bureaus'],
-    fees: '$35 Annual Fee',
-    creditScore: 'No Credit Check',
-    slug: 'opensky-secured-visa',
-  },
-  {
-    title: 'First Progress Platinum Prestige Mastercard®',
-    label: 'Best for Credit Rebuilding',
-    highlights: ['Reports to all 3 bureaus', 'No credit history required', '24/7 Online Account Access'],
-    fees: '$49 Annual Fee',
-    creditScore: 'Poor to Fair',
-    slug: 'first-progress-platinum',
-  },
-  {
-    title: 'Self - Credit Builder Account',
-    label: 'Best Alternative to a Credit Card',
-    highlights: ['No hard pull on your credit', 'Build credit while you save', 'Plans start at $25/mo'],
-    fees: '$25/mo',
-    creditScore: 'Building',
-    slug: 'self-credit-builder',
-  },
-  {
-    title: 'Mission Lane Visa® Credit Card',
-    label: 'Coming Soon',
-    highlights: ['Unsecured option', 'No security deposit', 'Clear fee structure'],
-    fees: '—',
-    creditScore: '—',
-    slug: 'mission-lane',
-  },
-  {
-    title: 'Credit One Bank® Platinum Visa®',
-    label: 'Coming Soon',
-    highlights: ['Cash back rewards', 'Regular account reviews', 'Free credit score access'],
-    fees: '—',
-    creditScore: '—',
-    slug: 'credit-one-platinum',
-  },
-];
+import { cardData } from '../lib/card-data';
 
 function MethodologySection() {
   return (
@@ -86,6 +44,7 @@ export default function Home() {
                 fees={card.fees}
                 creditScore={card.creditScore}
                 slug={card.slug}
+                reviewUrl={card.reviewUrl}
               />
             ))}
           </div>

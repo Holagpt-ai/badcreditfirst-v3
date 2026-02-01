@@ -1,9 +1,19 @@
 import React from 'react';
 import { Star, Check, CreditCard, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
-interface DetailedCardRowProps { title: string; label: string; highlights: string[]; fees: string; creditScore: string; slug: string; affiliateLink?: string; }
+interface DetailedCardRowProps {
+  title: string;
+  label: string;
+  highlights: string[];
+  fees: string;
+  creditScore: string;
+  slug: string;
+  /** Path to the single-card review page, e.g. /credit-cards/review/opensky-secured-visa */
+  reviewUrl: string;
+  affiliateLink?: string;
+}
 
-export default function DetailedCardRow({ title, label, highlights, fees, creditScore, slug, affiliateLink = '#' }: DetailedCardRowProps) {
+export default function DetailedCardRow({ title, label, highlights, fees, creditScore, slug, reviewUrl, affiliateLink = '#' }: DetailedCardRowProps) {
   return (
 
   <div className="flex flex-col md:flex-row">
@@ -21,7 +31,7 @@ export default function DetailedCardRow({ title, label, highlights, fees, credit
         <div>
           <div className="flex items-start justify-between mb-2">
             <h3 className="text-lg font-bold text-slate-900 leading-tight hover:text-blue-600 transition-colors">
-              <Link href={`/reviews/${slug}`}>
+              <Link href={reviewUrl}>
                 {title}
               </Link>
             </h3>
@@ -58,14 +68,14 @@ export default function DetailedCardRow({ title, label, highlights, fees, credit
     {/* RIGHT: Action Area */}
     <div className="w-full md:w-[280px] p-6 bg-slate-50 flex flex-col justify-center border-t md:border-t-0 md:border-l border-slate-100">
         <Link
-          href={`/credit-cards/${slug}`}
+          href={reviewUrl}
           className="w-full py-4 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-lg shadow-sm hover:shadow-md transition-all text-center flex items-center justify-center group"
         >
           View Offer Details
           <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
         </Link>
         <Link
-          href={`/credit-cards/${slug}`}
+          href={reviewUrl}
           className="mt-3 text-center text-blue-600 text-sm hover:underline block"
         >
           View Full Review →

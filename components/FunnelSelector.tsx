@@ -4,22 +4,22 @@ import { ArrowRight } from 'lucide-react';
 const options = [
   {
     label: 'I have NO credit history',
-    href: '/credit-cards/credit-builder',
+    href: '/credit-cards/category/credit-builder',
     description: 'Credit builder accounts & first-time options',
   },
   {
     label: 'I have Bad credit (Collection/Late Payments)',
-    href: '/credit-cards/bad-credit',
+    href: '/credit-cards/category/bad-credit',
     description: 'Cards and products for rebuilding',
   },
   {
     label: 'I want to avoid a credit check',
-    href: '/credit-cards/secured-cards',
+    href: '/credit-cards/category/secured-cards',
     description: 'No credit check secured cards',
   },
   {
     label: 'I am rebuilding after Bankruptcy',
-    href: '/credit-cards/secured-cards',
+    href: '/credit-cards/category/secured-cards',
     description: 'Secured cards that report to bureaus',
   },
 ];

@@ -14,11 +14,11 @@ export default function SiteMapPage() {
             <div>
               <h2 className="text-lg font-bold text-slate-900 mb-4">Credit Cards By Category</h2>
               <ul className="space-y-2">
-                <li><Link href="/credit-cards" className="text-blue-600 hover:underline text-sm block">Secured Credit Cards</Link></li>
-                <li><Link href="/credit-cards" className="text-blue-600 hover:underline text-sm block">Unsecured Cards for Bad Credit</Link></li>
-                <li><Link href="/credit-cards" className="text-blue-600 hover:underline text-sm block">Credit Builder Accounts</Link></li>
-                <li><Link href="/credit-cards" className="text-blue-600 hover:underline text-sm block">No Credit Check Cards</Link></li>
-                <li><Link href="/credit-cards" className="text-blue-600 hover:underline text-sm block">Cards for Rebuilding Credit</Link></li>
+                <li><Link href="/credit-cards/category/secured-cards" className="text-blue-600 hover:underline text-sm block">Secured Credit Cards</Link></li>
+                <li><Link href="/credit-cards/category/bad-credit" className="text-blue-600 hover:underline text-sm block">Unsecured Cards for Bad Credit</Link></li>
+                <li><Link href="/credit-cards/category/credit-builder" className="text-blue-600 hover:underline text-sm block">Credit Builder Accounts</Link></li>
+                <li><Link href="/credit-cards/category/secured-cards" className="text-blue-600 hover:underline text-sm block">No Credit Check Cards</Link></li>
+                <li><Link href="/credit-cards/category/bad-credit" className="text-blue-600 hover:underline text-sm block">Cards for Rebuilding Credit</Link></li>
               </ul>
             </div>
 
@@ -26,11 +26,11 @@ export default function SiteMapPage() {
             <div>
               <h2 className="text-lg font-bold text-slate-900 mb-4">Credit Cards by Issuer</h2>
               <ul className="space-y-2">
-                <li><Link href="/credit-cards/opensky-secured-visa" className="text-blue-600 hover:underline text-sm block">OpenSky®</Link></li>
-                <li><Link href="/credit-cards/first-progress-platinum" className="text-blue-600 hover:underline text-sm block">First Progress</Link></li>
-                <li><Link href="/credit-cards/self-credit-builder" className="text-blue-600 hover:underline text-sm block">Self Financial</Link></li>
-                <li><Link href="/credit-cards" className="text-blue-600 hover:underline text-sm block">Mission Lane</Link></li>
-                <li><Link href="/credit-cards" className="text-blue-600 hover:underline text-sm block">Credit One Bank®</Link></li>
+                <li><Link href="/credit-cards/review/opensky-secured-visa" className="text-blue-600 hover:underline text-sm block">OpenSky®</Link></li>
+                <li><Link href="/credit-cards/review/first-progress-platinum" className="text-blue-600 hover:underline text-sm block">First Progress</Link></li>
+                <li><Link href="/credit-cards/review/self-credit-builder" className="text-blue-600 hover:underline text-sm block">Self Financial</Link></li>
+                <li><Link href="/credit-cards/review/mission-lane" className="text-blue-600 hover:underline text-sm block">Mission Lane</Link></li>
+                <li><Link href="/credit-cards/review/credit-one-platinum" className="text-blue-600 hover:underline text-sm block">Credit One Bank®</Link></li>
               </ul>
 
               <h2 className="text-lg font-bold text-slate-900 mb-4 mt-8">Credit Cards by Credit Quality</h2>
