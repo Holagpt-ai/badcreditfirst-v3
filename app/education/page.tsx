@@ -1,5 +1,12 @@
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import { BarChart3, AlertTriangle, FileText, TrendingUp } from 'lucide-react';
+
+export const metadata: Metadata = {
+  title: 'Credit Education Center | BadCreditFirst',
+  description:
+    'Expert guides on credit scores, FICO vs VantageScore, secured cards, and credit-building. Learn before you apply.',
+};
 
 export default function EducationPage() {
   return (

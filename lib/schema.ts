@@ -1,6 +1,9 @@
 /**
  * Schema.org JSON-LD helpers for technical SEO.
  * Use with <script type="application/ld+json"> dangerouslySetInnerHTML.
+ *
+ * Exports: Organization, WebSite (layout); CollectionPage + FAQ (category);
+ * Product + Review + Breadcrumb (review); Article + Person (education); Person (author).
  */
 
 const SITE_URL = 'https://www.badcreditfirst.com';

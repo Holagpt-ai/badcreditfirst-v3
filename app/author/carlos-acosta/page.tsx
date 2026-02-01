@@ -1,5 +1,8 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import { getPersonSchema } from '@/lib/schema';
+
+const SITE_URL = 'https://www.badcreditfirst.com';
 
 const AUTHOR_ARTICLES = [
   { slug: 'what-is-a-good-credit-score', title: 'What Is a Good Credit Score?' },
@@ -16,8 +19,20 @@ export const metadata: Metadata = {
 };
 
 export default function AuthorCarlosAcostaPage() {
+  const personSchema = getPersonSchema({
+    siteUrl: SITE_URL,
+    name: 'Carlos Acosta',
+    url: `${SITE_URL}/author/carlos-acosta`,
+    description:
+      'Fintech Entrepreneur & Credit Researcher. Founder of BadCreditFirst. Focus on credit education and product comparison for consumers with bad or limited credit.',
+  });
+
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }}
+      />
       <main className="max-w-4xl mx-auto px-6 py-12">
         <div className="bg-white border border-slate-200 rounded-xl shadow-sm p-8">
           <h1 className="text-3xl font-bold tracking-tight text-slate-900 mb-2">

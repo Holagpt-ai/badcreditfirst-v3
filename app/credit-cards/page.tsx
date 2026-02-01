@@ -1,4 +1,11 @@
+import type { Metadata } from 'next';
 import Link from 'next/link';
+
+export const metadata: Metadata = {
+  title: 'Credit Card Reviews & Comparisons (2026) | BadCreditFirst',
+  description:
+    'Compare secured credit cards and credit-building products for bad or limited credit. Independent reviews, fees, and approval tips.',
+};
 
 export default function CreditCardsIndexPage() {
   return (

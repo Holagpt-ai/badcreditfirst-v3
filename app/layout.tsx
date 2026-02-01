@@ -3,7 +3,7 @@ import { Inter } from "next/font/google";
 import Script from "next/script";
 import Link from "next/link";
 import { ShieldCheck } from "lucide-react";
-import { getOrganizationSchema, getWebSiteSchema } from "./lib/schema";
+import { getOrganizationSchema, getWebSiteSchema } from "@/lib/schema";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
