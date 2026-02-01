@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { Star, CreditCard } from 'lucide-react';
 import DetailedCardRow from '../../../components/DetailedCardRow';
 
-// Full card list for comparison rows (title, label, highlights, fees, creditScore, slug)
+// Full card list for comparison rows (title, label, highlights, fees, creditScore, slug, + review narrative fields)
 const cardData = [
   {
     title: 'OpenSky® Secured Visa® Credit Card',
@@ -11,6 +11,10 @@ const cardData = [
     fees: '$35 Annual Fee',
     creditScore: 'No Credit Check',
     slug: 'opensky-secured-visa',
+    approvalOdds: 'Fair/Poor (580+)',
+    realWorldUseCase: 'Best for someone renting who needs to show payment history.',
+    feeRisk: 'Watch out for the $35 annual fee; it is charged immediately.',
+    upgradePath: 'After 6 months, consider applying for Capital One Platinum.',
   },
   {
     title: 'First Progress Platinum Prestige Mastercard®',
@@ -19,6 +23,10 @@ const cardData = [
     fees: '$49 Annual Fee',
     creditScore: 'Poor to Fair',
     slug: 'first-progress-platinum',
+    approvalOdds: 'Poor/No Credit (500+)',
+    realWorldUseCase: 'Best for someone with thin or damaged credit who can afford the annual fee and deposit.',
+    feeRisk: 'The $49 annual fee is charged in the first year; factor it into your budget.',
+    upgradePath: 'After 12 months of on-time payments, explore unsecured cards that report to all three bureaus.',
   },
   {
     title: 'Self - Credit Builder Account',
@@ -27,6 +35,10 @@ const cardData = [
     fees: '$25/mo',
     creditScore: 'Building',
     slug: 'self-credit-builder',
+    approvalOdds: 'High (no credit check)',
+    realWorldUseCase: 'Best for someone who does not want a credit card but needs a positive tradeline.',
+    feeRisk: 'Monthly plans start at $25; confirm the total cost before committing.',
+    upgradePath: 'After completing the term, consider a secured card to add revolving credit to your mix.',
   },
   {
     title: 'Mission Lane Visa® Credit Card',
@@ -35,6 +47,10 @@ const cardData = [
     fees: '—',
     creditScore: '—',
     slug: 'mission-lane',
+    approvalOdds: 'Fair (600+)',
+    realWorldUseCase: 'Best for someone with fair credit who wants an unsecured option without a deposit.',
+    feeRisk: 'Check the current fee schedule on the issuer site before applying.',
+    upgradePath: 'Use on-time payments to improve your score, then compare other unsecured options.',
   },
   {
     title: 'Credit One Bank® Platinum Visa®',
@@ -43,10 +59,14 @@ const cardData = [
     fees: '—',
     creditScore: '—',
     slug: 'credit-one-platinum',
+    approvalOdds: 'Fair/Poor (580+)',
+    realWorldUseCase: 'Best for someone with limited credit who wants a chance at rewards and account reviews.',
+    feeRisk: 'Fees vary by applicant; review your offer carefully before accepting.',
+    upgradePath: 'After building history, consider cards with clearer fee structures and higher rewards.',
   },
 ];
 
-// Slug -> name & URL for review page
+// Slug -> name & URL for review page (review UI also uses narrative fields from cardData by slug)
 const cardDataReview: Record<string, { name: string; url: string }> = {
   'opensky-secured-visa': { name: 'OpenSky® Secured Visa® Credit Card', url: 'https://openskycc.com' },
   'first-progress-platinum': { name: 'First Progress Platinum Prestige Mastercard®', url: 'https://firstprogress.com' },
@@ -208,6 +228,12 @@ export default function CreditCardSlugPage({
 
   // Card review: single review layout
   if (card) {
+    const reviewCard = cardData.find((c) => c.slug === slug);
+    const approvalOdds = reviewCard?.approvalOdds;
+    const realWorldUseCase = reviewCard?.realWorldUseCase;
+    const feeRisk = reviewCard?.feeRisk;
+    const upgradePath = reviewCard?.upgradePath;
+
     return (
       <div className="min-h-screen bg-slate-50 text-slate-900">
         <main className="max-w-4xl mx-auto px-6 py-12">
@@ -231,14 +257,50 @@ export default function CreditCardSlugPage({
               <Star className="w-5 h-5 fill-yellow-400 text-yellow-400 opacity-50" />
               <span className="text-sm text-slate-500 ml-2 font-medium">4.5/5</span>
             </div>
-            <div className="px-8 py-6">
+
+            {/* Verdict */}
+            {(approvalOdds ?? realWorldUseCase) && (
+              <div className="px-8 py-6 border-t border-slate-100">
+                <h2 className="text-lg font-bold text-slate-900 mb-4">Verdict</h2>
+                <div className="space-y-2 text-slate-600">
+                  {approvalOdds && (
+                    <p><strong className="text-slate-800">Approval odds:</strong> {approvalOdds}</p>
+                  )}
+                  {realWorldUseCase && (
+                    <p><strong className="text-slate-800">Real-world use:</strong> {realWorldUseCase}</p>
+                  )}
+                </div>
+              </div>
+            )}
+
+            {/* Fee Reality Check */}
+            {feeRisk && (
+              <div className="px-8 py-6 border-t border-slate-100">
+                <h2 className="text-lg font-bold text-slate-900 mb-4">Fee Reality Check</h2>
+                <div className="bg-amber-50 border border-amber-200 rounded-lg p-4 text-amber-900">
+                  <p className="text-sm font-semibold mb-1">⚠ Watch out</p>
+                  <p className="text-slate-700 leading-relaxed">{feeRisk}</p>
+                </div>
+              </div>
+            )}
+
+            <div className="px-8 py-6 border-t border-slate-100">
               <h2 className="text-lg font-bold text-slate-900 mb-4">Pros & Cons</h2>
               <div className="space-y-3 text-slate-600">
                 <p>Good for building credit. Reports to all bureaus. Designed for limited or no credit history.</p>
                 <p>Consider fees and deposit requirements before applying. Terms and conditions apply.</p>
               </div>
             </div>
-            <div className="px-8 pb-8">
+
+            {/* Rebuilding Strategy */}
+            {upgradePath && (
+              <div className="px-8 py-6 border-t border-slate-100">
+                <h2 className="text-lg font-bold text-slate-900 mb-4">Rebuilding Strategy</h2>
+                <p className="text-slate-600 leading-relaxed">{upgradePath}</p>
+              </div>
+            )}
+
+            <div className="px-8 pb-8 border-t border-slate-100">
               <a
                 href={card.url}
                 target="_blank"
