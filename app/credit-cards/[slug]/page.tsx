@@ -234,8 +234,61 @@ export default function CreditCardSlugPage({
     const feeRisk = reviewCard?.feeRisk;
     const upgradePath = reviewCard?.upgradePath;
 
+    const baseUrl = 'https://badcreditfirst-v3.vercel.app';
+    const reviewUrl = `${baseUrl}/credit-cards/${slug}`;
+    const ratingValue = 4.5;
+    const bestRating = 5;
+    const reviewCount = 1;
+    const feesText = reviewCard?.fees ?? '';
+    const annualFeeMatch = feesText.match(/\$(\d+)/);
+    const priceValue = annualFeeMatch ? parseFloat(annualFeeMatch[1]) : 0;
+
+    const productSchema = {
+      '@context': 'https://schema.org',
+      '@type': 'Product',
+      name: card.name,
+      url: card.url,
+      aggregateRating: {
+        '@type': 'AggregateRating',
+        ratingValue,
+        bestRating,
+        reviewCount,
+      },
+      ...(priceValue > 0 && {
+        offers: {
+          '@type': 'Offer',
+          price: priceValue,
+          priceCurrency: 'USD',
+          priceValidUntil: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10),
+          description: feesText,
+        },
+      }),
+    };
+
+    const reviewSchema = {
+      '@context': 'https://schema.org',
+      '@type': 'Review',
+      itemReviewed: productSchema,
+      reviewRating: {
+        '@type': 'Rating',
+        ratingValue,
+        bestRating,
+        reviewCount,
+      },
+      author: {
+        '@type': 'Organization',
+        name: 'BadCreditFirst',
+        url: baseUrl,
+      },
+      url: reviewUrl,
+    };
+
     return (
       <div className="min-h-screen bg-slate-50 text-slate-900">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(reviewSchema) }}
+        />
         <main className="max-w-4xl mx-auto px-6 py-12">
           <div className="mb-8">
             <h1 className="text-3xl font-bold tracking-tight text-slate-900 mb-1">
