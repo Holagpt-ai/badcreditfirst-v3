@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import { notFound } from 'next/navigation';
 import { Star, CreditCard } from 'lucide-react';
 import { getCardBySlug, getAffiliateLink } from '../../../../lib/card-data';
 import { categories } from '../../../../lib/categories';
@@ -30,7 +31,7 @@ export default function CreditCardReviewPage({
   const card = getCardBySlug(slug);
 
   if (!card) {
-    return <div>Page Not Found</div>;
+    notFound();
   }
 
   const { approvalOdds, realWorldUseCase, feeRisk, upgradePath, title, fees, badFor, categorySlug } = card;
@@ -52,7 +53,6 @@ export default function CreditCardReviewPage({
     url: card.issuerUrl,
     ratingValue,
     bestRating,
-    reviewCount,
     ...(priceValue > 0 && {
       price: priceValue,
       priceCurrency: 'USD',
@@ -85,12 +85,34 @@ export default function CreditCardReviewPage({
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
       <main className="max-w-4xl mx-auto px-6 py-12">
-        <div className="mb-8">
+        <div className="mb-6">
           <h1 className="text-3xl font-bold tracking-tight text-slate-900 mb-1">
             {title}
           </h1>
           <p className="text-slate-500 font-medium">Review & Details</p>
         </div>
+
+        {/* BadCreditFirst Verdict — at top, prominent (approvalOdds + realWorldUseCase) */}
+        <div className="mb-6 p-6 bg-blue-50 border border-blue-200 rounded-xl">
+          <h2 className="text-lg font-bold text-slate-900 mb-4">
+            BadCreditFirst Verdict
+          </h2>
+          <div className="space-y-3 text-slate-700">
+            {approvalOdds && (
+              <p>
+                <strong className="text-slate-900">Approval odds:</strong>{' '}
+                {approvalOdds}
+              </p>
+            )}
+            {realWorldUseCase && (
+              <p>
+                <strong className="text-slate-900">Real-world use:</strong>{' '}
+                {realWorldUseCase}
+              </p>
+            )}
+          </div>
+        </div>
+
         <div className="bg-white border border-slate-200 rounded-xl shadow-sm overflow-hidden">
           {/* Card image placeholder */}
           <div className="p-8 flex justify-center border-b border-slate-100 bg-slate-50">
@@ -109,28 +131,7 @@ export default function CreditCardReviewPage({
             <span className="text-sm text-slate-500 ml-2 font-medium">4.5/5</span>
           </div>
 
-          {/* BadCreditFirst Verdict — at top, prominent */}
-          <div className="mx-8 mt-6 p-6 bg-blue-50 border border-blue-200 rounded-xl">
-            <h2 className="text-lg font-bold text-slate-900 mb-4">
-              BadCreditFirst Verdict
-            </h2>
-            <div className="space-y-3 text-slate-700">
-              {approvalOdds && (
-                <p>
-                  <strong className="text-slate-900">Approval odds:</strong>{' '}
-                  {approvalOdds}
-                </p>
-              )}
-              {realWorldUseCase && (
-                <p>
-                  <strong className="text-slate-900">Real-world use:</strong>{' '}
-                  {realWorldUseCase}
-                </p>
-              )}
-            </div>
-          </div>
-
-          {/* Risks & Downsides — feeRisk + badFor */}
+          {/* Risks & Downsides — feeRisk + badFor (honest analysis) */}
           {(feeRisk ?? badFor) && (
             <div className="px-8 py-6 border-t border-slate-100">
               <h2 className="text-lg font-bold text-slate-900 mb-4">
@@ -184,13 +185,10 @@ export default function CreditCardReviewPage({
               BadCreditFirst may receive compensation if you apply through links on this page.
             </p>
 
-            {/* Internal linking: back to parent category + education */}
+            {/* Internal linking: parent category (every review) + 1 contextual education link */}
             <div className="mt-6 pt-6 border-t border-slate-200 flex flex-wrap gap-4 justify-center text-sm">
               <Link href={categoryHref} className="text-blue-600 hover:underline font-medium">
                 ← Back to {categoryTitle}
-              </Link>
-              <Link href="/credit-cards" className="text-blue-600 hover:underline font-medium">
-                All Credit Cards
               </Link>
               <Link href={EDUCATION_LINK.href} className="text-blue-600 hover:underline font-medium">
                 Read: {EDUCATION_LINK.label}
