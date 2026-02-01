@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { Star, CreditCard } from 'lucide-react';
 import { getCardBySlug, getAffiliateLink } from '../../../../lib/card-data';
 import { categories } from '../../../../lib/categories';
+import { getProductSchema, getReviewSchema, getBreadcrumbSchema } from '../../../../lib/schema';
 
 const baseUrl = 'https://www.badcreditfirst.com';
 
@@ -41,60 +42,39 @@ export default function CreditCardReviewPage({
   const feesText = fees ?? '';
   const annualFeeMatch = feesText.match(/\$(\d+)/);
   const priceValue = annualFeeMatch ? parseFloat(annualFeeMatch[1]) : 0;
+  const priceValidUntil = new Date(Date.now() + 365 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10);
 
   const parentCategory = categorySlug ? categories[categorySlug] : null;
   const categoryTitle = parentCategory?.title ?? 'Credit Cards';
   const categoryHref = parentCategory ? `/credit-cards/category/${categorySlug}` : '/credit-cards';
 
-  const productSchema = {
-    '@context': 'https://schema.org',
-    '@type': 'Product',
+  const productSchema = getProductSchema({
     name: title,
     url: card.issuerUrl,
-    aggregateRating: {
-      '@type': 'AggregateRating',
-      ratingValue,
-      bestRating,
-      reviewCount,
-    },
+    ratingValue,
+    bestRating,
+    reviewCount,
     ...(priceValue > 0 && {
-      offers: {
-        '@type': 'Offer',
-        price: priceValue,
-        priceCurrency: 'USD',
-        priceValidUntil: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10),
-        description: feesText,
-      },
+      price: priceValue,
+      priceCurrency: 'USD',
+      priceValidUntil,
+      description: feesText,
     }),
-  };
+  });
 
-  const reviewSchema = {
-    '@context': 'https://schema.org',
-    '@type': 'Review',
-    itemReviewed: productSchema,
-    reviewRating: {
-      '@type': 'Rating',
-      ratingValue,
-      bestRating,
-      reviewCount,
-    },
-    author: {
-      '@type': 'Organization',
-      name: 'BadCreditFirst',
-      url: baseUrl,
-    },
-    url: reviewUrl,
-  };
+  const reviewSchema = getReviewSchema({
+    productSchema,
+    reviewUrl,
+    ratingValue,
+    bestRating,
+    reviewCount,
+  });
 
-  const breadcrumbSchema = {
-    '@context': 'https://schema.org',
-    '@type': 'BreadcrumbList',
-    itemListElement: [
-      { '@type': 'ListItem', position: 1, name: 'Home', item: baseUrl },
-      { '@type': 'ListItem', position: 2, name: 'Credit Cards', item: `${baseUrl}/credit-cards` },
-      { '@type': 'ListItem', position: 3, name: title, item: reviewUrl },
-    ],
-  };
+  const breadcrumbSchema = getBreadcrumbSchema([
+    { name: 'Home', url: '/' },
+    { name: 'Credit Cards', url: '/credit-cards' },
+    { name: title, url: card.reviewUrl },
+  ]);
 
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900">

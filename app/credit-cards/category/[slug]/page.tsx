@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import DetailedCardRow from '../../../../components/DetailedCardRow';
 import { cardData } from '../../../../lib/card-data';
 import { categories, categoryContent } from '../../../../lib/categories';
+import { getCollectionPageSchema, getFAQSchema } from '../../../../lib/schema';
 
 const TRUST_SIGNAL_DATE = 'Updated Feb 2026';
 
@@ -30,22 +31,23 @@ export default function CreditCardCategoryPage({
   }
 
   const filteredCards = cardData.filter((c) => category.filter(c.title));
+  const categoryUrl = `/credit-cards/category/${slug}`;
+  const itemUrls = filteredCards.map((c) => c.reviewUrl);
 
-  const faqSchema =
-    content?.faq?.length ?
-      {
-        '@context': 'https://schema.org',
-        '@type': 'FAQPage',
-        mainEntity: content.faq.map((item) => ({
-          '@type': 'Question' as const,
-          name: item.q,
-          acceptedAnswer: { '@type': 'Answer' as const, text: item.a },
-        })),
-      }
-    : null;
+  const collectionSchema = getCollectionPageSchema({
+    name: category.title,
+    url: categoryUrl,
+    description: content?.quickAnswer,
+    itemUrls,
+  });
+  const faqSchema = content?.faq?.length ? getFAQSchema(content.faq) : null;
 
   return (
     <div className="min-h-screen bg-white text-slate-900">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionSchema) }}
+      />
       {faqSchema && (
         <script
           type="application/ld+json"

@@ -1,6 +1,8 @@
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import type { ReactNode } from 'react';
+import { getArticleSchema, getPersonSchema } from '../../../lib/schema';
 
 const articleContent: Record<string, { title: string; quickAnswer?: string; body: ReactNode }> = {
   'what-is-a-good-credit-score': {
@@ -427,6 +429,22 @@ const articleContent: Record<string, { title: string; quickAnswer?: string; body
   },
 };
 
+const AUTHOR_NAME = 'Carlos Acosta';
+const AUTHOR_URL = '/author/carlos-acosta';
+const DATE_PUBLISHED = '2026-01-15';
+const DATE_MODIFIED = '2026-02-01';
+
+type Props = { params: { slug: string } };
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const article = articleContent[params.slug];
+  if (!article) return { title: 'Article Not Found' };
+  return {
+    title: `${article.title} | BadCreditFirst`,
+    description: article.quickAnswer ?? `Learn about ${article.title} and credit-building strategies.`,
+  };
+}
+
 export default function EducationArticlePage({
   params,
 }: {
@@ -439,8 +457,32 @@ export default function EducationArticlePage({
     notFound();
   }
 
+  const articleUrl = `/education/${slug}`;
+  const articleSchema = getArticleSchema({
+    title: article.title,
+    url: articleUrl,
+    description: article.quickAnswer,
+    authorName: AUTHOR_NAME,
+    authorUrl: AUTHOR_URL,
+    datePublished: DATE_PUBLISHED,
+    dateModified: DATE_MODIFIED,
+  });
+  const authorSchema = getPersonSchema({
+    name: AUTHOR_NAME,
+    url: AUTHOR_URL,
+    description: 'Fintech Entrepreneur & Credit Researcher. Founder of BadCreditFirst.',
+  });
+
   return (
     <div className="min-h-screen bg-white text-slate-900">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(authorSchema) }}
+      />
       <article className="max-w-3xl mx-auto px-6 py-12 prose prose-slate">
         {/* Hero */}
         <header className="mb-8">

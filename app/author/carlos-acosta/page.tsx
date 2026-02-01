@@ -1,6 +1,16 @@
+import type { Metadata } from 'next';
 import Link from 'next/link';
 
-export const metadata = {
+const AUTHOR_ARTICLES = [
+  { slug: 'what-is-a-good-credit-score', title: 'What Is a Good Credit Score?' },
+  { slug: 'how-is-my-score-calculated', title: 'How Is My Score Calculated?' },
+  { slug: 'what-is-a-bad-credit-score', title: 'What Is a Bad Credit Score?' },
+  { slug: 'fico-vs-vantagescore', title: 'FICO® vs. VantageScore' },
+  { slug: 'secured-vs-unsecured', title: 'Secured vs. Unsecured Credit Cards' },
+  { slug: 'credit-builder-loans', title: 'Credit Builder Loans Explained' },
+] as const;
+
+export const metadata: Metadata = {
   title: 'Carlos Acosta | Author & Founder',
   description: 'Fintech Entrepreneur & Credit Researcher. Founder of BadCreditFirst. Learn how we review credit cards and our methodology.',
 };
@@ -16,6 +26,15 @@ export default function AuthorCarlosAcostaPage() {
           <p className="text-lg font-medium text-blue-600 mb-6">
             Fintech Entrepreneur & Credit Researcher
           </p>
+
+          <section className="mb-8">
+            <h2 className="text-xl font-bold text-slate-900 mb-3">Credentials</h2>
+            <ul className="list-disc list-inside text-slate-600 space-y-1 mb-4">
+              <li>Founder, BadCreditFirst</li>
+              <li>Credit researcher and product comparison specialist</li>
+              <li>Focus: fee transparency, bureau reporting, approval accessibility</li>
+            </ul>
+          </section>
 
           <section className="mb-8">
             <h2 className="text-xl font-bold text-slate-900 mb-3">Bio</h2>
@@ -49,6 +68,23 @@ export default function AuthorCarlosAcostaPage() {
             <p className="text-slate-600 leading-relaxed mt-4">
             We do not rank cards by compensation. Our reviews and rankings are based on the criteria above. For more detail, see our <Link href="/how-we-rank-cards" className="text-blue-600 hover:underline">How We Rank Cards</Link> page.
             </p>
+          </section>
+
+          <section className="mb-8">
+            <h2 className="text-xl font-bold text-slate-900 mb-3">Articles</h2>
+            <p className="text-slate-600 mb-4">Credit education articles on BadCreditFirst:</p>
+            <ul className="space-y-2">
+              {AUTHOR_ARTICLES.map((a) => (
+                <li key={a.slug}>
+                  <Link href={`/education/${a.slug}`} className="text-blue-600 hover:underline text-sm font-medium">
+                    {a.title}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+            <Link href="/education" className="inline-block mt-3 text-blue-600 hover:underline text-sm font-medium">
+              View all Education Center articles →
+            </Link>
           </section>
 
           <div className="border-t border-slate-200 pt-6 flex flex-wrap gap-4">

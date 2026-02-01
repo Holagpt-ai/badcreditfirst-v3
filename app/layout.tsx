@@ -3,38 +3,14 @@ import { Inter } from "next/font/google";
 import Script from "next/script";
 import Link from "next/link";
 import { ShieldCheck } from "lucide-react";
+import { getOrganizationSchema, getWebSiteSchema } from "./lib/schema";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
 
 const SITE_URL = "https://www.badcreditfirst.com";
-
-const organizationSchema = {
-  "@context": "https://schema.org",
-  "@type": "Organization",
-  name: "BadCreditFirst",
-  url: SITE_URL,
-  logo: `${SITE_URL}/logo.png`,
-  address: {
-    "@type": "PostalAddress",
-    streetAddress: "1631 Del Prado Blvd S #1124",
-    addressLocality: "Cape Coral",
-    addressRegion: "FL",
-    postalCode: "33990",
-    addressCountry: "US",
-  },
-};
-
-const websiteSchema = {
-  "@context": "https://schema.org",
-  "@type": "WebSite",
-  name: "BadCreditFirst",
-  url: SITE_URL,
-  publisher: { "@id": `${SITE_URL}/#organization` },
-};
-
-// Give Organization an @id so WebSite can reference it
-const organizationWithId = { ...organizationSchema, "@id": `${SITE_URL}/#organization` };
+const organizationSchema = getOrganizationSchema(SITE_URL);
+const websiteSchema = getWebSiteSchema(SITE_URL);
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.badcreditfirst.com"),
@@ -53,7 +29,7 @@ export default function RootLayout({
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify(organizationWithId),
+            __html: JSON.stringify(organizationSchema),
           }}
         />
         <script
