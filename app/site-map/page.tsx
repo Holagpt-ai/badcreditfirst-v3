@@ -41,17 +41,46 @@ export default function SiteMapPage() {
               </ul>
             </div>
 
-            {/* Column 3: Education & Company */}
+            {/* Column 3: Education Center + Company Info */}
             <div>
-              <h2 className="text-lg font-bold text-slate-900 mb-4">Education & Company</h2>
+              <h2 className="text-lg font-bold text-slate-900 mb-4">4. Education Center</h2>
+              <h3 className="text-sm font-semibold text-slate-700 mt-4 mb-2">Understanding Scores</h3>
               <ul className="space-y-2">
-                <li><Link href="/education" className="text-blue-600 hover:underline text-sm block">Education Center</Link></li>
-                <li><Link href="/education" className="text-blue-600 hover:underline text-sm block">How Credit Scores Work</Link></li>
-                <li><Link href="/how-we-rank-cards" className="text-blue-600 hover:underline text-sm block">How We Rank Cards</Link></li>
+                <li><Link href="/education/what-is-a-good-credit-score" className="text-blue-600 hover:underline text-sm block">What Is a Good Credit Score?</Link></li>
+                <li><Link href="/education/what-is-a-bad-credit-score" className="text-blue-600 hover:underline text-sm block">What Is a Bad Credit Score?</Link></li>
+                <li><Link href="/education/how-is-my-score-calculated" className="text-blue-600 hover:underline text-sm block">How Is My Score Calculated?</Link></li>
+                <li><Link href="/education/fico-vs-vantagescore" className="text-blue-600 hover:underline text-sm block">FICO® vs. VantageScore</Link></li>
+              </ul>
+              <h3 className="text-sm font-semibold text-slate-700 mt-4 mb-2">Negative Items</h3>
+              <ul className="space-y-2">
+                <li><Link href="/education/how-long-do-items-stay" className="text-blue-600 hover:underline text-sm block">How Long Items Stay on Report</Link></li>
+                <li><Link href="/education/removing-collections" className="text-blue-600 hover:underline text-sm block">Removing Collections</Link></li>
+                <li><Link href="/education/hard-inquiries-explained" className="text-blue-600 hover:underline text-sm block">Hard Inquiries Explained</Link></li>
+                <li><Link href="/education/bankruptcy-and-rebuilding" className="text-blue-600 hover:underline text-sm block">Bankruptcy & Rebuilding</Link></li>
+              </ul>
+              <h3 className="text-sm font-semibold text-slate-700 mt-4 mb-2">Reports & Rights</h3>
+              <ul className="space-y-2">
+                <li><Link href="/education/reading-your-credit-report" className="text-blue-600 hover:underline text-sm block">Reading Your Credit Report</Link></li>
+                <li><Link href="/education/how-to-dispute-errors" className="text-blue-600 hover:underline text-sm block">How to Dispute Errors</Link></li>
+                <li><Link href="/education/fair-credit-reporting-act" className="text-blue-600 hover:underline text-sm block">Fair Credit Reporting Act Rights</Link></li>
+                <li><Link href="/education/freezing-your-credit" className="text-blue-600 hover:underline text-sm block">Freezing Your Credit</Link></li>
+              </ul>
+              <h3 className="text-sm font-semibold text-slate-700 mt-4 mb-2">Rebuilding Strategy</h3>
+              <ul className="space-y-2">
+                <li><Link href="/education/secured-vs-unsecured" className="text-blue-600 hover:underline text-sm block">Secured vs. Unsecured Cards</Link></li>
+                <li><Link href="/education/credit-builder-loans" className="text-blue-600 hover:underline text-sm block">Credit Builder Loans</Link></li>
+                <li><Link href="/education/the-30-percent-utilization-rule" className="text-blue-600 hover:underline text-sm block">The 30% Utilization Rule</Link></li>
+                <li><Link href="/education/authorized-user-strategy" className="text-blue-600 hover:underline text-sm block">Authorized User Strategy</Link></li>
+              </ul>
+
+              <h2 className="text-lg font-bold text-slate-900 mb-4 mt-8">5. Company Info</h2>
+              <ul className="space-y-2">
                 <li><Link href="/about" className="text-blue-600 hover:underline text-sm block">About BadCreditFirst</Link></li>
                 <li><Link href="/contact" className="text-blue-600 hover:underline text-sm block">Contact Us</Link></li>
                 <li><Link href="/privacy" className="text-blue-600 hover:underline text-sm block">Privacy Policy</Link></li>
                 <li><Link href="/terms" className="text-blue-600 hover:underline text-sm block">Terms of Use</Link></li>
+                <li><Link href="/advertiser-disclosure" className="text-blue-600 hover:underline text-sm block">Advertiser Disclosure</Link></li>
+                <li><Link href="/editorial-disclaimer" className="text-blue-600 hover:underline text-sm block">Editorial Disclaimer</Link></li>
               </ul>
             </div>
           </div>
