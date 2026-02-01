@@ -22,7 +22,7 @@ export default function Home() {
       <main className="flex-1">
         {/* Segmentation Funnel — multi-step wizard at top (Step 1: situation, Step 2: deposit, Step 3: trust) */}
         <FunnelSelector />
-        {/* Welcome back banner when user has a saved segment from funnel */}
+        {/* Welcome back: client component reads localStorage (bcf_segment from Funnel), links to results */}
         <WelcomeBackBanner />
 
         {/* Hero */}
