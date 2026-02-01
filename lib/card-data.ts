@@ -1,6 +1,6 @@
 /**
  * Centralized credit card data. Import this anywhere you need the card list.
- * Each card has a reviewUrl for the dedicated review page.
+ * Each card has a reviewUrl and applyLink for the dedicated review page and affiliate apply link.
  */
 export interface CardItem {
   title: string;
@@ -13,6 +13,12 @@ export interface CardItem {
   reviewUrl: string;
   /** Issuer application URL (external). */
   issuerUrl: string;
+  /** Affiliate/tracking apply link. Use getAffiliateLink(slug) for future network switching. */
+  applyLink: string;
+  /** One-line risk summary (e.g. "High fee risk if you miss a payment"). */
+  riskSummary?: string;
+  /** Who this product is a bad fit for (e.g. "Not for people who can deposit $500+"). */
+  whoThisIsBadFor?: string;
   approvalOdds?: string;
   realWorldUseCase?: string;
   feeRisk?: string;
@@ -29,6 +35,9 @@ export const cardData: CardItem[] = [
     slug: 'opensky-secured-visa',
     reviewUrl: '/credit-cards/review/opensky-secured-visa',
     issuerUrl: 'https://openskycc.com',
+    applyLink: 'https://openskycc.com',
+    riskSummary: 'Annual fee is charged upfront; missing a payment can hurt your new credit file.',
+    whoThisIsBadFor: 'Not for people who need a high credit limit or rewards.',
     approvalOdds: 'Fair/Poor (580+)',
     realWorldUseCase: 'Best for someone renting who needs to show payment history.',
     feeRisk: 'Watch out for the $35 annual fee; it is charged immediately.',
@@ -43,6 +52,9 @@ export const cardData: CardItem[] = [
     slug: 'first-progress-platinum',
     reviewUrl: '/credit-cards/review/first-progress-platinum',
     issuerUrl: 'https://firstprogress.com',
+    applyLink: 'https://firstprogress.com',
+    riskSummary: 'High fee risk in year one; the $49 annual fee is non-refundable.',
+    whoThisIsBadFor: 'Not for people who can qualify for a no-annual-fee secured card elsewhere.',
     approvalOdds: 'Poor/No Credit (500+)',
     realWorldUseCase: 'Best for someone with thin or damaged credit who can afford the annual fee and deposit.',
     feeRisk: 'The $49 annual fee is charged in the first year; factor it into your budget.',
@@ -57,6 +69,9 @@ export const cardData: CardItem[] = [
     slug: 'self-credit-builder',
     reviewUrl: '/credit-cards/review/self-credit-builder',
     issuerUrl: 'https://www.self.inc',
+    applyLink: 'https://www.self.inc',
+    riskSummary: 'You do not get the money until the term ends; not suitable if you need cash now.',
+    whoThisIsBadFor: 'Not for people who already have several positive tradelines and want revolving credit.',
     approvalOdds: 'High (no credit check)',
     realWorldUseCase: 'Best for someone who does not want a credit card but needs a positive tradeline.',
     feeRisk: 'Monthly plans start at $25; confirm the total cost before committing.',
@@ -66,11 +81,14 @@ export const cardData: CardItem[] = [
     title: 'Mission Lane Visa® Credit Card',
     label: 'Coming Soon',
     highlights: ['Unsecured option', 'No security deposit', 'Clear fee structure'],
-    fees: '—',
-    creditScore: '—',
+    fees: '-',
+    creditScore: '-',
     slug: 'mission-lane',
     reviewUrl: '/credit-cards/review/mission-lane',
     issuerUrl: 'https://www.missionlane.com',
+    applyLink: 'https://www.missionlane.com',
+    riskSummary: 'Unsecured cards for fair credit can have variable rates and fees; check the offer.',
+    whoThisIsBadFor: 'Not for people with no credit history or very low scores.',
     approvalOdds: 'Fair (600+)',
     realWorldUseCase: 'Best for someone with fair credit who wants an unsecured option without a deposit.',
     feeRisk: 'Check the current fee schedule on the issuer site before applying.',
@@ -80,11 +98,14 @@ export const cardData: CardItem[] = [
     title: 'Credit One Bank® Platinum Visa®',
     label: 'Coming Soon',
     highlights: ['Cash back rewards', 'Regular account reviews', 'Free credit score access'],
-    fees: '—',
-    creditScore: '—',
+    fees: '-',
+    creditScore: '-',
     slug: 'credit-one-platinum',
     reviewUrl: '/credit-cards/review/credit-one-platinum',
     issuerUrl: 'https://www.creditonebank.com',
+    applyLink: 'https://www.creditonebank.com',
+    riskSummary: 'Fees vary by applicant; your offer may differ from marketing.',
+    whoThisIsBadFor: 'Not for people who want a single, transparent annual fee.',
     approvalOdds: 'Fair/Poor (580+)',
     realWorldUseCase: 'Best for someone with limited credit who wants a chance at rewards and account reviews.',
     feeRisk: 'Fees vary by applicant; review your offer carefully before accepting.',
@@ -95,4 +116,13 @@ export const cardData: CardItem[] = [
 /** Get a card by slug, or undefined. */
 export function getCardBySlug(slug: string): CardItem | undefined {
   return cardData.find((c) => c.slug === slug);
+}
+
+/**
+ * Returns the affiliate/apply link for a card by slug.
+ * Use this instead of reading applyLink directly so we can switch networks later.
+ */
+export function getAffiliateLink(cardSlug: string): string {
+  const card = getCardBySlug(cardSlug);
+  return card?.applyLink ?? '#';
 }

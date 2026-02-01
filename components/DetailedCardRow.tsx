@@ -20,8 +20,8 @@ export default function DetailedCardRow({ title, label, highlights, fees, credit
     {/* LEFT: Compliant Image Placeholder (No Logos) */}
     <div className="w-full md:w-[220px] p-6 flex flex-col items-center justify-center border-b md:border-b-0 md:border-r border-slate-100 bg-slate-50">
        <div className="w-full aspect-[1.586] rounded-xl bg-gradient-to-br from-slate-200 via-slate-100 to-slate-300 shadow-inner border border-slate-300 flex items-center justify-center relative overflow-hidden">
-          <div className="absolute inset-0 bg-white/10" />
-          <CreditCard className="w-10 h-10 text-slate-400 opacity-50" />
+          <div className="absolute inset-0 bg-white/10" aria-hidden="true" />
+          <CreditCard className="w-10 h-10 text-slate-400 opacity-50" aria-hidden="true" />
        </div>
        <p className="mt-3 text-xs text-slate-400 font-medium">Image for illustration</p>
     </div>
@@ -37,11 +37,11 @@ export default function DetailedCardRow({ title, label, highlights, fees, credit
             </h3>
           </div>
           
-          <div className="flex items-center mb-4 space-x-1">
+          <div className="flex items-center mb-4 space-x-1" aria-label="Rating: 4.5 out of 5">
             {[1, 2, 3, 4].map((i) => (
-              <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
+              <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" aria-hidden="true" />
             ))}
-            <Star className="w-4 h-4 fill-yellow-400 text-yellow-400 opacity-50" />
+            <Star className="w-4 h-4 fill-yellow-400 text-yellow-400 opacity-50" aria-hidden="true" />
             <span className="text-xs text-slate-500 ml-2 font-medium">4.5/5</span>
           </div>
           <div className="grid grid-cols-2 gap-4 text-sm mb-4">
@@ -57,7 +57,7 @@ export default function DetailedCardRow({ title, label, highlights, fees, credit
           <ul className="space-y-2">
             {highlights.map((item, idx) => (
               <li key={idx} className="flex items-start text-sm text-slate-600">
-                <Check className="w-4 h-4 text-green-500 mr-2 mt-0.5 shrink-0" />
+                <Check className="w-4 h-4 text-green-500 mr-2 mt-0.5 shrink-0" aria-hidden="true" />
                 <span>{item}</span>
               </li>
             ))}
@@ -72,13 +72,13 @@ export default function DetailedCardRow({ title, label, highlights, fees, credit
           className="w-full py-4 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-lg shadow-sm hover:shadow-md transition-all text-center flex items-center justify-center group"
         >
           View Offer Details
-          <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+          <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" aria-hidden="true" />
         </Link>
         <Link
           href={reviewUrl}
           className="mt-3 text-center text-blue-600 text-sm hover:underline block"
         >
-          View Full Review →
+          View Full Review <span aria-hidden="true">{'\u2192'}</span>
         </Link>
         <p className="mt-4 text-[10px] text-center text-slate-400 leading-tight">
           Terms and conditions apply. <br/> Rates subject to change.

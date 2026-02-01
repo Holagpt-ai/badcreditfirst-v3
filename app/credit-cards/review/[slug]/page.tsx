@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Star, CreditCard } from 'lucide-react';
-import { getCardBySlug } from '../../../../lib/card-data';
+import { getCardBySlug, getAffiliateLink } from '../../../../lib/card-data';
 
 const baseUrl = 'https://www.badcreditfirst.com';
 
@@ -28,7 +28,8 @@ export default function CreditCardReviewPage({
     return <div>Page Not Found</div>;
   }
 
-  const { approvalOdds, realWorldUseCase, feeRisk, upgradePath, title, issuerUrl, fees } = card;
+  const { approvalOdds, realWorldUseCase, feeRisk, upgradePath, title, fees, riskSummary, whoThisIsBadFor } = card;
+  const applyHref = getAffiliateLink(slug);
   const reviewUrl = `${baseUrl}${card.reviewUrl}`;
   const ratingValue = 4.5;
   const bestRating = 5;
@@ -41,7 +42,7 @@ export default function CreditCardReviewPage({
     '@context': 'https://schema.org',
     '@type': 'Product',
     name: title,
-    url: issuerUrl,
+    url: card.issuerUrl,
     aggregateRating: {
       '@type': 'AggregateRating',
       ratingValue,
@@ -108,16 +109,31 @@ export default function CreditCardReviewPage({
           <div className="p-8 flex justify-center border-b border-slate-100 bg-slate-50">
             <div className="w-full max-w-sm aspect-[1.586] rounded-xl bg-gradient-to-br from-slate-200 via-slate-100 to-slate-300 shadow-inner border border-slate-300 flex items-center justify-center relative overflow-hidden">
               <div className="absolute inset-0 bg-white/10" />
-              <CreditCard className="w-16 h-16 text-slate-400 opacity-50" />
+              <CreditCard className="w-16 h-16 text-slate-400 opacity-50" aria-hidden="true" />
             </div>
           </div>
-          <div className="px-8 pt-6 flex items-center gap-2">
+          <div className="px-8 pt-6 flex items-center gap-2" aria-label="Rating: 4.5 out of 5">
             {[1, 2, 3, 4].map((i) => (
-              <Star key={i} className="w-5 h-5 fill-yellow-400 text-yellow-400" />
+              <Star key={i} className="w-5 h-5 fill-yellow-400 text-yellow-400" aria-hidden="true" />
             ))}
-            <Star className="w-5 h-5 fill-yellow-400 text-yellow-400 opacity-50" />
+            <Star className="w-5 h-5 fill-yellow-400 text-yellow-400 opacity-50" aria-hidden="true" />
             <span className="text-sm text-slate-500 ml-2 font-medium">4.5/5</span>
           </div>
+
+          {/* Risk summary & who it's bad for */}
+          {(riskSummary ?? whoThisIsBadFor) && (
+            <div className="px-8 py-6 border-t border-slate-100">
+              <h2 className="text-lg font-bold text-slate-900 mb-4">Quick Take</h2>
+              <ul className="space-y-2 text-slate-600">
+                {riskSummary && (
+                  <li><strong className="text-slate-800">Risk:</strong> {riskSummary}</li>
+                )}
+                {whoThisIsBadFor && (
+                  <li><strong className="text-slate-800">Skip if:</strong> {whoThisIsBadFor}</li>
+                )}
+              </ul>
+            </div>
+          )}
 
           {/* Verdict */}
           {(approvalOdds ?? realWorldUseCase) && (
@@ -163,7 +179,7 @@ export default function CreditCardReviewPage({
 
           <div className="px-8 pb-8 border-t border-slate-100">
             <a
-              href={issuerUrl}
+              href={applyHref}
               target="_blank"
               rel="nofollow noreferrer"
               className="w-full py-4 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-lg shadow-sm hover:shadow-md transition-all text-center flex items-center justify-center"
