@@ -1,6 +1,20 @@
+import type { Metadata } from 'next';
 import DetailedCardRow from '../../../../components/DetailedCardRow';
 import { cardData } from '../../../../lib/card-data';
 import { categories, categoryContent } from '../../../../lib/categories';
+
+const LAST_UPDATED_DISPLAY = 'February 2026';
+
+type Props = { params: { slug: string } };
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const category = categories[params.slug];
+  if (!category) return { title: 'Category Not Found' };
+  return {
+    title: `${category.title} (2026) | BadCreditFirst`,
+    description: `Compare ${category.title.toLowerCase()} for bad credit and no credit. Independent reviews, fees, and approval tips.`,
+  };
+}
 
 export default function CreditCardCategoryPage({
   params,
@@ -17,8 +31,26 @@ export default function CreditCardCategoryPage({
 
   const filteredCards = cardData.filter((c) => category.filter(c.title));
 
+  const faqSchema = content?.faq?.length
+    ? {
+        '@context': 'https://schema.org',
+        '@type': 'FAQPage',
+        mainEntity: content.faq.map((item) => ({
+          '@type': 'Question',
+          name: item.q,
+          acceptedAnswer: { '@type': 'Answer', text: item.a },
+        })),
+      }
+    : null;
+
   return (
     <div className="min-h-screen bg-white text-slate-900">
+      {faqSchema && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+        />
+      )}
       <main className="max-w-5xl mx-auto px-6 py-12">
         {/* Intro (above card list) */}
         <article className="mb-12">

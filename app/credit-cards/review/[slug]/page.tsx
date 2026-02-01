@@ -1,8 +1,20 @@
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Star, CreditCard } from 'lucide-react';
 import { getCardBySlug } from '../../../../lib/card-data';
 
-const baseUrl = 'https://badcreditfirst-v3.vercel.app';
+const baseUrl = 'https://www.badcreditfirst.com';
+
+type Props = { params: { slug: string } };
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const card = getCardBySlug(params.slug);
+  if (!card) return { title: 'Review Not Found' };
+  return {
+    title: `${card.title} Review (2026) | BadCreditFirst`,
+    description: `Independent review of ${card.title}. ${card.label}. Compare fees, approval odds, and credit-building value.`,
+  };
+}
 
 export default function CreditCardReviewPage({
   params,
@@ -65,11 +77,25 @@ export default function CreditCardReviewPage({
     url: reviewUrl,
   };
 
+  const breadcrumbSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: baseUrl },
+      { '@type': 'ListItem', position: 2, name: 'Credit Cards', item: `${baseUrl}/credit-cards` },
+      { '@type': 'ListItem', position: 3, name: title, item: reviewUrl },
+    ],
+  };
+
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(reviewSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
       <main className="max-w-4xl mx-auto px-6 py-12">
         <div className="mb-8">
