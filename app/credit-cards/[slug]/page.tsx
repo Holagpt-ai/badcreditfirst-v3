@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { Star, CreditCard } from 'lucide-react';
-import DetailedCardRow from '../../components/DetailedCardRow';
+import DetailedCardRow from '../../../components/DetailedCardRow';
 
 // Full card list for comparison rows (title, label, highlights, fees, creditScore, slug)
 const cardData = [
