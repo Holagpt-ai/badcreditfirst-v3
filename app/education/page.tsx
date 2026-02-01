@@ -38,10 +38,10 @@ export default function EducationPage() {
               <h2 className="text-lg font-bold text-slate-900">Negative Items</h2>
             </div>
             <ul>
-              <li><Link href="/education" className="text-slate-600 hover:text-blue-600 hover:underline block mb-2">How Long Do Items Stay?</Link></li>
-              <li><Link href="/education" className="text-slate-600 hover:text-blue-600 hover:underline block mb-2">Removing Collections</Link></li>
-              <li><Link href="/education" className="text-slate-600 hover:text-blue-600 hover:underline block mb-2">Hard Inquiries Explained</Link></li>
-              <li><Link href="/education" className="text-slate-600 hover:text-blue-600 hover:underline block mb-2">Bankruptcy & Rebuilding</Link></li>
+              <li><Link href="/education/how-long-do-items-stay" className="text-slate-600 hover:text-blue-600 hover:underline block mb-2">How Long Do Items Stay?</Link></li>
+              <li><Link href="/education/removing-collections" className="text-slate-600 hover:text-blue-600 hover:underline block mb-2">Removing Collections</Link></li>
+              <li><Link href="/education/hard-inquiries-explained" className="text-slate-600 hover:text-blue-600 hover:underline block mb-2">Hard Inquiries Explained</Link></li>
+              <li><Link href="/education/bankruptcy-and-rebuilding" className="text-slate-600 hover:text-blue-600 hover:underline block mb-2">Bankruptcy & Rebuilding</Link></li>
             </ul>
           </div>
 
@@ -52,10 +52,10 @@ export default function EducationPage() {
               <h2 className="text-lg font-bold text-slate-900">Reports & Rights</h2>
             </div>
             <ul>
-              <li><Link href="/education" className="text-slate-600 hover:text-blue-600 hover:underline block mb-2">Reading Your Credit Report</Link></li>
-              <li><Link href="/education" className="text-slate-600 hover:text-blue-600 hover:underline block mb-2">How to Dispute Errors</Link></li>
-              <li><Link href="/education" className="text-slate-600 hover:text-blue-600 hover:underline block mb-2">Fair Credit Reporting Act</Link></li>
-              <li><Link href="/education" className="text-slate-600 hover:text-blue-600 hover:underline block mb-2">Freezing Your Credit</Link></li>
+              <li><Link href="/education/reading-your-credit-report" className="text-slate-600 hover:text-blue-600 hover:underline block mb-2">Reading Your Credit Report</Link></li>
+              <li><Link href="/education/how-to-dispute-errors" className="text-slate-600 hover:text-blue-600 hover:underline block mb-2">How to Dispute Errors</Link></li>
+              <li><Link href="/education/fair-credit-reporting-act" className="text-slate-600 hover:text-blue-600 hover:underline block mb-2">Fair Credit Reporting Act</Link></li>
+              <li><Link href="/education/freezing-your-credit" className="text-slate-600 hover:text-blue-600 hover:underline block mb-2">Freezing Your Credit</Link></li>
             </ul>
           </div>
 
@@ -68,8 +68,8 @@ export default function EducationPage() {
             <ul>
               <li><Link href="/education/secured-vs-unsecured" className="text-slate-600 hover:text-blue-600 hover:underline block mb-2">Secured vs. Unsecured</Link></li>
               <li><Link href="/education/credit-builder-loans" className="text-slate-600 hover:text-blue-600 hover:underline block mb-2">Credit Builder Loans</Link></li>
-              <li><Link href="/education" className="text-slate-600 hover:text-blue-600 hover:underline block mb-2">The 30% Utilization Rule</Link></li>
-              <li><Link href="/education" className="text-slate-600 hover:text-blue-600 hover:underline block mb-2">Authorized User Strategy</Link></li>
+              <li><Link href="/education/the-30-percent-utilization-rule" className="text-slate-600 hover:text-blue-600 hover:underline block mb-2">The 30% Utilization Rule</Link></li>
+              <li><Link href="/education/authorized-user-strategy" className="text-slate-600 hover:text-blue-600 hover:underline block mb-2">Authorized User Strategy</Link></li>
             </ul>
           </div>
         </div>
