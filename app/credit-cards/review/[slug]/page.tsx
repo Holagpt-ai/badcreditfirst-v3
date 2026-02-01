@@ -28,7 +28,7 @@ export default function CreditCardReviewPage({
     return <div>Page Not Found</div>;
   }
 
-  const { approvalOdds, realWorldUseCase, feeRisk, upgradePath, title, fees, riskSummary, whoThisIsBadFor } = card;
+  const { approvalOdds, realWorldUseCase, feeRisk, upgradePath, title, fees, riskSummary, badFor } = card;
   const applyHref = getAffiliateLink(slug);
   const reviewUrl = `${baseUrl}${card.reviewUrl}`;
   const ratingValue = 4.5;
@@ -121,15 +121,15 @@ export default function CreditCardReviewPage({
           </div>
 
           {/* Risk summary & who it's bad for */}
-          {(riskSummary ?? whoThisIsBadFor) && (
+          {(riskSummary ?? badFor) && (
             <div className="px-8 py-6 border-t border-slate-100">
               <h2 className="text-lg font-bold text-slate-900 mb-4">Quick Take</h2>
               <ul className="space-y-2 text-slate-600">
                 {riskSummary && (
                   <li><strong className="text-slate-800">Risk:</strong> {riskSummary}</li>
                 )}
-                {whoThisIsBadFor && (
-                  <li><strong className="text-slate-800">Skip if:</strong> {whoThisIsBadFor}</li>
+                {badFor && (
+                  <li><strong className="text-slate-800">Skip if:</strong> {badFor}</li>
                 )}
               </ul>
             </div>

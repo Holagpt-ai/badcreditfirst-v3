@@ -1,6 +1,6 @@
 /**
  * Centralized credit card data. Import this anywhere you need the card list.
- * Each card has a reviewUrl and applyLink for the dedicated review page and affiliate apply link.
+ * Each card has reviewUrl, applyLink, and required review fields for scalability.
  */
 export interface CardItem {
   title: string;
@@ -15,14 +15,20 @@ export interface CardItem {
   issuerUrl: string;
   /** Affiliate/tracking apply link. Use getAffiliateLink(slug) for future network switching. */
   applyLink: string;
-  /** One-line risk summary (e.g. "High fee risk if you miss a payment"). */
+  /** Approval odds, e.g. "Fair/Poor (580+)". */
+  approvalOdds: string;
+  /** Real-world use case, e.g. "Best for renting". */
+  realWorldUseCase: string;
+  /** Fee risk note, e.g. "Annual fee charged immediately". */
+  feeRisk: string;
+  /** Upgrade path, e.g. "Unsecured Platinum after 6 months". */
+  upgradePath: string;
+  /** Who this product is bad for, e.g. "People who can't deposit $200". */
+  badFor: string;
+  /** One-line risk summary (optional). */
   riskSummary?: string;
-  /** Who this product is a bad fit for (e.g. "Not for people who can deposit $500+"). */
+  /** Who this product is a bad fit for (optional; use badFor for canonical). */
   whoThisIsBadFor?: string;
-  approvalOdds?: string;
-  realWorldUseCase?: string;
-  feeRisk?: string;
-  upgradePath?: string;
 }
 
 export const cardData: CardItem[] = [
@@ -36,12 +42,13 @@ export const cardData: CardItem[] = [
     reviewUrl: '/credit-cards/review/opensky-secured-visa',
     issuerUrl: 'https://openskycc.com',
     applyLink: 'https://openskycc.com',
+    approvalOdds: 'Fair/Poor (580+)',
+    realWorldUseCase: 'Best for renting and building payment history.',
+    feeRisk: 'Annual fee charged immediately.',
+    upgradePath: 'Unsecured Platinum after 6 months.',
+    badFor: "People who can't deposit $200 or need rewards.",
     riskSummary: 'Annual fee is charged upfront; missing a payment can hurt your new credit file.',
     whoThisIsBadFor: 'Not for people who need a high credit limit or rewards.',
-    approvalOdds: 'Fair/Poor (580+)',
-    realWorldUseCase: 'Best for someone renting who needs to show payment history.',
-    feeRisk: 'Watch out for the $35 annual fee; it is charged immediately.',
-    upgradePath: 'After 6 months, consider applying for Capital One Platinum.',
   },
   {
     title: 'First Progress Platinum Prestige Mastercard®',
@@ -53,12 +60,13 @@ export const cardData: CardItem[] = [
     reviewUrl: '/credit-cards/review/first-progress-platinum',
     issuerUrl: 'https://firstprogress.com',
     applyLink: 'https://firstprogress.com',
+    approvalOdds: 'Poor/No Credit (500+)',
+    realWorldUseCase: 'Best for thin or damaged credit with budget for fee and deposit.',
+    feeRisk: 'Annual fee charged in first year; factor into budget.',
+    upgradePath: 'Unsecured cards after 12 months of on-time payments.',
+    badFor: 'People who can qualify for a no-annual-fee secured card elsewhere.',
     riskSummary: 'High fee risk in year one; the $49 annual fee is non-refundable.',
     whoThisIsBadFor: 'Not for people who can qualify for a no-annual-fee secured card elsewhere.',
-    approvalOdds: 'Poor/No Credit (500+)',
-    realWorldUseCase: 'Best for someone with thin or damaged credit who can afford the annual fee and deposit.',
-    feeRisk: 'The $49 annual fee is charged in the first year; factor it into your budget.',
-    upgradePath: 'After 12 months of on-time payments, explore unsecured cards that report to all three bureaus.',
   },
   {
     title: 'Self - Credit Builder Account',
@@ -70,12 +78,13 @@ export const cardData: CardItem[] = [
     reviewUrl: '/credit-cards/review/self-credit-builder',
     issuerUrl: 'https://www.self.inc',
     applyLink: 'https://www.self.inc',
+    approvalOdds: 'High (no credit check)',
+    realWorldUseCase: 'Best for building a tradeline without a credit card.',
+    feeRisk: 'Monthly plans start at $25; confirm total cost before committing.',
+    upgradePath: 'Secured card after completing the term.',
+    badFor: 'People who need cash now or already have several positive tradelines.',
     riskSummary: 'You do not get the money until the term ends; not suitable if you need cash now.',
     whoThisIsBadFor: 'Not for people who already have several positive tradelines and want revolving credit.',
-    approvalOdds: 'High (no credit check)',
-    realWorldUseCase: 'Best for someone who does not want a credit card but needs a positive tradeline.',
-    feeRisk: 'Monthly plans start at $25; confirm the total cost before committing.',
-    upgradePath: 'After completing the term, consider a secured card to add revolving credit to your mix.',
   },
   {
     title: 'Mission Lane Visa® Credit Card',
@@ -87,12 +96,13 @@ export const cardData: CardItem[] = [
     reviewUrl: '/credit-cards/review/mission-lane',
     issuerUrl: 'https://www.missionlane.com',
     applyLink: 'https://www.missionlane.com',
+    approvalOdds: 'Fair (600+)',
+    realWorldUseCase: 'Best for fair credit wanting unsecured option without deposit.',
+    feeRisk: 'Check current fee schedule on issuer site before applying.',
+    upgradePath: 'Compare other unsecured options after improving score.',
+    badFor: 'People with no credit history or very low scores.',
     riskSummary: 'Unsecured cards for fair credit can have variable rates and fees; check the offer.',
     whoThisIsBadFor: 'Not for people with no credit history or very low scores.',
-    approvalOdds: 'Fair (600+)',
-    realWorldUseCase: 'Best for someone with fair credit who wants an unsecured option without a deposit.',
-    feeRisk: 'Check the current fee schedule on the issuer site before applying.',
-    upgradePath: 'Use on-time payments to improve your score, then compare other unsecured options.',
   },
   {
     title: 'Credit One Bank® Platinum Visa®',
@@ -104,12 +114,13 @@ export const cardData: CardItem[] = [
     reviewUrl: '/credit-cards/review/credit-one-platinum',
     issuerUrl: 'https://www.creditonebank.com',
     applyLink: 'https://www.creditonebank.com',
+    approvalOdds: 'Fair/Poor (580+)',
+    realWorldUseCase: 'Best for limited credit wanting rewards and account reviews.',
+    feeRisk: 'Fees vary by applicant; review your offer carefully before accepting.',
+    upgradePath: 'Cards with clearer fee structures after building history.',
+    badFor: 'People who want a single, transparent annual fee.',
     riskSummary: 'Fees vary by applicant; your offer may differ from marketing.',
     whoThisIsBadFor: 'Not for people who want a single, transparent annual fee.',
-    approvalOdds: 'Fair/Poor (580+)',
-    realWorldUseCase: 'Best for someone with limited credit who wants a chance at rewards and account reviews.',
-    feeRisk: 'Fees vary by applicant; review your offer carefully before accepting.',
-    upgradePath: 'After building history, consider cards with clearer fee structures and higher rewards.',
   },
 ];
 
