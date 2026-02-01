@@ -20,10 +20,10 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-white text-slate-900 flex flex-col">
       <main className="flex-1">
+        {/* Segmentation Funnel — multi-step wizard at top (Step 1: situation, Step 2: deposit, Step 3: trust) */}
+        <FunnelSelector />
         {/* Welcome back banner when user has a saved segment from funnel */}
         <WelcomeBackBanner />
-        {/* Segmentation Funnel — multi-step wizard at top */}
-        <FunnelSelector />
 
         {/* Hero */}
         <section className="max-w-5xl mx-auto px-6 py-12 text-center">

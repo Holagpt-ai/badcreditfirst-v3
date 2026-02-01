@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import { notFound } from 'next/navigation';
 import DetailedCardRow from '../../../../components/DetailedCardRow';
 import { cardData } from '../../../../lib/card-data';
 import { getSegmentDisplayName, isValidSegment, getCardsForSegment } from '../../../../lib/segment';
@@ -24,16 +25,7 @@ export default function CreditCardsResultsPage({
   const { segment } = params;
 
   if (!isValidSegment(segment)) {
-    return (
-      <div className="min-h-screen bg-slate-50 text-slate-900 flex items-center justify-center">
-        <div className="text-center">
-          <h1 className="text-xl font-bold text-slate-900 mb-2">Results Not Found</h1>
-          <Link href="/" className="text-blue-600 hover:underline text-sm">
-            ← Back to Home
-          </Link>
-        </div>
-      </div>
-    );
+    notFound();
   }
 
   const segmentName = getSegmentDisplayName(segment);

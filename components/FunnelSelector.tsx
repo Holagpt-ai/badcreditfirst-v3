@@ -85,7 +85,7 @@ export default function FunnelSelector() {
         </div>
       )}
 
-      {/* Step 2: Can you pay a deposit? */}
+      {/* Step 2: Constraint? — Can you pay a deposit? Yes/No */}
       {step === 2 && (
         <div>
           <button
@@ -96,8 +96,11 @@ export default function FunnelSelector() {
             ← Back
           </button>
           <h2 className="text-xl font-bold text-slate-900 mb-2 text-center">
-            Can you pay a deposit?
+            Constraint?
           </h2>
+          <p className="text-sm text-slate-500 text-center mb-1">
+            Can you pay a deposit?
+          </p>
           <p className="text-sm text-slate-500 text-center mb-6">
             Many secured cards require a refundable security deposit.
           </p>
