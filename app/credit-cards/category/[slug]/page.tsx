@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { notFound } from 'next/navigation';
 import DetailedCardRow from '../../../../components/DetailedCardRow';
 import { cardData } from '../../../../lib/card-data';
 import { categories, categoryContent } from '../../../../lib/categories';
@@ -10,7 +11,8 @@ type Props = { params: { slug: string } };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const category = categories[params.slug];
-  if (!category) return { title: 'Category Not Found' };
+  const content = categoryContent[params.slug];
+  if (!category || !content) return { title: 'Category Not Found' };
   return {
     title: `${category.title} (2026) | BadCreditFirst`,
     description: `Compare ${category.title.toLowerCase()} for bad credit and no credit. Independent reviews, fees, and approval tips.`,
@@ -26,21 +28,21 @@ export default function CreditCardCategoryPage({
   const category = categories[slug];
   const content = categoryContent[slug];
 
-  if (!category) {
-    return <div>Page Not Found</div>;
+  if (!category || !content) {
+    notFound();
   }
 
-  const filteredCards = cardData.filter((c) => category.filter(c.title));
+  const filteredCards = cardData.filter((c) => c.categorySlug === slug);
   const categoryUrl = `/credit-cards/category/${slug}`;
   const itemUrls = filteredCards.map((c) => c.reviewUrl);
 
   const collectionSchema = getCollectionPageSchema({
     name: category.title,
     url: categoryUrl,
-    description: content?.quickAnswer,
+    description: content.quickAnswer,
     itemUrls,
   });
-  const faqSchema = content?.faq?.length ? getFAQSchema(content.faq) : null;
+  const faqSchema = content.faq?.length ? getFAQSchema(content.faq) : null;
 
   return (
     <div className="min-h-screen bg-white text-slate-900">
@@ -55,31 +57,29 @@ export default function CreditCardCategoryPage({
         />
       )}
       <main className="max-w-5xl mx-auto px-6 py-12">
-        {/* Hero: H1 + Trust Signals */}
-        <header className="mb-10">
-          <h1 className="text-4xl font-bold tracking-tight text-slate-900 mb-3">
-            {category.title}
-          </h1>
-          <p className="text-sm text-slate-500 font-medium">
-            {TRUST_SIGNAL_DATE}
-          </p>
-        </header>
+        <article aria-labelledby="category-title">
+          {/* Hero: H1 + Trust Signals */}
+          <header className="mb-10">
+            <h1 id="category-title" className="text-4xl font-bold tracking-tight text-slate-900 mb-3">
+              {category.title}
+            </h1>
+            <p className="text-sm text-slate-500 font-medium">
+              {TRUST_SIGNAL_DATE}
+            </p>
+          </header>
 
-        {/* Quick Answer Box (Featured Snippet target) */}
-        {content?.quickAnswer && (
-          <section className="mb-10 p-6 bg-slate-50 border border-slate-200 rounded-xl">
-            <h2 className="text-lg font-bold text-slate-900 mb-3 sr-only">
+          {/* Quick Answer Box (Featured Snippet target) — 2–3 sentences */}
+          <section id="quick-answer" className="mb-10 p-6 bg-slate-50 border border-slate-200 rounded-xl">
+            <h2 className="text-lg font-bold text-slate-900 mb-3">
               Quick Answer
             </h2>
             <p className="text-slate-700 leading-relaxed">
               {content.quickAnswer}
             </p>
           </section>
-        )}
 
-        {/* Who This Is For / Not For */}
-        {content && (
-          <section className="mb-10 grid grid-cols-1 md:grid-cols-2 gap-8">
+          {/* Who This Is For / Not For */}
+          <section id="who-this-is-for" className="mb-10 grid grid-cols-1 md:grid-cols-2 gap-8">
             <div>
               <h2 className="text-xl font-bold text-slate-900 mb-4">
                 Who This Is For
@@ -101,11 +101,9 @@ export default function CreditCardCategoryPage({
               </ul>
             </div>
           </section>
-        )}
 
-        {/* Methodology Summary: How We Chose These Cards */}
-        {content?.methodologySummary && (
-          <section className="mb-10">
+          {/* Methodology Summary: How We Chose These Cards (Approval, Fees, Reporting) */}
+          <section id="methodology" className="mb-10">
             <h2 className="text-xl font-bold text-slate-900 mb-4">
               How We Chose These Cards
             </h2>
@@ -124,32 +122,30 @@ export default function CreditCardCategoryPage({
               </li>
             </ul>
           </section>
-        )}
 
-        {/* Card List */}
-        <section className="mb-12" aria-label="Product comparison">
-          <h2 className="text-xl font-bold text-slate-900 mb-4">
-            Compare Options
-          </h2>
-          <div className="divide-y divide-slate-200 border border-slate-200 rounded-xl overflow-hidden bg-white shadow-sm">
-            {filteredCards.map((c) => (
-              <DetailedCardRow
-                key={c.slug}
-                title={c.title}
-                label={c.label}
-                highlights={c.highlights}
-                fees={c.fees}
-                creditScore={c.creditScore}
-                slug={c.slug}
-                reviewUrl={c.reviewUrl}
-              />
-            ))}
-          </div>
-        </section>
+          {/* Card List */}
+          <section id="card-list" className="mb-12" aria-label="Product comparison">
+            <h2 className="text-xl font-bold text-slate-900 mb-4">
+              Compare Options
+            </h2>
+            <div className="divide-y divide-slate-200 border border-slate-200 rounded-xl overflow-hidden bg-white shadow-sm">
+              {filteredCards.map((c) => (
+                <DetailedCardRow
+                  key={c.slug}
+                  title={c.title}
+                  label={c.label}
+                  highlights={c.highlights}
+                  fees={c.fees}
+                  creditScore={c.creditScore}
+                  slug={c.slug}
+                  reviewUrl={c.reviewUrl}
+                />
+              ))}
+            </div>
+          </section>
 
-        {/* Deep Education: How This Category Helps Rebuild Credit */}
-        {content?.deepEducation && (
-          <section className="mb-10">
+          {/* Deep Education: How This Category Helps Rebuild Credit (~400 words) */}
+          <section id="deep-education" className="mb-10">
             <h2 className="text-xl font-bold text-slate-900 mb-4">
               How This Category Helps Rebuild Credit
             </h2>
@@ -159,11 +155,9 @@ export default function CreditCardCategoryPage({
               ))}
             </div>
           </section>
-        )}
 
-        {/* Risks & Downsides */}
-        {content?.risksDownsides && (
-          <section className="mb-10">
+          {/* Risks & Downsides (Warning: fees, locked deposits) */}
+          <section id="risks-downsides" className="mb-10">
             <h2 className="text-xl font-bold text-slate-900 mb-4">
               Risks & Downsides
             </h2>
@@ -174,11 +168,9 @@ export default function CreditCardCategoryPage({
               </p>
             </div>
           </section>
-        )}
 
-        {/* Graduation Path: What to Apply For Next */}
-        {content?.graduationPath && (
-          <section className="mb-10">
+          {/* Graduation Path: What to Apply For Next */}
+          <section id="graduation-path" className="mb-10">
             <h2 className="text-xl font-bold text-slate-900 mb-4">
               What to Apply For Next
             </h2>
@@ -186,11 +178,9 @@ export default function CreditCardCategoryPage({
               {content.graduationPath}
             </p>
           </section>
-        )}
 
-        {/* FAQs */}
-        {content?.faq?.length ? (
-          <section className="mb-12">
+          {/* FAQs: 3–5 Q&A with JSON-LD Schema (injected above) */}
+          <section id="faq" className="mb-12">
             <h2 className="text-xl font-bold text-slate-900 mb-4">
               Frequently Asked Questions
             </h2>
@@ -208,7 +198,7 @@ export default function CreditCardCategoryPage({
               ))}
             </dl>
           </section>
-        ) : null}
+        </article>
       </main>
     </div>
   );
