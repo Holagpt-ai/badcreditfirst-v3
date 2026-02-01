@@ -1,5 +1,6 @@
 import DetailedCardRow from '../components/DetailedCardRow';
 import FunnelSelector from '../components/FunnelSelector';
+import WelcomeBackBanner from '../components/WelcomeBackBanner';
 import { cardData } from '../lib/card-data';
 
 function MethodologySection() {
@@ -19,6 +20,8 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-white text-slate-900 flex flex-col">
       <main className="flex-1">
+        {/* Welcome back banner when user has a saved segment from funnel */}
+        <WelcomeBackBanner />
         {/* Segmentation Funnel — multi-step wizard at top */}
         <FunnelSelector />
 

@@ -57,7 +57,7 @@ export default function CreditCardsResultsPage({
         </header>
 
         <section className="divide-y divide-slate-200 border border-slate-200 rounded-xl overflow-hidden bg-white shadow-sm">
-          {orderedCards.map((card) => (
+          {orderedCards.map((card, index) => (
             <DetailedCardRow
               key={card.slug}
               title={card.title}
@@ -67,6 +67,8 @@ export default function CreditCardsResultsPage({
               creditScore={card.creditScore}
               slug={card.slug}
               reviewUrl={card.reviewUrl}
+              segment={segment}
+              position={index + 1}
             />
           ))}
         </section>

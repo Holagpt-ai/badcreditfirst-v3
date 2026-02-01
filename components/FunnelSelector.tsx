@@ -33,6 +33,11 @@ export default function FunnelSelector() {
     setDeposit(id);
     setStep(3);
     const segment = `${situation}-${id}`;
+    try {
+      if (typeof window !== 'undefined') window.localStorage.setItem('bcf_segment', segment);
+    } catch {
+      // ignore
+    }
     setTimeout(() => {
       router.push(`/credit-cards/results/${segment}`);
     }, TRUST_DELAY_MS);

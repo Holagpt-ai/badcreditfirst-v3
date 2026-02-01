@@ -138,9 +138,21 @@ export function getCardBySlug(slug: string): CardItem | undefined {
 
 /**
  * Returns the affiliate/apply link for a card by slug.
+ * When segment and position are provided, appends ?subid={segment}|{position} for tracking.
  * Use this instead of reading applyLink directly so we can switch networks later.
  */
-export function getAffiliateLink(cardSlug: string): string {
+export function getAffiliateLink(
+  cardSlug: string,
+  segment?: string,
+  position?: string | number
+): string {
   const card = getCardBySlug(cardSlug);
-  return card?.applyLink ?? '#';
+  const base = card?.applyLink ?? '#';
+  if (base === '#') return base;
+  if (segment != null && position != null) {
+    const subid = `${segment}|${String(position)}`;
+    const separator = base.includes('?') ? '&' : '?';
+    return `${base}${separator}subid=${encodeURIComponent(subid)}`;
+  }
+  return base;
 }
