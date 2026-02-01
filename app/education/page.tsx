@@ -25,9 +25,9 @@ export default function EducationPage() {
             </div>
             <ul>
               <li><Link href="/education/what-is-a-good-credit-score" className="text-slate-600 hover:text-blue-600 hover:underline block mb-2">What is a Good Credit Score?</Link></li>
-              <li><Link href="/education" className="text-slate-600 hover:text-blue-600 hover:underline block mb-2">What is a Bad Credit Score?</Link></li>
-              <li><Link href="/education" className="text-slate-600 hover:text-blue-600 hover:underline block mb-2">How is My Score Calculated?</Link></li>
-              <li><Link href="/education" className="text-slate-600 hover:text-blue-600 hover:underline block mb-2">FICO® vs. VantageScore</Link></li>
+              <li><Link href="/education/what-is-a-bad-credit-score" className="text-slate-600 hover:text-blue-600 hover:underline block mb-2">What is a Bad Credit Score?</Link></li>
+              <li><Link href="/education/how-is-my-score-calculated" className="text-slate-600 hover:text-blue-600 hover:underline block mb-2">How is My Score Calculated?</Link></li>
+              <li><Link href="/education/fico-vs-vantagescore" className="text-slate-600 hover:text-blue-600 hover:underline block mb-2">FICO® vs. VantageScore</Link></li>
             </ul>
           </div>
 
