@@ -1,4 +1,5 @@
 import DetailedCardRow from '../components/DetailedCardRow';
+import FunnelSelector from '../components/FunnelSelector';
 
 const cardData = [
   {
@@ -69,6 +70,9 @@ export default function Home() {
             Compare secured cards and credit-builder accounts designed for scores under 600. No lender bias. No obligation.
           </p>
         </section>
+
+        {/* Funnel: What represents your situation? */}
+        <FunnelSelector />
 
         {/* Offer Stack - Sandwich Layout */}
         <section className="max-w-5xl mx-auto px-6 pb-12">
