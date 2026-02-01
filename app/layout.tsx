@@ -82,7 +82,7 @@ export default function RootLayout({
                 <ul className="space-y-2">
                   <li><Link href="/about" className="hover:text-white transition-colors">About</Link></li>
                   <li><Link href="/contact" className="hover:text-white transition-colors">Contact</Link></li>
-                  <li><a href="/sitemap.xml" className="hover:text-white transition-colors">Sitemap</a></li>
+                  <li><Link href="/site-map" className="hover:text-white transition-colors">Sitemap</Link></li>
                 </ul>
               </div>
             </div>
