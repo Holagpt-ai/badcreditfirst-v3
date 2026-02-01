@@ -99,7 +99,7 @@ export default function RootLayout({
             {/* ROW 3: Disclaimers */}
             <div className="space-y-4 mb-8 border-t border-slate-700 pt-8">
               <p className="text-xs text-slate-500 leading-relaxed">
-                <strong className="text-slate-400">Advertiser Disclosure:</strong> BadCreditFirst is an independent, advertising-supported comparison service. The offers that appear on this site are from companies from which BadCreditFirst receives compensation. This compensation may impact how and where products appear on this site.
+                <strong className="text-slate-400">Advertiser Disclosure:</strong> BadCreditFirst is an independent, advertising-supported comparison service. The offers that appear on this site are from companies from which BadCreditFirst receives compensation. This compensation may impact how and where products appear on this site. Products are ranked based on factors such as fees, credit bureau reporting practices, approval accessibility for consumers with poor credit, and overall consumer value.
               </p>
               <p className="text-xs text-slate-500 leading-relaxed">
                 <strong className="text-slate-400">Editorial Disclaimer:</strong> Content on BadCreditFirst is independently researched and written. Opinions, reviews, and recommendations are those of BadCreditFirst alone and have not been reviewed, approved, or otherwise endorsed by any credit card issuer.
@@ -116,6 +116,7 @@ export default function RootLayout({
               </Link>
               <p className="text-xs text-slate-500 mb-1">Operated by BadCreditFirst | Contact: carlos.acosta@badcreditfirst.com</p>
               <p className="text-xs text-slate-500 mb-1">1631 Del Prado Blvd S #1124, Cape Coral, FL 33990</p>
+              <p className="text-xs text-slate-500 mb-1">BadCreditFirst is an independent comparison and education platform and does not guarantee approval for any financial product.</p>
               <p className="text-xs text-slate-500">© 2026 BadCreditFirst. All Rights Reserved.</p>
             </div>
           </div>
