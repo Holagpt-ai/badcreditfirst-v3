@@ -19,6 +19,9 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-white text-slate-900 flex flex-col">
       <main className="flex-1">
+        {/* Segmentation Funnel — multi-step wizard at top */}
+        <FunnelSelector />
+
         {/* Hero */}
         <section className="max-w-5xl mx-auto px-6 py-12 text-center">
           <h1 className="text-4xl font-bold tracking-tight text-slate-900 mb-4">
@@ -28,9 +31,6 @@ export default function Home() {
             Compare secured cards and credit-builder accounts designed for scores under 600. No lender bias. No obligation.
           </p>
         </section>
-
-        {/* Funnel: What represents your situation? */}
-        <FunnelSelector />
 
         {/* Offer Stack - Sandwich Layout */}
         <section className="max-w-5xl mx-auto px-6 pb-12">
