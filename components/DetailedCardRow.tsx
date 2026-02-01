@@ -1,7 +1,10 @@
+'use client';
+
 import React from 'react';
 import { Star, Check, CreditCard, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
-import { getAffiliateLink } from '../lib/card-data';
+import { getAffiliateLink } from '@/lib/card-data';
+import { trackEvent } from '@/lib/analytics';
 
 interface DetailedCardRowProps {
   title: string;
@@ -20,6 +23,11 @@ interface DetailedCardRowProps {
 
 export default function DetailedCardRow({ title, label, highlights, fees, creditScore, slug, reviewUrl, segment, position }: DetailedCardRowProps) {
   const applyHref = getAffiliateLink(slug, segment, position);
+
+  const handleApplyClick = () => {
+    trackEvent('apply_click', 'Card', slug, position ?? 0);
+  };
+
   return (
 
   <div className="flex flex-col md:flex-row">
@@ -77,6 +85,7 @@ export default function DetailedCardRow({ title, label, highlights, fees, credit
           href={applyHref}
           target="_blank"
           rel="nofollow noreferrer"
+          onClick={handleApplyClick}
           className="w-full py-4 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-lg shadow-sm hover:shadow-md transition-all text-center flex items-center justify-center group"
         >
           Apply Now

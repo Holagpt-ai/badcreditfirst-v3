@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { ArrowRight, Loader2 } from 'lucide-react';
+import { trackEvent } from '@/lib/analytics';
 
 const SITUATIONS = [
   { id: 'no-credit', label: 'No Credit', description: 'I have no credit history' },
@@ -33,6 +34,7 @@ export default function FunnelSelector() {
     setDeposit(id);
     setStep(3);
     const segment = `${situation}-${id}`;
+    trackEvent('funnel_complete', 'Funnel', segment);
     try {
       if (typeof window !== 'undefined') window.localStorage.setItem('bcf_segment', segment);
     } catch {
