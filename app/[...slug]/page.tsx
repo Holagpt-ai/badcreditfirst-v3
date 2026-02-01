@@ -12,6 +12,10 @@ const pageTitles: Record<string, string> = {
   'your-privacy-choices': 'Your Privacy Choices',
   'state-privacy-law-notice': 'State Privacy Law Notice',
   'how-we-rank-cards': 'How We Rank Cards',
+  'how-credit-scores-work': 'How Credit Scores Work',
+  'secured-cards': 'Compare Credit Options',
+  'cards-for-bad-credit': 'Compare Credit Options',
+  'credit-builder': 'Compare Credit Options',
   'credit-cards': 'Credit Cards',
 };
 
@@ -37,6 +41,8 @@ export default function CatchAllPage({
   const isStatePrivacyLawNotice = slugSegment === 'state-privacy-law-notice';
   const isEditorialDisclaimer = slugSegment === 'editorial-disclaimer';
   const isHowWeRankCards = slugSegment === 'how-we-rank-cards';
+  const isHowCreditScoresWork = slugSegment === 'how-credit-scores-work';
+  const isCompareCreditOptions = slugSegment === 'secured-cards' || slugSegment === 'cards-for-bad-credit' || slugSegment === 'credit-builder';
 
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900">
@@ -211,6 +217,40 @@ export default function CatchAllPage({
                 BadCreditFirst evaluates credit cards and credit-building products based on multiple factors, including fees, reporting practices, accessibility for consumers with poor or limited credit, and general product transparency. Rankings may also consider approval likelihood and overall consumer value.
               </p>
             </>
+          ) : isHowCreditScoresWork ? (
+            <>
+              <h1 className="text-3xl font-bold tracking-tight text-slate-900 mb-6">
+                How Credit Scores Work
+              </h1>
+              <p className="text-slate-600 leading-relaxed mb-4">
+                Your credit score is a three-digit number, typically between 300 and 850, that tells lenders how likely you are to repay debt. It is calculated based on five key factors:
+              </p>
+              <ol className="list-decimal list-inside text-slate-600 leading-relaxed space-y-2 mb-4">
+                <li><strong>Payment History (35%):</strong> Do you pay on time?</li>
+                <li><strong>Amounts Owed (30%):</strong> How much of your available credit are you using?</li>
+                <li><strong>Length of Credit History (15%):</strong> How long have you had accounts open?</li>
+                <li><strong>New Credit (10%):</strong> Have you applied for a lot of credit recently?</li>
+                <li><strong>Credit Mix (10%):</strong> Do you have different types of loans?</li>
+              </ol>
+              <p className="text-slate-600 leading-relaxed mb-8">
+                Improving your score starts with paying bills on time and keeping balances low.
+              </p>
+            </>
+          ) : isCompareCreditOptions ? (
+            <>
+              <h1 className="text-3xl font-bold tracking-tight text-slate-900 mb-6">
+                Compare Credit Options
+              </h1>
+              <p className="text-slate-600 leading-relaxed mb-4">
+                You are looking for specific credit products. We have compiled our top recommendations in our main comparison hub.
+              </p>
+              <p className="text-slate-600 leading-relaxed mb-4">
+                Secured Cards require a refundable deposit. Credit Builder accounts are effectively installment loans that report payment history.
+              </p>
+              <p className="text-slate-600 leading-relaxed mb-8">
+                Click the button below to view all current offers.
+              </p>
+            </>
           ) : (
             <>
               <h1 className="text-3xl font-bold tracking-tight text-slate-900 mb-6">
@@ -222,10 +262,10 @@ export default function CatchAllPage({
             </>
           )}
           <Link
-            href="/"
+            href={isCompareCreditOptions ? '/credit-cards' : '/'}
             className="inline-flex items-center justify-center px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-lg shadow-sm hover:shadow-md transition-all"
           >
-            Return to Home
+            {isCompareCreditOptions ? 'View All Offers' : 'Return to Home'}
           </Link>
         </div>
       </main>
