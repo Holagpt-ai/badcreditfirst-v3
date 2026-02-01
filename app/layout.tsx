@@ -64,9 +64,9 @@ export default function RootLayout({
               <div>
                 <h3 className="font-bold text-slate-300 mb-3">Compare</h3>
                 <ul className="space-y-2">
-                  <li><Link href="/credit-cards" className="hover:text-white transition-colors">Cards for Bad Credit</Link></li>
-                  <li><Link href="/credit-cards" className="hover:text-white transition-colors">Secured Cards</Link></li>
-                  <li><Link href="/credit-cards" className="hover:text-white transition-colors">Credit Builder</Link></li>
+                  <li><Link href="/credit-cards/bad-credit" className="hover:text-white transition-colors">Cards for Bad Credit</Link></li>
+                  <li><Link href="/credit-cards/secured-cards" className="hover:text-white transition-colors">Secured Cards</Link></li>
+                  <li><Link href="/credit-cards/credit-builder" className="hover:text-white transition-colors">Credit Builder</Link></li>
                 </ul>
               </div>
               <div>
