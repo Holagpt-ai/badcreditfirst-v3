@@ -10,6 +10,9 @@ export default function EducationPage() {
           <h1 className="text-4xl font-bold tracking-tight text-slate-900 mb-4">
             Credit Education Center
           </h1>
+          <p className="text-lg text-slate-600 max-w-2xl mx-auto mb-4">
+            Our Education Center is designed to help consumers understand credit cards, secured cards, and credit-building tools before applying for any financial product.
+          </p>
           <p className="text-lg text-slate-500 max-w-2xl mx-auto">
             Expert guides to understanding and improving your credit score.
           </p>

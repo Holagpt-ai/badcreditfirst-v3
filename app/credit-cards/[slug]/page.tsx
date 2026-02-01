@@ -90,6 +90,9 @@ export default function CreditCardSlugPage({
             <h1 className="text-4xl font-bold tracking-tight text-slate-900 mb-4">
               {category.title}
             </h1>
+            <p className="text-slate-600 leading-relaxed max-w-2xl mx-auto mb-4">
+              We focus on a curated selection of credit-building products that meet minimum standards for transparency, reporting practices, and accessibility for consumers with poor or limited credit.
+            </p>
             <p className="text-sm text-slate-400">
               By Sofia Acosta | Last Updated: {new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
             </p>
