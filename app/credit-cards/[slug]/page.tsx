@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import { notFound } from 'next/navigation';
 import { Star, CreditCard } from 'lucide-react';
 import DetailedCardRow from '../../components/DetailedCardRow';
 
@@ -172,5 +171,5 @@ export default function CreditCardSlugPage({
     );
   }
 
-  notFound();
+  return <div>Page Not Found</div>;
 }
