@@ -434,6 +434,34 @@ const AUTHOR_URL = '/author/carlos-acosta';
 const DATE_PUBLISHED = '2026-01-15';
 const DATE_MODIFIED = '2026-02-01';
 
+/** Before You Apply checklist (same for all articles; not salesy). */
+const BEFORE_YOU_APPLY = [
+  'Check your credit report for errors',
+  'Know your current score',
+  'Compare fees and deposit requirements before applying',
+] as const;
+
+/** Graduation timeline (Month 0 → 6 → 12). */
+const GRADUATION_TIMELINE = [
+  { month: 0, step: 'Get your report and score; choose a product that fits.' },
+  { month: 6, step: 'On-time payments; request graduation if your card offers it.' },
+  { month: 12, step: 'Consider unsecured options if your score has improved.' },
+] as const;
+
+/** Contextual CTA: slug → category link (internal link, not salesy). */
+const ARTICLE_CTA: Record<string, { href: string; label: string }> = {
+  'secured-vs-unsecured': { href: '/credit-cards/category/secured-cards', label: 'Compare secured cards' },
+  'credit-builder-loans': { href: '/credit-cards/category/credit-builder', label: 'Compare credit builder accounts' },
+  'what-is-a-bad-credit-score': { href: '/credit-cards/category/bad-credit', label: 'Compare cards for bad credit' },
+  'bankruptcy-and-rebuilding': { href: '/credit-cards/category/bad-credit', label: 'Compare cards for bad credit' },
+  'how-is-my-score-calculated': { href: '/credit-cards', label: 'Compare cards' },
+  'what-is-a-good-credit-score': { href: '/credit-cards', label: 'Compare cards' },
+  'how-credit-scores-work': { href: '/credit-cards', label: 'Compare cards' },
+  'fico-vs-vantagescore': { href: '/credit-cards', label: 'Compare cards' },
+};
+
+const DEFAULT_CTA = { href: '/credit-cards', label: 'Compare cards' };
+
 type Props = { params: { slug: string } };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
@@ -503,6 +531,48 @@ export default function EducationArticlePage({
 
         {/* Body */}
         <div className="mb-12">{article.body}</div>
+
+        {/* Stickiness: Before You Apply, scenario, timeline, CTA (guided, not salesy) */}
+        <section className="space-y-8 mb-12" aria-label="Next steps">
+          <div className="bg-slate-50 border border-slate-200 rounded-xl p-6">
+            <h2 className="text-lg font-bold text-slate-900 mb-3">Before You Apply</h2>
+            <ul className="list-disc list-inside space-y-2 text-slate-700">
+              {BEFORE_YOU_APPLY.map((item, i) => (
+                <li key={i}>{item}</li>
+              ))}
+            </ul>
+          </div>
+
+          <div className="bg-blue-50/60 border border-blue-100 rounded-xl p-6">
+            <h2 className="text-lg font-bold text-slate-900 mb-2">If this sounds like you…</h2>
+            <p className="text-slate-700 leading-relaxed">
+              You&apos;re learning how credit works so you can choose the right product for your situation.
+            </p>
+          </div>
+
+          <div className="border border-slate-200 rounded-xl overflow-hidden">
+            <h2 className="text-lg font-bold text-slate-900 p-4 border-b border-slate-200 bg-slate-50">
+              Graduation timeline
+            </h2>
+            <ul className="divide-y divide-slate-100">
+              {GRADUATION_TIMELINE.map(({ month, step }) => (
+                <li key={month} className="flex gap-4 p-4 text-slate-700">
+                  <span className="font-semibold text-slate-900 shrink-0">Month {month}</span>
+                  <span className="leading-relaxed">{step}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div className="text-center">
+            <Link
+              href={ARTICLE_CTA[slug]?.href ?? DEFAULT_CTA.href}
+              className="inline-flex items-center justify-center px-6 py-3 bg-slate-900 hover:bg-slate-800 text-white font-semibold rounded-lg transition-colors"
+            >
+              {ARTICLE_CTA[slug]?.label ?? DEFAULT_CTA.label}
+            </Link>
+          </div>
+        </section>
 
         {/* Author Bio */}
         <footer className="border-t border-slate-200 pt-8 mt-12">
