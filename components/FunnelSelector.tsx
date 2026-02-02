@@ -17,6 +17,14 @@ const DEPOSIT_OPTIONS = [
   { id: 'no-deposit', label: 'No', description: "I'd prefer no deposit" },
 ] as const;
 
+/** Situation-aware copy for the deposit question (display only; no routing/logic change). */
+const DEPOSIT_EXPLANATION: Record<string, string> = {
+  'no-credit': 'Most first-time cards require a refundable deposit to get approved.',
+  'bad-credit': 'A deposit often replaces credit history for approval.',
+  rebuilding: 'Deposits help issuers approve cards after financial setbacks.',
+  denied: 'Deposits can improve approval odds after a recent denial.',
+};
+
 const TRUST_DELAY_MS = 1800;
 
 export default function FunnelSelector() {
@@ -104,7 +112,7 @@ export default function FunnelSelector() {
             Can you pay a deposit?
           </p>
           <p className="text-sm text-slate-500 text-center mb-6">
-            Many secured cards require a refundable security deposit.
+            {situation ? (DEPOSIT_EXPLANATION[situation] ?? 'Many secured cards require a refundable security deposit.') : 'Many secured cards require a refundable security deposit.'}
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-md mx-auto">
             {DEPOSIT_OPTIONS.map((opt) => (
