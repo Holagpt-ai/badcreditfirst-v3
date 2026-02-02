@@ -1,0 +1,13 @@
+# EditorConfig: keep content files UTF-8 (no BOM) for encoding consistency
+# https://editorconfig.org
+
+root = true
+
+[*]
+charset = utf-8
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+[*.{ts,tsx,js,jsx,json,css,md,mdx}]
+charset = utf-8
