@@ -137,22 +137,15 @@ export default function CreditCardReviewPage({
             <span className="text-sm text-slate-500 ml-2 font-medium">{displayScore.toFixed(1)}/5</span>
           </div>
 
-          {/* Risks & Downsides — feeRisk + badFor (honest analysis) */}
-          {(feeRisk ?? badFor) && (
+          {/* Risks & Downsides — fee risk only (badFor moved to dedicated section below) */}
+          {feeRisk && (
             <div className="px-8 py-6 border-t border-slate-100">
               <h2 className="text-lg font-bold text-slate-900 mb-4">
                 Risks & Downsides
               </h2>
               <div className="bg-amber-50 border border-amber-200 rounded-lg p-4 text-amber-900">
                 <p className="text-sm font-semibold mb-2">⚠ Honest take</p>
-                <ul className="space-y-2 text-slate-700">
-                  {feeRisk && (
-                    <li><strong className="text-slate-800">Fees:</strong> {feeRisk}</li>
-                  )}
-                  {badFor && (
-                    <li><strong className="text-slate-800">Not for:</strong> {badFor}</li>
-                  )}
-                </ul>
+                <p className="text-slate-700">{feeRisk}</p>
               </div>
             </div>
           )}
@@ -171,6 +164,14 @@ export default function CreditCardReviewPage({
             <div className="px-8 py-6 border-t border-slate-100">
               <h2 className="text-lg font-bold text-slate-900 mb-4">Upgrade Path</h2>
               <p className="text-slate-600 leading-relaxed">{upgradePath}</p>
+            </div>
+          )}
+
+          {/* Who this is NOT for — visible before CTA, neutral and factual */}
+          {badFor && (
+            <div className="px-8 py-6 border-t border-slate-100">
+              <h2 className="text-lg font-bold text-slate-900 mb-4">Who this is NOT for</h2>
+              <p className="text-slate-600 leading-relaxed">{badFor}</p>
             </div>
           )}
 
