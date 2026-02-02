@@ -1,8 +1,10 @@
 import type { Metadata } from 'next';
+import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import DetailedCardRow from '../../../../components/DetailedCardRow';
 import { cardData } from '../../../../lib/card-data';
 import { categories, categoryContent } from '../../../../lib/categories';
+import { getComparisonsForCategory } from '../../../../data/comparisons';
 import { getCollectionPageSchema, getFAQSchema } from '../../../../lib/schema';
 
 const TRUST_SIGNAL_DATE = 'Updated Feb 2026';
@@ -35,6 +37,7 @@ export default function CreditCardCategoryPage({
   const filteredCards = cardData.filter((c) => c.categorySlug === slug);
   const categoryUrl = `/credit-cards/category/${slug}`;
   const itemUrls = filteredCards.map((c) => c.reviewUrl);
+  const relatedLinks = getComparisonsForCategory(slug, 5);
 
   const collectionSchema = getCollectionPageSchema({
     name: category.title,
@@ -58,7 +61,6 @@ export default function CreditCardCategoryPage({
       )}
       <main className="max-w-5xl mx-auto px-6 py-12">
         <article aria-labelledby="category-title">
-          {/* Hero: H1 + Trust Signals */}
           <header className="mb-10">
             <h1 id="category-title" className="text-4xl font-bold tracking-tight text-slate-900 mb-3">
               {category.title}
@@ -68,7 +70,6 @@ export default function CreditCardCategoryPage({
             </p>
           </header>
 
-          {/* Quick Answer Box (Featured Snippet target) — 2–3 sentences */}
           <section id="quick-answer" className="mb-10 p-6 bg-slate-50 border border-slate-200 rounded-xl">
             <h2 className="text-lg font-bold text-slate-900 mb-3">
               Quick Answer
@@ -78,7 +79,6 @@ export default function CreditCardCategoryPage({
             </p>
           </section>
 
-          {/* Who This Is For / Not For */}
           <section id="who-this-is-for" className="mb-10 grid grid-cols-1 md:grid-cols-2 gap-8">
             <div>
               <h2 className="text-xl font-bold text-slate-900 mb-4">
@@ -102,7 +102,6 @@ export default function CreditCardCategoryPage({
             </div>
           </section>
 
-          {/* Methodology Summary: How We Chose These Cards (Approval, Fees, Reporting) */}
           <section id="methodology" className="mb-10">
             <h2 className="text-xl font-bold text-slate-900 mb-4">
               How We Chose These Cards
@@ -123,7 +122,6 @@ export default function CreditCardCategoryPage({
             </ul>
           </section>
 
-          {/* Card List */}
           <section id="card-list" className="mb-12" aria-label="Product comparison">
             <h2 className="text-xl font-bold text-slate-900 mb-4">
               Compare Options
@@ -147,7 +145,6 @@ export default function CreditCardCategoryPage({
             </div>
           </section>
 
-          {/* Deep Education: How This Category Helps Rebuild Credit (~400 words) */}
           <section id="deep-education" className="mb-10">
             <h2 className="text-xl font-bold text-slate-900 mb-4">
               How This Category Helps Rebuild Credit
@@ -159,7 +156,6 @@ export default function CreditCardCategoryPage({
             </div>
           </section>
 
-          {/* Risks & Downsides (Warning: fees, locked deposits) */}
           <section id="risks-downsides" className="mb-10">
             <h2 className="text-xl font-bold text-slate-900 mb-4">
               Risks & Downsides
@@ -172,7 +168,6 @@ export default function CreditCardCategoryPage({
             </div>
           </section>
 
-          {/* Graduation Path: What to Apply For Next */}
           <section id="graduation-path" className="mb-10">
             <h2 className="text-xl font-bold text-slate-900 mb-4">
               What to Apply For Next
@@ -182,7 +177,6 @@ export default function CreditCardCategoryPage({
             </p>
           </section>
 
-          {/* FAQs: 3–5 Q&A with JSON-LD Schema (injected above) */}
           <section id="faq" className="mb-12">
             <h2 className="text-xl font-bold text-slate-900 mb-4">
               Frequently Asked Questions
@@ -201,6 +195,23 @@ export default function CreditCardCategoryPage({
               ))}
             </dl>
           </section>
+
+          {relatedLinks.length > 0 && (
+            <section id="related-comparisons" className="mb-12">
+              <h2 className="text-xl font-bold text-slate-900 mb-4">
+                Related comparisons
+              </h2>
+              <ul className="flex flex-wrap gap-3 text-sm">
+                {relatedLinks.map(({ slug: compSlug, anchorText }) => (
+                  <li key={compSlug}>
+                    <Link href={`/compare/${compSlug}`} className="text-blue-600 hover:underline font-medium">
+                      {anchorText}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
         </article>
       </main>
     </div>

@@ -3,6 +3,7 @@
  * Source of truth for all comparison slugs.
  */
 import type { ComparisonPage } from './opensky-vs-credit-one';
+import { getCardBySlug } from '@/lib/card-data';
 
 import openskyVsCreditOne from './opensky-vs-credit-one';
 import openskyVsCapitalOneSecured from './opensky-vs-capital-one-secured';
@@ -62,4 +63,52 @@ export type { ComparisonPage };
 
 export function getComparisonBySlug(slug: string): ComparisonPage | undefined {
   return comparisons[slug];
+}
+
+export interface ComparisonLink {
+  slug: string;
+  anchorText: string;
+}
+
+/** Returns 2–3 comparison links where the given card slug appears. */
+export function getComparisonsForCard(cardSlug: string, max = 3): ComparisonLink[] {
+  const links: ComparisonLink[] = [];
+  for (const comp of Object.values(comparisons)) {
+    if (links.length >= max) break;
+    if (comp.entityA.slug === cardSlug || comp.entityB.slug === cardSlug) {
+      links.push({ slug: comp.slug, anchorText: `${comp.entityA.name} vs ${comp.entityB.name}` });
+    }
+  }
+  return links;
+}
+
+function entitySlugMatchesCategory(entitySlug: string, categorySlug: string): boolean {
+  if (entitySlug === categorySlug) return true;
+  const card = getCardBySlug(entitySlug);
+  return card?.categorySlug === categorySlug;
+}
+
+/** Returns 3–5 comparison links relevant to the given category slug. */
+export function getComparisonsForCategory(categorySlug: string, max = 5): ComparisonLink[] {
+  const links: ComparisonLink[] = [];
+  for (const comp of Object.values(comparisons)) {
+    if (links.length >= max) break;
+    const aMatches = entitySlugMatchesCategory(comp.entityA.slug, categorySlug);
+    const bMatches = entitySlugMatchesCategory(comp.entityB.slug, categorySlug);
+    if (aMatches || bMatches) {
+      links.push({ slug: comp.slug, anchorText: `${comp.entityA.name} vs ${comp.entityB.name}` });
+    }
+  }
+  return links;
+}
+
+/** Returns 3 other comparison links, excluding the current slug. */
+export function getRelatedComparisons(currentSlug: string, max = 3): ComparisonLink[] {
+  const links: ComparisonLink[] = [];
+  for (const comp of Object.values(comparisons)) {
+    if (links.length >= max) break;
+    if (comp.slug === currentSlug) continue;
+    links.push({ slug: comp.slug, anchorText: `${comp.entityA.name} vs ${comp.entityB.name}` });
+  }
+  return links;
 }

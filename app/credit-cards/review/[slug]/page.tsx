@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation';
 import { Star, CreditCard } from 'lucide-react';
 import { getCardBySlug, getAffiliateLink } from '../../../../lib/card-data';
 import { categories } from '../../../../lib/categories';
+import { getComparisonsForCard } from '../../../../data/comparisons';
 import { getProductSchema, getReviewSchema, getBreadcrumbSchema } from '../../../../lib/schema';
 
 const baseUrl = 'https://www.badcreditfirst.com';
@@ -38,7 +39,7 @@ export default function CreditCardReviewPage({
   const isComingSoon = status === 'coming-soon';
   const applyHref = getAffiliateLink(slug);
   const reviewUrl = `${baseUrl}${card.reviewUrl}`;
-  const ratingValue = '4.5'; // Schema unchanged (display-only uses editorialScore)
+  const ratingValue = '4.5';
   const bestRating = 5;
   const displayScore = Math.min(bestRating, Math.max(4.1, editorialScore ?? 4.5));
   const fullStars = Math.floor(displayScore);
@@ -78,6 +79,8 @@ export default function CreditCardReviewPage({
     { name: title, url: card.reviewUrl },
   ]);
 
+  const compareLinks = getComparisonsForCard(slug, 3);
+
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900">
       <script
@@ -96,7 +99,6 @@ export default function CreditCardReviewPage({
           <p className="text-slate-500 font-medium">Review & Details</p>
         </div>
 
-        {/* BadCreditFirst Verdict — at top, prominent (approvalOdds + realWorldUseCase) */}
         <div className="mb-6 p-6 bg-blue-50 border border-blue-200 rounded-xl">
           <h2 className="text-lg font-bold text-slate-900 mb-4">
             BadCreditFirst Verdict
@@ -118,7 +120,6 @@ export default function CreditCardReviewPage({
         </div>
 
         <div className={`bg-white border border-slate-200 rounded-xl shadow-sm overflow-hidden ${isComingSoon ? 'opacity-90 bg-slate-50/50' : ''}`}>
-          {/* Card image placeholder */}
           <div className="p-8 flex justify-center border-b border-slate-100 bg-slate-50">
             <div className="w-full max-w-sm aspect-[1.586] rounded-xl bg-gradient-to-br from-slate-200 via-slate-100 to-slate-300 shadow-inner border border-slate-300 flex items-center justify-center relative overflow-hidden">
               <div className="absolute inset-0 bg-white/10" />
@@ -126,7 +127,6 @@ export default function CreditCardReviewPage({
             </div>
           </div>
 
-          {/* Rating (display-only; editorialScore 4.1–4.6) */}
           <div className="px-8 pt-6 flex flex-wrap items-center gap-2" aria-label={`Rating: ${displayScore.toFixed(1)} out of ${bestRating}`}>
             {Array.from({ length: fullStars }, (_, i) => (
               <Star key={i} className="w-5 h-5 fill-yellow-400 text-yellow-400 shrink-0" aria-hidden="true" />
@@ -140,7 +140,6 @@ export default function CreditCardReviewPage({
             </Link>
           </div>
 
-          {/* Risks & Downsides — fee risk only (badFor moved to dedicated section below) */}
           {feeRisk && (
             <div className="px-8 py-6 border-t border-slate-100">
               <h2 className="text-lg font-bold text-slate-900 mb-4">
@@ -153,7 +152,6 @@ export default function CreditCardReviewPage({
             </div>
           )}
 
-          {/* Pros & Cons */}
           <div className="px-8 py-6 border-t border-slate-100">
             <h2 className="text-lg font-bold text-slate-900 mb-4">Pros & Cons</h2>
             <div className="space-y-3 text-slate-600">
@@ -162,7 +160,6 @@ export default function CreditCardReviewPage({
             </div>
           </div>
 
-          {/* Upgrade Path */}
           {upgradePath && (
             <div className="px-8 py-6 border-t border-slate-100">
               <h2 className="text-lg font-bold text-slate-900 mb-4">Upgrade Path</h2>
@@ -170,7 +167,6 @@ export default function CreditCardReviewPage({
             </div>
           )}
 
-          {/* Who this is NOT for — visible before CTA, neutral and factual */}
           {badFor && (
             <div className="px-8 py-6 border-t border-slate-100">
               <h2 className="text-lg font-bold text-slate-900 mb-4">Who this is NOT for</h2>
@@ -178,7 +174,6 @@ export default function CreditCardReviewPage({
             </div>
           )}
 
-          {/* CTA + Internal links */}
           <div className="px-8 pb-8 border-t border-slate-100">
             {isComingSoon ? (
               <div className="w-full py-4 bg-slate-200 text-slate-600 font-semibold rounded-lg text-center cursor-not-allowed" aria-disabled="true">
@@ -203,7 +198,6 @@ export default function CreditCardReviewPage({
               </>
             )}
 
-            {/* Internal linking: parent category (every review) + 1 contextual education link */}
             <div className="mt-6 pt-6 border-t border-slate-200 flex flex-wrap gap-4 justify-center text-sm">
               <Link href={categoryHref} className="text-blue-600 hover:underline font-medium">
                 ← Back to {categoryTitle}
@@ -212,6 +206,21 @@ export default function CreditCardReviewPage({
                 Read: {EDUCATION_LINK.label}
               </Link>
             </div>
+
+            {compareLinks.length > 0 && (
+              <div className="mt-6 pt-6 border-t border-slate-200">
+                <h2 className="text-lg font-bold text-slate-900 mb-3">Compare this card</h2>
+                <ul className="flex flex-wrap gap-3 text-sm">
+                  {compareLinks.map(({ slug: compSlug, anchorText }) => (
+                    <li key={compSlug}>
+                      <Link href={`/compare/${compSlug}`} className="text-blue-600 hover:underline font-medium">
+                        {anchorText}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
           </div>
         </div>
       </main>

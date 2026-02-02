@@ -1,5 +1,6 @@
+import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { getComparisonBySlug } from '@/data/comparisons';
+import { getComparisonBySlug, getRelatedComparisons } from '@/data/comparisons';
 import ComparisonHero from '@/components/compare/ComparisonHero';
 import SnapshotTable from '@/components/compare/SnapshotTable';
 import DecisionLogicSection from '@/components/compare/DecisionLogicSection';
@@ -31,6 +32,25 @@ export default function ComparePage({ params }: Props) {
           <SummaryTakeaway data={comparison} />
           <ComparisonCTAs data={comparison} />
           <MethodologyFooter />
+
+          {(() => {
+            const relatedLinks = getRelatedComparisons(slug, 3);
+            if (relatedLinks.length === 0) return null;
+            return (
+              <div className="mt-8 pt-8 border-t border-slate-200">
+                <h2 className="text-lg font-bold text-slate-900 mb-3">Related comparisons</h2>
+                <ul className="flex flex-wrap gap-3 text-sm">
+                  {relatedLinks.map(({ slug: compSlug, anchorText }) => (
+                    <li key={compSlug}>
+                      <Link href={`/compare/${compSlug}`} className="text-blue-600 hover:underline font-medium">
+                        {anchorText}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            );
+          })()}
         </div>
       </main>
     </div>
