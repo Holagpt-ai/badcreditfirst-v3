@@ -8,35 +8,58 @@ export const metadata: Metadata = {
     'Compare secured credit cards and credit-building products for bad or limited credit. Independent reviews, fees, and approval tips.',
 };
 
-const CATEGORY_TILES = [
-  { href: '/credit-cards/category/secured-cards', label: 'Secured Cards', icon: Shield },
-  { href: '/credit-cards/category/bad-credit', label: 'Bad Credit Cards', icon: CreditCard },
-  { href: '/credit-cards/category/credit-builder', label: 'Credit Builder Accounts', icon: Building2 },
+const CATEGORY_ENTRIES = [
+  {
+    href: '/credit-cards/category/secured-cards',
+    label: 'Secured Credit Cards',
+    description: 'Cards that use a refundable deposit instead of credit history. Good for no credit or rebuilding.',
+    icon: Shield,
+  },
+  {
+    href: '/credit-cards/category/bad-credit',
+    label: 'Credit Cards for Bad Credit',
+    description: 'Options for damaged or limited credit. Compare fees and approval fit before you apply.',
+    icon: CreditCard,
+  },
+  {
+    href: '/credit-cards/category/credit-builder',
+    label: 'Credit Builder Accounts',
+    description: 'Save and build a tradeline without a credit card. No hard pull to get started.',
+    icon: Building2,
+  },
 ] as const;
 
 export default function CreditCardsIndexPage() {
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900">
       <main className="max-w-4xl mx-auto px-6 py-12">
-        {/* Category tiles — actionable choices first */}
+        {/* Category entry points — clear options before explainer */}
         <section className="mb-10" aria-label="Browse by category">
           <h2 className="text-lg font-bold text-slate-900 mb-4 sr-only">
             Compare by category
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-            {CATEGORY_TILES.map(({ href, label, icon: Icon }) => (
-              <Link
+            {CATEGORY_ENTRIES.map(({ href, label, description, icon: Icon }) => (
+              <div
                 key={href}
-                href={href}
-                className="flex items-center gap-3 p-5 bg-white border border-slate-200 rounded-xl shadow-sm hover:shadow-md hover:border-blue-200 transition-all text-left group"
+                className="p-5 bg-white border border-slate-200 rounded-xl shadow-sm flex flex-col"
               >
-                <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-slate-100 flex items-center justify-center group-hover:bg-blue-50 transition-colors">
-                  <Icon className="w-5 h-5 text-slate-600 group-hover:text-blue-600 transition-colors" aria-hidden="true" />
+                <div className="flex items-center gap-3 mb-3">
+                  <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-slate-100 flex items-center justify-center">
+                    <Icon className="w-5 h-5 text-slate-600" aria-hidden="true" />
+                  </div>
+                  <h3 className="font-semibold text-slate-900">{label}</h3>
                 </div>
-                <span className="font-semibold text-slate-900 group-hover:text-blue-600 transition-colors">
-                  {label}
-                </span>
-              </Link>
+                <p className="text-sm text-slate-600 leading-relaxed mb-4 flex-1">
+                  {description}
+                </p>
+                <Link
+                  href={href}
+                  className="text-sm font-medium text-blue-600 hover:text-blue-700 hover:underline inline-flex items-center gap-1"
+                >
+                  View cards <span aria-hidden="true">→</span>
+                </Link>
+              </div>
             ))}
           </div>
         </section>
