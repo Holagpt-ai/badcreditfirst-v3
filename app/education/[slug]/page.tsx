@@ -441,11 +441,28 @@ const BEFORE_YOU_APPLY = [
   'Compare fees and deposit requirements before applying',
 ] as const;
 
-/** Graduation timeline (Month 0 → 6 → 12). */
-const GRADUATION_TIMELINE = [
-  { month: 0, step: 'Get your report and score; choose a product that fits.' },
-  { month: 6, step: 'On-time payments; request graduation if your card offers it.' },
-  { month: 12, step: 'Consider unsecured options if your score has improved.' },
+/** "If this sounds like you" — contextual copy after intro (use or adapt). */
+const IF_THIS_SOUNDS_LIKE: Record<string, string> = {
+  'secured-vs-unsecured': "You've been denied recently, want to avoid hard pulls, or are starting with no credit — secured cards are usually the safest next step.",
+  'credit-builder-loans': "You prefer building credit without a credit card, or you've been denied for cards — credit builder accounts can help establish a tradeline.",
+  'what-is-a-bad-credit-score': "You've been denied recently, want to avoid hard pulls, or are starting with no credit — secured cards are usually the safest next step.",
+  'bankruptcy-and-rebuilding': "You've been denied recently, want to avoid hard pulls, or are starting with no credit — secured cards are usually the safest next step.",
+};
+const IF_THIS_SOUNDS_LIKE_DEFAULT = "You've been denied recently, want to avoid hard pulls, or are starting with no credit — secured cards are usually the safest next step.";
+
+/** What rebuilding typically looks like (timeline). */
+const REBUILDING_TIMELINE = [
+  { label: 'Month 0', step: 'Open your first credit-building account' },
+  { label: 'Months 1–3', step: 'On-time payments begin reporting' },
+  { label: 'Months 4–6', step: 'Early score improvement appears' },
+  { label: 'Months 9–12', step: 'Eligible for better card options' },
+] as const;
+
+/** Common mistakes to avoid. */
+const COMMON_MISTAKES = [
+  'Applying for multiple cards at once',
+  'Carrying balances on secured cards',
+  'Closing your first account too early',
 ] as const;
 
 /** Contextual CTA: slug → category link (internal link, not salesy). */
@@ -529,10 +546,18 @@ export default function EducationArticlePage({
           </div>
         )}
 
+        {/* If this sounds like you — after intro */}
+        <div className="bg-blue-50/60 border border-blue-100 rounded-xl p-6 mb-8">
+          <h2 className="text-lg font-bold text-slate-900 mb-2">If this sounds like you…</h2>
+          <p className="text-slate-700 leading-relaxed">
+            {IF_THIS_SOUNDS_LIKE[slug] ?? IF_THIS_SOUNDS_LIKE_DEFAULT}
+          </p>
+        </div>
+
         {/* Body */}
         <div className="mb-12">{article.body}</div>
 
-        {/* Stickiness: Before You Apply, scenario, timeline, CTA (guided, not salesy) */}
+        {/* Stickiness: Before You Apply, timeline, mistakes, CTA (guided, not salesy) */}
         <section className="space-y-8 mb-12" aria-label="Next steps">
           <div className="bg-slate-50 border border-slate-200 rounded-xl p-6">
             <h2 className="text-lg font-bold text-slate-900 mb-3">Before You Apply</h2>
@@ -543,23 +568,25 @@ export default function EducationArticlePage({
             </ul>
           </div>
 
-          <div className="bg-blue-50/60 border border-blue-100 rounded-xl p-6">
-            <h2 className="text-lg font-bold text-slate-900 mb-2">If this sounds like you…</h2>
-            <p className="text-slate-700 leading-relaxed">
-              You&apos;re learning how credit works so you can choose the right product for your situation.
-            </p>
-          </div>
-
           <div className="border border-slate-200 rounded-xl overflow-hidden">
             <h2 className="text-lg font-bold text-slate-900 p-4 border-b border-slate-200 bg-slate-50">
-              Graduation timeline
+              What rebuilding typically looks like
             </h2>
             <ul className="divide-y divide-slate-100">
-              {GRADUATION_TIMELINE.map(({ month, step }) => (
-                <li key={month} className="flex gap-4 p-4 text-slate-700">
-                  <span className="font-semibold text-slate-900 shrink-0">Month {month}</span>
+              {REBUILDING_TIMELINE.map(({ label, step }) => (
+                <li key={label} className="flex gap-4 p-4 text-slate-700">
+                  <span className="font-semibold text-slate-900 shrink-0">{label}</span>
                   <span className="leading-relaxed">{step}</span>
                 </li>
+              ))}
+            </ul>
+          </div>
+
+          <div className="bg-amber-50/60 border border-amber-200 rounded-xl p-6">
+            <h2 className="text-lg font-bold text-slate-900 mb-3">Common mistakes to avoid</h2>
+            <ul className="list-disc list-inside space-y-2 text-slate-700">
+              {COMMON_MISTAKES.map((item, i) => (
+                <li key={i}>{item}</li>
               ))}
             </ul>
           </div>
@@ -569,7 +596,7 @@ export default function EducationArticlePage({
               href={ARTICLE_CTA[slug]?.href ?? DEFAULT_CTA.href}
               className="inline-flex items-center justify-center px-6 py-3 bg-slate-900 hover:bg-slate-800 text-white font-semibold rounded-lg transition-colors"
             >
-              {ARTICLE_CTA[slug]?.label ?? DEFAULT_CTA.label}
+              Next best step → {ARTICLE_CTA[slug]?.label ?? DEFAULT_CTA.label}
             </Link>
           </div>
         </section>
