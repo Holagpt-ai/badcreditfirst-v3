@@ -21,23 +21,26 @@ interface DetailedCardRowProps {
   position?: number;
   /** Editorial star rating for display only (4.1–4.6). */
   editorialScore?: number;
+  /** Card availability: active (Apply CTA) or coming-soon (no issuer link). */
+  status?: 'active' | 'coming-soon';
 }
 
 const BEST_RATING = 5;
 
-export default function DetailedCardRow({ title, label, highlights, fees, creditScore, slug, reviewUrl, segment, position, editorialScore = 4.5 }: DetailedCardRowProps) {
+export default function DetailedCardRow({ title, label, highlights, fees, creditScore, slug, reviewUrl, segment, position, editorialScore = 4.5, status = 'active' }: DetailedCardRowProps) {
   const applyHref = getAffiliateLink(slug, segment, position);
   const score = Math.min(BEST_RATING, Math.max(4.1, editorialScore));
   const fullStars = Math.floor(score);
   const partialOpacity = score - fullStars;
+  const isComingSoon = status === 'coming-soon';
 
   const handleApplyClick = () => {
-    trackEvent('apply_click', 'Card', slug, position ?? 0);
+    if (!isComingSoon) trackEvent('apply_click', 'Card', slug, position ?? 0);
   };
 
   return (
 
-  <div className="flex flex-col md:flex-row">
+  <div className={`flex flex-col md:flex-row ${isComingSoon ? 'opacity-75 bg-slate-50/80' : ''}`}>
     {/* LEFT: Compliant Image Placeholder (No Logos) */}
     <div className="w-full md:w-[220px] p-6 flex flex-col items-center justify-center border-b md:border-b-0 md:border-r border-slate-100 bg-slate-50">
        <div className="w-full aspect-[1.586] rounded-xl bg-gradient-to-br from-slate-200 via-slate-100 to-slate-300 shadow-inner border border-slate-300 flex items-center justify-center relative overflow-hidden">
@@ -89,26 +92,34 @@ export default function DetailedCardRow({ title, label, highlights, fees, credit
       </div>
     </div>
     {/* RIGHT: Action Area */}
-    <div className="w-full md:w-[280px] p-6 bg-slate-50 flex flex-col justify-center border-t md:border-t-0 md:border-l border-slate-100">
-        <a
-          href={applyHref}
-          target="_blank"
-          rel="nofollow noreferrer"
-          onClick={handleApplyClick}
-          className="w-full py-4 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-lg shadow-sm hover:shadow-md transition-all text-center flex items-center justify-center group"
-        >
-          Apply Now
-          <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" aria-hidden="true" />
-        </a>
+    <div className={`w-full md:w-[280px] p-6 flex flex-col justify-center border-t md:border-t-0 md:border-l border-slate-100 ${isComingSoon ? 'bg-slate-100' : 'bg-slate-50'}`}>
+        {isComingSoon ? (
+          <div className="w-full py-4 bg-slate-300 text-slate-600 font-semibold rounded-lg text-center cursor-not-allowed" aria-disabled="true">
+            Coming Soon
+          </div>
+        ) : (
+          <a
+            href={applyHref}
+            target="_blank"
+            rel="nofollow noreferrer"
+            onClick={handleApplyClick}
+            className="w-full py-4 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-lg shadow-sm hover:shadow-md transition-all text-center flex items-center justify-center group"
+          >
+            Apply Now
+            <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" aria-hidden="true" />
+          </a>
+        )}
         <Link
           href={reviewUrl}
           className="mt-3 text-center text-blue-600 text-sm hover:underline block"
         >
           View Full Review <span aria-hidden="true">{'\u2192'}</span>
         </Link>
-        <p className="mt-4 text-[10px] text-center text-slate-400 leading-tight">
-          Terms and conditions apply. <br/> Rates subject to change.
-        </p>
+        {!isComingSoon && (
+          <p className="mt-4 text-[10px] text-center text-slate-400 leading-tight">
+            Terms and conditions apply. <br/> Rates subject to change.
+          </p>
+        )}
     </div>
   </div>
 ); }

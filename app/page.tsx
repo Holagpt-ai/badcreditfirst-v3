@@ -49,6 +49,7 @@ export default function Home() {
                 slug={card.slug}
                 reviewUrl={card.reviewUrl}
                 editorialScore={card.editorialScore}
+                status={card.status}
               />
             ))}
           </div>

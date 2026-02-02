@@ -34,7 +34,8 @@ export default function CreditCardReviewPage({
     notFound();
   }
 
-  const { approvalOdds, realWorldUseCase, feeRisk, upgradePath, title, fees, badFor, categorySlug, editorialScore } = card;
+  const { approvalOdds, realWorldUseCase, feeRisk, upgradePath, title, fees, badFor, categorySlug, editorialScore, status } = card;
+  const isComingSoon = status === 'coming-soon';
   const applyHref = getAffiliateLink(slug);
   const reviewUrl = `${baseUrl}${card.reviewUrl}`;
   const ratingValue = '4.5'; // Schema unchanged (display-only uses editorialScore)
@@ -116,7 +117,7 @@ export default function CreditCardReviewPage({
           </div>
         </div>
 
-        <div className="bg-white border border-slate-200 rounded-xl shadow-sm overflow-hidden">
+        <div className={`bg-white border border-slate-200 rounded-xl shadow-sm overflow-hidden ${isComingSoon ? 'opacity-90 bg-slate-50/50' : ''}`}>
           {/* Card image placeholder */}
           <div className="p-8 flex justify-center border-b border-slate-100 bg-slate-50">
             <div className="w-full max-w-sm aspect-[1.586] rounded-xl bg-gradient-to-br from-slate-200 via-slate-100 to-slate-300 shadow-inner border border-slate-300 flex items-center justify-center relative overflow-hidden">
@@ -175,20 +176,28 @@ export default function CreditCardReviewPage({
 
           {/* CTA + Internal links */}
           <div className="px-8 pb-8 border-t border-slate-100">
-            <a
-              href={applyHref}
-              target="_blank"
-              rel="nofollow noreferrer"
-              className="w-full py-4 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-lg shadow-sm hover:shadow-md transition-all text-center flex items-center justify-center"
-            >
-              Visit Issuer Website
-            </a>
-            <p className="mt-3 text-xs text-slate-500 text-center">
-              You will be redirected to the issuer&apos;s official website.
-            </p>
-            <p className="mt-6 text-xs text-slate-400 text-center leading-relaxed">
-              BadCreditFirst may receive compensation if you apply through links on this page.
-            </p>
+            {isComingSoon ? (
+              <div className="w-full py-4 bg-slate-200 text-slate-600 font-semibold rounded-lg text-center cursor-not-allowed" aria-disabled="true">
+                Coming Soon
+              </div>
+            ) : (
+              <>
+                <a
+                  href={applyHref}
+                  target="_blank"
+                  rel="nofollow noreferrer"
+                  className="w-full py-4 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-lg shadow-sm hover:shadow-md transition-all text-center flex items-center justify-center"
+                >
+                  Visit Issuer Website
+                </a>
+                <p className="mt-3 text-xs text-slate-500 text-center">
+                  You will be redirected to the issuer&apos;s official website.
+                </p>
+                <p className="mt-6 text-xs text-slate-400 text-center leading-relaxed">
+                  BadCreditFirst may receive compensation if you apply through links on this page.
+                </p>
+              </>
+            )}
 
             {/* Internal linking: parent category (every review) + 1 contextual education link */}
             <div className="mt-6 pt-6 border-t border-slate-200 flex flex-wrap gap-4 justify-center text-sm">

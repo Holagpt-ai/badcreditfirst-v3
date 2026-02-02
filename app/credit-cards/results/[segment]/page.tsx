@@ -60,6 +60,7 @@ export default function CreditCardsResultsPage({
               slug={card.slug}
               reviewUrl={card.reviewUrl}
               editorialScore={card.editorialScore}
+              status={card.status}
               segment={segment}
               position={index + 1}
             />
