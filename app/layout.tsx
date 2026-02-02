@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import Script from "next/script";
 import Link from "next/link";
-import { ShieldCheck } from "lucide-react";
+import { Shield, Check } from "lucide-react";
 import { getOrganizationSchema, getWebSiteSchema } from "@/lib/schema";
 import "./globals.css";
 
@@ -45,7 +45,10 @@ export default function RootLayout({
           <div className="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between">
             <Link href="/">
               <span className="text-2xl font-black tracking-tighter text-blue-900 flex items-center gap-2">
-                <ShieldCheck className="w-8 h-8 text-green-600" style={{ filter: "drop-shadow(0 0 6px rgba(34,197,94,0.35))" }} aria-hidden="true" />
+                <span className="relative inline-block w-8 h-8 shrink-0" aria-hidden="true">
+                  <Shield className="w-8 h-8 text-slate-600" />
+                  <Check className="w-4 h-4 text-green-600 absolute inset-0 m-auto" style={{ filter: "drop-shadow(0 0 4px rgba(34,197,94,0.35))" }} strokeWidth={3} />
+                </span>
                 BadCreditFirst
               </span>
             </Link>
@@ -131,7 +134,10 @@ export default function RootLayout({
             {/* ROW 4: Brand Anchor */}
             <div className="border-t border-slate-700 pt-8 text-center">
               <Link href="/" className="inline-flex items-center gap-2 text-white font-bold text-lg mb-4 hover:opacity-90 transition-opacity">
-                <ShieldCheck className="w-6 h-6 text-green-400" style={{ filter: "drop-shadow(0 0 6px rgba(34,197,94,0.35))" }} aria-hidden="true" />
+                <span className="relative inline-block w-6 h-6 shrink-0" aria-hidden="true">
+                  <Shield className="w-6 h-6 text-slate-400" />
+                  <Check className="w-3 h-3 text-green-400 absolute inset-0 m-auto" style={{ filter: "drop-shadow(0 0 4px rgba(52,211,153,0.35))" }} strokeWidth={3} />
+                </span>
                 BadCreditFirst
               </Link>
               <p className="text-xs text-slate-500 mb-1">Operated by BadCreditFirst | Contact: carlos.acosta@badcreditfirst.com</p>
