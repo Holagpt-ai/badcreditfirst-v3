@@ -30,4 +30,14 @@ body {
   .text-balance {
     text-wrap: balance;
   }
+
+  /* Logo shield: green check + subtle glow (CSS-only, no animation) */
+  .logo-shield {
+    color: rgb(16 185 129); /* emerald-500 */
+    filter: drop-shadow(0 0 6px rgba(16, 185, 129, 0.4)) drop-shadow(0 1px 2px rgba(0, 0, 0, 0.05));
+  }
+  .logo-shield-footer {
+    color: rgb(52 211 153); /* emerald-400, visible on dark */
+    filter: drop-shadow(0 0 6px rgba(52, 211, 153, 0.25));
+  }
 }

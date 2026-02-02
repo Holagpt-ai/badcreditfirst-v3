@@ -45,7 +45,7 @@ export default function RootLayout({
           <div className="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between">
             <Link href="/">
               <span className="text-2xl font-black tracking-tighter text-blue-900 flex items-center gap-2">
-                <ShieldCheck className="w-8 h-8 text-blue-600" />
+                <ShieldCheck className="w-8 h-8 logo-shield" aria-hidden="true" />
                 BadCreditFirst
               </span>
             </Link>
@@ -131,7 +131,7 @@ export default function RootLayout({
             {/* ROW 4: Brand Anchor */}
             <div className="border-t border-slate-700 pt-8 text-center">
               <Link href="/" className="inline-flex items-center gap-2 text-white font-bold text-lg mb-4 hover:opacity-90 transition-opacity">
-                <ShieldCheck className="w-6 h-6 text-slate-400" />
+                <ShieldCheck className="w-6 h-6 logo-shield-footer" aria-hidden="true" />
                 BadCreditFirst
               </Link>
               <p className="text-xs text-slate-500 mb-1">Operated by BadCreditFirst | Contact: carlos.acosta@badcreditfirst.com</p>
