@@ -141,6 +141,7 @@ export default function CreditCardCategoryPage({
                   reviewUrl={c.reviewUrl}
                   editorialScore={c.editorialScore}
                   status={c.status}
+                  whyRecommended={c.whyRecommended}
                 />
               ))}
             </div>

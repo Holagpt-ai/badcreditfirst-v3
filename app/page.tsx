@@ -50,6 +50,7 @@ export default function Home() {
                 reviewUrl={card.reviewUrl}
                 editorialScore={card.editorialScore}
                 status={card.status}
+                whyRecommended={card.whyRecommended}
               />
             ))}
           </div>

@@ -61,6 +61,7 @@ export default function CreditCardsResultsPage({
               reviewUrl={card.reviewUrl}
               editorialScore={card.editorialScore}
               status={card.status}
+              whyRecommended={card.whyRecommended}
               segment={segment}
               position={index + 1}
             />

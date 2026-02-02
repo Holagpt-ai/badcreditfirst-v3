@@ -31,6 +31,8 @@ export interface CardItem {
   status: 'active' | 'coming-soon';
   /** Editorial star rating for display only (4.1–4.6); not used in schema yet. */
   editorialScore: number;
+  /** Why we recommend this card (editorial, one sentence). */
+  whyRecommended?: string;
   /** One-line risk summary (optional). */
   riskSummary?: string;
   /** Who this product is a bad fit for (optional; use badFor for canonical). */
@@ -56,6 +58,7 @@ export const cardData: CardItem[] = [
     categorySlug: 'secured-cards',
     status: 'active',
     editorialScore: 4.5,
+    whyRecommended: 'Recommended for predictable approval and reporting to all three bureaus.',
     riskSummary: 'Annual fee is charged upfront; missing a payment can hurt your new credit file.',
     whoThisIsBadFor: 'Not for people who need a high credit limit or rewards.',
   },
@@ -77,6 +80,7 @@ export const cardData: CardItem[] = [
     categorySlug: 'secured-cards',
     status: 'active',
     editorialScore: 4.3,
+    whyRecommended: 'Included as a low-risk option for users with no or limited credit history.',
     riskSummary: 'High fee risk in year one; the $49 annual fee is non-refundable.',
     whoThisIsBadFor: 'Not for people who can qualify for a no-annual-fee secured card elsewhere.',
   },
@@ -98,6 +102,7 @@ export const cardData: CardItem[] = [
     categorySlug: 'credit-builder',
     status: 'active',
     editorialScore: 4.6,
+    whyRecommended: 'Chosen for its no hard pull and suitability when credit cards are not an option.',
     riskSummary: 'You do not get the money until the term ends; not suitable if you need cash now.',
     whoThisIsBadFor: 'Not for people who already have several positive tradelines and want revolving credit.',
   },
@@ -119,6 +124,7 @@ export const cardData: CardItem[] = [
     categorySlug: 'bad-credit',
     status: 'coming-soon',
     editorialScore: 4.2,
+    whyRecommended: 'Chosen for its simple structure and suitability after recent denials.',
     riskSummary: 'Unsecured cards for fair credit can have variable rates and fees; check the offer.',
     whoThisIsBadFor: 'Not for people with no credit history or very low scores.',
   },
@@ -140,6 +146,7 @@ export const cardData: CardItem[] = [
     categorySlug: 'bad-credit',
     status: 'coming-soon',
     editorialScore: 4.4,
+    whyRecommended: 'Included for rewards and account reviews once you have limited credit.',
     riskSummary: 'Fees vary by applicant; your offer may differ from marketing.',
     whoThisIsBadFor: 'Not for people who want a single, transparent annual fee.',
   },

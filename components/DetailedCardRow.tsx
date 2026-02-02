@@ -23,11 +23,13 @@ interface DetailedCardRowProps {
   editorialScore?: number;
   /** Card availability: active (Apply CTA) or coming-soon (no issuer link). */
   status?: 'active' | 'coming-soon';
+  /** Why we recommend this card (editorial, one sentence). */
+  whyRecommended?: string;
 }
 
 const BEST_RATING = 5;
 
-export default function DetailedCardRow({ title, label, highlights, fees, creditScore, slug, reviewUrl, segment, position, editorialScore = 4.5, status = 'active' }: DetailedCardRowProps) {
+export default function DetailedCardRow({ title, label, highlights, fees, creditScore, slug, reviewUrl, segment, position, editorialScore = 4.5, status = 'active', whyRecommended }: DetailedCardRowProps) {
   const applyHref = getAffiliateLink(slug, segment, position);
   const score = Math.min(BEST_RATING, Math.max(4.1, editorialScore));
   const fullStars = Math.floor(score);
@@ -70,6 +72,9 @@ export default function DetailedCardRow({ title, label, highlights, fees, credit
             )}
             <span className="text-xs text-slate-500 ml-2 font-medium">{score.toFixed(1)}/5</span>
           </div>
+          {whyRecommended && (
+            <p className="text-xs text-slate-500 mb-4 leading-relaxed">{whyRecommended}</p>
+          )}
           <div className="grid grid-cols-2 gap-4 text-sm mb-4">
             <div>
               <p className="text-slate-500 text-xs uppercase font-semibold">Annual Fee</p>
