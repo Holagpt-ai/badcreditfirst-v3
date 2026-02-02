@@ -20,9 +20,9 @@ const DEPOSIT_OPTIONS = [
 /** Situation-aware copy for the deposit question (display only; no routing/logic change). */
 const DEPOSIT_EXPLANATION: Record<string, string> = {
   'no-credit': 'Most first-time cards require a refundable deposit to get approved.',
-  'bad-credit': 'A deposit often replaces credit history for approval.',
-  rebuilding: 'Deposits help issuers approve cards after financial setbacks.',
-  denied: 'Deposits can improve approval odds after a recent denial.',
+  'bad-credit': 'A deposit often replaces credit history when applying with damaged credit.',
+  rebuilding: 'Deposits help issuers approve cards after past financial setbacks.',
+  denied: 'A deposit can improve approval odds after a recent denial.',
 };
 
 const TRUST_DELAY_MS = 1800;
