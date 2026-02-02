@@ -34,11 +34,14 @@ export default function CreditCardReviewPage({
     notFound();
   }
 
-  const { approvalOdds, realWorldUseCase, feeRisk, upgradePath, title, fees, badFor, categorySlug } = card;
+  const { approvalOdds, realWorldUseCase, feeRisk, upgradePath, title, fees, badFor, categorySlug, editorialScore } = card;
   const applyHref = getAffiliateLink(slug);
   const reviewUrl = `${baseUrl}${card.reviewUrl}`;
-  const ratingValue = '4.5';
+  const ratingValue = '4.5'; // Schema unchanged (display-only uses editorialScore)
   const bestRating = 5;
+  const displayScore = Math.min(bestRating, Math.max(4.1, editorialScore ?? 4.5));
+  const fullStars = Math.floor(displayScore);
+  const partialOpacity = displayScore - fullStars;
   const feesText = fees ?? '';
   const annualFeeMatch = feesText.match(/\$(\d+)/);
   const priceValue = annualFeeMatch ? parseFloat(annualFeeMatch[1]) : 0;
@@ -122,13 +125,15 @@ export default function CreditCardReviewPage({
             </div>
           </div>
 
-          {/* Rating */}
-          <div className="px-8 pt-6 flex items-center gap-2" aria-label="Rating: 4.5 out of 5">
-            {[1, 2, 3, 4].map((i) => (
-              <Star key={i} className="w-5 h-5 fill-yellow-400 text-yellow-400" aria-hidden="true" />
+          {/* Rating (display-only; editorialScore 4.1–4.6) */}
+          <div className="px-8 pt-6 flex items-center gap-2" aria-label={`Rating: ${displayScore.toFixed(1)} out of ${bestRating}`}>
+            {Array.from({ length: fullStars }, (_, i) => (
+              <Star key={i} className="w-5 h-5 fill-yellow-400 text-yellow-400 shrink-0" aria-hidden="true" />
             ))}
-            <Star className="w-5 h-5 fill-yellow-400 text-yellow-400 opacity-50" aria-hidden="true" />
-            <span className="text-sm text-slate-500 ml-2 font-medium">4.5/5</span>
+            {fullStars < bestRating && (
+              <Star className="w-5 h-5 fill-yellow-400 text-yellow-400 shrink-0" style={{ opacity: partialOpacity }} aria-hidden="true" />
+            )}
+            <span className="text-sm text-slate-500 ml-2 font-medium">{displayScore.toFixed(1)}/5</span>
           </div>
 
           {/* Risks & Downsides — feeRisk + badFor (honest analysis) */}

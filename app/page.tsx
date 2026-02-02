@@ -48,6 +48,7 @@ export default function Home() {
                 creditScore={card.creditScore}
                 slug={card.slug}
                 reviewUrl={card.reviewUrl}
+                editorialScore={card.editorialScore}
               />
             ))}
           </div>

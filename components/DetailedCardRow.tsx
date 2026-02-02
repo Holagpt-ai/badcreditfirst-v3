@@ -19,10 +19,17 @@ interface DetailedCardRowProps {
   segment?: string;
   /** Optional: position in list for affiliate subid (1-based). */
   position?: number;
+  /** Editorial star rating for display only (4.1–4.6). */
+  editorialScore?: number;
 }
 
-export default function DetailedCardRow({ title, label, highlights, fees, creditScore, slug, reviewUrl, segment, position }: DetailedCardRowProps) {
+const BEST_RATING = 5;
+
+export default function DetailedCardRow({ title, label, highlights, fees, creditScore, slug, reviewUrl, segment, position, editorialScore = 4.5 }: DetailedCardRowProps) {
   const applyHref = getAffiliateLink(slug, segment, position);
+  const score = Math.min(BEST_RATING, Math.max(4.1, editorialScore));
+  const fullStars = Math.floor(score);
+  const partialOpacity = score - fullStars;
 
   const handleApplyClick = () => {
     trackEvent('apply_click', 'Card', slug, position ?? 0);
@@ -51,12 +58,14 @@ export default function DetailedCardRow({ title, label, highlights, fees, credit
             </h3>
           </div>
           
-          <div className="flex items-center mb-4 space-x-1" aria-label="Rating: 4.5 out of 5">
-            {[1, 2, 3, 4].map((i) => (
-              <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" aria-hidden="true" />
+          <div className="flex items-center mb-4 space-x-1" aria-label={`Rating: ${score.toFixed(1)} out of ${BEST_RATING}`}>
+            {Array.from({ length: fullStars }, (_, i) => (
+              <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400 shrink-0" aria-hidden="true" />
             ))}
-            <Star className="w-4 h-4 fill-yellow-400 text-yellow-400 opacity-50" aria-hidden="true" />
-            <span className="text-xs text-slate-500 ml-2 font-medium">4.5/5</span>
+            {fullStars < BEST_RATING && (
+              <Star className="w-4 h-4 fill-yellow-400 text-yellow-400 shrink-0" style={{ opacity: partialOpacity }} aria-hidden="true" />
+            )}
+            <span className="text-xs text-slate-500 ml-2 font-medium">{score.toFixed(1)}/5</span>
           </div>
           <div className="grid grid-cols-2 gap-4 text-sm mb-4">
             <div>

@@ -139,6 +139,7 @@ export default function CreditCardCategoryPage({
                   creditScore={c.creditScore}
                   slug={c.slug}
                   reviewUrl={c.reviewUrl}
+                  editorialScore={c.editorialScore}
                 />
               ))}
             </div>
