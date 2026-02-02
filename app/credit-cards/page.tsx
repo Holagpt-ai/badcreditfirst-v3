@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import { CreditCard, Shield, Building2 } from 'lucide-react';
 
 export const metadata: Metadata = {
   title: 'Credit Card Reviews & Comparisons (2026) | BadCreditFirst',
@@ -7,10 +8,40 @@ export const metadata: Metadata = {
     'Compare secured credit cards and credit-building products for bad or limited credit. Independent reviews, fees, and approval tips.',
 };
 
+const CATEGORY_TILES = [
+  { href: '/credit-cards/category/secured-cards', label: 'Secured Cards', icon: Shield },
+  { href: '/credit-cards/category/bad-credit', label: 'Bad Credit Cards', icon: CreditCard },
+  { href: '/credit-cards/category/credit-builder', label: 'Credit Builder Accounts', icon: Building2 },
+] as const;
+
 export default function CreditCardsIndexPage() {
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900">
       <main className="max-w-4xl mx-auto px-6 py-12">
+        {/* Category tiles — actionable choices first */}
+        <section className="mb-10" aria-label="Browse by category">
+          <h2 className="text-lg font-bold text-slate-900 mb-4 sr-only">
+            Compare by category
+          </h2>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            {CATEGORY_TILES.map(({ href, label, icon: Icon }) => (
+              <Link
+                key={href}
+                href={href}
+                className="flex items-center gap-3 p-5 bg-white border border-slate-200 rounded-xl shadow-sm hover:shadow-md hover:border-blue-200 transition-all text-left group"
+              >
+                <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-slate-100 flex items-center justify-center group-hover:bg-blue-50 transition-colors">
+                  <Icon className="w-5 h-5 text-slate-600 group-hover:text-blue-600 transition-colors" aria-hidden="true" />
+                </div>
+                <span className="font-semibold text-slate-900 group-hover:text-blue-600 transition-colors">
+                  {label}
+                </span>
+              </Link>
+            ))}
+          </div>
+        </section>
+
+        {/* Explainer content — kept below tiles */}
         <div className="bg-white border border-slate-200 rounded-xl shadow-sm p-8">
           <h1 className="text-3xl font-bold tracking-tight text-slate-900 mb-6">
             Credit Card Reviews & Comparisons
