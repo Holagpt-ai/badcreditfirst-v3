@@ -127,7 +127,7 @@ export default function CreditCardReviewPage({
           </div>
 
           {/* Rating (display-only; editorialScore 4.1–4.6) */}
-          <div className="px-8 pt-6 flex items-center gap-2" aria-label={`Rating: ${displayScore.toFixed(1)} out of ${bestRating}`}>
+          <div className="px-8 pt-6 flex flex-wrap items-center gap-2" aria-label={`Rating: ${displayScore.toFixed(1)} out of ${bestRating}`}>
             {Array.from({ length: fullStars }, (_, i) => (
               <Star key={i} className="w-5 h-5 fill-yellow-400 text-yellow-400 shrink-0" aria-hidden="true" />
             ))}
@@ -135,6 +135,9 @@ export default function CreditCardReviewPage({
               <Star className="w-5 h-5 fill-yellow-400 text-yellow-400 shrink-0" style={{ opacity: partialOpacity }} aria-hidden="true" />
             )}
             <span className="text-sm text-slate-500 ml-2 font-medium">{displayScore.toFixed(1)}/5</span>
+            <Link href="/how-we-rank-cards" className="text-xs text-slate-500 hover:text-blue-600 hover:underline ml-4 font-medium">
+              How we review cards <span aria-hidden="true">→</span>
+            </Link>
           </div>
 
           {/* Risks & Downsides — fee risk only (badFor moved to dedicated section below) */}
