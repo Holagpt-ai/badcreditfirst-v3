@@ -1,6 +1,7 @@
 import { MetadataRoute } from 'next';
 import { cardData } from '@/lib/card-data';
 import { categories } from '@/lib/categories';
+import { ALL_COMPARISON_SLUGS } from '@/data/comparisons';
 
 const BASE_URL = 'https://www.badcreditfirst.com';
 
@@ -61,6 +62,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: now,
       changeFrequency: 'monthly',
       priority: 0.7,
+    });
+  }
+
+  // Comparison pages from data/comparisons
+  for (const slug of ALL_COMPARISON_SLUGS) {
+    entries.push({
+      url: `${BASE_URL}/compare/${slug}`,
+      lastModified: now,
+      changeFrequency: 'weekly',
+      priority: 0.6,
     });
   }
 

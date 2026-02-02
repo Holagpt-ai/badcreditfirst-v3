@@ -65,6 +65,9 @@ export function getComparisonBySlug(slug: string): ComparisonPage | undefined {
   return comparisons[slug];
 }
 
+/** All comparison slugs for sitemap and other explicit listing. */
+export const ALL_COMPARISON_SLUGS = Object.keys(comparisons) as string[];
+
 export interface ComparisonLink {
   slug: string;
   anchorText: string;
