@@ -19,10 +19,14 @@ const DEPOSIT_OPTIONS = [
 
 /** Situation-aware copy for the deposit question (display only; no routing/logic change). */
 const DEPOSIT_EXPLANATION: Record<string, string> = {
-  'no-credit': "Most starter cards use a refundable deposit because there's no credit history yet.",
-  'bad-credit': 'A deposit often replaces damaged credit history when applying.',
-  rebuilding: 'Deposits help issuers approve cards after past financial setbacks.',
-  denied: 'A deposit can improve approval odds after a recent denial.',
+  'no-credit':
+    "Deposits are commonly required when you don't yet have a credit history. They help issuers approve applications without relying on a score.",
+  'bad-credit':
+    'When there are late payments or collections on your report, a deposit can reduce risk and increase approval chances.',
+  denied:
+    'After recent denials, some issuers require a deposit to offset past application risk and approve new accounts.',
+  rebuilding:
+    'Following bankruptcy or major financial setbacks, deposits help demonstrate responsibility while rebuilding credit.',
 };
 
 const TRUST_DELAY_MS = 1800;
@@ -112,7 +116,7 @@ export default function FunnelSelector() {
             Can you pay a deposit?
           </p>
           <p className="text-sm text-slate-500 text-center mb-6">
-            {situation ? (DEPOSIT_EXPLANATION[situation] ?? 'Many secured cards require a refundable security deposit.') : 'Many secured cards require a refundable security deposit.'}
+            {situation ? (DEPOSIT_EXPLANATION[situation] ?? 'Deposits help issuers approve cards when credit history is limited or damaged.') : 'Deposits help issuers approve cards when credit history is limited or damaged.'}
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-md mx-auto">
             {DEPOSIT_OPTIONS.map((opt) => (
