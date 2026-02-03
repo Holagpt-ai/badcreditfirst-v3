@@ -113,6 +113,7 @@ export default function RootLayout({
             <div className="flex flex-wrap gap-4 mb-8 border-t border-slate-700 pt-8">
               <Link href="/terms" className="hover:text-white transition-colors">Terms of Use</Link>
               <Link href="/privacy" className="hover:text-white transition-colors">Privacy Policy</Link>
+              <Link href="/faq" className="hover:text-white transition-colors">FAQ</Link>
               <Link href="/advertiser-disclosure" className="hover:text-white transition-colors">Advertiser Disclosure</Link>
               <Link href="/editorial-disclaimer" className="hover:text-white transition-colors">Editorial Disclaimer</Link>
               <Link href="/accessibility-statement" className="hover:text-white transition-colors">Accessibility Statement</Link>

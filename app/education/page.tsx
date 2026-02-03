@@ -31,6 +31,16 @@ export default function EducationPage() {
         </h2>
         <CreditReportResourceBox />
 
+        <Link
+          href="/faq"
+          className="mt-6 flex items-center gap-3 p-4 bg-slate-50 border border-slate-200 rounded-lg hover:border-blue-200 hover:bg-blue-50/30 transition-colors group"
+        >
+          <span className="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors">
+            Frequently Asked Questions
+          </span>
+          <span className="text-slate-500 group-hover:text-blue-600" aria-hidden="true">→</span>
+        </Link>
+
         {/* 4-Pillar Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mt-12">
           {/* Column 1: Understanding Scores */}
