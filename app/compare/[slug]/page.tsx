@@ -23,7 +23,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title: `${comparison.entityA.name} vs ${comparison.entityB.name} | BadCreditFirst`,
     description: `Compare ${comparison.entityA.name} and ${comparison.entityB.name} for ${comparison.intent}. Independent comparison.`,
     alternates: {
-      canonical: `/compare/${params.slug}`,
+      canonical: `https://badcreditfirst.com/compare/${params.slug}`,
     },
   };
 }

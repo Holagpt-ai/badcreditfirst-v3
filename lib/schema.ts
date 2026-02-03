@@ -6,7 +6,7 @@
  * Product + Review + Breadcrumb (review); Article + Person (education); Person (author).
  */
 
-const SITE_URL = 'https://www.badcreditfirst.com';
+const SITE_URL = 'https://badcreditfirst.com';
 
 export type FAQItem = { q: string; a: string };
 export type BreadcrumbItem = { name: string; url: string };

@@ -1,4 +1,11 @@
+import type { Metadata } from 'next';
 import Link from 'next/link';
+
+export const metadata: Metadata = {
+  alternates: {
+    canonical: 'https://badcreditfirst.com/how-we-rank-cards',
+  },
+};
 
 export default function HowWeRankCardsPage() {
   return (

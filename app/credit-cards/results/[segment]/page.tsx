@@ -15,6 +15,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: `Best Options for ${name} (2026) | BadCreditFirst`,
     description: `Compare the best credit cards and credit-building options for ${name}. Independent reviews and rankings.`,
+    robots: {
+      index: false,
+      follow: true,
+    },
+    alternates: {
+      canonical: 'https://badcreditfirst.com/credit-cards',
+    },
   };
 }
 

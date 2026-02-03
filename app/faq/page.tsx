@@ -1,5 +1,12 @@
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import CreditReportErrorsChecklist from '@/components/CreditReportErrorsChecklist';
+
+export const metadata: Metadata = {
+  alternates: {
+    canonical: 'https://badcreditfirst.com/faq',
+  },
+};
 
 export default function FAQPage() {
   return (

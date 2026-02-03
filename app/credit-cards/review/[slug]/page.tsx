@@ -23,7 +23,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title: `${card.title} Review (2026) | BadCreditFirst`,
     description: `Independent review of ${card.title}. ${card.label}. Compare fees, approval odds, and credit-building value.`,
     alternates: {
-      canonical: card.reviewUrl,
+      canonical: `https://badcreditfirst.com/credit-cards/review/${params.slug}`,
     },
   };
 }
