@@ -26,10 +26,13 @@ export default function EducationPage() {
           </p>
         </div>
 
+        <h2 className="text-sm font-semibold text-slate-500 uppercase tracking-wider mb-3">
+          Start Here
+        </h2>
         <CreditReportResourceBox />
 
         {/* 4-Pillar Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mt-12">
           {/* Column 1: Understanding Scores */}
           <div className="bg-slate-50 border border-slate-200 rounded-lg p-6">
             <div className="flex items-center gap-3 mb-4">
@@ -44,21 +47,7 @@ export default function EducationPage() {
             </ul>
           </div>
 
-          {/* Column 2: Negative Items */}
-          <div className="bg-slate-50 border border-slate-200 rounded-lg p-6">
-            <div className="flex items-center gap-3 mb-4">
-              <AlertTriangle className="w-6 h-6 text-yellow-600" />
-              <h2 className="text-lg font-bold text-slate-900">Negative Items</h2>
-            </div>
-            <ul>
-              <li><Link href="/education/how-long-do-items-stay" className="text-slate-600 hover:text-blue-600 hover:underline block mb-2">How Long Do Items Stay?</Link></li>
-              <li><Link href="/education/removing-collections" className="text-slate-600 hover:text-blue-600 hover:underline block mb-2">Removing Collections</Link></li>
-              <li><Link href="/education/hard-inquiries-explained" className="text-slate-600 hover:text-blue-600 hover:underline block mb-2">Hard Inquiries Explained</Link></li>
-              <li><Link href="/education/bankruptcy-and-rebuilding" className="text-slate-600 hover:text-blue-600 hover:underline block mb-2">Bankruptcy & Rebuilding</Link></li>
-            </ul>
-          </div>
-
-          {/* Column 3: Reports & Rights */}
+          {/* Column 2: Reports & Rights */}
           <div className="bg-slate-50 border border-slate-200 rounded-lg p-6">
             <div className="flex items-center gap-3 mb-4">
               <FileText className="w-6 h-6 text-green-600" />
@@ -69,6 +58,20 @@ export default function EducationPage() {
               <li><Link href="/education/how-to-dispute-errors" className="text-slate-600 hover:text-blue-600 hover:underline block mb-2">How to Dispute Errors</Link></li>
               <li><Link href="/education/fair-credit-reporting-act" className="text-slate-600 hover:text-blue-600 hover:underline block mb-2">Fair Credit Reporting Act</Link></li>
               <li><Link href="/education/freezing-your-credit" className="text-slate-600 hover:text-blue-600 hover:underline block mb-2">Freezing Your Credit</Link></li>
+            </ul>
+          </div>
+
+          {/* Column 3: Negative Items */}
+          <div className="bg-slate-50 border border-slate-200 rounded-lg p-6">
+            <div className="flex items-center gap-3 mb-4">
+              <AlertTriangle className="w-6 h-6 text-yellow-600" />
+              <h2 className="text-lg font-bold text-slate-900">Negative Items</h2>
+            </div>
+            <ul>
+              <li><Link href="/education/how-long-do-items-stay" className="text-slate-600 hover:text-blue-600 hover:underline block mb-2">How Long Do Items Stay?</Link></li>
+              <li><Link href="/education/removing-collections" className="text-slate-600 hover:text-blue-600 hover:underline block mb-2">Removing Collections</Link></li>
+              <li><Link href="/education/hard-inquiries-explained" className="text-slate-600 hover:text-blue-600 hover:underline block mb-2">Hard Inquiries Explained</Link></li>
+              <li><Link href="/education/bankruptcy-and-rebuilding" className="text-slate-600 hover:text-blue-600 hover:underline block mb-2">Bankruptcy & Rebuilding</Link></li>
             </ul>
           </div>
 
@@ -86,6 +89,19 @@ export default function EducationPage() {
             </ul>
           </div>
         </div>
+
+        <p className="mt-8 text-center">
+          <Link
+            href="/education/how-to-dispute-errors"
+            className="text-blue-600 hover:underline font-medium"
+          >
+            Not sure where to begin? Read our credit rebuild checklist →
+          </Link>
+        </p>
+
+        <p className="mt-4 text-center text-sm text-slate-500">
+          All guides are independently researched and updated regularly.
+        </p>
       </main>
     </div>
   );
