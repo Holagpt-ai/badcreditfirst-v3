@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation';
 import type { ReactNode } from 'react';
 import { getArticleSchema, getPersonSchema } from '../../../lib/schema';
 import CreditReportResourceBox from '@/components/Education/CreditReportResourceBox';
+import CreditReportErrorsChecklist from '@/components/CreditReportErrorsChecklist';
 
 const articleContent: Record<string, { title: string; quickAnswer?: string; body: ReactNode }> = {
   'what-is-a-good-credit-score': {
@@ -559,6 +560,8 @@ export default function EducationArticlePage({
 
         {/* Body */}
         <div className="mb-12">{article.body}</div>
+
+        <CreditReportErrorsChecklist />
 
         {/* Stickiness: Before You Apply, timeline, mistakes, CTA (guided, not salesy) */}
         <section className="space-y-8 mb-12" aria-label="Next steps">

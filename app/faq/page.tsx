@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import CreditReportErrorsChecklist from '@/components/CreditReportErrorsChecklist';
 
 export default function FAQPage() {
   return (
@@ -97,6 +98,8 @@ export default function FAQPage() {
               </p>
             </div>
           </section>
+
+          <CreditReportErrorsChecklist />
 
           <p className="mt-10 pt-8 border-t border-slate-200 text-sm text-slate-500 italic">
             This information is for educational purposes only and does not constitute legal or financial advice.
