@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
+import ResultsViewedTracker from '../../../../components/ResultsViewedTracker';
 import DetailedCardRow from '../../../../components/DetailedCardRow';
 import { cardData } from '../../../../lib/card-data';
 import { getSegmentDisplayName, isValidSegment, getCardsForSegment } from '../../../../lib/segment';
@@ -33,6 +34,7 @@ export default function CreditCardsResultsPage({
 
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900">
+      <ResultsViewedTracker />
       <main className="max-w-5xl mx-auto px-6 py-12">
         <header className="mb-10">
           <h1 className="text-3xl font-bold tracking-tight text-slate-900 mb-2">

@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 
 const STORAGE_KEY = 'bcf_segment';
+const SESSION_KEY = 'bcf_hasViewedResults';
 
 const SEGMENT_DISPLAY: Record<string, string> = {
   'no-credit-deposit': 'No Credit (Can Pay Deposit)',
@@ -22,6 +23,7 @@ export default function WelcomeBackBanner() {
   useEffect(() => {
     try {
       if (typeof window === 'undefined') return;
+      if (window.sessionStorage.getItem(SESSION_KEY) === 'true') return;
       const saved = window.localStorage.getItem(STORAGE_KEY);
       if (saved && SEGMENT_DISPLAY[saved]) setSegment(saved);
     } catch {
