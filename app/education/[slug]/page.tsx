@@ -5,6 +5,7 @@ import type { ReactNode } from 'react';
 import { getArticleSchema, getPersonSchema } from '../../../lib/schema';
 import CreditReportResourceBox from '@/components/Education/CreditReportResourceBox';
 import CreditReportErrorsChecklist from '@/components/CreditReportErrorsChecklist';
+import CreditRebuildTimeline from '@/components/CreditRebuildTimeline';
 
 const articleContent: Record<string, { title: string; quickAnswer?: string; body: ReactNode }> = {
   'what-is-a-good-credit-score': {
@@ -596,6 +597,8 @@ export default function EducationArticlePage({
               ))}
             </ul>
           </div>
+
+          <CreditRebuildTimeline />
 
           <div className="text-center">
             <Link

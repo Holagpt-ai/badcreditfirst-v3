@@ -10,6 +10,7 @@ import SummaryTakeaway from '@/components/compare/SummaryTakeaway';
 import ComparisonCTAs from '@/components/compare/ComparisonCTAs';
 import MethodologyFooter from '@/components/compare/MethodologyFooter';
 import CreditReportErrorsChecklist from '@/components/CreditReportErrorsChecklist';
+import CreditRebuildTimeline from '@/components/CreditRebuildTimeline';
 
 type Props = { params: { slug: string } };
 
@@ -32,6 +33,7 @@ export default function ComparePage({ params }: Props) {
           <EditorialContext data={comparison} />
           <SummaryTakeaway data={comparison} />
           <CreditReportErrorsChecklist />
+          <CreditRebuildTimeline />
           <ComparisonCTAs data={comparison} />
           <MethodologyFooter />
 

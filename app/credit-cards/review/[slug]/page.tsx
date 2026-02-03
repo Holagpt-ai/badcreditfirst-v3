@@ -6,6 +6,7 @@ import { getCardBySlug, getAffiliateLink } from '../../../../lib/card-data';
 import { categories } from '../../../../lib/categories';
 import { getComparisonsForCard } from '../../../../data/comparisons';
 import { getProductSchema, getReviewSchema, getBreadcrumbSchema } from '../../../../lib/schema';
+import CreditRebuildTimeline from '@/components/CreditRebuildTimeline';
 
 const baseUrl = 'https://www.badcreditfirst.com';
 
@@ -173,6 +174,10 @@ export default function CreditCardReviewPage({
               <p className="text-slate-600 leading-relaxed">{badFor}</p>
             </div>
           )}
+
+          <div className="px-8 py-6 border-t border-slate-100">
+            <CreditRebuildTimeline />
+          </div>
 
           <div className="px-8 pb-8 border-t border-slate-100">
             {isComingSoon ? (
