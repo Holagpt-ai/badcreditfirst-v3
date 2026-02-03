@@ -3,7 +3,7 @@ import { cardData } from '@/lib/card-data';
 import { categories } from '@/lib/categories';
 import { ALL_COMPARISON_SLUGS } from '@/data/comparisons';
 
-const BASE_URL = 'https://www.badcreditfirst.com';
+const BASE_URL = 'https://badcreditfirst.com';
 
 /** Education article slugs (must match app/education/[slug]/page.tsx). */
 const EDUCATION_SLUGS = [
