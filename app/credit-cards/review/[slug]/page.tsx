@@ -7,6 +7,7 @@ import { categories } from '../../../../lib/categories';
 import { getComparisonsForCard } from '../../../../data/comparisons';
 import { getProductSchema, getReviewSchema, getBreadcrumbSchema } from '../../../../lib/schema';
 import CreditRebuildTimeline from '@/components/CreditRebuildTimeline';
+import TrustBadges from '@/components/TrustBadges';
 
 const baseUrl = 'https://www.badcreditfirst.com';
 
@@ -197,6 +198,7 @@ export default function CreditCardReviewPage({
                 <p className="mt-3 text-xs text-slate-500 text-center">
                   You will be redirected to the issuer&apos;s official website.
                 </p>
+                <TrustBadges />
                 <p className="mt-6 text-xs text-slate-400 text-center leading-relaxed">
                   BadCreditFirst may receive compensation if you apply through links on this page.
                 </p>

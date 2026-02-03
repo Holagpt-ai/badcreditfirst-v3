@@ -11,6 +11,7 @@ import ComparisonCTAs from '@/components/compare/ComparisonCTAs';
 import MethodologyFooter from '@/components/compare/MethodologyFooter';
 import CreditReportErrorsChecklist from '@/components/CreditReportErrorsChecklist';
 import CreditRebuildTimeline from '@/components/CreditRebuildTimeline';
+import TrustBadges from '@/components/TrustBadges';
 
 type Props = { params: { slug: string } };
 
@@ -27,6 +28,7 @@ export default function ComparePage({ params }: Props) {
       <main className="max-w-4xl mx-auto px-6 py-12">
         <div className="bg-white border border-slate-200 rounded-xl shadow-sm p-8">
           <ComparisonHero data={comparison} />
+          <TrustBadges />
           <SnapshotTable data={comparison} />
           <DecisionLogicSection data={comparison} />
           <KeyDifferences data={comparison} />

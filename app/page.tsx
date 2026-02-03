@@ -1,5 +1,6 @@
 import DetailedCardRow from '../components/DetailedCardRow';
 import FunnelSelector from '../components/FunnelSelector';
+import TrustBadges from '../components/TrustBadges';
 import WelcomeBackBanner from '../components/WelcomeBackBanner';
 import { cardData } from '../lib/card-data';
 
@@ -22,6 +23,7 @@ export default function Home() {
       <main className="flex-1">
         {/* Segmentation Funnel — multi-step wizard at top (Step 1: situation, Step 2: deposit, Step 3: trust) */}
         <FunnelSelector />
+        <TrustBadges />
         {/* Welcome back: client component reads localStorage (bcf_segment from Funnel), links to results */}
         <WelcomeBackBanner />
 
