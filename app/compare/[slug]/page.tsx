@@ -1,3 +1,4 @@
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { getComparisonBySlug, getRelatedComparisons } from '@/data/comparisons';
@@ -14,6 +15,18 @@ import CreditRebuildTimeline from '@/components/CreditRebuildTimeline';
 import TrustBadges from '@/components/TrustBadges';
 
 type Props = { params: { slug: string } };
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const comparison = getComparisonBySlug(params.slug);
+  if (!comparison) return { title: 'Comparison Not Found' };
+  return {
+    title: `${comparison.entityA.name} vs ${comparison.entityB.name} | BadCreditFirst`,
+    description: `Compare ${comparison.entityA.name} and ${comparison.entityB.name} for ${comparison.intent}. Independent comparison.`,
+    alternates: {
+      canonical: `/compare/${params.slug}`,
+    },
+  };
+}
 
 export default function ComparePage({ params }: Props) {
   const { slug } = params;

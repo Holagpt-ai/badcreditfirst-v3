@@ -9,7 +9,7 @@ import { getProductSchema, getReviewSchema, getBreadcrumbSchema } from '../../..
 import CreditRebuildTimeline from '@/components/CreditRebuildTimeline';
 import TrustBadges from '@/components/TrustBadges';
 
-const baseUrl = 'https://www.badcreditfirst.com';
+const baseUrl = 'https://badcreditfirst.com';
 
 /** Contextual education link shown on every review. */
 const EDUCATION_LINK = { href: '/education/how-is-my-score-calculated', label: 'How Credit Scores Work' };
@@ -22,6 +22,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: `${card.title} Review (2026) | BadCreditFirst`,
     description: `Independent review of ${card.title}. ${card.label}. Compare fees, approval odds, and credit-building value.`,
+    alternates: {
+      canonical: card.reviewUrl,
+    },
   };
 }
 

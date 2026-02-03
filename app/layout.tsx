@@ -8,12 +8,12 @@ import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
 
-const SITE_URL = "https://www.badcreditfirst.com";
+const SITE_URL = "https://badcreditfirst.com";
 const organizationSchema = getOrganizationSchema(SITE_URL);
 const websiteSchema = getWebSiteSchema(SITE_URL);
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://www.badcreditfirst.com"),
+  metadataBase: new URL("https://badcreditfirst.com"),
   title: "BadCreditFirst | Build Credit with Confidence (2026)",
   description: "Compare the best secured credit cards and credit builder loans for 2026. Independent reviews for bad credit, no credit, and bankruptcy recovery.",
 };

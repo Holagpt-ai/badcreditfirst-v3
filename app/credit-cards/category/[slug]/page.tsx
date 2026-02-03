@@ -18,6 +18,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: `${category.title} (2026) | BadCreditFirst`,
     description: `Compare ${category.title.toLowerCase()} for bad credit and no credit. Independent reviews, fees, and approval tips.`,
+    alternates: {
+      canonical: `/credit-cards/category/${params.slug}`,
+    },
   };
 }
 
