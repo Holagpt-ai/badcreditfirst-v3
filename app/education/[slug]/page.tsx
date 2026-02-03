@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import type { ReactNode } from 'react';
 import { getArticleSchema, getPersonSchema } from '../../../lib/schema';
+import CreditReportResourceBox from '@/components/Education/CreditReportResourceBox';
 
 const articleContent: Record<string, { title: string; quickAnswer?: string; body: ReactNode }> = {
   'what-is-a-good-credit-score': {
@@ -545,6 +546,8 @@ export default function EducationArticlePage({
             <p className="leading-relaxed">{article.quickAnswer}</p>
           </div>
         )}
+
+        <CreditReportResourceBox />
 
         {/* If this sounds like you — after intro */}
         <div className="bg-blue-50/60 border border-blue-100 rounded-xl p-6 mb-8">

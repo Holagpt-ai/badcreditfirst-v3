@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { BarChart3, AlertTriangle, FileText, TrendingUp } from 'lucide-react';
+import CreditReportResourceBox from '@/components/Education/CreditReportResourceBox';
 
 export const metadata: Metadata = {
   title: 'Credit Education Center | BadCreditFirst',
@@ -24,6 +25,8 @@ export default function EducationPage() {
             Expert guides to understanding and improving your credit score.
           </p>
         </div>
+
+        <CreditReportResourceBox />
 
         {/* 4-Pillar Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
