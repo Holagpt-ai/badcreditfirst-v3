@@ -133,3 +133,69 @@ export function getReviewLinksForComparison(comparison: ComparisonPage): ReviewL
     { name: comparison.entityB.name, href: comparison.ctaMap.entityB.href },
   ];
 }
+
+/** Hub config for comparison hub pages (authority concentrators). */
+export interface ComparisonHub {
+  slug: string;
+  title: string;
+  description: string;
+}
+
+export const COMPARISON_HUBS: ComparisonHub[] = [
+  {
+    slug: 'secured-credit-cards',
+    title: 'Secured Credit Card Comparisons',
+    description: 'Side-by-side comparisons of secured credit cards for bad credit and no credit. Compare fees, deposits, and approval odds.',
+  },
+  {
+    slug: 'no-deposit-alternatives',
+    title: 'No-Deposit Card Alternatives',
+    description: 'Compare secured cards with no-deposit options. Understand trade-offs between deposit requirements and approval odds.',
+  },
+];
+
+/** Comparison slugs per hub. Deterministic; uses getSortedComparisons order. */
+const HUB_COMPARISON_SLUGS: Record<string, string[]> = {
+  'secured-credit-cards': [
+    'best-cards-to-graduate-from-secured-credit',
+    'credit-one-vs-capital-one-secured',
+    'discover-it-secured-vs-capital-one-secured',
+    'first-progress-vs-capital-one-secured',
+    'opensky-vs-capital-one-secured',
+    'opensky-vs-credit-one',
+    'opensky-vs-discover-it-secured',
+    'opensky-vs-first-progress',
+    'secured-credit-cards-that-upgrade-vs-credit-builders',
+    'secured-credit-cards-vs-credit-builder-accounts',
+    'secured-credit-cards-vs-no-deposit-cards',
+    'secured-credit-cards-vs-self-credit-builder',
+    'secured-credit-cards-vs-student-credit-cards',
+    'secured-credit-cards-vs-unsecured-bad-credit-cards',
+  ],
+  'no-deposit-alternatives': [
+    'credit-one-vs-capital-one-secured',
+    'opensky-vs-no-deposit-alternatives',
+    'secured-credit-cards-vs-no-deposit-cards',
+    'secured-credit-cards-vs-unsecured-bad-credit-cards',
+  ],
+};
+
+/** Returns comparison links for a hub. Only includes slugs that exist. */
+export function getComparisonsForHub(hubSlug: string): ComparisonLink[] {
+  const slugs = HUB_COMPARISON_SLUGS[hubSlug];
+  if (!slugs) return [];
+  const links: ComparisonLink[] = [];
+  for (const compSlug of slugs) {
+    const comp = comparisons[compSlug];
+    if (comp) {
+      links.push({ slug: compSlug, anchorText: `${comp.entityA.name} vs ${comp.entityB.name}` });
+    }
+  }
+  return links;
+}
+
+export function getHubBySlug(slug: string): ComparisonHub | undefined {
+  return COMPARISON_HUBS.find((h) => h.slug === slug);
+}
+
+export const COMPARISON_HUB_SLUGS = COMPARISON_HUBS.map((h) => h.slug);

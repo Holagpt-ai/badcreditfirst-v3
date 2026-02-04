@@ -212,31 +212,30 @@ export default function CreditCardReviewPage({
             </div>
           </div>
 
-            <div className="mt-6 pt-6 border-t border-slate-200 space-y-4">
-              {compareLinks.length > 0 && (
-                <p className="text-sm text-slate-500">
-                  Still deciding?{' '}
-                  {compareLinks.map(({ slug: compSlug, anchorText }, i) => (
-                    <span key={compSlug}>
-                      {i > 0 && ', '}
-                      <Link href={`/compare/${compSlug}`} className="text-blue-600 hover:underline font-medium">
-                        {anchorText}
-                      </Link>
-                    </span>
-                  ))}
-                </p>
-              )}
-              <div className="flex flex-wrap gap-4 text-sm">
-                <Link href={categoryHref} className="text-slate-500 hover:text-blue-600 hover:underline">
-                  ← Back to {categoryTitle}
-                </Link>
-                <Link href={EDUCATION_LINK.href} className="text-slate-500 hover:text-blue-600 hover:underline">
-                  {EDUCATION_LINK.label}
-                </Link>
-              </div>
+          <div className="mt-6 pt-6 border-t border-slate-200 space-y-4">
+            {compareLinks.length > 0 && (
+              <p className="text-sm text-slate-500">
+                Still deciding?{' '}
+                {compareLinks.map(({ slug: compSlug, anchorText }, i) => (
+                  <span key={compSlug}>
+                    {i > 0 && ', '}
+                    <Link href={`/compare/${compSlug}`} className="text-blue-600 hover:underline font-medium">
+                      {anchorText}
+                    </Link>
+                  </span>
+                ))}
+              </p>
+            )}
+            <div className="flex flex-wrap gap-4 text-sm">
+              <Link href={categoryHref} className="text-slate-500 hover:text-blue-600 hover:underline">
+                ← Back to {categoryTitle}
+              </Link>
+              <Link href={EDUCATION_LINK.href} className="text-slate-500 hover:text-blue-600 hover:underline">
+                {EDUCATION_LINK.label}
+              </Link>
             </div>
-
           </div>
+
         </div>
       </main>
     </div>

@@ -88,8 +88,8 @@ export function semanticDistance(textA: string, textB: string): number {
   const wordsA = new Set(textA.toLowerCase().replace(/[^\w\s]/g, '').split(/\s+/).filter(Boolean));
   const wordsB = new Set(textB.toLowerCase().replace(/[^\w\s]/g, '').split(/\s+/).filter(Boolean));
   if (wordsA.size === 0 && wordsB.size === 0) return 1;
-  const intersection = [...wordsA].filter((w) => wordsB.has(w)).length;
-  const union = new Set([...wordsA, ...wordsB]).size;
+  const intersection = Array.from(wordsA).filter((w) => wordsB.has(w)).length;
+  const union = new Set(Array.from(wordsA).concat(Array.from(wordsB))).size;
   const similarity = union === 0 ? 0 : intersection / union;
   return 1 - similarity;
 }
