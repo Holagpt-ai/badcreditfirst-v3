@@ -164,14 +164,16 @@ export const COMPARISON_HUBS: ComparisonHub[] = [
   },
 ];
 
-/** Maps category slug to primary comparison hub slug. For funnel: Category → Hub. */
+/** Maps category slug to primary comparison hub slug. For funnel: Category → Hub.
+ *  Required by: compare/[slug], compare/*, credit-cards/category, credit-cards/review, education/[slug]. */
 export const CATEGORY_TO_HUB: Record<string, string> = {
   'secured-cards': 'secured-credit-cards',
   'bad-credit': 'bad-credit-cards',
   'credit-builder': 'credit-builder-cards',
 };
 
-/** Maps hub slug to category slug for top reviews. */
+/** Maps hub slug to category slug for top reviews.
+ *  Required by: compare/bad-credit-cards, compare/credit-builder-cards, compare/no-deposit-alternatives, compare/secured-credit-cards. */
 export const HUB_TO_CATEGORY: Record<string, string> = {
   'secured-credit-cards': 'secured-cards',
   'bad-credit-cards': 'bad-credit',
@@ -235,11 +237,13 @@ export function getComparisonsForHub(hubSlug: string): ComparisonLink[] {
   return links;
 }
 
+/** Required by: compare/[slug], compare/* hub pages. */
 export function getHubBySlug(slug: string): ComparisonHub | undefined {
   return COMPARISON_HUBS.find((h) => h.slug === slug);
 }
 
-/** Returns the primary hub slug for a comparison (first hub that contains it). For comparison → hub linking. */
+/** Returns the primary hub slug for a comparison (first hub that contains it). For comparison → hub linking.
+ *  Required by: compare/[slug]. */
 export function getHubForComparison(compSlug: string): string | undefined {
   for (const hubSlug of Object.keys(HUB_COMPARISON_SLUGS)) {
     if (HUB_COMPARISON_SLUGS[hubSlug].includes(compSlug)) return hubSlug;
