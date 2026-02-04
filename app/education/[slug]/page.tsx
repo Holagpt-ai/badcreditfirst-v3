@@ -491,7 +491,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title: `${article.title} | BadCreditFirst`,
     description: article.quickAnswer ?? `Learn about ${article.title} and credit-building strategies.`,
     alternates: {
-      canonical: `/education/${params.slug}`,
+      canonical: `https://badcreditfirst.com/education/${params.slug}`,
     },
   };
 }

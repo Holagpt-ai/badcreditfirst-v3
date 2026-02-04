@@ -148,11 +148,36 @@ export const COMPARISON_HUBS: ComparisonHub[] = [
     description: 'Side-by-side comparisons of secured credit cards for bad credit and no credit. Compare fees, deposits, and approval odds.',
   },
   {
+    slug: 'bad-credit-cards',
+    title: 'Bad Credit Card Comparisons',
+    description: 'Compare credit cards and products designed for bad credit, thin files, and rebuilding. Fees, approval odds, and bureau reporting.',
+  },
+  {
+    slug: 'credit-builder-cards',
+    title: 'Credit Builder Comparisons',
+    description: 'Compare credit builder accounts, secured cards, and alternatives for establishing credit. Side-by-side fees and reporting.',
+  },
+  {
     slug: 'no-deposit-alternatives',
     title: 'No-Deposit Card Alternatives',
     description: 'Compare secured cards with no-deposit options. Understand trade-offs between deposit requirements and approval odds.',
   },
 ];
+
+/** Maps category slug to primary comparison hub slug. For funnel: Category → Hub. */
+export const CATEGORY_TO_HUB: Record<string, string> = {
+  'secured-cards': 'secured-credit-cards',
+  'bad-credit': 'bad-credit-cards',
+  'credit-builder': 'credit-builder-cards',
+};
+
+/** Maps hub slug to category slug for top reviews. */
+export const HUB_TO_CATEGORY: Record<string, string> = {
+  'secured-credit-cards': 'secured-cards',
+  'bad-credit-cards': 'bad-credit',
+  'credit-builder-cards': 'credit-builder',
+  'no-deposit-alternatives': 'secured-cards',
+};
 
 /** Comparison slugs per hub. Deterministic; uses getSortedComparisons order. */
 const HUB_COMPARISON_SLUGS: Record<string, string[]> = {
@@ -178,6 +203,22 @@ const HUB_COMPARISON_SLUGS: Record<string, string[]> = {
     'secured-credit-cards-vs-no-deposit-cards',
     'secured-credit-cards-vs-unsecured-bad-credit-cards',
   ],
+  'bad-credit-cards': [
+    'best-cards-after-recent-denial',
+    'credit-one-vs-capital-one-secured',
+    'opensky-vs-indigo-for-bad-credit',
+    'opensky-vs-credit-one',
+    'secured-credit-cards-vs-unsecured-bad-credit-cards',
+    'secured-credit-cards-vs-no-deposit-cards',
+  ],
+  'credit-builder-cards': [
+    'credit-builder-vs-first-credit-card',
+    'opensky-vs-credit-builder-accounts',
+    'secured-credit-cards-that-upgrade-vs-credit-builders',
+    'secured-credit-cards-vs-credit-builder-accounts',
+    'secured-credit-cards-vs-self-credit-builder',
+    'secured-credit-cards-vs-chime-credit-builder',
+  ],
 };
 
 /** Returns comparison links for a hub. Only includes slugs that exist. */
@@ -196,6 +237,14 @@ export function getComparisonsForHub(hubSlug: string): ComparisonLink[] {
 
 export function getHubBySlug(slug: string): ComparisonHub | undefined {
   return COMPARISON_HUBS.find((h) => h.slug === slug);
+}
+
+/** Returns the primary hub slug for a comparison (first hub that contains it). For comparison → hub linking. */
+export function getHubForComparison(compSlug: string): string | undefined {
+  for (const hubSlug of Object.keys(HUB_COMPARISON_SLUGS)) {
+    if (HUB_COMPARISON_SLUGS[hubSlug].includes(compSlug)) return hubSlug;
+  }
+  return undefined;
 }
 
 export const COMPARISON_HUB_SLUGS = COMPARISON_HUBS.map((h) => h.slug);

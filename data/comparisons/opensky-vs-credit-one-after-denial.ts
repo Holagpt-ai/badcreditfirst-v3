@@ -7,7 +7,7 @@ import type { ComparisonPage } from './opensky-vs-credit-one';
 
 const openskyVsCreditOneAfterDenial: ComparisonPage = {
   slug: 'opensky-vs-credit-one-after-denial',
-  intent: 'rebuilding credit or applying after a denial',
+  intent: 'applying after a recent denial',
   entityA: {
     name: 'OpenSky® Secured Visa®',
     type: 'card',
