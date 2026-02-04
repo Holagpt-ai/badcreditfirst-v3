@@ -127,16 +127,16 @@ export default function RootLayout({
               <Link href="/state-privacy-law-notice" className="hover:text-white transition-colors">State Privacy Law Notice</Link>
               <Link href="/your-privacy-choices" className="hover:text-white transition-colors">Your Privacy Choices</Link>
             </div>
-            {/* ROW 3: Disclaimers */}
+            {/* ROW 3: Disclaimers — parity with Credit Karma, NerdWallet, CNBC Select */}
             <div className="space-y-4 mb-8 border-t border-slate-700 pt-8">
               <p className="text-xs text-slate-500 leading-relaxed">
-                <strong className="text-slate-400">Advertiser Disclosure:</strong> BadCreditFirst is an independent, advertising-supported comparison service. The offers that appear on this site are from companies from which BadCreditFirst receives compensation. This compensation may impact how and where products appear on this site. Products are ranked based on factors such as fees, credit bureau reporting practices, approval accessibility for consumers with poor credit, and overall consumer value.
+                <strong className="text-slate-400">Advertiser Disclosure:</strong> BadCreditFirst is an advertising-supported comparison service. We may receive compensation from partners when you apply through our links. Compensation is one of several factors that may impact how and where offers appear. Compensation does not influence our editorial opinions or rankings. <Link href="/advertiser-disclosure" className="text-slate-400 hover:text-white underline underline-offset-1">Full disclosure</Link>.
               </p>
               <p className="text-xs text-slate-500 leading-relaxed">
-                <strong className="text-slate-400">Editorial Disclaimer:</strong> Content on BadCreditFirst is independently researched and written. Opinions, reviews, and recommendations are those of BadCreditFirst alone and have not been reviewed, approved, or otherwise endorsed by any credit card issuer.
+                <strong className="text-slate-400">Editorial Disclaimer:</strong> Content is independently researched and written. Third-party partners do not review, approve, or endorse our content. We do not rank by compensation. <Link href="/editorial-disclaimer" className="text-slate-400 hover:text-white underline underline-offset-1">Full disclaimer</Link>.
               </p>
               <p className="text-xs text-slate-500 leading-relaxed">
-                <strong className="text-slate-400">General Disclaimer:</strong> BadCreditFirst is operated by Carlos Acosta. BadCreditFirst provides independent information and is not a lender. BadCreditFirst may receive compensation when users apply for offers listed on this site.
+                <strong className="text-slate-400">General:</strong> BadCreditFirst is operated by Carlos Acosta. We provide independent information and are not a lender. We do not guarantee approval for any financial product.
               </p>
             </div>
             {/* ROW 4: Brand Anchor + Author + Trust Signals */}
