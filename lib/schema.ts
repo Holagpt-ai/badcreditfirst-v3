@@ -242,6 +242,23 @@ export function getBreadcrumbSchema(items: BreadcrumbItem[], siteUrl: string = S
   };
 }
 
+/** ItemList for hub pages (comparisons + reviews). */
+export function getItemListSchema(
+  items: { url: string; name: string }[],
+  siteUrl: string = SITE_URL
+) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    itemListElement: items.map((item, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      name: item.name,
+      url: item.url.startsWith('http') ? item.url : `${siteUrl}${item.url}`,
+    })),
+  };
+}
+
 /** Article schema for education/blog posts. Uses centralized author @id. */
 export function getArticleSchema(options: {
   siteUrl?: string;

@@ -3,6 +3,8 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import type { ReactNode } from 'react';
 import { getArticleSchema } from '../../../lib/schema';
+import { CATEGORY_TO_HUB } from '@/data/comparisons';
+import { getTopReviewsForCategory } from '@/lib/card-data';
 import CreditReportResourceBox from '@/components/Education/CreditReportResourceBox';
 import CreditReportErrorsChecklist from '@/components/CreditReportErrorsChecklist';
 import CreditRebuildTimeline from '@/components/CreditRebuildTimeline';
@@ -467,11 +469,11 @@ const COMMON_MISTAKES = [
 ] as const;
 
 /** Contextual CTA: slug → category link (internal link, not salesy). */
-const ARTICLE_CTA: Record<string, { href: string; label: string }> = {
-  'secured-vs-unsecured': { href: '/credit-cards/category/secured-cards', label: 'Compare secured cards' },
-  'credit-builder-loans': { href: '/credit-cards/category/credit-builder', label: 'Compare credit builder accounts' },
-  'what-is-a-bad-credit-score': { href: '/credit-cards/category/bad-credit', label: 'Compare cards for bad credit' },
-  'bankruptcy-and-rebuilding': { href: '/credit-cards/category/bad-credit', label: 'Compare cards for bad credit' },
+const ARTICLE_CTA: Record<string, { href: string; label: string; categorySlug?: string }> = {
+  'secured-vs-unsecured': { href: '/credit-cards/category/secured-cards', label: 'Compare secured cards', categorySlug: 'secured-cards' },
+  'credit-builder-loans': { href: '/credit-cards/category/credit-builder', label: 'Compare credit builder accounts', categorySlug: 'credit-builder' },
+  'what-is-a-bad-credit-score': { href: '/credit-cards/category/bad-credit', label: 'Compare cards for bad credit', categorySlug: 'bad-credit' },
+  'bankruptcy-and-rebuilding': { href: '/credit-cards/category/bad-credit', label: 'Compare cards for bad credit', categorySlug: 'bad-credit' },
   'how-is-my-score-calculated': { href: '/credit-cards', label: 'Compare cards' },
   'what-is-a-good-credit-score': { href: '/credit-cards', label: 'Compare cards' },
   'how-credit-scores-work': { href: '/credit-cards', label: 'Compare cards' },
@@ -589,6 +591,38 @@ export default function EducationArticlePage({
           </div>
 
           <CreditRebuildTimeline />
+
+          {(() => {
+            const cta = ARTICLE_CTA[slug] ?? DEFAULT_CTA;
+            const hubSlug = cta.categorySlug && CATEGORY_TO_HUB[cta.categorySlug];
+            const topReviews = cta.categorySlug ? getTopReviewsForCategory(cta.categorySlug, 2) : [];
+            const linkCount = (hubSlug ? 1 : 0) + topReviews.length;
+            if (linkCount === 0) return null;
+            return (
+              <div className="bg-slate-50 border border-slate-200 rounded-xl p-6">
+                <h2 className="text-lg font-bold text-slate-900 mb-3">Compare options</h2>
+                <p className="text-slate-600 text-sm mb-4">
+                  See how products stack up in our comparisons and read full reviews before applying.
+                </p>
+                <ul className="flex flex-wrap gap-3 text-sm">
+                  {hubSlug && (
+                    <li>
+                      <Link href={`/compare/${hubSlug}`} className="text-blue-600 hover:underline font-medium">
+                        Side-by-side comparisons
+                      </Link>
+                    </li>
+                  )}
+                  {topReviews.map((r) => (
+                    <li key={r.slug}>
+                      <Link href={r.reviewUrl} className="text-blue-600 hover:underline font-medium">
+                        {r.title} review
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            );
+          })()}
 
           <div className="text-center">
             <Link

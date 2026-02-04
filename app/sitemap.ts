@@ -45,13 +45,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE_URL}/education`, lastModified: now, changeFrequency: 'weekly', priority: 0.8 },
   ];
 
-  // Comparison hub pages
+  // Comparison hub pages (priority: Hubs > Comparisons > Reviews)
   for (const hubSlug of COMPARISON_HUB_SLUGS) {
     entries.push({
       url: `${BASE_URL}/compare/${hubSlug}`,
       lastModified: now,
       changeFrequency: 'weekly',
-      priority: 0.7,
+      priority: 0.85,
     });
   }
 
@@ -82,7 +82,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: `${BASE_URL}/compare/${slug}`,
       lastModified: now,
       changeFrequency: 'weekly',
-      priority: 0.6,
+      priority: 0.75,
     });
   }
 

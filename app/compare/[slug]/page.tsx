@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { getComparisonBySlug, getRelatedComparisons, getReviewLinksForComparison } from '@/data/comparisons';
+import { getComparisonBySlug, getRelatedComparisons, getReviewLinksForComparison, getHubForComparison, getHubBySlug } from '@/data/comparisons';
 import { getWebPageSchema } from '@/lib/schema';
 import ComparisonHero from '@/components/compare/ComparisonHero';
 import SnapshotTable from '@/components/compare/SnapshotTable';
@@ -79,6 +79,23 @@ export default function ComparePage({ params }: Props) {
           </section>
           <ComparisonCTAs data={comparison} />
           <MethodologyFooter />
+
+          {(() => {
+            const hubSlug = getHubForComparison(slug);
+            const hub = hubSlug ? getHubBySlug(hubSlug) : null;
+            if (!hub) return null;
+            return (
+              <div className="mt-8 pt-8 border-t border-slate-200">
+                <p className="text-sm text-slate-600">
+                  Part of our{' '}
+                  <Link href={`/compare/${hubSlug}`} className="text-blue-600 hover:underline font-medium">
+                    {hub.title}
+                  </Link>
+                  {' '}hub. Browse more comparisons there.
+                </p>
+              </div>
+            );
+          })()}
 
           {(() => {
             const relatedLinks = getRelatedComparisons(slug, 3);

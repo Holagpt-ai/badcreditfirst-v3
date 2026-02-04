@@ -157,6 +157,15 @@ export function getCardBySlug(slug: string): CardItem | undefined {
   return cardData.find((c) => c.slug === slug);
 }
 
+/** Top review links for a category. Sorted by editorialScore desc, max 3. For hub internal linking. */
+export function getTopReviewsForCategory(categorySlug: string, max = 3): { slug: string; title: string; reviewUrl: string }[] {
+  return cardData
+    .filter((c) => c.categorySlug === categorySlug)
+    .sort((a, b) => (b.editorialScore ?? 0) - (a.editorialScore ?? 0))
+    .slice(0, max)
+    .map((c) => ({ slug: c.slug, title: c.title, reviewUrl: c.reviewUrl }));
+}
+
 /**
  * Returns the affiliate/apply link for a card.
  * Accepts a card object or slug. When segment and position are provided,

@@ -4,7 +4,7 @@ import { notFound } from 'next/navigation';
 import DetailedCardRow from '../../../../components/DetailedCardRow';
 import { cardData } from '../../../../lib/card-data';
 import { categories, categoryContent } from '../../../../lib/categories';
-import { getComparisonsForCategory } from '../../../../data/comparisons';
+import { getComparisonsForCategory, CATEGORY_TO_HUB } from '../../../../data/comparisons';
 import { getCollectionPageSchema, getFAQSchema } from '../../../../lib/schema';
 
 const TRUST_SIGNAL_DATE = 'Updated Feb 2026';
@@ -124,6 +124,23 @@ export default function CreditCardCategoryPage({
               </li>
             </ul>
           </section>
+
+          {CATEGORY_TO_HUB[slug] && (
+            <section id="comparison-hub" className="mb-10 p-6 bg-blue-50 border border-blue-200 rounded-xl">
+              <h2 className="text-lg font-bold text-slate-900 mb-2">
+                Compare options side by side
+              </h2>
+              <p className="text-slate-600 text-sm mb-3">
+                See how these products stack up in our comparison hub. Side-by-side fees, approval odds, and reporting.
+              </p>
+              <Link
+                href={`/compare/${CATEGORY_TO_HUB[slug]}`}
+                className="inline-block text-blue-600 hover:underline font-medium"
+              >
+                View {category.title} comparisons →
+              </Link>
+            </section>
+          )}
 
           <section id="card-list" className="mb-12" aria-label="Product comparison">
             <h2 className="text-xl font-bold text-slate-900 mb-2">

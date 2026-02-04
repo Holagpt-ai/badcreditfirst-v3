@@ -4,7 +4,7 @@ import { notFound } from 'next/navigation';
 import { Star, CreditCard } from 'lucide-react';
 import { getCardBySlug, getAffiliateLink } from '../../../../lib/card-data';
 import { categories } from '../../../../lib/categories';
-import { getComparisonsForCard } from '../../../../data/comparisons';
+import { getComparisonsForCard, CATEGORY_TO_HUB } from '../../../../data/comparisons';
 import { getProductSchema, getReviewSchema, getBreadcrumbSchema } from '../../../../lib/schema';
 import CreditRebuildTimeline from '@/components/CreditRebuildTimeline';
 import TrustBadges from '@/components/TrustBadges';
@@ -224,6 +224,15 @@ export default function CreditCardReviewPage({
                     </Link>
                   </span>
                 ))}
+              </p>
+            )}
+            {categorySlug && CATEGORY_TO_HUB[categorySlug] && (
+              <p className="text-sm text-slate-500">
+                Browse more{' '}
+                <Link href={`/compare/${CATEGORY_TO_HUB[categorySlug]}`} className="text-blue-600 hover:underline font-medium">
+                  {categoryTitle.toLowerCase()} comparisons
+                </Link>
+                {' '}side by side.
               </p>
             )}
             <div className="flex flex-wrap gap-4 text-sm">

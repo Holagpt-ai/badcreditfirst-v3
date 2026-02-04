@@ -6,19 +6,19 @@ import { categories } from '@/lib/categories';
 import ComparisonHubList from '@/components/compare/ComparisonHubList';
 import { getWebPageSchema, getBreadcrumbSchema, getItemListSchema } from '@/lib/schema';
 
-const HUB_SLUG = 'secured-credit-cards';
+const HUB_SLUG = 'bad-credit-cards';
 const SITE_URL = 'https://badcreditfirst.com';
 
 export const metadata: Metadata = {
-  title: 'Secured Credit Card Comparisons | BadCreditFirst',
+  title: 'Bad Credit Card Comparisons | BadCreditFirst',
   description:
-    'Side-by-side comparisons of secured credit cards for bad credit and no credit. Compare fees, deposits, and approval odds.',
+    'Compare credit cards and products designed for bad credit, thin files, and rebuilding. Fees, approval odds, and bureau reporting.',
   alternates: {
     canonical: `${SITE_URL}/compare/${HUB_SLUG}`,
   },
 };
 
-export default function SecuredCreditCardsHubPage() {
+export default function BadCreditCardsHubPage() {
   const hub = getHubBySlug(HUB_SLUG);
   const comparisonLinks = getComparisonsForHub(HUB_SLUG);
   const categorySlug = HUB_TO_CATEGORY[HUB_SLUG];
@@ -65,7 +65,7 @@ export default function SecuredCreditCardsHubPage() {
               {hub.title}
             </h1>
             <p className="text-slate-600 leading-relaxed mb-4">
-              Secured cards are one of the most effective tools for rebuilding credit. Comparing them side by side helps you see fees, deposit requirements, and approval odds so you can choose the right option for your situation.
+              When your credit is damaged or your file is thin, comparing options side by side helps you choose a product that fits. We evaluate fees, approval odds, and bureau reporting so you can see how different cards and credit-building products stack up for rebuilding.
             </p>
             <p className="text-slate-600 leading-relaxed">
               {hub.description}

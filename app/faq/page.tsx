@@ -53,6 +53,30 @@ export default function FAQPage() {
 
           <CreditReportErrorsChecklist />
 
+          <section className="mt-10 pt-8 border-t border-slate-200">
+            <h2 className="text-lg font-bold text-slate-900 mb-3">Related resources</h2>
+            <p className="text-slate-600 text-sm mb-4">
+              Learn more about credit scores, rebuilding, and how to compare products.
+            </p>
+            <ul className="flex flex-wrap gap-3 text-sm">
+              <li>
+                <Link href="/education" className="text-blue-600 hover:underline font-medium">
+                  Education Center
+                </Link>
+              </li>
+              <li>
+                <Link href="/compare/secured-credit-cards" className="text-blue-600 hover:underline font-medium">
+                  Secured card comparisons
+                </Link>
+              </li>
+              <li>
+                <Link href="/credit-cards/category/bad-credit" className="text-blue-600 hover:underline font-medium">
+                  Cards for bad credit
+                </Link>
+              </li>
+            </ul>
+          </section>
+
           <p className="mt-10 pt-8 border-t border-slate-200 text-sm text-slate-500 italic">
             This information is for educational purposes only and does not constitute legal or financial advice.
           </p>

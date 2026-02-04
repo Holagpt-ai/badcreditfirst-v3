@@ -1,8 +1,10 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { getHubBySlug, getComparisonsForHub } from '@/data/comparisons';
+import { getHubBySlug, getComparisonsForHub, HUB_TO_CATEGORY } from '@/data/comparisons';
+import { getTopReviewsForCategory } from '@/lib/card-data';
+import { categories } from '@/lib/categories';
 import ComparisonHubList from '@/components/compare/ComparisonHubList';
-import { getWebPageSchema } from '@/lib/schema';
+import { getWebPageSchema, getBreadcrumbSchema, getItemListSchema } from '@/lib/schema';
 
 const HUB_SLUG = 'no-deposit-alternatives';
 const SITE_URL = 'https://badcreditfirst.com';
@@ -18,21 +20,43 @@ export const metadata: Metadata = {
 
 export default function NoDepositAlternativesHubPage() {
   const hub = getHubBySlug(HUB_SLUG);
-  const links = getComparisonsForHub(HUB_SLUG);
+  const comparisonLinks = getComparisonsForHub(HUB_SLUG);
+  const categorySlug = HUB_TO_CATEGORY[HUB_SLUG];
+  const topReviews = categorySlug ? getTopReviewsForCategory(categorySlug, 3) : [];
+  const category = categorySlug ? categories[categorySlug] : null;
 
   if (!hub) return null;
 
+  const hubUrl = `${SITE_URL}/compare/${HUB_SLUG}`;
   const webPageSchema = getWebPageSchema({
     name: hub.title,
-    url: `${SITE_URL}/compare/${HUB_SLUG}`,
+    url: hubUrl,
     description: hub.description,
   });
+  const breadcrumbSchema = getBreadcrumbSchema([
+    { name: 'Home', url: '/' },
+    { name: 'Compare', url: '/compare' },
+    { name: hub.title, url: `/compare/${HUB_SLUG}` },
+  ]);
+  const itemListItems = [
+    ...comparisonLinks.map((l) => ({ url: `/compare/${l.slug}`, name: l.anchorText })),
+    ...topReviews.map((r) => ({ url: r.reviewUrl, name: r.title })),
+  ];
+  const itemListSchema = getItemListSchema(itemListItems);
 
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(webPageSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListSchema) }}
       />
       <main className="max-w-4xl mx-auto px-6 py-12">
         <div className="bg-white border border-slate-200 rounded-xl shadow-sm p-8">
@@ -45,15 +69,46 @@ export default function NoDepositAlternativesHubPage() {
             </p>
           </header>
 
-          <ComparisonHubList links={links} heading="Comparisons" />
+          <ComparisonHubList links={comparisonLinks} heading="Comparisons" />
+
+          {topReviews.length > 0 && (
+            <section className="mt-10">
+              <h2 className="text-xl font-bold text-slate-900 mb-3">Top reviews</h2>
+              <p className="text-slate-600 text-sm mb-4">
+                Read our full reviews to understand fees, approval odds, and who each product suits best.
+              </p>
+              <ul className="flex flex-wrap gap-3 text-sm">
+                {topReviews.map((r) => (
+                  <li key={r.slug}>
+                    <Link
+                      href={r.reviewUrl}
+                      className="text-blue-600 hover:underline font-medium"
+                    >
+                      {r.title} review
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
 
           <div className="mt-10 pt-8 border-t border-slate-200 flex flex-wrap gap-4">
             <Link href="/compare" className="text-blue-600 hover:underline font-medium">
               ← All comparison hubs
             </Link>
-            <Link href="/credit-cards" className="text-blue-600 hover:underline font-medium">
-              Credit cards →
-            </Link>
+            {category && (
+              <Link
+                href={`/credit-cards/category/${categorySlug}`}
+                className="text-blue-600 hover:underline font-medium"
+              >
+                {category.title} category →
+              </Link>
+            )}
+            {!category && (
+              <Link href="/credit-cards" className="text-blue-600 hover:underline font-medium">
+                Credit cards →
+              </Link>
+            )}
           </div>
         </div>
       </main>
