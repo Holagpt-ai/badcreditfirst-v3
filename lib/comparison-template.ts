@@ -1,7 +1,10 @@
 /**
  * Programmatic Comparison Page Blueprint
  * Locked schema template for scaling to 10k–100k comparison pages.
- * Structure only — no AI-generated content. Variable facts + controlled language slots.
+ * Structure only — variable facts + controlled language slots.
+ *
+ * AI Freshness (LOW % only): AI allowed only in editorialContext and summaryTakeaway.
+ * All other slots = human/template only. See lib/ai-freshness.ts.
  */
 
 /** Fixed section IDs. Every comparison page renders these in order. */
@@ -34,9 +37,9 @@ export interface VariableFacts {
   keyDifferences: KeyDifferencesFacts;
   /** Intent phrase (e.g. "rebuilding credit or applying after a denial"). */
   intent: string;
-  /** Editorial context (1–2 sentences). */
+  /** Editorial context (1–2 sentences). AI-allowed slot. */
   editorialContext: string;
-  /** Summary takeaway (1–2 sentences). */
+  /** Summary takeaway (1–2 sentences). AI-allowed slot. */
   summaryTakeaway: string;
 }
 
