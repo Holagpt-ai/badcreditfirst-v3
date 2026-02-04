@@ -2,11 +2,64 @@
  * Schema.org JSON-LD helpers for technical SEO.
  * Use with <script type="application/ld+json"> dangerouslySetInnerHTML.
  *
+ * Anti-duplication: deterministic description phrasing pools for programmatic pages.
+ *
  * Exports: Organization, WebSite, AUTHOR_SCHEMA (layout); CollectionPage + FAQ (category);
  * Product + Review + Breadcrumb (review); Article (education); WebPage (compare).
  */
 
 const SITE_URL = 'https://badcreditfirst.com';
+
+/**
+ * Deterministic phrasing pools for schema descriptions (anti-duplication).
+ * Section-level variation — pick template by slug hash. No paragraph spinning.
+ */
+export const SCHEMA_DESCRIPTION_POOLS = {
+  /** WebPage/Comparison description templates. Placeholders: {entityA}, {entityB}, {intent} */
+  comparison: [
+    'Compare {entityA} and {entityB} for {intent}. Independent comparison.',
+    '{entityA} vs {entityB}: fees, approval odds, and credit-building value for {intent}.',
+    'Side-by-side comparison of {entityA} and {entityB} for {intent}.',
+  ] as const,
+
+  /** Review description templates. Placeholders: {product}, {label} */
+  review: [
+    'Independent review of {product}. {label}. Compare fees, approval odds, and credit-building value.',
+    '{product} review: {label}. Fees, approval odds, and bureau reporting.',
+  ] as const,
+
+  /** Article/Education description templates. Placeholders: {title} */
+  article: [
+    'Learn about {title} and credit-building strategies.',
+    '{title}. Expert guide for rebuilding credit.',
+  ] as const,
+} as const;
+
+/** Pick deterministic index from pool using identifier (e.g. slug). */
+function schemaPoolIndex(poolLength: number, id: string): number {
+  let hash = 0;
+  for (let i = 0; i < id.length; i++) {
+    hash = ((hash << 5) - hash + id.charCodeAt(i)) | 0;
+  }
+  return Math.abs(hash) % poolLength;
+}
+
+/**
+ * Get varied comparison schema description. Deterministic per slug.
+ */
+export function getComparisonSchemaDescription(
+  entityA: string,
+  entityB: string,
+  intent: string,
+  slug: string
+): string {
+  const pool = SCHEMA_DESCRIPTION_POOLS.comparison;
+  const template = pool[schemaPoolIndex(pool.length, slug)];
+  return template
+    .replace('{entityA}', entityA)
+    .replace('{entityB}', entityB)
+    .replace('{intent}', intent);
+}
 
 /** Canonical @id for the site author. Use for author references in Article, Review, WebPage. */
 export const AUTHOR_ID = `${SITE_URL}/#author-carlos-acosta`;
