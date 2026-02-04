@@ -63,9 +63,9 @@ export default function ComparePage({ params }: Props) {
           <CreditReportErrorsChecklist />
           <CreditRebuildTimeline />
           <section className="mb-8">
-            <h2 className="text-xl font-bold text-slate-900 mb-3">Full reviews</h2>
+            <h2 className="text-xl font-bold text-slate-900 mb-2">Full reviews</h2>
             <p className="text-slate-600 text-sm mb-3">
-              Read our independent reviews of each card for fees, approval odds, and credit-building value.
+              Read our independent reviews to decide which card fits you best.
             </p>
             <ul className="flex flex-wrap gap-3 text-sm">
               {getReviewLinksForComparison(comparison).map(({ name, href }) => (

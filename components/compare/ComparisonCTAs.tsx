@@ -9,7 +9,10 @@ export default function ComparisonCTAs({ data }: Props) {
   const { ctaMap } = data;
   return (
     <section className="mb-8">
-      <h2 className="text-xl font-bold text-slate-900 mb-4">Next Steps</h2>
+      <h2 className="text-xl font-bold text-slate-900 mb-2">Read full reviews to decide</h2>
+      <p className="text-slate-600 text-sm mb-4">
+        Compare fees, approval odds, and credit-building value before applying.
+      </p>
       <div className="flex flex-wrap gap-4">
         <Link
           href={ctaMap.entityA.href}

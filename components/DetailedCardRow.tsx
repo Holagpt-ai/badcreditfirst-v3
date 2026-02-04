@@ -3,8 +3,6 @@
 import React from 'react';
 import { Star, Check, CreditCard, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
-import { getAffiliateLink } from '@/lib/card-data';
-import { trackEvent } from '@/lib/analytics';
 
 interface DetailedCardRowProps {
   title: string;
@@ -15,9 +13,9 @@ interface DetailedCardRowProps {
   slug: string;
   /** Path to the single-card review page, e.g. /credit-cards/review/opensky-secured-visa */
   reviewUrl: string;
-  /** Optional: segment from funnel for affiliate subid (e.g. no-credit-deposit). */
+  /** Optional: segment from funnel (passed to parent for analytics). */
   segment?: string;
-  /** Optional: position in list for affiliate subid (1-based). */
+  /** Optional: position in list (passed to parent for analytics). */
   position?: number;
   /** Editorial star rating for display only (4.1–4.6). */
   editorialScore?: number;
@@ -29,16 +27,11 @@ interface DetailedCardRowProps {
 
 const BEST_RATING = 5;
 
-export default function DetailedCardRow({ title, label, highlights, fees, creditScore, slug, reviewUrl, segment, position, editorialScore = 4.5, status = 'active', whyRecommended }: DetailedCardRowProps) {
-  const applyHref = getAffiliateLink(slug, segment, position);
+export default function DetailedCardRow({ title, label, highlights, fees, creditScore, slug, reviewUrl, editorialScore = 4.5, status = 'active', whyRecommended }: DetailedCardRowProps) {
   const score = Math.min(BEST_RATING, Math.max(4.1, editorialScore));
   const fullStars = Math.floor(score);
   const partialOpacity = score - fullStars;
   const isComingSoon = status === 'coming-soon';
-
-  const handleApplyClick = () => {
-    if (!isComingSoon) trackEvent('apply_click', 'Card', slug, position ?? 0);
-  };
 
   return (
 
@@ -96,34 +89,25 @@ export default function DetailedCardRow({ title, label, highlights, fees, credit
         </div>
       </div>
     </div>
-    {/* RIGHT: Action Area */}
+    {/* RIGHT: Action Area — Discovery only (Category/Results/Homepage). Conversion = Review page. */}
     <div className={`w-full md:w-[280px] p-6 flex flex-col justify-center border-t md:border-t-0 md:border-l border-slate-100 ${isComingSoon ? 'bg-slate-100' : 'bg-slate-50'}`}>
         {isComingSoon ? (
           <div className="w-full py-4 bg-slate-300 text-slate-600 font-semibold rounded-lg text-center cursor-not-allowed" aria-disabled="true">
             Coming Soon
           </div>
         ) : (
-          <a
-            href={applyHref}
-            target="_blank"
-            rel="nofollow noreferrer"
-            onClick={handleApplyClick}
-            className="w-full py-4 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-lg shadow-sm hover:shadow-md transition-all text-center flex items-center justify-center group"
-          >
-            Apply Now
-            <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" aria-hidden="true" />
-          </a>
-        )}
-        <Link
-          href={reviewUrl}
-          className="mt-3 text-center text-blue-600 text-sm hover:underline block"
-        >
-          View Full Review <span aria-hidden="true">{'\u2192'}</span>
-        </Link>
-        {!isComingSoon && (
-          <p className="mt-4 text-[10px] text-center text-slate-400 leading-tight">
-            Terms and conditions apply. <br/> Rates subject to change.
-          </p>
+          <>
+            <Link
+              href={reviewUrl}
+              className="w-full py-4 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-lg shadow-sm hover:shadow-md transition-all text-center flex items-center justify-center group"
+            >
+              View Full Review
+              <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" aria-hidden="true" />
+            </Link>
+            <p className="mt-3 text-[10px] text-center text-slate-400 leading-tight">
+              Read our full review before applying.
+            </p>
+          </>
         )}
     </div>
   </div>

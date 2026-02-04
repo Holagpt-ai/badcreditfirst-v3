@@ -208,29 +208,30 @@ export default function CreditCardReviewPage({
               </>
             )}
 
-            <div className="mt-6 pt-6 border-t border-slate-200 flex flex-wrap gap-4 justify-center text-sm">
-              <Link href={categoryHref} className="text-blue-600 hover:underline font-medium">
-                ← Back to {categoryTitle}
-              </Link>
-              <Link href={EDUCATION_LINK.href} className="text-blue-600 hover:underline font-medium">
-                Read: {EDUCATION_LINK.label}
-              </Link>
-            </div>
-
-            {compareLinks.length > 0 && (
-              <div className="mt-6 pt-6 border-t border-slate-200">
-                <h2 className="text-lg font-bold text-slate-900 mb-3">Compare this card</h2>
-                <ul className="flex flex-wrap gap-3 text-sm">
-                  {compareLinks.map(({ slug: compSlug, anchorText }) => (
-                    <li key={compSlug}>
+            <div className="mt-6 pt-6 border-t border-slate-200 space-y-4">
+              {compareLinks.length > 0 && (
+                <p className="text-sm text-slate-500">
+                  Still deciding?{' '}
+                  {compareLinks.map(({ slug: compSlug, anchorText }, i) => (
+                    <span key={compSlug}>
+                      {i > 0 && ', '}
                       <Link href={`/compare/${compSlug}`} className="text-blue-600 hover:underline font-medium">
                         {anchorText}
                       </Link>
-                    </li>
+                    </span>
                   ))}
-                </ul>
+                </p>
+              )}
+              <div className="flex flex-wrap gap-4 text-sm">
+                <Link href={categoryHref} className="text-slate-500 hover:text-blue-600 hover:underline">
+                  ← Back to {categoryTitle}
+                </Link>
+                <Link href={EDUCATION_LINK.href} className="text-slate-500 hover:text-blue-600 hover:underline">
+                  {EDUCATION_LINK.label}
+                </Link>
               </div>
-            )}
+            </div>
+
           </div>
         </div>
       </main>

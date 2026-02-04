@@ -126,9 +126,12 @@ export default function CreditCardCategoryPage({
           </section>
 
           <section id="card-list" className="mb-12" aria-label="Product comparison">
-            <h2 className="text-xl font-bold text-slate-900 mb-4">
+            <h2 className="text-xl font-bold text-slate-900 mb-2">
               Compare Options
             </h2>
+            <p className="text-slate-600 text-sm mb-4">
+              Browse cards below. Click &quot;View Full Review&quot; to learn more before applying.
+            </p>
             <div className="divide-y divide-slate-200 border border-slate-200 rounded-xl overflow-hidden bg-white shadow-sm">
               {filteredCards.map((c) => (
                 <DetailedCardRow
