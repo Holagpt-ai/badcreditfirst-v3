@@ -1,10 +1,16 @@
 import Link from 'next/link';
 import type { ComparisonPage } from '@/data/comparisons';
+import ConversionTrustLayer from '@/components/ConversionTrustLayer';
 
 interface Props {
   data: ComparisonPage;
 }
 
+/**
+ * Soft monetization: one inline CTA max (view full review).
+ * Pushes traffic to reviews, not straight to offers.
+ * No Apply buttons, urgency language, or countdown tactics.
+ */
 export default function ComparisonCTAs({ data }: Props) {
   const { ctaMap } = data;
   return (
@@ -26,6 +32,9 @@ export default function ComparisonCTAs({ data }: Props) {
         >
           {ctaMap.entityB.label}
         </Link>
+      </div>
+      <div className="mt-3">
+        <ConversionTrustLayer variant="compact" />
       </div>
     </section>
   );

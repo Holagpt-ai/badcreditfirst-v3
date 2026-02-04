@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import DetailedCardRow from '../../../../components/DetailedCardRow';
+import ConversionTrustLayer from '@/components/ConversionTrustLayer';
 import { cardData } from '../../../../lib/card-data';
 import { categories, categoryContent } from '../../../../lib/categories';
 import { getComparisonsForCategory, CATEGORY_TO_HUB } from '../../../../data/comparisons';
@@ -149,6 +150,9 @@ export default function CreditCardCategoryPage({
             <p className="text-slate-600 text-sm mb-4">
               Browse cards below. Click &quot;View Full Review&quot; to learn more before applying.
             </p>
+            <div className="mb-4">
+              <ConversionTrustLayer variant="compact" />
+            </div>
             <div className="divide-y divide-slate-200 border border-slate-200 rounded-xl overflow-hidden bg-white shadow-sm">
               {filteredCards.map((c) => (
                 <DetailedCardRow

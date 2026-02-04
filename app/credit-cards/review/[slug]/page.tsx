@@ -9,6 +9,7 @@ import { getProductSchema, getReviewSchema, getBreadcrumbSchema } from '../../..
 import CreditRebuildTimeline from '@/components/CreditRebuildTimeline';
 import TrustBadges from '@/components/TrustBadges';
 import ReviewDisclosure from '@/components/ReviewDisclosure';
+import ConversionTrustLayer from '@/components/ConversionTrustLayer';
 
 const baseUrl = 'https://badcreditfirst.com';
 
@@ -103,6 +104,11 @@ export default function CreditCardReviewPage({
             {title}
           </h1>
           <p className="text-slate-500 font-medium">Review & Details</p>
+          <p className="mt-2 text-sm text-slate-600">
+            By <Link href="/author/carlos-acosta" className="text-blue-600 hover:underline font-medium">Carlos Acosta</Link>
+            {' · '}
+            <Link href="/how-we-rank-cards" className="text-blue-600 hover:underline">How we rank cards</Link>
+          </p>
         </div>
 
         <div className="mb-6 p-6 bg-blue-50 border border-blue-200 rounded-xl">
@@ -133,17 +139,22 @@ export default function CreditCardReviewPage({
             </div>
           </div>
 
-          <div className="px-8 pt-6 flex flex-wrap items-center gap-2" aria-label={`Rating: ${displayScore.toFixed(1)} out of ${bestRating}`}>
-            {Array.from({ length: fullStars }, (_, i) => (
-              <Star key={i} className="w-5 h-5 fill-yellow-400 text-yellow-400 shrink-0" aria-hidden="true" />
-            ))}
-            {fullStars < bestRating && (
-              <Star className="w-5 h-5 fill-yellow-400 text-yellow-400 shrink-0" style={{ opacity: partialOpacity }} aria-hidden="true" />
-            )}
-            <span className="text-sm text-slate-500 ml-2 font-medium">{displayScore.toFixed(1)}/5</span>
-            <Link href="/how-we-rank-cards" className="text-xs text-slate-500 hover:text-blue-600 hover:underline ml-4 font-medium">
-              How we review cards <span aria-hidden="true">→</span>
-            </Link>
+          <div className="px-8 pt-6">
+            <div className="flex flex-wrap items-center gap-2" aria-label={`Rating: ${displayScore.toFixed(1)} out of ${bestRating}`}>
+              {Array.from({ length: fullStars }, (_, i) => (
+                <Star key={i} className="w-5 h-5 fill-yellow-400 text-yellow-400 shrink-0" aria-hidden="true" />
+              ))}
+              {fullStars < bestRating && (
+                <Star className="w-5 h-5 fill-yellow-400 text-yellow-400 shrink-0" style={{ opacity: partialOpacity }} aria-hidden="true" />
+              )}
+              <span className="text-sm text-slate-500 ml-2 font-medium">{displayScore.toFixed(1)}/5</span>
+              <Link href="/how-we-rank-cards" className="text-xs text-slate-500 hover:text-blue-600 hover:underline ml-4 font-medium">
+                How we review cards <span aria-hidden="true">→</span>
+              </Link>
+            </div>
+            <p className="mt-2 text-xs text-slate-500 leading-relaxed">
+              We evaluate based on fee transparency, bureau reporting, and approval odds. Rankings are editorial and not influenced by compensation.
+            </p>
           </div>
 
           {feeRisk && (
@@ -173,10 +184,20 @@ export default function CreditCardReviewPage({
             </div>
           )}
 
-          {badFor && (
-            <div className="px-8 py-6 border-t border-slate-100">
-              <h2 className="text-lg font-bold text-slate-900 mb-4">Who this is NOT for</h2>
-              <p className="text-slate-600 leading-relaxed">{badFor}</p>
+          {(realWorldUseCase || badFor) && (
+            <div className="px-8 py-6 border-t border-slate-100 grid grid-cols-1 md:grid-cols-2 gap-6">
+              {realWorldUseCase && (
+                <div>
+                  <h2 className="text-lg font-bold text-slate-900 mb-2">Who this card is for</h2>
+                  <p className="text-slate-600 leading-relaxed">{realWorldUseCase}</p>
+                </div>
+              )}
+              {badFor && (
+                <div>
+                  <h2 className="text-lg font-bold text-slate-900 mb-2">Who this card is NOT for</h2>
+                  <p className="text-slate-600 leading-relaxed">{badFor}</p>
+                </div>
+              )}
             </div>
           )}
 
@@ -200,32 +221,34 @@ export default function CreditCardReviewPage({
                     rel="nofollow noreferrer"
                     className="w-full py-4 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-lg shadow-sm hover:shadow-md transition-all text-center flex items-center justify-center"
                   >
-                    Visit Issuer Website
+                    Apply
                   </a>
-                  <p className="mt-3 text-xs text-slate-500 text-center">
-                    You will be redirected to the issuer&apos;s official website.
-                  </p>
-                  <ReviewDisclosure variant="cta" />
+                  <div className="mt-3">
+                    <ConversionTrustLayer variant="compact" />
+                  </div>
                   <TrustBadges />
                 </>
               )}
             </div>
+            {/* Secondary CTA: Compare alternatives */}
+            {compareLinks.length > 0 && (
+              <div className="mt-6 pt-6 border-t border-slate-200">
+                <p className="text-sm font-medium text-slate-700 mb-2">Compare alternatives</p>
+                <p className="text-sm text-slate-600">
+                  {compareLinks.map(({ slug: compSlug, anchorText }, i) => (
+                    <span key={compSlug}>
+                      {i > 0 && ', '}
+                      <Link href={`/compare/${compSlug}`} className="text-blue-600 hover:underline font-medium">
+                        {anchorText}
+                      </Link>
+                    </span>
+                  ))}
+                </p>
+              </div>
+            )}
           </div>
 
           <div className="mt-6 pt-6 border-t border-slate-200 space-y-4">
-            {compareLinks.length > 0 && (
-              <p className="text-sm text-slate-500">
-                Still deciding?{' '}
-                {compareLinks.map(({ slug: compSlug, anchorText }, i) => (
-                  <span key={compSlug}>
-                    {i > 0 && ', '}
-                    <Link href={`/compare/${compSlug}`} className="text-blue-600 hover:underline font-medium">
-                      {anchorText}
-                    </Link>
-                  </span>
-                ))}
-              </p>
-            )}
             {categorySlug && CATEGORY_TO_HUB[categorySlug] && (
               <p className="text-sm text-slate-500">
                 Browse more{' '}
