@@ -79,6 +79,8 @@ export function getCollectionPageSchema(options: {
     '@type': 'CollectionPage',
     name: options.name,
     url: options.url.startsWith('http') ? options.url : `${siteUrl}${options.url}`,
+    author: getAuthorRef(),
+    publisher: { '@id': `${siteUrl}/#organization` },
   };
   if (options.description) schema.description = options.description;
   if (options.itemUrls?.length) {
@@ -104,6 +106,8 @@ export function getFAQSchema(faq: FAQItem[], siteUrl: string = SITE_URL) {
       name: item.q,
       acceptedAnswer: { '@type': 'Answer', text: item.a },
     })),
+    author: getAuthorRef(),
+    publisher: { '@id': `${siteUrl}/#organization` },
   };
 }
 
@@ -166,6 +170,7 @@ export function getReviewSchema(options: {
       bestRating: options.bestRating,
     },
     author: getAuthorRef(),
+    publisher: { '@id': `${siteUrl}/#organization` },
     url: options.reviewUrl.startsWith('http') ? options.reviewUrl : `${siteUrl}${options.reviewUrl}`,
   };
 }

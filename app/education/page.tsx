@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { BarChart3, AlertTriangle, FileText, TrendingUp } from 'lucide-react';
 import CreditReportResourceBox from '@/components/Education/CreditReportResourceBox';
+import { getWebPageSchema } from '@/lib/schema';
 
 export const metadata: Metadata = {
   title: 'Credit Education Center | BadCreditFirst',
@@ -10,8 +11,18 @@ export const metadata: Metadata = {
 };
 
 export default function EducationPage() {
+  const webPageSchema = getWebPageSchema({
+    name: 'Credit Education Center',
+    url: 'https://badcreditfirst.com/education',
+    description: 'Expert guides on credit scores, FICO vs VantageScore, secured cards, and credit-building. Learn before you apply.',
+  });
+
   return (
     <div className="min-h-screen bg-white text-slate-900">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(webPageSchema) }}
+      />
       <main className="max-w-6xl mx-auto px-6 py-12">
         {/* Header */}
         <div className="text-center mb-12">

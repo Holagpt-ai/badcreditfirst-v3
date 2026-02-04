@@ -1,6 +1,22 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import CreditReportErrorsChecklist from '@/components/CreditReportErrorsChecklist';
+import { getFAQSchema } from '@/lib/schema';
+
+const FAQ_ITEMS = [
+  { q: 'Who can see my credit reports?', a: 'Lenders, landlords, insurers, and employers may request your credit report with your permission. Creditors you apply to can also access your report. You have the right to obtain a free copy of your report from each of the three major bureaus (Equifax, Experian, TransUnion) once per year at annualcreditreport.com.' },
+  { q: 'How do you restore bad credit?', a: 'Restoring credit typically involves paying bills on time, reducing balances, and avoiding new negative entries. Secured cards and credit builder accounts can help establish positive payment history. Improvement takes time; there are no quick fixes for accurate negative information.' },
+  { q: 'How can bad credit be legally repaired?', a: 'Under the Fair Credit Reporting Act (FCRA), you have the right to dispute inaccurate or unverifiable information with the credit bureaus. The bureau must investigate within 30 days. Accurate negative information generally cannot be removed early; it remains for the legally prescribed period (typically 7 years for most items, 10 years for Chapter 7 bankruptcy).' },
+  { q: 'Does paying off my bills repair my credit?', a: 'Paying off current bills on time helps build positive payment history, which is the largest factor in your score. Paying off past-due accounts or collections may improve your score over time, but the negative history may remain on your report for up to 7 years. Paying does not remove accurate negative entries.' },
+  { q: 'What items can be removed from a credit report?', a: 'Only inaccurate, incomplete, or unverifiable information can be removed through the dispute process. Accurate negative information, such as legitimate late payments or valid collections, generally stays on your report until it ages off (typically 7 years from the date of first delinquency). No one can legally remove accurate negative information before that time.' },
+  { q: 'Can late payments be removed?', a: 'Accurate late payments cannot be removed early. They remain on your report for up to 7 years from the date of the late payment. You may dispute late payments only if they are inaccurate (wrong date, wrong amount, or not yours). Some issuers offer a one-time goodwill adjustment; this is at their discretion and not guaranteed.' },
+  { q: 'Can collections be removed?', a: 'Accurate collections typically remain for up to 7 years from the date the debt first became delinquent. You can dispute collections that are inaccurate, duplicated, or unverifiable. Paying a collection does not automatically remove it; the account may be updated to "paid" but can still appear on your report. "Pay for delete" agreements are rare and not legally required of collectors.' },
+  { q: 'Can repossessions be removed from my credit report?', a: 'Accurate repossessions remain on your report for up to 7 years from the date of first delinquency. Disputes apply only to inaccurate or unverifiable information. There is no legal way to remove an accurate repossession before it ages off.' },
+  { q: 'Can foreclosures be removed from my credit report?', a: 'Accurate foreclosures stay on your report for up to 7 years. You may dispute a foreclosure only if it contains errors (wrong dates, amounts, or property). No one can legally remove an accurate foreclosure before the reporting period ends.' },
+  { q: 'Can bankruptcies be removed from my credit report?', a: 'Chapter 7 bankruptcy remains for 10 years from the filing date. Chapter 13 remains for 7 years from the filing date. Accurate bankruptcies cannot be removed early. Disputes apply only to inaccuracies. Rebuilding credit after bankruptcy is possible through secured cards and credit builder accounts.' },
+  { q: 'Can student loans be removed from my credit report?', a: 'Accurate student loan entries remain on your report. Defaulted federal student loans may be rehabilitated or consolidated, which can change how they appear. Private student loans follow the same 7-year reporting rule as other debts. Disputes apply only to inaccurate information. Student loans generally cannot be discharged through bankruptcy except in limited circumstances.' },
+  { q: 'Can credit inquiries be removed?', a: 'Hard inquiries (from applications for credit) remain on your report for up to 2 years but typically affect your score less over time. You may dispute inquiries you did not authorize. Soft inquiries (checking your own score, pre-approvals) do not affect your score and are not visible to lenders. Accurate hard inquiries from applications you made generally cannot be removed early.' },
+] as const;
 
 export const metadata: Metadata = {
   alternates: {
@@ -9,8 +25,14 @@ export const metadata: Metadata = {
 };
 
 export default function FAQPage() {
+  const faqSchema = getFAQSchema([...FAQ_ITEMS]);
+
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
       <main className="max-w-4xl mx-auto px-6 py-12">
         <div className="bg-white border border-slate-200 rounded-xl shadow-sm p-8">
           <h1 className="text-3xl font-bold tracking-tight text-slate-900 mb-6">
@@ -21,89 +43,12 @@ export default function FAQPage() {
           </p>
 
           <section className="space-y-8">
-            <div>
-              <h2 className="text-lg font-bold text-slate-900 mb-2">Who can see my credit reports?</h2>
-              <p className="text-slate-600 leading-relaxed">
-                Lenders, landlords, insurers, and employers may request your credit report with your permission. Creditors you apply to can also access your report. You have the right to obtain a free copy of your report from each of the three major bureaus (Equifax, Experian, TransUnion) once per year at annualcreditreport.com.
-              </p>
-            </div>
-
-            <div>
-              <h2 className="text-lg font-bold text-slate-900 mb-2">How do you restore bad credit?</h2>
-              <p className="text-slate-600 leading-relaxed">
-                Restoring credit typically involves paying bills on time, reducing balances, and avoiding new negative entries. Secured cards and credit builder accounts can help establish positive payment history. Improvement takes time; there are no quick fixes for accurate negative information.
-              </p>
-            </div>
-
-            <div>
-              <h2 className="text-lg font-bold text-slate-900 mb-2">How can bad credit be legally repaired?</h2>
-              <p className="text-slate-600 leading-relaxed">
-                Under the Fair Credit Reporting Act (FCRA), you have the right to dispute inaccurate or unverifiable information with the credit bureaus. The bureau must investigate within 30 days. Accurate negative information generally cannot be removed early; it remains for the legally prescribed period (typically 7 years for most items, 10 years for Chapter 7 bankruptcy).
-              </p>
-            </div>
-
-            <div>
-              <h2 className="text-lg font-bold text-slate-900 mb-2">Does paying off my bills repair my credit?</h2>
-              <p className="text-slate-600 leading-relaxed">
-                Paying off current bills on time helps build positive payment history, which is the largest factor in your score. Paying off past-due accounts or collections may improve your score over time, but the negative history may remain on your report for up to 7 years. Paying does not remove accurate negative entries.
-              </p>
-            </div>
-
-            <div>
-              <h2 className="text-lg font-bold text-slate-900 mb-2">What items can be removed from a credit report?</h2>
-              <p className="text-slate-600 leading-relaxed">
-                Only inaccurate, incomplete, or unverifiable information can be removed through the dispute process. Accurate negative information, such as legitimate late payments or valid collections, generally stays on your report until it ages off (typically 7 years from the date of first delinquency). No one can legally remove accurate negative information before that time.
-              </p>
-            </div>
-
-            <div>
-              <h2 className="text-lg font-bold text-slate-900 mb-2">Can late payments be removed?</h2>
-              <p className="text-slate-600 leading-relaxed">
-                Accurate late payments cannot be removed early. They remain on your report for up to 7 years from the date of the late payment. You may dispute late payments only if they are inaccurate (wrong date, wrong amount, or not yours). Some issuers offer a one-time goodwill adjustment; this is at their discretion and not guaranteed.
-              </p>
-            </div>
-
-            <div>
-              <h2 className="text-lg font-bold text-slate-900 mb-2">Can collections be removed?</h2>
-              <p className="text-slate-600 leading-relaxed">
-                Accurate collections typically remain for up to 7 years from the date the debt first became delinquent. You can dispute collections that are inaccurate, duplicated, or unverifiable. Paying a collection does not automatically remove it; the account may be updated to &quot;paid&quot; but can still appear on your report. &quot;Pay for delete&quot; agreements are rare and not legally required of collectors.
-              </p>
-            </div>
-
-            <div>
-              <h2 className="text-lg font-bold text-slate-900 mb-2">Can repossessions be removed from my credit report?</h2>
-              <p className="text-slate-600 leading-relaxed">
-                Accurate repossessions remain on your report for up to 7 years from the date of first delinquency. Disputes apply only to inaccurate or unverifiable information. There is no legal way to remove an accurate repossession before it ages off.
-              </p>
-            </div>
-
-            <div>
-              <h2 className="text-lg font-bold text-slate-900 mb-2">Can foreclosures be removed from my credit report?</h2>
-              <p className="text-slate-600 leading-relaxed">
-                Accurate foreclosures stay on your report for up to 7 years. You may dispute a foreclosure only if it contains errors (wrong dates, amounts, or property). No one can legally remove an accurate foreclosure before the reporting period ends.
-              </p>
-            </div>
-
-            <div>
-              <h2 className="text-lg font-bold text-slate-900 mb-2">Can bankruptcies be removed from my credit report?</h2>
-              <p className="text-slate-600 leading-relaxed">
-                Chapter 7 bankruptcy remains for 10 years from the filing date. Chapter 13 remains for 7 years from the filing date. Accurate bankruptcies cannot be removed early. Disputes apply only to inaccuracies. Rebuilding credit after bankruptcy is possible through secured cards and credit builder accounts.
-              </p>
-            </div>
-
-            <div>
-              <h2 className="text-lg font-bold text-slate-900 mb-2">Can student loans be removed from my credit report?</h2>
-              <p className="text-slate-600 leading-relaxed">
-                Accurate student loan entries remain on your report. Defaulted federal student loans may be rehabilitated or consolidated, which can change how they appear. Private student loans follow the same 7-year reporting rule as other debts. Disputes apply only to inaccurate information. Student loans generally cannot be discharged through bankruptcy except in limited circumstances.
-              </p>
-            </div>
-
-            <div>
-              <h2 className="text-lg font-bold text-slate-900 mb-2">Can credit inquiries be removed?</h2>
-              <p className="text-slate-600 leading-relaxed">
-                Hard inquiries (from applications for credit) remain on your report for up to 2 years but typically affect your score less over time. You may dispute inquiries you did not authorize. Soft inquiries (checking your own score, pre-approvals) do not affect your score and are not visible to lenders. Accurate hard inquiries from applications you made generally cannot be removed early.
-              </p>
-            </div>
+            {FAQ_ITEMS.map((item) => (
+              <div key={item.q}>
+                <h2 className="text-lg font-bold text-slate-900 mb-2">{item.q}</h2>
+                <p className="text-slate-600 leading-relaxed">{item.a}</p>
+              </div>
+            ))}
           </section>
 
           <CreditReportErrorsChecklist />

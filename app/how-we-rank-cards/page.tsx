@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import { getWebPageSchema } from '@/lib/schema';
 
 export const metadata: Metadata = {
   alternates: {
@@ -8,8 +9,18 @@ export const metadata: Metadata = {
 };
 
 export default function HowWeRankCardsPage() {
+  const webPageSchema = getWebPageSchema({
+    name: 'How We Rank Cards',
+    url: 'https://badcreditfirst.com/how-we-rank-cards',
+    description: 'BadCreditFirst methodology: fee transparency, bureau reporting, and approval odds for credit card rankings.',
+  });
+
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(webPageSchema) }}
+      />
       <main className="max-w-4xl mx-auto px-6 py-12">
         <div className="bg-white border border-slate-200 rounded-xl shadow-sm p-8">
           <h1 className="text-3xl font-bold tracking-tight text-slate-900 mb-6">
