@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { getPersonSchema } from '@/lib/schema';
 
-const SITE_URL = 'https://www.badcreditfirst.com';
+const SITE_URL = 'https://badcreditfirst.com';
 
 const AUTHOR_ARTICLES = [
   { slug: 'what-is-a-good-credit-score', title: 'What Is a Good Credit Score?' },
@@ -16,6 +16,9 @@ const AUTHOR_ARTICLES = [
 export const metadata: Metadata = {
   title: 'Carlos Acosta | Author & Founder',
   description: 'Fintech Entrepreneur & Credit Researcher. Founder of BadCreditFirst. Learn how we review credit cards and our methodology.',
+  alternates: {
+    canonical: 'https://badcreditfirst.com/author/carlos-acosta',
+  },
 };
 
 export default function AuthorCarlosAcostaPage() {
