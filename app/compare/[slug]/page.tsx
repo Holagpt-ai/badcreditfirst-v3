@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { getComparisonBySlug, getRelatedComparisons } from '@/data/comparisons';
+import { getComparisonBySlug, getRelatedComparisons, getReviewLinksForComparison } from '@/data/comparisons';
 import { getWebPageSchema } from '@/lib/schema';
 import ComparisonHero from '@/components/compare/ComparisonHero';
 import SnapshotTable from '@/components/compare/SnapshotTable';
@@ -62,6 +62,21 @@ export default function ComparePage({ params }: Props) {
           <SummaryTakeaway data={comparison} />
           <CreditReportErrorsChecklist />
           <CreditRebuildTimeline />
+          <section className="mb-8">
+            <h2 className="text-xl font-bold text-slate-900 mb-3">Full reviews</h2>
+            <p className="text-slate-600 text-sm mb-3">
+              Read our independent reviews of each card for fees, approval odds, and credit-building value.
+            </p>
+            <ul className="flex flex-wrap gap-3 text-sm">
+              {getReviewLinksForComparison(comparison).map(({ name, href }) => (
+                <li key={href}>
+                  <Link href={href} className="text-blue-600 hover:underline font-medium">
+                    {name} review
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </section>
           <ComparisonCTAs data={comparison} />
           <MethodologyFooter />
 

@@ -73,10 +73,20 @@ export interface ComparisonLink {
   anchorText: string;
 }
 
-/** Returns 2–3 comparison links where the given card slug appears. */
+export interface ReviewLink {
+  name: string;
+  href: string;
+}
+
+/** Sorted comparisons for deterministic internal linking. */
+function getSortedComparisons(): ComparisonPage[] {
+  return Object.values(comparisons).sort((a, b) => a.slug.localeCompare(b.slug));
+}
+
+/** Returns 2–3 comparison links where the given card slug appears. Deterministic by slug. */
 export function getComparisonsForCard(cardSlug: string, max = 3): ComparisonLink[] {
   const links: ComparisonLink[] = [];
-  for (const comp of Object.values(comparisons)) {
+  for (const comp of getSortedComparisons()) {
     if (links.length >= max) break;
     if (comp.entityA.slug === cardSlug || comp.entityB.slug === cardSlug) {
       links.push({ slug: comp.slug, anchorText: `${comp.entityA.name} vs ${comp.entityB.name}` });
@@ -91,10 +101,10 @@ function entitySlugMatchesCategory(entitySlug: string, categorySlug: string): bo
   return card?.categorySlug === categorySlug;
 }
 
-/** Returns 3–5 comparison links relevant to the given category slug. */
+/** Returns 3–5 comparison links relevant to the given category slug. Deterministic by slug. */
 export function getComparisonsForCategory(categorySlug: string, max = 5): ComparisonLink[] {
   const links: ComparisonLink[] = [];
-  for (const comp of Object.values(comparisons)) {
+  for (const comp of getSortedComparisons()) {
     if (links.length >= max) break;
     const aMatches = entitySlugMatchesCategory(comp.entityA.slug, categorySlug);
     const bMatches = entitySlugMatchesCategory(comp.entityB.slug, categorySlug);
@@ -105,13 +115,21 @@ export function getComparisonsForCategory(categorySlug: string, max = 5): Compar
   return links;
 }
 
-/** Returns 3 other comparison links, excluding the current slug. */
+/** Returns 3 other comparison links, excluding the current slug. Deterministic by slug. */
 export function getRelatedComparisons(currentSlug: string, max = 3): ComparisonLink[] {
   const links: ComparisonLink[] = [];
-  for (const comp of Object.values(comparisons)) {
+  for (const comp of getSortedComparisons()) {
     if (links.length >= max) break;
     if (comp.slug === currentSlug) continue;
     links.push({ slug: comp.slug, anchorText: `${comp.entityA.name} vs ${comp.entityB.name}` });
   }
   return links;
+}
+
+/** Returns review links for the two entities in a comparison. For Comparison → Reviews internal linking. */
+export function getReviewLinksForComparison(comparison: ComparisonPage): ReviewLink[] {
+  return [
+    { name: comparison.entityA.name, href: comparison.ctaMap.entityA.href },
+    { name: comparison.entityB.name, href: comparison.ctaMap.entityB.href },
+  ];
 }
