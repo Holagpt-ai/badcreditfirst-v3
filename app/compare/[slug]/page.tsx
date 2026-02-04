@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { getComparisonBySlug, getRelatedComparisons } from '@/data/comparisons';
+import { getWebPageSchema } from '@/lib/schema';
 import ComparisonHero from '@/components/compare/ComparisonHero';
 import SnapshotTable from '@/components/compare/SnapshotTable';
 import DecisionLogicSection from '@/components/compare/DecisionLogicSection';
@@ -28,6 +29,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
+const SITE_URL = 'https://badcreditfirst.com';
+
 export default function ComparePage({ params }: Props) {
   const { slug } = params;
   const comparison = getComparisonBySlug(slug);
@@ -36,8 +39,18 @@ export default function ComparePage({ params }: Props) {
     notFound();
   }
 
+  const webPageSchema = getWebPageSchema({
+    name: `${comparison.entityA.name} vs ${comparison.entityB.name}`,
+    url: `${SITE_URL}/compare/${slug}`,
+    description: `Compare ${comparison.entityA.name} and ${comparison.entityB.name} for ${comparison.intent}. Independent comparison.`,
+  });
+
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(webPageSchema) }}
+      />
       <main className="max-w-4xl mx-auto px-6 py-12">
         <div className="bg-white border border-slate-200 rounded-xl shadow-sm p-8">
           <ComparisonHero data={comparison} />

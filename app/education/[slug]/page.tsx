@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import type { ReactNode } from 'react';
-import { getArticleSchema, getPersonSchema } from '../../../lib/schema';
+import { getArticleSchema } from '../../../lib/schema';
 import CreditReportResourceBox from '@/components/Education/CreditReportResourceBox';
 import CreditReportErrorsChecklist from '@/components/CreditReportErrorsChecklist';
 import CreditRebuildTimeline from '@/components/CreditRebuildTimeline';
@@ -432,8 +432,6 @@ const articleContent: Record<string, { title: string; quickAnswer?: string; body
   },
 };
 
-const AUTHOR_NAME = 'Carlos Acosta';
-const AUTHOR_URL = '/author/carlos-acosta';
 const DATE_PUBLISHED = '2026-01-15';
 const DATE_MODIFIED = '2026-02-01';
 
@@ -513,15 +511,8 @@ export default function EducationArticlePage({
     title: article.title,
     url: articleUrl,
     description: article.quickAnswer,
-    authorName: AUTHOR_NAME,
-    authorUrl: AUTHOR_URL,
     datePublished: DATE_PUBLISHED,
     dateModified: DATE_MODIFIED,
-  });
-  const authorSchema = getPersonSchema({
-    name: AUTHOR_NAME,
-    url: AUTHOR_URL,
-    description: 'Fintech Entrepreneur & Credit Researcher. Founder of BadCreditFirst.',
   });
 
   return (
@@ -529,10 +520,6 @@ export default function EducationArticlePage({
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(authorSchema) }}
       />
       <article className="max-w-3xl mx-auto px-6 py-12 prose prose-slate">
         {/* Hero */}

@@ -3,7 +3,7 @@ import { Inter } from "next/font/google";
 import Script from "next/script";
 import Link from "next/link";
 import { Shield, Check } from "lucide-react";
-import { getOrganizationSchema, getWebSiteSchema } from "@/lib/schema";
+import { getOrganizationSchema, getWebSiteSchema, AUTHOR_SCHEMA } from "@/lib/schema";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -36,6 +36,12 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify(websiteSchema),
+          }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(AUTHOR_SCHEMA),
           }}
         />
       </head>

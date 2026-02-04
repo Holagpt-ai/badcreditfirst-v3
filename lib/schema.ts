@@ -2,11 +2,34 @@
  * Schema.org JSON-LD helpers for technical SEO.
  * Use with <script type="application/ld+json"> dangerouslySetInnerHTML.
  *
- * Exports: Organization, WebSite (layout); CollectionPage + FAQ (category);
- * Product + Review + Breadcrumb (review); Article + Person (education); Person (author).
+ * Exports: Organization, WebSite, AUTHOR_SCHEMA (layout); CollectionPage + FAQ (category);
+ * Product + Review + Breadcrumb (review); Article (education); WebPage (compare).
  */
 
 const SITE_URL = 'https://badcreditfirst.com';
+
+/** Canonical @id for the site author. Use for author references in Article, Review, WebPage. */
+export const AUTHOR_ID = `${SITE_URL}/#author-carlos-acosta`;
+
+/** Single Author entity (Person) with @id. Output once (e.g. in layout); reference via getAuthorRef() elsewhere. */
+export const AUTHOR_SCHEMA = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  '@id': AUTHOR_ID,
+  name: 'Carlos Acosta',
+  url: `${SITE_URL}/author/carlos-acosta`,
+  description:
+    'Fintech Entrepreneur & Credit Researcher. Founder of BadCreditFirst. Focus on credit education and product comparison for consumers with bad or limited credit.',
+  affiliation: {
+    '@type': 'Organization',
+    '@id': `${SITE_URL}/#organization`,
+  },
+} as const;
+
+/** Reference to the canonical author. Use in Article, Review, WebPage author fields. */
+export function getAuthorRef() {
+  return { '@id': AUTHOR_ID };
+}
 
 export type FAQItem = { q: string; a: string };
 export type BreadcrumbItem = { name: string; url: string };
@@ -127,8 +150,6 @@ export function getReviewSchema(options: {
   siteUrl?: string;
   productSchema: Record<string, unknown>;
   reviewUrl: string;
-  authorName?: string;
-  authorUrl?: string;
   ratingValue: string | number;
   bestRating: number;
 }) {
@@ -144,11 +165,7 @@ export function getReviewSchema(options: {
       ratingValue,
       bestRating: options.bestRating,
     },
-    author: {
-      '@type': 'Organization',
-      name: options.authorName ?? 'BadCreditFirst',
-      url: options.authorUrl ?? siteUrl,
-    },
+    author: getAuthorRef(),
     url: options.reviewUrl.startsWith('http') ? options.reviewUrl : `${siteUrl}${options.reviewUrl}`,
   };
 }
@@ -167,31 +184,12 @@ export function getBreadcrumbSchema(items: BreadcrumbItem[], siteUrl: string = S
   };
 }
 
-/** Person schema for author (used in Article author). */
-export function getPersonSchema(options: {
-  siteUrl?: string;
-  name: string;
-  url: string;
-  description?: string;
-}) {
-  const schema: Record<string, unknown> = {
-    '@context': 'https://schema.org',
-    '@type': 'Person',
-    name: options.name,
-    url: options.url.startsWith('http') ? options.url : `${options.siteUrl ?? SITE_URL}${options.url}`,
-  };
-  if (options.description) schema.description = options.description;
-  return schema;
-}
-
-/** Article schema for education/blog posts. */
+/** Article schema for education/blog posts. Uses centralized author @id. */
 export function getArticleSchema(options: {
   siteUrl?: string;
   title: string;
   url: string;
   description?: string;
-  authorName: string;
-  authorUrl: string;
   datePublished?: string;
   dateModified?: string;
 }) {
@@ -203,13 +201,29 @@ export function getArticleSchema(options: {
     headline: options.title,
     url: articleUrl,
     ...(options.description && { description: options.description }),
-    author: {
-      '@type': 'Person',
-      name: options.authorName,
-      url: options.authorUrl.startsWith('http') ? options.authorUrl : `${siteUrl}${options.authorUrl}`,
-    },
+    author: getAuthorRef(),
     ...(options.datePublished && { datePublished: options.datePublished }),
     ...(options.dateModified && { dateModified: options.dateModified }),
+    publisher: { '@id': `${siteUrl}/#organization` },
+  };
+}
+
+/** WebPage schema for editorial/comparison pages. Uses centralized author @id. */
+export function getWebPageSchema(options: {
+  siteUrl?: string;
+  name: string;
+  url: string;
+  description?: string;
+}) {
+  const siteUrl = options.siteUrl ?? SITE_URL;
+  const pageUrl = options.url.startsWith('http') ? options.url : `${siteUrl}${options.url}`;
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    name: options.name,
+    url: pageUrl,
+    ...(options.description && { description: options.description }),
+    author: getAuthorRef(),
     publisher: { '@id': `${siteUrl}/#organization` },
   };
 }
