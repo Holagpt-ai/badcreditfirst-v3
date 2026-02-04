@@ -8,6 +8,7 @@ import { getComparisonsForCard } from '../../../../data/comparisons';
 import { getProductSchema, getReviewSchema, getBreadcrumbSchema } from '../../../../lib/schema';
 import CreditRebuildTimeline from '@/components/CreditRebuildTimeline';
 import TrustBadges from '@/components/TrustBadges';
+import ReviewDisclosure from '@/components/ReviewDisclosure';
 
 const baseUrl = 'https://badcreditfirst.com';
 
@@ -183,30 +184,33 @@ export default function CreditCardReviewPage({
             <CreditRebuildTimeline />
           </div>
 
-          <div className="px-8 pb-8 border-t border-slate-100">
-            {isComingSoon ? (
-              <div className="w-full py-4 bg-slate-200 text-slate-600 font-semibold rounded-lg text-center cursor-not-allowed" aria-disabled="true">
-                Coming Soon
-              </div>
-            ) : (
-              <>
-                <a
-                  href={applyHref}
-                  target="_blank"
-                  rel="nofollow noreferrer"
-                  className="w-full py-4 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-lg shadow-sm hover:shadow-md transition-all text-center flex items-center justify-center"
-                >
-                  Visit Issuer Website
-                </a>
-                <p className="mt-3 text-xs text-slate-500 text-center">
-                  You will be redirected to the issuer&apos;s official website.
-                </p>
-                <TrustBadges />
-                <p className="mt-6 text-xs text-slate-400 text-center leading-relaxed">
-                  BadCreditFirst may receive compensation if you apply through links on this page.
-                </p>
-              </>
-            )}
+          {/* Editorial content ends above. Affiliate/CTA section below with explicit disclosure. */}
+          <div className="px-8 pb-8 border-t border-slate-200 bg-slate-50/50">
+            <ReviewDisclosure variant="full" />
+            <div className="mt-6">
+              {isComingSoon ? (
+                <div className="w-full py-4 bg-slate-200 text-slate-600 font-semibold rounded-lg text-center cursor-not-allowed" aria-disabled="true">
+                  Coming Soon
+                </div>
+              ) : (
+                <>
+                  <a
+                    href={applyHref}
+                    target="_blank"
+                    rel="nofollow noreferrer"
+                    className="w-full py-4 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-lg shadow-sm hover:shadow-md transition-all text-center flex items-center justify-center"
+                  >
+                    Visit Issuer Website
+                  </a>
+                  <p className="mt-3 text-xs text-slate-500 text-center">
+                    You will be redirected to the issuer&apos;s official website.
+                  </p>
+                  <ReviewDisclosure variant="cta" />
+                  <TrustBadges />
+                </>
+              )}
+            </div>
+          </div>
 
             <div className="mt-6 pt-6 border-t border-slate-200 space-y-4">
               {compareLinks.length > 0 && (
