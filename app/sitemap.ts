@@ -1,7 +1,7 @@
 import { MetadataRoute } from 'next';
 import { cardData } from '@/lib/card-data';
 import { categories } from '@/lib/categories';
-import { ALL_COMPARISON_SLUGS } from '@/data/comparisons';
+import { ALL_COMPARISON_SLUGS, COMPARISON_HUB_SLUGS } from '@/data/comparisons';
 
 const BASE_URL = 'https://badcreditfirst.com';
 
@@ -41,8 +41,19 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const entries: MetadataRoute.Sitemap = [
     { url: BASE_URL, lastModified: now, changeFrequency: 'daily', priority: 1 },
     { url: `${BASE_URL}/credit-cards`, lastModified: now, changeFrequency: 'daily', priority: 0.9 },
+    { url: `${BASE_URL}/compare`, lastModified: now, changeFrequency: 'weekly', priority: 0.8 },
     { url: `${BASE_URL}/education`, lastModified: now, changeFrequency: 'weekly', priority: 0.8 },
   ];
+
+  // Comparison hub pages
+  for (const hubSlug of COMPARISON_HUB_SLUGS) {
+    entries.push({
+      url: `${BASE_URL}/compare/${hubSlug}`,
+      lastModified: now,
+      changeFrequency: 'weekly',
+      priority: 0.7,
+    });
+  }
 
   // Category pages from lib/categories
   const categorySlugs = Object.keys(categories);
