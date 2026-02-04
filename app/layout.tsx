@@ -4,6 +4,7 @@ import Script from "next/script";
 import Link from "next/link";
 import { Shield, Check } from "lucide-react";
 import { getOrganizationSchema, getWebSiteSchema, AUTHOR_SCHEMA } from "@/lib/schema";
+import TrustSignals from "@/components/TrustSignals";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -138,16 +139,24 @@ export default function RootLayout({
                 <strong className="text-slate-400">General Disclaimer:</strong> BadCreditFirst is operated by Carlos Acosta. BadCreditFirst provides independent information and is not a lender. BadCreditFirst may receive compensation when users apply for offers listed on this site.
               </p>
             </div>
-            {/* ROW 4: Brand Anchor */}
+            {/* ROW 4: Brand Anchor + Author + Trust Signals */}
             <div className="border-t border-slate-700 pt-8 text-center">
-              <Link href="/" className="inline-flex items-center gap-2 text-white font-bold text-lg mb-4 hover:opacity-90 transition-opacity">
+              <Link href="/" className="inline-flex items-center gap-2 text-white font-bold text-lg mb-2 hover:opacity-90 transition-opacity">
                 <span className="relative inline-block w-6 h-6 shrink-0" aria-hidden="true">
                   <Shield className="w-6 h-6 text-slate-400" />
                   <Check className="w-3 h-3 text-green-400 absolute inset-0 m-auto" style={{ filter: "drop-shadow(0 0 4px rgba(52,211,153,0.35))" }} strokeWidth={3} />
                 </span>
                 BadCreditFirst
               </Link>
-              <p className="text-xs text-slate-500 mb-1">Operated by BadCreditFirst | Contact: carlos.acosta@badcreditfirst.com</p>
+              <p className="text-xs text-slate-500 mb-3">
+                Author & Founder: <Link href="/author/carlos-acosta" className="text-slate-300 hover:text-white transition-colors underline underline-offset-2">Carlos Acosta</Link>
+                {' · '}
+                Contact: carlos.acosta@badcreditfirst.com
+              </p>
+              <div className="mb-4">
+                <TrustSignals variant="compact" />
+              </div>
+              <p className="text-xs text-slate-500 mb-1">Operated by BadCreditFirst</p>
               <p className="text-xs text-slate-500 mb-1">1631 Del Prado Blvd S #1124, Cape Coral, FL 33990</p>
               <p className="text-xs text-slate-500 mb-1">BadCreditFirst is an independent comparison and education platform and does not guarantee approval for any financial product.</p>
               <p className="text-xs text-slate-500">© 2026 BadCreditFirst. All Rights Reserved.</p>
