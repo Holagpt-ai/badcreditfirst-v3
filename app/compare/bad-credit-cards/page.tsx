@@ -77,6 +77,30 @@ export default function BadCreditCardsHubPage() {
             </p>
           </header>
 
+          <section className="mb-8" aria-labelledby="how-we-evaluate-bad-credit">
+            <h2 id="how-we-evaluate-bad-credit" className="text-lg font-bold text-slate-900 mb-2">
+              How we evaluate these cards
+            </h2>
+            <p className="text-slate-600 text-sm mb-3">
+              This hub is written for people rebuilding credit or applying after denials. We look at how each product fits that situation, not just headline rewards.
+            </p>
+            <ul className="list-disc list-inside text-slate-600 text-sm space-y-1 mb-3">
+              <li>Issuer disclosures, card agreements, and publicly available fee schedules</li>
+              <li>Whether the issuer reports to major credit bureaus and how approvals work for bad credit</li>
+              <li>Fees and total cost over the first year of use</li>
+            </ul>
+            <p className="text-slate-600 text-xs mb-2">
+              Pages in this hub are reviewed periodically (at least quarterly) or when issuers update fees or terms. Information is for educational purposes and BadCreditFirst is not a lender.
+            </p>
+            <p className="text-slate-600 text-xs">
+              Reviewed by{' '}
+              <Link href="/author/carlos-acosta" className="text-blue-600 hover:underline font-medium">
+                Carlos Acosta
+              </Link>{' '}
+              (credit education writer & founder, BadCreditFirst). Reviews are editorially independent and not ranked by compensation.
+            </p>
+          </section>
+
           <ComparisonHubList links={comparisonLinks} heading="Comparisons" />
 
           {topReviews.length > 0 && (

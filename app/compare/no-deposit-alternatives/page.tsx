@@ -74,6 +74,30 @@ export default function NoDepositAlternativesHubPage() {
             </p>
           </header>
 
+          <section className="mb-8" aria-labelledby="how-we-evaluate-no-deposit">
+            <h2 id="how-we-evaluate-no-deposit" className="text-lg font-bold text-slate-900 mb-2">
+              How we evaluate these options
+            </h2>
+            <p className="text-slate-600 text-sm mb-3">
+              No-deposit alternatives are often marketed to people in difficult credit situations. We focus on clarity of fees and how each option fits a realistic rebuilding plan.
+            </p>
+            <ul className="list-disc list-inside text-slate-600 text-sm space-y-1 mb-3">
+              <li>Issuer disclosures, cardholder agreements, and publicly available fee tables</li>
+              <li>How costs compare to secured cards and whether terms are clearly explained</li>
+              <li>Reporting to major credit bureaus and how the product fits common bad-credit scenarios</li>
+            </ul>
+            <p className="text-slate-600 text-xs mb-2">
+              This hub is reviewed regularly and when issuers update pricing or features. Information is for educational purposes and BadCreditFirst is not a lender or financial advisor.
+            </p>
+            <p className="text-slate-600 text-xs">
+              Reviewed by{' '}
+              <Link href="/author/carlos-acosta" className="text-blue-600 hover:underline font-medium">
+                Carlos Acosta
+              </Link>{' '}
+              (credit education writer & founder, BadCreditFirst). Reviews are editorially independent and not ranked by compensation.
+            </p>
+          </section>
+
           <ComparisonHubList links={comparisonLinks} heading="Comparisons" />
 
           {topReviews.length > 0 && (

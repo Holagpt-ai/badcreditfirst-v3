@@ -77,6 +77,30 @@ export default function SecuredCreditCardsHubPage() {
             </p>
           </header>
 
+          <section className="mb-8" aria-labelledby="how-we-evaluate-secured">
+            <h2 id="how-we-evaluate-secured" className="text-lg font-bold text-slate-900 mb-2">
+              How we evaluate these cards
+            </h2>
+            <p className="text-slate-600 text-sm mb-3">
+              We focus on how secured cards work for people rebuilding or starting credit, not just on marketing claims.
+            </p>
+            <ul className="list-disc list-inside text-slate-600 text-sm space-y-1 mb-3">
+              <li>Issuer disclosures, card agreements, and published fee schedules</li>
+              <li>Deposit requirements, annual fees, and how reporting to bureaus supports rebuilding</li>
+              <li>Upgrade paths and whether the card fits common rebuilding timelines</li>
+            </ul>
+            <p className="text-slate-600 text-xs mb-2">
+              This hub is reviewed on a regular basis (at least quarterly) and when issuers change pricing or terms. Content is for educational purposes only and BadCreditFirst is not a lender.
+            </p>
+            <p className="text-slate-600 text-xs">
+              Reviewed by{' '}
+              <Link href="/author/carlos-acosta" className="text-blue-600 hover:underline font-medium">
+                Carlos Acosta
+              </Link>{' '}
+              (credit education writer & founder, BadCreditFirst). Reviews are editorially independent and not ranked by compensation.
+            </p>
+          </section>
+
           <ComparisonHubList links={comparisonLinks} heading="Comparisons" />
 
           {topReviews.length > 0 && (

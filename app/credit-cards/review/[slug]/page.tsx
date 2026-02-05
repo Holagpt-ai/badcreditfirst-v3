@@ -181,6 +181,18 @@ export default async function CreditCardReviewPage({
             </p>
           </div>
 
+          <section className="px-8 py-4 border-t border-slate-100 bg-slate-50">
+            <h2 className="text-sm font-bold text-slate-900 mb-1">Reviewed by Carlos Acosta</h2>
+            <p className="text-xs text-slate-600 leading-relaxed">
+              Carlos Acosta is a credit education writer and independent reviewer at BadCreditFirst. Reviews are written for educational purposes to help people rebuilding credit. BadCreditFirst is not a lender and does not guarantee approval for any product.
+              {' '}
+              <Link href="/author/carlos-acosta" className="text-blue-600 hover:underline font-medium">
+                View author bio
+              </Link>
+              .
+            </p>
+          </section>
+
           {feeRisk && (
             <div className="px-8 py-6 border-t border-slate-100">
               <h2 className="text-lg font-bold text-slate-900 mb-4">

@@ -12,7 +12,7 @@ const AUTHOR_ARTICLES = [
 
 export const metadata: Metadata = {
   title: 'Carlos Acosta | Author & Founder',
-  description: 'Fintech Entrepreneur & Credit Researcher. Founder of BadCreditFirst. Learn how we review credit cards and our methodology.',
+  description: 'Fintech entrepreneur and credit education writer. Founder of BadCreditFirst. Learn how we review credit cards and our methodology.',
   alternates: {
     canonical: 'https://badcreditfirst.com/author/carlos-acosta',
   },
@@ -27,32 +27,35 @@ export default function AuthorCarlosAcostaPage() {
             Carlos Acosta
           </h1>
           <p className="text-lg font-medium text-blue-600 mb-6">
-            Fintech Entrepreneur & Credit Researcher
+            Fintech entrepreneur & credit education writer
           </p>
 
           <section className="mb-8">
-            <h2 className="text-xl font-bold text-slate-900 mb-3">Credentials</h2>
+            <h2 className="text-xl font-bold text-slate-900 mb-3">Professional summary</h2>
+            <p className="text-slate-600 leading-relaxed mb-4">
+              Carlos Acosta is the founder of BadCreditFirst and an independent reviewer focused on credit education and consumer finance for people with bad or limited credit. He writes and maintains reviews of secured credit cards, credit-builder accounts, and other products that affect credit reports and scores.
+            </p>
             <ul className="list-disc list-inside text-slate-600 space-y-1 mb-4">
               <li>Founder, BadCreditFirst</li>
               <li>Credit researcher and product comparison specialist</li>
-              <li>Focus: fee transparency, bureau reporting, approval accessibility</li>
+              <li>Focus on fee transparency, bureau reporting, and approval accessibility</li>
             </ul>
           </section>
 
           <section className="mb-8">
-            <h2 className="text-xl font-bold text-slate-900 mb-3">Bio</h2>
+            <h2 className="text-xl font-bold text-slate-900 mb-3">Experience</h2>
             <p className="text-slate-600 leading-relaxed mb-4">
-            Carlos Acosta is the founder of BadCreditFirst and a fintech entrepreneur focused on credit education and product comparison for consumers with bad or limited credit. As a credit researcher, he evaluates credit cards and credit-building products based on fee transparency, bureau reporting, and approval accessibility—not on affiliate payouts. His goal is to help people understand their options and make informed decisions when rebuilding credit.
+              At BadCreditFirst, Carlos reviews credit cards and credit-building products with a narrow focus on consumers rebuilding or establishing credit. He regularly compares secured cards, credit-builder accounts, and no-deposit alternatives, with an emphasis on how fees, approvals, and reporting affect real credit files.
             </p>
             <p className="text-slate-600 leading-relaxed">
-            BadCreditFirst is operated by Carlos Acosta and provides independent information; it is not a lender. The site may receive compensation when users apply for offers listed here. All editorial content is created independently and reflects BadCreditFirst&apos;s own evaluation criteria.
+              BadCreditFirst is operated by Carlos Acosta and provides independent information; it is not a lender and does not make credit decisions. The site may receive compensation when users apply for offers listed here. All editorial content is created independently and reflects BadCreditFirst&apos;s own evaluation criteria.
             </p>
           </section>
 
           <section className="mb-8">
-            <h2 className="text-xl font-bold text-slate-900 mb-3">Methodology</h2>
+            <h2 className="text-xl font-bold text-slate-900 mb-3">Editorial standards</h2>
             <p className="text-slate-600 leading-relaxed mb-4">
-            How we review cards at BadCreditFirst:
+              Reviews and comparisons on BadCreditFirst follow a consistent editorial process:
             </p>
             <ol className="space-y-4 list-decimal list-inside text-slate-600">
               <li>
@@ -69,8 +72,41 @@ export default function AuthorCarlosAcostaPage() {
               </li>
             </ol>
             <p className="text-slate-600 leading-relaxed mt-4">
-            We do not rank cards by compensation. Our reviews and rankings are based on the criteria above. For more detail, see our <Link href="/how-we-rank-cards" className="text-blue-600 hover:underline">How We Rank Cards</Link> page.
+              BadCreditFirst does not rank cards by compensation. Reviews and rankings are based on the criteria above and are editorially independent. For more detail, see our{' '}
+              <Link href="/how-we-rank-cards" className="text-blue-600 hover:underline">How We Rank Cards</Link> page.
             </p>
+            <p className="text-slate-600 leading-relaxed mt-2 text-sm">
+              Information on BadCreditFirst is for educational purposes and should not be taken as individualized financial advice.
+            </p>
+          </section>
+
+          <section className="mb-8">
+            <h2 className="text-xl font-bold text-slate-900 mb-3">Citations & references</h2>
+            <p className="text-slate-600 leading-relaxed mb-3">
+              Reviews and education content on BadCreditFirst reference primary, non-affiliate sources when explaining how credit reporting and disputes work, including:
+            </p>
+            <ul className="list-disc list-inside text-slate-600 space-y-2">
+              <li>
+                <Link href="https://www.consumerfinance.gov/" className="text-blue-600 hover:underline">
+                  Consumer Financial Protection Bureau (CFPB)
+                </Link>
+              </li>
+              <li>
+                <Link href="https://www.ftc.gov/" className="text-blue-600 hover:underline">
+                  Federal Trade Commission (FTC)
+                </Link>
+              </li>
+              <li>
+                <Link href="https://www.annualcreditreport.com/" className="text-blue-600 hover:underline">
+                  AnnualCreditReport.com
+                </Link>
+              </li>
+              <li>
+                <Link href="https://www.consumerfinance.gov/ask-cfpb/what-is-the-fair-credit-reporting-act-en-314/" className="text-blue-600 hover:underline">
+                  Fair Credit Reporting Act (FCRA) overview
+                </Link>
+              </li>
+            </ul>
           </section>
 
           <section className="mb-8">

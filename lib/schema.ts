@@ -31,7 +31,7 @@ export const SCHEMA_DESCRIPTION_POOLS = {
   /** Article/Education description templates. Placeholders: {title} */
   article: [
     'Learn about {title} and credit-building strategies.',
-    '{title}. Expert guide for rebuilding credit.',
+    '{title}. Practical guide for rebuilding credit.',
   ] as const,
 } as const;
 
@@ -73,6 +73,16 @@ export const AUTHOR_SCHEMA = {
   url: `${SITE_URL}/author/carlos-acosta`,
   description:
     'Fintech Entrepreneur & Credit Researcher. Founder of BadCreditFirst. Focus on credit education and product comparison for consumers with bad or limited credit.',
+   sameAs: [
+     `${SITE_URL}/author/carlos-acosta`,
+     SITE_URL,
+   ],
+   knowsAbout: [
+     'Credit reports',
+     'Secured credit cards',
+     'Credit rebuilding',
+     'Consumer finance',
+   ],
   affiliation: {
     '@type': 'Organization',
     '@id': `${SITE_URL}/#organization`,
@@ -223,6 +233,7 @@ export function getReviewSchema(options: {
       bestRating: options.bestRating,
     },
     author: getAuthorRef(),
+    reviewedBy: getAuthorRef(),
     publisher: { '@id': `${siteUrl}/#organization` },
     url: options.reviewUrl.startsWith('http') ? options.reviewUrl : `${siteUrl}${options.reviewUrl}`,
   };

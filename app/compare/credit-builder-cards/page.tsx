@@ -77,6 +77,30 @@ export default function CreditBuilderCardsHubPage() {
             </p>
           </header>
 
+          <section className="mb-8" aria-labelledby="how-we-evaluate-credit-builder">
+            <h2 id="how-we-evaluate-credit-builder" className="text-lg font-bold text-slate-900 mb-2">
+              How we evaluate these cards and accounts
+            </h2>
+            <p className="text-slate-600 text-sm mb-3">
+              This hub compares secured cards, credit-builder loans, and hybrid products for people trying to add the right kind of trade line to their reports.
+            </p>
+            <ul className="list-disc list-inside text-slate-600 text-sm space-y-1 mb-3">
+              <li>Issuer and platform disclosures, program terms, and published fee schedules</li>
+              <li>Reporting behavior to major credit bureaus and impact on a rebuilding plan</li>
+              <li>Total cost over the first year and how flexible the product is if budgets change</li>
+            </ul>
+            <p className="text-slate-600 text-xs mb-2">
+              We revisit this hub at least quarterly and when issuers change pricing or features. Content is for educational purposes only and BadCreditFirst is not a lender or credit repair company.
+            </p>
+            <p className="text-slate-600 text-xs">
+              Reviewed by{' '}
+              <Link href="/author/carlos-acosta" className="text-blue-600 hover:underline font-medium">
+                Carlos Acosta
+              </Link>{' '}
+              (credit education writer & founder, BadCreditFirst). Reviews are editorially independent and not ranked by compensation.
+            </p>
+          </section>
+
           <ComparisonHubList links={comparisonLinks} heading="Comparisons" />
 
           {topReviews.length > 0 && (
