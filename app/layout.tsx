@@ -17,6 +17,9 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://badcreditfirst.com"),
   title: "BadCreditFirst | Build Credit with Confidence (2026)",
   description: "Compare the best secured credit cards and credit builder loans for 2026. Independent reviews for bad credit, no credit, and bankruptcy recovery.",
+  icons: {
+    icon: "/favicon.ico",
+  },
 };
 
 export default function RootLayout({

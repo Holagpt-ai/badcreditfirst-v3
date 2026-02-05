@@ -110,6 +110,19 @@ export default function AuthorCarlosAcostaPage() {
           </section>
 
           <section className="mb-8">
+            <h2 className="text-xl font-bold text-slate-900 mb-3">Contributing Developer & Research Assistant</h2>
+            <p className="text-slate-600 leading-relaxed mb-4">
+              Sofia Acosta is a contributing developer and research assistant for BadCreditFirst. She supports the Credit Education Center with technical research, educational content tooling, and page structure. Sofia does not review products or make editorial recommendations; her work focuses on the infrastructure and presentation of educational content.
+            </p>
+            <ul className="list-disc list-inside text-slate-600 space-y-1 mb-4">
+              <li>Graduate of Beverly Hills High School (Los Angeles)</li>
+              <li>Freshman at Santa Monica College, studying Computer Science and Media</li>
+              <li>Developer contributor to BadCreditFirst.com</li>
+              <li>Focus areas: technical research support, educational content tooling, page structure and presentation</li>
+            </ul>
+          </section>
+
+          <section className="mb-8">
             <h2 className="text-xl font-bold text-slate-900 mb-3">Articles</h2>
             <p className="text-slate-600 mb-4">Credit education articles on BadCreditFirst:</p>
             <ul className="space-y-2">
