@@ -26,8 +26,8 @@ export default function YourPrivacyChoicesPage() {
           <h2 className="text-lg font-bold text-slate-900 mt-6 mb-2">How to Submit a Request</h2>
           <p className="text-slate-600 leading-relaxed mb-4">
             To exercise your privacy rights, please contact us at{' '}
-            <a href="mailto:privacy@badcreditfirst.com" className="text-blue-600 hover:underline">
-              privacy@badcreditfirst.com
+            <a href="mailto:carlos.acosta@badcreditfirst.com" className="text-blue-600 hover:underline">
+              carlos.acosta@badcreditfirst.com
             </a>
             . We will process your request within the timeframes required by applicable law.
           </p>
