@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { COMPARISON_HUBS, getComparisonsForHub } from '@/data/comparisons';
-import { filterPromotedComparisonLinks, shouldLinkTo } from '@/lib/rollout-control';
+import { filterPromotedComparisonLinks, shouldLinkTo } from '@/lib/programmatic-rollout';
 import ComparisonHubList from '@/components/compare/ComparisonHubList';
 import { getWebPageSchema } from '@/lib/schema';
 

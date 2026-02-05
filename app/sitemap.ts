@@ -1,5 +1,5 @@
 import { MetadataRoute } from 'next';
-import { getPromotedPagesForSitemap } from '@/lib/rollout-control';
+import { getPromotedPagesForSitemap } from '@/lib/programmatic-rollout';
 
 const BASE_URL = 'https://badcreditfirst.com';
 
@@ -33,7 +33,7 @@ function changeFreqForType(pageType: string): 'weekly' | 'monthly' {
 
 /**
  * Sitemap: static pages + promoted programmatic pages only.
- * Gated by lib/rollout-control (promotion + staged limits 50/500/5000).
+ * Gated by lib/programmatic-rollout (promotion + staged limits + hard cap 1,000).
  */
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();

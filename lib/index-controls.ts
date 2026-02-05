@@ -2,11 +2,11 @@
  * Index Controls for Programmatic Expansion
  * Canonical URLs always absolute and inherited.
  *
- * Index/robots decisions delegated to lib/rollout-control.ts (single control layer).
+ * Index/robots decisions delegated to lib/programmatic-rollout.ts (single control layer).
  * Use getRobotsForProgrammaticPage(path) for programmatic pages.
  */
 
-import { getRobotsForProgrammaticPage, shouldIndex } from './rollout-control';
+import { getRobotsForProgrammaticPage, shouldIndex } from './programmatic-rollout';
 
 const DEFAULT_BASE_URL = 'https://badcreditfirst.com';
 

@@ -5,7 +5,7 @@ import type { ReactNode } from 'react';
 import { getArticleSchema } from '../../../lib/schema';
 import { CATEGORY_TO_HUB } from '@/data/comparisons';
 import { getTopReviewsForCategory } from '@/lib/card-data';
-import { filterByPromotedPath, getRobotsForProgrammaticPage, shouldLinkTo } from '@/lib/rollout-control';
+import { filterByPromotedPath, getRobotsForProgrammaticPage, shouldLinkTo } from '@/lib/programmatic-rollout';
 import CreditReportResourceBox from '@/components/Education/CreditReportResourceBox';
 import CreditReportErrorsChecklist from '@/components/CreditReportErrorsChecklist';
 import CreditRebuildTimeline from '@/components/CreditRebuildTimeline';

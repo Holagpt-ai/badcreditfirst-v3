@@ -7,7 +7,7 @@ import { getCardBySlug, getAffiliateLink } from '@/lib/card-data';
 import { getPrimaryOffer, buildOfferFromHref } from '@/lib/offer-rotation';
 import { getVariantFromHeaders, VARIANT_HEADER } from '@/lib/ab-guardrails';
 import { isBot } from '@/lib/is-bot';
-import { filterPromotedComparisonLinks, filterPromotedReviewLinks, getRobotsForProgrammaticPage, shouldLinkTo } from '@/lib/rollout-control';
+import { filterPromotedComparisonLinks, filterPromotedReviewLinks, getRobotsForProgrammaticPage, shouldLinkTo } from '@/lib/programmatic-rollout';
 import { getWebPageSchema } from '@/lib/schema';
 import ComparisonHero from '@/components/compare/ComparisonHero';
 import SnapshotTable from '@/components/compare/SnapshotTable';
