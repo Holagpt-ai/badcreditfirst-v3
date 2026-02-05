@@ -7,6 +7,7 @@
 
 import fs from 'node:fs';
 import path from 'node:path';
+import { execSync } from 'node:child_process';
 import { validateProgrammaticPages } from '../lib/programmatic-validation';
 import { validateABGuardrails } from '../lib/ab-guardrails';
 import { AUTHOR_SCHEMA, AUTHOR_ID, getAuthorRef } from '../lib/schema';
@@ -106,6 +107,12 @@ const rolloutResult = validateRollout();
 if (!rolloutResult.valid) {
   console.error('[rollout-validation] FAILED. Build blocked.\n');
   rolloutResult.errors.forEach((e) => console.error('  ✗', e));
+  process.exit(1);
+}
+
+try {
+  execSync('npx tsx scripts/validate-internal-links.ts', { stdio: 'inherit' });
+} catch {
   process.exit(1);
 }
 

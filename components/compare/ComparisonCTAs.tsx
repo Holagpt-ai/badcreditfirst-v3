@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import type { ComparisonPage } from '@/data/comparisons';
 import { getCardBySlug } from '@/lib/card-data';
-import { shouldLinkTo } from '@/lib/rollout-control';
+import { shouldLinkTo } from '@/lib/programmatic-rollout';
 import type { ABVariant } from '@/lib/ab-guardrails';
 import ConversionTrustLayer from '@/components/ConversionTrustLayer';
 import AffiliateCTA from '@/components/AffiliateCTA';

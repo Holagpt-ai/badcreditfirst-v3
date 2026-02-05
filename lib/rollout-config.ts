@@ -21,6 +21,6 @@ export const HARD_CAP = 1000;
 export const ROLLOUT_CONFIG = {
   /** Emergency kill switch. When true: all programmatic noindex, excluded from sitemap. */
   killSwitch: false,
-  /** Phase-based sitemap limit. Effective limit = min(sitemapLimitTier, HARD_CAP). */
-  sitemapLimitTier: 5000 as SitemapLimitTier,
+  /** Phase-based sitemap limit. Effective limit = min(sitemapLimitTier, HARD_CAP). Tier 1 rollout: max 50 indexable programmatic pages/day for initial crawl safety. */
+  sitemapLimitTier: 50 as SitemapLimitTier,
 } as const;

@@ -7,7 +7,7 @@ export const metadata: Metadata = {
 
 const redirects: Record<string, string> = {
   'credit-card': '/credit-cards',
-  'bad-credit-cards': '/credit-cards/bad-credit',
+  'bad-credit-cards': '/credit-cards/category/bad-credit',
 };
 
 export default function CatchAll({ params }: { params: { slug: string[] } }) {

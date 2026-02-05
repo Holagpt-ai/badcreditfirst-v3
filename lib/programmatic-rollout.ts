@@ -226,6 +226,32 @@ export function getPromotedPagesForSitemap(): Array<{ path: string; pageType: Pr
 }
 
 /**
+ * All indexable programmatic paths (promoted, not results).
+ * Used by internal link audit. Respects kill switch.
+ */
+export function getIndexableProgrammaticPaths(): string[] {
+  if (ROLLOUT_CONFIG.killSwitch) return [];
+  const paths: string[] = [];
+  for (const slug of COMPARISON_HUB_SLUGS) {
+    if (PROMOTED_HUBS.has(slug)) paths.push(`/compare/${slug}`);
+  }
+  for (const slug of ALL_COMPARISON_SLUGS) {
+    if (PROMOTED_COMPARISONS.has(slug)) paths.push(`/compare/${slug}`);
+  }
+  for (const slug of Object.keys(categories)) {
+    if (PROMOTED_CATEGORIES.has(slug)) paths.push(`/credit-cards/category/${slug}`);
+  }
+  for (const card of cardData) {
+    const slug = card.reviewUrl.replace('/credit-cards/review/', '');
+    if (PROMOTED_REVIEWS.has(slug)) paths.push(card.reviewUrl);
+  }
+  for (const slug of Array.from(PROMOTED_EDUCATION)) {
+    paths.push(`/education/${slug}`);
+  }
+  return paths;
+}
+
+/**
  * Count of all indexable programmatic pages (promoted, not results).
  * Used by build-time validation to enforce HARD_CAP.
  */
