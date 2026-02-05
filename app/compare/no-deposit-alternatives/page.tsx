@@ -4,7 +4,6 @@ import { getHubBySlug, getComparisonsForHub, HUB_TO_CATEGORY } from '@/data/comp
 import { getTopReviewsForCategory } from '@/lib/card-data';
 import { categories } from '@/lib/categories';
 import ComparisonHubList from '@/components/compare/ComparisonHubList';
-import ConversionTrustLayer from '@/components/ConversionTrustLayer';
 import { getWebPageSchema, getBreadcrumbSchema, getItemListSchema } from '@/lib/schema';
 
 const HUB_SLUG = 'no-deposit-alternatives';
@@ -71,9 +70,6 @@ export default function NoDepositAlternativesHubPage() {
           </header>
 
           <ComparisonHubList links={comparisonLinks} heading="Comparisons" />
-          <div className="mt-4">
-            <ConversionTrustLayer variant="compact" />
-          </div>
 
           {topReviews.length > 0 && (
             <section className="mt-10">

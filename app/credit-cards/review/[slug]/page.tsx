@@ -4,11 +4,12 @@ import { notFound } from 'next/navigation';
 import { Star, CreditCard } from 'lucide-react';
 import { getCardBySlug, getAffiliateLink } from '../../../../lib/card-data';
 import { categories } from '../../../../lib/categories';
-import { getComparisonsForCard, CATEGORY_TO_HUB } from '../../../../data/comparisons';
+import { getComparisonsForCard, CATEGORY_TO_HUB } from '@/data/comparisons';
 import { getProductSchema, getReviewSchema, getBreadcrumbSchema } from '../../../../lib/schema';
 import CreditRebuildTimeline from '@/components/CreditRebuildTimeline';
 import TrustBadges from '@/components/TrustBadges';
 import ReviewDisclosure from '@/components/ReviewDisclosure';
+import AffiliateCTA from '@/components/AffiliateCTA';
 import ConversionTrustLayer from '@/components/ConversionTrustLayer';
 
 const baseUrl = 'https://badcreditfirst.com';
@@ -205,30 +206,26 @@ export default function CreditCardReviewPage({
             <CreditRebuildTimeline />
           </div>
 
-          {/* Editorial content ends above. Affiliate/CTA section below with explicit disclosure. */}
+          {/* Editorial content ends above. Affiliate/CTA section below. Disclosure before first monetized CTA. */}
           <div className="px-8 pb-8 border-t border-slate-200 bg-slate-50/50">
             <ReviewDisclosure variant="full" />
             <div className="mt-6">
               {isComingSoon ? (
-                <div className="w-full py-4 bg-slate-200 text-slate-600 font-semibold rounded-lg text-center cursor-not-allowed" aria-disabled="true">
-                  Coming Soon
-                </div>
+                <AffiliateCTA
+                  href="#"
+                  label="Coming Soon"
+                  variant="primary"
+                  disabled
+                />
               ) : (
-                <>
-                  <a
-                    href={applyHref}
-                    target="_blank"
-                    rel="nofollow noreferrer"
-                    className="w-full py-4 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-lg shadow-sm hover:shadow-md transition-all text-center flex items-center justify-center"
-                  >
-                    Apply
-                  </a>
-                  <div className="mt-3">
-                    <ConversionTrustLayer variant="compact" />
-                  </div>
-                  <TrustBadges />
-                </>
+                <AffiliateCTA
+                  href={applyHref}
+                  label="Apply"
+                  variant="primary"
+                  after={<ConversionTrustLayer variant="compact" />}
+                />
               )}
+              <TrustBadges />
             </div>
             {/* Secondary CTA: Compare alternatives */}
             {compareLinks.length > 0 && (

@@ -1,18 +1,26 @@
 import Link from 'next/link';
 import type { ComparisonPage } from '@/data/comparisons';
+import { getCardBySlug, getAffiliateLink } from '@/lib/card-data';
 import ConversionTrustLayer from '@/components/ConversionTrustLayer';
+import AffiliateCTA from '@/components/AffiliateCTA';
 
 interface Props {
   data: ComparisonPage;
 }
 
 /**
- * Soft monetization: one inline CTA max (view full review).
- * Pushes traffic to reviews, not straight to offers.
- * No Apply buttons, urgency language, or countdown tactics.
+ * Hub → Comparison → Review CTA sequencing.
+ * Internal CTAs (view full review) + optional soft affiliate CTA (max 1).
+ * Disclosure before first monetized CTA.
  */
 export default function ComparisonCTAs({ data }: Props) {
-  const { ctaMap } = data;
+  const { ctaMap, entityA, entityB } = data;
+  const cardA = getCardBySlug(entityA.slug);
+  const cardB = getCardBySlug(entityB.slug);
+  const activeCard = [cardA, cardB]
+    .filter((c) => c?.status === 'active')
+    .sort((a, b) => (b?.editorialScore ?? 0) - (a?.editorialScore ?? 0))[0];
+
   return (
     <section className="mb-8">
       <h2 className="text-xl font-bold text-slate-900 mb-2">Read full reviews to decide</h2>
@@ -33,9 +41,18 @@ export default function ComparisonCTAs({ data }: Props) {
           {ctaMap.entityB.label}
         </Link>
       </div>
-      <div className="mt-3">
-        <ConversionTrustLayer variant="compact" />
-      </div>
+      {activeCard && (
+        <div className="mt-6 pt-6 border-t border-slate-200">
+          <ConversionTrustLayer variant="compact" />
+          <div className="mt-3 max-w-xs">
+            <AffiliateCTA
+              href={getAffiliateLink(activeCard.slug)}
+              label={`Apply for ${(entityA.slug === activeCard.slug ? entityA.name : entityB.name).replace(/®/g, '')}`}
+              variant="secondary"
+            />
+          </div>
+        </div>
+      )}
     </section>
   );
 }

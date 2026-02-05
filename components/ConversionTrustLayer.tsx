@@ -2,11 +2,12 @@
 
 import Link from 'next/link';
 import { Info } from 'lucide-react';
+import { getDisclosureForNetwork, getActiveNetwork } from '@/lib/compliance';
 
 /**
  * Lightweight conversion trust layer for affiliate-network compliance.
- * Use near CTAs on review pages, comparison pages, and category hubs.
- * No banners, popups, or cookie junk.
+ * Uses lib/compliance.ts for CJ, Impact, Partnerize-specific disclosures.
+ * Place near first monetized CTA. No banners, popups, or cookie junk.
  */
 interface ConversionTrustLayerProps {
   /** Show "Approval not guaranteed" near buttons. Default true. */
@@ -34,19 +35,18 @@ export default function ConversionTrustLayer({
   showApprovalDisclaimer = true,
   showIndependentCopy = true,
   showEditorialTooltip = true,
-  variant = 'default',
+  variant = 'compact',
 }: ConversionTrustLayerProps) {
+  const network = getActiveNetwork();
+  const disclosure = getDisclosureForNetwork(network);
+
   if (variant === 'compact') {
     return (
       <p className="text-xs text-slate-500 mt-2 flex items-center gap-1.5 flex-wrap">
         {showIndependentCopy && (
           <>
-            <span>Independent & advertising-supported.</span>
-            {showEditorialTooltip && (
-              <>
-                <EditorialTooltip />
-              </>
-            )}
+            <span>{disclosure.short}</span>
+            {showEditorialTooltip && <EditorialTooltip />}
           </>
         )}
         {showApprovalDisclaimer && (
@@ -60,7 +60,7 @@ export default function ConversionTrustLayer({
     <div className="rounded-lg border border-slate-200 bg-slate-50 p-4 text-xs text-slate-600 space-y-2">
       {showIndependentCopy && (
         <p className="leading-relaxed flex items-start gap-1.5">
-          <span>BadCreditFirst is independent and advertising-supported. We may earn a commission when you apply through our links.</span>
+          <span>{disclosure.full}</span>
           {showEditorialTooltip && <EditorialTooltip />}
         </p>
       )}
