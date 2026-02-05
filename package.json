@@ -4,9 +4,11 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "npm run validate:programmatic && next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "validate:programmatic": "npx tsx scripts/validate-programmatic.ts",
+    "validate:rollout": "npx tsx scripts/validate-rollout.ts"
   },
   "dependencies": {
     "@radix-ui/react-accordion": "^1.2.12",
@@ -34,6 +36,7 @@
   },
   "devDependencies": {
     "@types/node": "^20.12.7",
+    "tsx": "^4.19.0",
     "@types/react": "^18.2.79",
     "@types/react-dom": "^18.2.25",
     "autoprefixer": "^10.4.19",
