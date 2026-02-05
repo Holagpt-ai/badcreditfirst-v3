@@ -1,7 +1,12 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
+import { headers, cookies } from 'next/headers';
 import { getComparisonBySlug, getRelatedComparisons, getReviewLinksForComparison, getHubForComparison, getHubBySlug } from '@/data/comparisons';
+import { getCardBySlug, getAffiliateLink } from '@/lib/card-data';
+import { getPrimaryOffer, buildOfferFromHref } from '@/lib/offer-rotation';
+import { getVariantFromHeaders, VARIANT_HEADER } from '@/lib/ab-guardrails';
+import { isBot } from '@/lib/is-bot';
 import { filterPromotedComparisonLinks, filterPromotedReviewLinks, getRobotsForProgrammaticPage, shouldLinkTo } from '@/lib/rollout-control';
 import { getWebPageSchema } from '@/lib/schema';
 import ComparisonHero from '@/components/compare/ComparisonHero';
@@ -34,12 +39,39 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 const SITE_URL = 'https://badcreditfirst.com';
 
-export default function ComparePage({ params }: Props) {
+export default async function ComparePage({ params }: Props) {
   const { slug } = params;
   const comparison = getComparisonBySlug(slug);
 
   if (!comparison) {
     notFound();
+  }
+
+  const cardA = getCardBySlug(comparison.entityA.slug);
+  const cardB = getCardBySlug(comparison.entityB.slug);
+  const activeCard = [cardA, cardB]
+    .filter((c) => c?.status === 'active')
+    .sort((a, b) => (b?.editorialScore ?? 0) - (a?.editorialScore ?? 0))[0];
+
+  let affiliateHref: string | undefined;
+  let abVariant: 'A' | 'B' = 'A';
+  if (activeCard) {
+    const headersList = await headers();
+    const cookieStore = await cookies();
+    const userAgent = headersList.get('user-agent');
+    const sessionId = cookieStore.get('bcf_session')?.value ?? 'static';
+    const bot = isBot(userAgent);
+    const offers = [
+      buildOfferFromHref(activeCard.slug, getAffiliateLink(activeCard.slug), 'active'),
+    ];
+    const offer = getPrimaryOffer({
+      pageId: `compare:${slug}`,
+      sessionId,
+      isBot: bot,
+      offers,
+    });
+    affiliateHref = offer?.href;
+    abVariant = getVariantFromHeaders(headersList.get(VARIANT_HEADER));
   }
 
   const webPageSchema = getWebPageSchema({
@@ -86,7 +118,7 @@ export default function ComparePage({ params }: Props) {
               </section>
             );
           })()}
-          <ComparisonCTAs data={comparison} />
+          <ComparisonCTAs data={comparison} affiliateHref={affiliateHref} abVariant={abVariant} />
           <MethodologyFooter />
 
           {(() => {

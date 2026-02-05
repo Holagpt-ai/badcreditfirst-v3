@@ -1,12 +1,17 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
+import { headers } from 'next/headers';
 import { Star, CreditCard } from 'lucide-react';
 import { getCardBySlug, getAffiliateLink } from '../../../../lib/card-data';
 import { categories } from '../../../../lib/categories';
 import { getComparisonsForCard, CATEGORY_TO_HUB } from '@/data/comparisons';
 import { filterPromotedComparisonLinks, getRobotsForProgrammaticPage, shouldLinkTo } from '@/lib/rollout-control';
 import { getProductSchema, getReviewSchema, getBreadcrumbSchema } from '../../../../lib/schema';
+import { getPrimaryOffer, buildOfferFromHref } from '@/lib/offer-rotation';
+import { getVariantFromHeaders, VARIANT_HEADER } from '@/lib/ab-guardrails';
+import { isBot } from '@/lib/is-bot';
+import { cookies } from 'next/headers';
 import CreditRebuildTimeline from '@/components/CreditRebuildTimeline';
 import TrustBadges from '@/components/TrustBadges';
 import ReviewDisclosure from '@/components/ReviewDisclosure';
@@ -34,7 +39,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-export default function CreditCardReviewPage({
+export default async function CreditCardReviewPage({
   params,
 }: {
   params: { slug: string };
@@ -48,7 +53,22 @@ export default function CreditCardReviewPage({
 
   const { approvalOdds, realWorldUseCase, feeRisk, upgradePath, title, fees, badFor, categorySlug, editorialScore, status } = card;
   const isComingSoon = status === 'coming-soon';
-  const applyHref = getAffiliateLink(slug);
+  const headersList = await headers();
+  const cookieStore = await cookies();
+  const userAgent = headersList.get('user-agent');
+  const sessionId = cookieStore.get('bcf_session')?.value ?? 'static';
+  const bot = isBot(userAgent);
+  const offers = [
+    buildOfferFromHref(slug, getAffiliateLink(slug), isComingSoon ? 'paused' : 'active'),
+  ];
+  const offer = getPrimaryOffer({
+    pageId: `review:${slug}`,
+    sessionId,
+    isBot: bot,
+    offers,
+  });
+  const applyHref = offer?.href ?? getAffiliateLink(slug);
+  const abVariant = getVariantFromHeaders(headersList.get(VARIANT_HEADER));
   const reviewUrl = `${baseUrl}${card.reviewUrl}`;
   const ratingValue = '4.5';
   const bestRating = 5;
@@ -225,6 +245,7 @@ export default function CreditCardReviewPage({
                   href={applyHref}
                   label="Apply"
                   variant="primary"
+                  abVariant={abVariant}
                   after={<ConversionTrustLayer variant="compact" />}
                 />
               )}
