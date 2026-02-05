@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { getComparisonBySlug, getRelatedComparisons, getReviewLinksForComparison, getHubForComparison, getHubBySlug } from '@/data/comparisons';
+import { filterPromotedComparisonLinks, filterPromotedReviewLinks, getRobotsForProgrammaticPage, shouldLinkTo } from '@/lib/rollout-control';
 import { getWebPageSchema } from '@/lib/schema';
 import ComparisonHero from '@/components/compare/ComparisonHero';
 import SnapshotTable from '@/components/compare/SnapshotTable';
@@ -20,11 +21,13 @@ type Props = { params: { slug: string } };
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const comparison = getComparisonBySlug(params.slug);
   if (!comparison) return { title: 'Comparison Not Found' };
+  const path = `/compare/${params.slug}`;
   return {
     title: `${comparison.entityA.name} vs ${comparison.entityB.name} | BadCreditFirst`,
     description: `Compare ${comparison.entityA.name} and ${comparison.entityB.name} for ${comparison.intent}. Independent comparison.`,
+    robots: getRobotsForProgrammaticPage(path),
     alternates: {
-      canonical: `https://badcreditfirst.com/compare/${params.slug}`,
+      canonical: `https://badcreditfirst.com${path}`,
     },
   };
 }
@@ -62,28 +65,34 @@ export default function ComparePage({ params }: Props) {
           <SummaryTakeaway data={comparison} />
           <CreditReportErrorsChecklist />
           <CreditRebuildTimeline />
-          <section className="mb-8">
-            <h2 className="text-xl font-bold text-slate-900 mb-2">Full reviews</h2>
-            <p className="text-slate-600 text-sm mb-3">
-              Read our independent reviews to decide which card fits you best.
-            </p>
-            <ul className="flex flex-wrap gap-3 text-sm">
-              {getReviewLinksForComparison(comparison).map(({ name, href }) => (
-                <li key={href}>
-                  <Link href={href} className="text-blue-600 hover:underline font-medium">
-                    {name} review
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </section>
+          {(() => {
+            const reviewLinks = filterPromotedReviewLinks(getReviewLinksForComparison(comparison));
+            if (reviewLinks.length === 0) return null;
+            return (
+              <section className="mb-8">
+                <h2 className="text-xl font-bold text-slate-900 mb-2">Full reviews</h2>
+                <p className="text-slate-600 text-sm mb-3">
+                  Read our independent reviews to decide which card fits you best.
+                </p>
+                <ul className="flex flex-wrap gap-3 text-sm">
+                  {reviewLinks.map(({ name, href }) => (
+                    <li key={href}>
+                      <Link href={href} className="text-blue-600 hover:underline font-medium">
+                        {name} review
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </section>
+            );
+          })()}
           <ComparisonCTAs data={comparison} />
           <MethodologyFooter />
 
           {(() => {
             const hubSlug = getHubForComparison(slug);
             const hub = hubSlug ? getHubBySlug(hubSlug) : null;
-            if (!hub) return null;
+            if (!hub || !shouldLinkTo(`/compare/${hubSlug}`)) return null;
             return (
               <div className="mt-8 pt-8 border-t border-slate-200">
                 <p className="text-sm text-slate-600">
@@ -98,7 +107,7 @@ export default function ComparePage({ params }: Props) {
           })()}
 
           {(() => {
-            const relatedLinks = getRelatedComparisons(slug, 3);
+            const relatedLinks = filterPromotedComparisonLinks(getRelatedComparisons(slug, 3));
             if (relatedLinks.length === 0) return null;
             return (
               <div className="mt-8 pt-8 border-t border-slate-200">

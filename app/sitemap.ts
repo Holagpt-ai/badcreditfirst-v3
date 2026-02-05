@@ -1,32 +1,9 @@
 import { MetadataRoute } from 'next';
-import { cardData } from '@/lib/card-data';
-import { categories } from '@/lib/categories';
-import { ALL_COMPARISON_SLUGS, COMPARISON_HUB_SLUGS } from '@/data/comparisons';
+import { getPromotedPagesForSitemap } from '@/lib/rollout-control';
 
 const BASE_URL = 'https://badcreditfirst.com';
 
-/** Education article slugs (must match app/education/[slug]/page.tsx). */
-const EDUCATION_SLUGS = [
-  'what-is-a-good-credit-score',
-  'how-credit-scores-work',
-  'what-is-a-bad-credit-score',
-  'how-is-my-score-calculated',
-  'fico-vs-vantagescore',
-  'how-long-do-items-stay',
-  'removing-collections',
-  'hard-inquiries-explained',
-  'bankruptcy-and-rebuilding',
-  'reading-your-credit-report',
-  'how-to-dispute-errors',
-  'fair-credit-reporting-act',
-  'freezing-your-credit',
-  'authorized-user-strategy',
-  'secured-vs-unsecured',
-  'credit-builder-loans',
-  'the-30-percent-utilization-rule',
-] as const;
-
-/** Static pages (about, terms, etc.). */
+/** Static pages (always included, not programmatic). */
 const STATIC_PAGES: { path: string; changeFrequency: 'monthly' | 'yearly'; priority: number }[] = [
   { path: '/about', changeFrequency: 'monthly', priority: 0.5 },
   { path: '/author/carlos-acosta', changeFrequency: 'monthly', priority: 0.5 },
@@ -35,6 +12,29 @@ const STATIC_PAGES: { path: string; changeFrequency: 'monthly' | 'yearly'; prior
   { path: '/terms', changeFrequency: 'yearly', priority: 0.3 },
 ];
 
+function priorityForType(pageType: string): number {
+  switch (pageType) {
+    case 'hub':
+      return 0.85;
+    case 'comparison':
+      return 0.75;
+    case 'category':
+    case 'review':
+    case 'education':
+      return 0.7;
+    default:
+      return 0.7;
+  }
+}
+
+function changeFreqForType(pageType: string): 'weekly' | 'monthly' {
+  return pageType === 'hub' || pageType === 'comparison' ? 'weekly' : 'monthly';
+}
+
+/**
+ * Sitemap: static pages + promoted programmatic pages only.
+ * Gated by lib/rollout-control (promotion + staged limits 50/500/5000).
+ */
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
 
@@ -45,58 +45,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE_URL}/education`, lastModified: now, changeFrequency: 'weekly', priority: 0.8 },
   ];
 
-  // Comparison hub pages (priority: Hubs > Comparisons > Reviews)
-  for (const hubSlug of COMPARISON_HUB_SLUGS) {
+  const promoted = getPromotedPagesForSitemap();
+  for (const { path, pageType } of promoted) {
     entries.push({
-      url: `${BASE_URL}/compare/${hubSlug}`,
+      url: `${BASE_URL}${path}`,
       lastModified: now,
-      changeFrequency: 'weekly',
-      priority: 0.85,
+      changeFrequency: changeFreqForType(pageType),
+      priority: priorityForType(pageType),
     });
   }
 
-  // Category pages from lib/categories
-  const categorySlugs = Object.keys(categories);
-  for (const slug of categorySlugs) {
-    entries.push({
-      url: `${BASE_URL}/credit-cards/category/${slug}`,
-      lastModified: now,
-      changeFrequency: 'monthly',
-      priority: 0.7,
-    });
-  }
-
-  // Review pages from cardData
-  for (const card of cardData) {
-    entries.push({
-      url: `${BASE_URL}${card.reviewUrl}`,
-      lastModified: now,
-      changeFrequency: 'monthly',
-      priority: 0.7,
-    });
-  }
-
-  // Comparison pages from data/comparisons
-  for (const slug of ALL_COMPARISON_SLUGS) {
-    entries.push({
-      url: `${BASE_URL}/compare/${slug}`,
-      lastModified: now,
-      changeFrequency: 'weekly',
-      priority: 0.75,
-    });
-  }
-
-  // Education articles
-  for (const slug of EDUCATION_SLUGS) {
-    entries.push({
-      url: `${BASE_URL}/education/${slug}`,
-      lastModified: now,
-      changeFrequency: 'monthly',
-      priority: 0.7,
-    });
-  }
-
-  // Static pages
   for (const { path, changeFrequency, priority } of STATIC_PAGES) {
     entries.push({
       url: `${BASE_URL}${path}`,

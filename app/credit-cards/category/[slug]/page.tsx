@@ -5,6 +5,7 @@ import DetailedCardRow from '../../../../components/DetailedCardRow';
 import { cardData } from '../../../../lib/card-data';
 import { categories, categoryContent } from '../../../../lib/categories';
 import { getComparisonsForCategory, CATEGORY_TO_HUB } from '@/data/comparisons';
+import { filterPromotedComparisonLinks, getRobotsForProgrammaticPage, shouldLinkTo } from '@/lib/rollout-control';
 import { getCollectionPageSchema, getFAQSchema } from '../../../../lib/schema';
 
 const TRUST_SIGNAL_DATE = 'Updated Feb 2026';
@@ -15,11 +16,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const category = categories[params.slug];
   const content = categoryContent[params.slug];
   if (!category || !content) return { title: 'Category Not Found' };
+  const path = `/credit-cards/category/${params.slug}`;
   return {
     title: `${category.title} (2026) | BadCreditFirst`,
     description: `Compare ${category.title.toLowerCase()} for bad credit and no credit. Independent reviews, fees, and approval tips.`,
+    robots: getRobotsForProgrammaticPage(path),
     alternates: {
-      canonical: `https://badcreditfirst.com/credit-cards/category/${params.slug}`,
+      canonical: `https://badcreditfirst.com${path}`,
     },
   };
 }
@@ -40,7 +43,7 @@ export default function CreditCardCategoryPage({
   const filteredCards = cardData.filter((c) => c.categorySlug === slug);
   const categoryUrl = `/credit-cards/category/${slug}`;
   const itemUrls = filteredCards.map((c) => c.reviewUrl);
-  const relatedLinks = getComparisonsForCategory(slug, 5);
+  const relatedLinks = filterPromotedComparisonLinks(getComparisonsForCategory(slug, 5));
 
   const collectionSchema = getCollectionPageSchema({
     name: category.title,
@@ -125,7 +128,7 @@ export default function CreditCardCategoryPage({
             </ul>
           </section>
 
-          {CATEGORY_TO_HUB[slug] && (
+          {CATEGORY_TO_HUB[slug] && shouldLinkTo(`/compare/${CATEGORY_TO_HUB[slug]}`) && (
             <section id="comparison-hub" className="mb-10 p-6 bg-blue-50 border border-blue-200 rounded-xl">
               <h2 className="text-lg font-bold text-slate-900 mb-2">
                 Compare options side by side

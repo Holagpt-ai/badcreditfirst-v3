@@ -5,6 +5,7 @@ import { Star, CreditCard } from 'lucide-react';
 import { getCardBySlug, getAffiliateLink } from '../../../../lib/card-data';
 import { categories } from '../../../../lib/categories';
 import { getComparisonsForCard, CATEGORY_TO_HUB } from '@/data/comparisons';
+import { filterPromotedComparisonLinks, getRobotsForProgrammaticPage, shouldLinkTo } from '@/lib/rollout-control';
 import { getProductSchema, getReviewSchema, getBreadcrumbSchema } from '../../../../lib/schema';
 import CreditRebuildTimeline from '@/components/CreditRebuildTimeline';
 import TrustBadges from '@/components/TrustBadges';
@@ -22,11 +23,13 @@ type Props = { params: { slug: string } };
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const card = getCardBySlug(params.slug);
   if (!card) return { title: 'Review Not Found' };
+  const path = card.reviewUrl;
   return {
     title: `${card.title} Review (2026) | BadCreditFirst`,
     description: `Independent review of ${card.title}. ${card.label}. Compare fees, approval odds, and credit-building value.`,
+    robots: getRobotsForProgrammaticPage(path),
     alternates: {
-      canonical: `https://badcreditfirst.com/credit-cards/review/${params.slug}`,
+      canonical: `https://badcreditfirst.com${path}`,
     },
   };
 }
@@ -87,7 +90,7 @@ export default function CreditCardReviewPage({
     { name: title, url: card.reviewUrl },
   ]);
 
-  const compareLinks = getComparisonsForCard(slug, 3);
+  const compareLinks = filterPromotedComparisonLinks(getComparisonsForCard(slug, 3));
 
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900">
@@ -246,7 +249,7 @@ export default function CreditCardReviewPage({
           </div>
 
           <div className="mt-6 pt-6 border-t border-slate-200 space-y-4">
-            {categorySlug && CATEGORY_TO_HUB[categorySlug] && (
+            {categorySlug && CATEGORY_TO_HUB[categorySlug] && shouldLinkTo(`/compare/${CATEGORY_TO_HUB[categorySlug]}`) && (
               <p className="text-sm text-slate-500">
                 Browse more{' '}
                 <Link href={`/compare/${CATEGORY_TO_HUB[categorySlug]}`} className="text-blue-600 hover:underline font-medium">

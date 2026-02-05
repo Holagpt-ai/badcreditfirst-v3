@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { getHubBySlug, getComparisonsForHub, HUB_TO_CATEGORY } from '@/data/comparisons';
+import { filterPromotedComparisonLinks, filterByPromotedPath, getRobotsForProgrammaticPage, shouldLinkTo } from '@/lib/rollout-control';
 import { getTopReviewsForCategory } from '@/lib/card-data';
 import { categories } from '@/lib/categories';
 import ComparisonHubList from '@/components/compare/ComparisonHubList';
@@ -9,20 +10,24 @@ import { getWebPageSchema, getBreadcrumbSchema, getItemListSchema } from '@/lib/
 const HUB_SLUG = 'no-deposit-alternatives';
 const SITE_URL = 'https://badcreditfirst.com';
 
+const path = `/compare/${HUB_SLUG}`;
+
 export const metadata: Metadata = {
   title: 'No-Deposit Card Alternatives | BadCreditFirst',
   description:
     'Compare secured cards with no-deposit options. Understand trade-offs between deposit requirements and approval odds.',
+  robots: getRobotsForProgrammaticPage(path),
   alternates: {
-    canonical: `${SITE_URL}/compare/${HUB_SLUG}`,
+    canonical: `${SITE_URL}${path}`,
   },
 };
 
 export default function NoDepositAlternativesHubPage() {
   const hub = getHubBySlug(HUB_SLUG);
-  const comparisonLinks = getComparisonsForHub(HUB_SLUG);
+  const comparisonLinks = filterPromotedComparisonLinks(getComparisonsForHub(HUB_SLUG));
   const categorySlug = HUB_TO_CATEGORY[HUB_SLUG];
-  const topReviews = categorySlug ? getTopReviewsForCategory(categorySlug, 3) : [];
+  const topReviewsRaw = categorySlug ? getTopReviewsForCategory(categorySlug, 3) : [];
+  const topReviews = filterByPromotedPath(topReviewsRaw, (r) => r.reviewUrl);
   const category = categorySlug ? categories[categorySlug] : null;
 
   if (!hub) return null;
@@ -96,7 +101,7 @@ export default function NoDepositAlternativesHubPage() {
             <Link href="/compare" className="text-blue-600 hover:underline font-medium">
               ← All comparison hubs
             </Link>
-            {category && (
+            {category && shouldLinkTo(`/credit-cards/category/${categorySlug}`) && (
               <Link
                 href={`/credit-cards/category/${categorySlug}`}
                 className="text-blue-600 hover:underline font-medium"

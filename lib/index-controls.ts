@@ -1,9 +1,12 @@
 /**
  * Index Controls for Programmatic Expansion
  * Canonical URLs always absolute and inherited.
- * Thin variants automatically set to noindex.
- * Hubs, comparisons, reviews remain indexable.
+ *
+ * Index/robots decisions delegated to lib/rollout-control.ts (single control layer).
+ * Use getRobotsForProgrammaticPage(path) for programmatic pages.
  */
+
+import { getRobotsForProgrammaticPage, shouldIndex } from './rollout-control';
 
 const DEFAULT_BASE_URL = 'https://badcreditfirst.com';
 
@@ -22,20 +25,28 @@ export function inheritCanonical(parentPath: string, baseUrl: string = DEFAULT_B
   return getCanonicalUrl(parentPath, baseUrl);
 }
 
-/** Thin variants: noindex. Hubs, comparisons, reviews: indexable. */
+/** Thin variants (results): always noindex. */
 export function shouldNoindex(pageType: PageType): boolean {
   return pageType === 'thin_variant' || pageType === 'results';
 }
 
-/** Hubs, comparisons, reviews remain indexable. */
-export function isIndexable(pageType: PageType): boolean {
-  return !shouldNoindex(pageType);
+/** Indexability: thin_variant/results always noindex. Others use rollout control. */
+export function isIndexable(pageType: PageType, path?: string): boolean {
+  if (shouldNoindex(pageType)) return false;
+  if (path) return shouldIndex(path);
+  return true;
 }
 
-/** Get robots meta for page type. */
-export function getRobotsForPageType(pageType: PageType): { index: boolean; follow: boolean } {
+/** Get robots meta. For programmatic pages, use path and rollout control. */
+export function getRobotsForPageType(
+  pageType: PageType,
+  path?: string
+): { index: boolean; follow: boolean } {
   if (shouldNoindex(pageType)) {
     return { index: false, follow: true };
+  }
+  if (path) {
+    return getRobotsForProgrammaticPage(path);
   }
   return { index: true, follow: true };
 }

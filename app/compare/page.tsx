@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { COMPARISON_HUBS, getComparisonsForHub } from '@/data/comparisons';
+import { filterPromotedComparisonLinks, shouldLinkTo } from '@/lib/rollout-control';
 import ComparisonHubList from '@/components/compare/ComparisonHubList';
 import { getWebPageSchema } from '@/lib/schema';
 
@@ -42,23 +43,30 @@ export default function CompareHubPage() {
 
           <div className="space-y-10">
             {COMPARISON_HUBS.map((hub) => {
-              const links = getComparisonsForHub(hub.slug);
-              if (links.length === 0) return null;
+              const allLinks = getComparisonsForHub(hub.slug);
+              const links = filterPromotedComparisonLinks(allLinks);
+              if (!shouldLinkTo(`/compare/${hub.slug}`) && links.length === 0) return null;
               return (
                 <section key={hub.slug} className="border-b border-slate-100 pb-10 last:border-0 last:pb-0">
                   <h2 className="text-xl font-bold text-slate-900 mb-2">
-                    <Link href={`/compare/${hub.slug}`} className="text-blue-600 hover:underline">
-                      {hub.title}
-                    </Link>
+                    {shouldLinkTo(`/compare/${hub.slug}`) ? (
+                      <Link href={`/compare/${hub.slug}`} className="text-blue-600 hover:underline">
+                        {hub.title}
+                      </Link>
+                    ) : (
+                      hub.title
+                    )}
                   </h2>
                   <p className="text-slate-600 text-sm mb-4">{hub.description}</p>
                   <ComparisonHubList links={links} />
-                  <Link
-                    href={`/compare/${hub.slug}`}
-                    className="inline-block mt-3 text-sm text-blue-600 hover:underline font-medium"
-                  >
-                    View all {links.length} comparisons →
-                  </Link>
+                  {shouldLinkTo(`/compare/${hub.slug}`) && links.length > 0 && (
+                    <Link
+                      href={`/compare/${hub.slug}`}
+                      className="inline-block mt-3 text-sm text-blue-600 hover:underline font-medium"
+                    >
+                      View all {links.length} comparisons →
+                    </Link>
+                  )}
                 </section>
               );
             })}

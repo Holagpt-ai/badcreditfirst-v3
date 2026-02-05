@@ -5,6 +5,7 @@ import type { ReactNode } from 'react';
 import { getArticleSchema } from '../../../lib/schema';
 import { CATEGORY_TO_HUB } from '@/data/comparisons';
 import { getTopReviewsForCategory } from '@/lib/card-data';
+import { filterByPromotedPath, getRobotsForProgrammaticPage, shouldLinkTo } from '@/lib/rollout-control';
 import CreditReportResourceBox from '@/components/Education/CreditReportResourceBox';
 import CreditReportErrorsChecklist from '@/components/CreditReportErrorsChecklist';
 import CreditRebuildTimeline from '@/components/CreditRebuildTimeline';
@@ -487,11 +488,13 @@ type Props = { params: { slug: string } };
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const article = articleContent[params.slug];
   if (!article) return { title: 'Article Not Found' };
+  const path = `/education/${params.slug}`;
   return {
     title: `${article.title} | BadCreditFirst`,
     description: article.quickAnswer ?? `Learn about ${article.title} and credit-building strategies.`,
+    robots: getRobotsForProgrammaticPage(path),
     alternates: {
-      canonical: `https://badcreditfirst.com/education/${params.slug}`,
+      canonical: `https://badcreditfirst.com${path}`,
     },
   };
 }
@@ -595,8 +598,10 @@ export default function EducationArticlePage({
           {(() => {
             const cta = ARTICLE_CTA[slug] ?? DEFAULT_CTA;
             const hubSlug = cta.categorySlug && CATEGORY_TO_HUB[cta.categorySlug];
-            const topReviews = cta.categorySlug ? getTopReviewsForCategory(cta.categorySlug, 2) : [];
-            const linkCount = (hubSlug ? 1 : 0) + topReviews.length;
+            const topReviewsRaw = cta.categorySlug ? getTopReviewsForCategory(cta.categorySlug, 2) : [];
+            const topReviews = filterByPromotedPath(topReviewsRaw, (r) => r.reviewUrl);
+            const showHub = hubSlug && shouldLinkTo(`/compare/${hubSlug}`);
+            const linkCount = (showHub ? 1 : 0) + topReviews.length;
             if (linkCount === 0) return null;
             return (
               <div className="bg-slate-50 border border-slate-200 rounded-xl p-6">
@@ -605,7 +610,7 @@ export default function EducationArticlePage({
                   See how products stack up in our comparisons and read full reviews before applying.
                 </p>
                 <ul className="flex flex-wrap gap-3 text-sm">
-                  {hubSlug && (
+                  {showHub && (
                     <li>
                       <Link href={`/compare/${hubSlug}`} className="text-blue-600 hover:underline font-medium">
                         Side-by-side comparisons
@@ -625,12 +630,18 @@ export default function EducationArticlePage({
           })()}
 
           <div className="text-center">
-            <Link
-              href={ARTICLE_CTA[slug]?.href ?? DEFAULT_CTA.href}
-              className="inline-flex items-center justify-center px-6 py-3 bg-slate-900 hover:bg-slate-800 text-white font-semibold rounded-lg transition-colors"
-            >
-              Next best step → {ARTICLE_CTA[slug]?.label ?? DEFAULT_CTA.label}
-            </Link>
+            {(() => {
+              const cta = ARTICLE_CTA[slug] ?? DEFAULT_CTA;
+              const href = shouldLinkTo(cta.href) ? cta.href : '/credit-cards';
+              return (
+                <Link
+                  href={href}
+                  className="inline-flex items-center justify-center px-6 py-3 bg-slate-900 hover:bg-slate-800 text-white font-semibold rounded-lg transition-colors"
+                >
+                  Next best step → {cta.label}
+                </Link>
+              );
+            })()}
           </div>
         </section>
 
