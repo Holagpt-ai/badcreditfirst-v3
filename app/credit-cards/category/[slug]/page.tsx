@@ -6,6 +6,7 @@ import { cardData } from '../../../../lib/card-data';
 import { categories, categoryContent } from '../../../../lib/categories';
 import { getComparisonsForCategory, CATEGORY_TO_HUB } from '@/data/comparisons';
 import { filterPromotedComparisonLinks, getRobotsForProgrammaticPage, shouldLinkTo } from '@/lib/programmatic-rollout';
+import { getDemotedPageSlugs } from '@/lib/page-health';
 import { getCollectionPageSchema, getFAQSchema } from '../../../../lib/schema';
 
 const TRUST_SIGNAL_DATE = 'Updated Feb 2026';
@@ -27,7 +28,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-export default function CreditCardCategoryPage({
+export default async function CreditCardCategoryPage({
   params,
 }: {
   params: { slug: string };
@@ -40,10 +41,11 @@ export default function CreditCardCategoryPage({
     notFound();
   }
 
+  const demotedSlugs = await getDemotedPageSlugs();
   const filteredCards = cardData.filter((c) => c.categorySlug === slug);
   const categoryUrl = `/credit-cards/category/${slug}`;
   const itemUrls = filteredCards.map((c) => c.reviewUrl);
-  const relatedLinks = filterPromotedComparisonLinks(getComparisonsForCategory(slug, 5));
+  const relatedLinks = filterPromotedComparisonLinks(getComparisonsForCategory(slug, 5), demotedSlugs);
 
   const collectionSchema = getCollectionPageSchema({
     name: category.title,

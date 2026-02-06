@@ -6,6 +6,7 @@ import { getArticleSchema } from '../../../lib/schema';
 import { CATEGORY_TO_HUB } from '@/data/comparisons';
 import { getTopReviewsForCategory } from '@/lib/card-data';
 import { filterByPromotedPath, getRobotsForProgrammaticPage, shouldLinkTo } from '@/lib/programmatic-rollout';
+import { getDemotedPageSlugs } from '@/lib/page-health';
 import CreditReportResourceBox from '@/components/Education/CreditReportResourceBox';
 import CreditReportErrorsChecklist from '@/components/CreditReportErrorsChecklist';
 import CreditRebuildTimeline from '@/components/CreditRebuildTimeline';
@@ -499,7 +500,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-export default function EducationArticlePage({
+export default async function EducationArticlePage({
   params,
 }: {
   params: { slug: string };
@@ -511,6 +512,7 @@ export default function EducationArticlePage({
     notFound();
   }
 
+  const demotedSlugs = await getDemotedPageSlugs();
   const articleUrl = `/education/${slug}`;
   const articleSchema = getArticleSchema({
     title: article.title,
@@ -599,8 +601,8 @@ export default function EducationArticlePage({
             const cta = ARTICLE_CTA[slug] ?? DEFAULT_CTA;
             const hubSlug = cta.categorySlug && CATEGORY_TO_HUB[cta.categorySlug];
             const topReviewsRaw = cta.categorySlug ? getTopReviewsForCategory(cta.categorySlug, 2) : [];
-            const topReviews = filterByPromotedPath(topReviewsRaw, (r) => r.reviewUrl);
-            const showHub = hubSlug && shouldLinkTo(`/compare/${hubSlug}`);
+            const topReviews = filterByPromotedPath(topReviewsRaw, (r) => r.reviewUrl, demotedSlugs);
+            const showHub = hubSlug && shouldLinkTo(`/compare/${hubSlug}`, demotedSlugs);
             const linkCount = (showHub ? 1 : 0) + topReviews.length;
             if (linkCount === 0) return null;
             return (
@@ -632,7 +634,7 @@ export default function EducationArticlePage({
           <div className="text-center">
             {(() => {
               const cta = ARTICLE_CTA[slug] ?? DEFAULT_CTA;
-              const href = shouldLinkTo(cta.href) ? cta.href : '/credit-cards';
+              const href = shouldLinkTo(cta.href, demotedSlugs) ? cta.href : '/credit-cards';
               return (
                 <Link
                   href={href}

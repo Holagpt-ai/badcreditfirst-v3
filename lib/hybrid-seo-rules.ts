@@ -29,6 +29,14 @@ export const AFFILIATE_THROTTLING = {
   spikeDetection: rulesConfig.affiliate_throttling.spike_detection,
 } as const;
 
+const autoDemotion = (rulesConfig as Record<string, unknown>).auto_demotion as Record<string, number> | undefined;
+export const AUTO_DEMOTION = {
+  epcDropPercent: autoDemotion?.epc_drop_percent ?? 30,
+  approvalRateFloor: autoDemotion?.approval_rate_floor ?? 0.25,
+  evaluationWindowDays: autoDemotion?.evaluation_window_days ?? 3,
+  recoveryWindowDays: autoDemotion?.recovery_window_days ?? 5,
+} as const;
+
 export const CTA_RULES = rulesConfig.cta_rules;
 
 export const GEO_FILTERING = {

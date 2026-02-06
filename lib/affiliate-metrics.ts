@@ -75,3 +75,46 @@ export async function getDailyClicksSummary(
     return { total: 0, byIssuer: {} }; // fallback: no caps applied
   }
 }
+
+/** Aggregated metrics over the last N days. Used for demotion evaluation (noise reduction). */
+export async function getAffiliateMetricsRolling(
+  issuerId: string,
+  days: number,
+  endDate: Date = new Date()
+): Promise<AffiliateMetrics | null> {
+  try {
+    const endStr = endDate.toISOString().slice(0, 10);
+    const startDate = new Date(endDate);
+    startDate.setDate(startDate.getDate() - days);
+    const startStr = startDate.toISOString().slice(0, 10);
+
+    const { rows } = await sql`
+      SELECT
+        SUM(clicks)::int AS clicks,
+        SUM(conversions)::int AS conversions,
+        SUM(revenue)::numeric AS revenue
+      FROM affiliate_metrics_daily
+      WHERE issuer_id = ${issuerId}
+        AND date >= ${startStr}
+        AND date <= ${endStr}
+    `;
+
+    if (!rows.length || !rows[0]) return null;
+
+    const row = rows[0];
+    const clicks = Number(row.clicks ?? 0);
+    const conversions = Number(row.conversions ?? 0);
+    const revenue = Number(row.revenue ?? 0);
+
+    if (clicks === 0) return null;
+
+    return {
+      epc: revenue / clicks,
+      approvalRate: conversions / clicks,
+      clicks,
+    };
+  } catch (err) {
+    console.error('[affiliate-metrics] getAffiliateMetricsRolling failed:', err);
+    return null;
+  }
+}

@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { getHubBySlug, getComparisonsForHub, HUB_TO_CATEGORY } from '@/data/comparisons';
 import { filterPromotedComparisonLinks, filterByPromotedPath, getRobotsForProgrammaticPage, shouldLinkTo } from '@/lib/programmatic-rollout';
+import { getDemotedPageSlugs } from '@/lib/page-health';
 import { getTopReviewsForCategory } from '@/lib/card-data';
 import { categories } from '@/lib/categories';
 import ComparisonHubList from '@/components/compare/ComparisonHubList';
@@ -22,12 +23,13 @@ export const metadata: Metadata = {
   },
 };
 
-export default function SecuredCreditCardsHubPage() {
+export default async function SecuredCreditCardsHubPage() {
   const hub = getHubBySlug(HUB_SLUG);
-  const comparisonLinks = filterPromotedComparisonLinks(getComparisonsForHub(HUB_SLUG));
+  const demotedSlugs = await getDemotedPageSlugs();
+  const comparisonLinks = filterPromotedComparisonLinks(getComparisonsForHub(HUB_SLUG), demotedSlugs);
   const categorySlug = HUB_TO_CATEGORY[HUB_SLUG];
   const topReviewsRaw = categorySlug ? getTopReviewsForCategory(categorySlug, 3) : [];
-  const topReviews = filterByPromotedPath(topReviewsRaw, (r) => r.reviewUrl);
+  const topReviews = filterByPromotedPath(topReviewsRaw, (r) => r.reviewUrl, demotedSlugs);
   const category = categorySlug ? categories[categorySlug] : null;
 
   if (!hub) return null;
@@ -128,7 +130,7 @@ export default function SecuredCreditCardsHubPage() {
             <Link href="/compare" className="text-blue-600 hover:underline font-medium">
               ← All comparison hubs
             </Link>
-            {category && shouldLinkTo(`/credit-cards/category/${categorySlug}`) && (
+            {category && shouldLinkTo(`/credit-cards/category/${categorySlug}`, demotedSlugs) && (
               <Link
                 href={`/credit-cards/category/${categorySlug}`}
                 className="text-blue-600 hover:underline font-medium"

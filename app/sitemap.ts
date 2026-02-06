@@ -1,5 +1,5 @@
 import { MetadataRoute } from 'next';
-import { getPromotedPagesForSitemap } from '@/lib/programmatic-rollout';
+import { getPromotedPagesForSitemapAsync } from '@/lib/programmatic-rollout';
 
 const BASE_URL = 'https://badcreditfirst.com';
 
@@ -34,8 +34,9 @@ function changeFreqForType(pageType: string): 'weekly' | 'monthly' {
 /**
  * Sitemap: static pages + promoted programmatic pages only.
  * Gated by lib/programmatic-rollout (promotion + staged limits + hard cap 1,000).
+ * Excludes auto-demoted pages.
  */
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const now = new Date();
 
   const entries: MetadataRoute.Sitemap = [
@@ -45,7 +46,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE_URL}/education`, lastModified: now, changeFrequency: 'weekly', priority: 0.8 },
   ];
 
-  const promoted = getPromotedPagesForSitemap();
+  const promoted = await getPromotedPagesForSitemapAsync();
   for (const { path, pageType } of promoted) {
     entries.push({
       url: `${BASE_URL}${path}`,

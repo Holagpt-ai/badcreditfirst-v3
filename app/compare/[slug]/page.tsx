@@ -9,7 +9,9 @@ import { getVariantFromHeaders, VARIANT_HEADER } from '@/lib/ab-guardrails';
 import { isBot } from '@/lib/is-bot';
 import { getAllowAffiliateFromHeaders, AFFILIATE_HEADER } from '@/lib/hybrid-seo-rules';
 import { shouldSuppressIssuer } from '@/lib/affiliate-throttling';
-import { filterPromotedComparisonLinks, filterPromotedReviewLinks, getRobotsForProgrammaticPage, shouldLinkTo } from '@/lib/programmatic-rollout';
+import { getOutboundRedirectUrl } from '@/lib/outbound-tracking';
+import { filterPromotedComparisonLinks, filterPromotedReviewLinks, getRobotsForProgrammaticPageAsync, shouldLinkTo } from '@/lib/programmatic-rollout';
+import { getDemotedPageSlugs } from '@/lib/page-health';
 import { getWebPageSchema } from '@/lib/schema';
 import ComparisonHero from '@/components/compare/ComparisonHero';
 import SnapshotTable from '@/components/compare/SnapshotTable';
@@ -32,7 +34,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: `${comparison.entityA.name} vs ${comparison.entityB.name} | BadCreditFirst`,
     description: `Compare ${comparison.entityA.name} and ${comparison.entityB.name} for ${comparison.intent}. Independent comparison.`,
-    robots: getRobotsForProgrammaticPage(path),
+    robots: await getRobotsForProgrammaticPageAsync(path),
     alternates: {
       canonical: `https://badcreditfirst.com${path}`,
     },
@@ -48,6 +50,8 @@ export default async function ComparePage({ params }: Props) {
   if (!comparison) {
     notFound();
   }
+
+  const demotedSlugs = await getDemotedPageSlugs();
 
   const cardA = getCardBySlug(comparison.entityA.slug);
   const cardB = getCardBySlug(comparison.entityB.slug);
@@ -74,7 +78,10 @@ export default async function ComparePage({ params }: Props) {
       isBot: bot,
       offers,
     });
-    affiliateHref = allowAffiliate && !suppressed ? offer?.href : undefined;
+    const rawHref = allowAffiliate && !suppressed ? offer?.href : undefined;
+    affiliateHref = rawHref && activeCard
+      ? getOutboundRedirectUrl(activeCard.slug, rawHref)
+      : undefined;
     abVariant = getVariantFromHeaders(headersList.get(VARIANT_HEADER));
   }
 
@@ -102,7 +109,7 @@ export default async function ComparePage({ params }: Props) {
           <CreditReportErrorsChecklist />
           <CreditRebuildTimeline />
           {(() => {
-            const reviewLinks = filterPromotedReviewLinks(getReviewLinksForComparison(comparison));
+            const reviewLinks = filterPromotedReviewLinks(getReviewLinksForComparison(comparison), demotedSlugs);
             if (reviewLinks.length === 0) return null;
             return (
               <section className="mb-8">
@@ -127,13 +134,13 @@ export default async function ComparePage({ params }: Props) {
             <p className="mb-2">Compensation may influence how and where offers appear, but it does not affect our editorial opinions, reviews, or evaluations. All content is created independently to help consumers make informed decisions.</p>
             <p>BadCreditFirst.com is not a lender and does not guarantee approval for any credit card or financial product. All applications are subject to the issuer&apos;s terms, conditions, and approval criteria.</p>
           </div>
-          <ComparisonCTAs data={comparison} affiliateHref={affiliateHref} abVariant={abVariant} />
+          <ComparisonCTAs data={comparison} affiliateHref={affiliateHref} abVariant={abVariant} demotedSlugs={demotedSlugs} />
           <MethodologyFooter />
 
           {(() => {
             const hubSlug = getHubForComparison(slug);
             const hub = hubSlug ? getHubBySlug(hubSlug) : null;
-            if (!hub || !shouldLinkTo(`/compare/${hubSlug}`)) return null;
+            if (!hub || !shouldLinkTo(`/compare/${hubSlug}`, demotedSlugs)) return null;
             return (
               <div className="mt-8 pt-8 border-t border-slate-200">
                 <p className="text-sm text-slate-600">
@@ -148,7 +155,7 @@ export default async function ComparePage({ params }: Props) {
           })()}
 
           {(() => {
-            const relatedLinks = filterPromotedComparisonLinks(getRelatedComparisons(slug, 3));
+            const relatedLinks = filterPromotedComparisonLinks(getRelatedComparisons(slug, 3), demotedSlugs);
             if (relatedLinks.length === 0) return null;
             return (
               <div className="mt-8 pt-8 border-t border-slate-200">

@@ -6,13 +6,15 @@ import { Star, CreditCard } from 'lucide-react';
 import { getCardBySlug, getAffiliateLink } from '../../../../lib/card-data';
 import { categories } from '../../../../lib/categories';
 import { getComparisonsForCard, CATEGORY_TO_HUB } from '@/data/comparisons';
-import { filterPromotedComparisonLinks, getRobotsForProgrammaticPage, shouldLinkTo } from '@/lib/programmatic-rollout';
+import { filterPromotedComparisonLinks, getRobotsForProgrammaticPageAsync, shouldLinkTo } from '@/lib/programmatic-rollout';
+import { getDemotedPageSlugs } from '@/lib/page-health';
 import { getProductSchema, getReviewSchema, getBreadcrumbSchema } from '../../../../lib/schema';
 import { getPrimaryOffer, buildOfferFromHref } from '@/lib/offer-rotation';
 import { getVariantFromHeaders, VARIANT_HEADER } from '@/lib/ab-guardrails';
 import { isBot } from '@/lib/is-bot';
 import { getAllowAffiliateFromHeaders, AFFILIATE_HEADER } from '@/lib/hybrid-seo-rules';
 import { shouldSuppressIssuer } from '@/lib/affiliate-throttling';
+import { getOutboundRedirectUrl } from '@/lib/outbound-tracking';
 import { cookies } from 'next/headers';
 import CreditRebuildTimeline from '@/components/CreditRebuildTimeline';
 import TrustBadges from '@/components/TrustBadges';
@@ -34,7 +36,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: `${card.title} Review (2026) | BadCreditFirst`,
     description: `Independent review of ${card.title}. ${card.label}. Compare fees, approval odds, and credit-building value.`,
-    robots: getRobotsForProgrammaticPage(path),
+    robots: await getRobotsForProgrammaticPageAsync(path),
     alternates: {
       canonical: `https://badcreditfirst.com${path}`,
     },
@@ -53,6 +55,7 @@ export default async function CreditCardReviewPage({
     notFound();
   }
 
+  const demotedSlugs = await getDemotedPageSlugs();
   const { approvalOdds, realWorldUseCase, feeRisk, upgradePath, title, fees, badFor, categorySlug, editorialScore, status } = card;
   const isComingSoon = status === 'coming-soon';
   const headersList = await headers();
@@ -71,7 +74,8 @@ export default async function CreditCardReviewPage({
     isBot: bot,
     offers,
   });
-  const applyHref = allowAffiliate && !suppressed ? (offer?.href ?? getAffiliateLink(slug)) : undefined;
+  const rawApplyHref = allowAffiliate && !suppressed ? (offer?.href ?? getAffiliateLink(slug)) : undefined;
+  const applyHref = rawApplyHref ? getOutboundRedirectUrl(slug, rawApplyHref) : undefined;
   const abVariant = getVariantFromHeaders(headersList.get(VARIANT_HEADER));
   const reviewUrl = `${baseUrl}${card.reviewUrl}`;
   const ratingValue = '4.5';
@@ -114,7 +118,7 @@ export default async function CreditCardReviewPage({
     { name: title, url: card.reviewUrl },
   ]);
 
-  const compareLinks = filterPromotedComparisonLinks(getComparisonsForCard(slug, 3));
+  const compareLinks = filterPromotedComparisonLinks(getComparisonsForCard(slug, 3), demotedSlugs);
 
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900">
@@ -295,7 +299,7 @@ export default async function CreditCardReviewPage({
           </div>
 
           <div className="mt-6 pt-6 border-t border-slate-200 space-y-4">
-            {categorySlug && CATEGORY_TO_HUB[categorySlug] && shouldLinkTo(`/compare/${CATEGORY_TO_HUB[categorySlug]}`) && (
+            {categorySlug && CATEGORY_TO_HUB[categorySlug] && shouldLinkTo(`/compare/${CATEGORY_TO_HUB[categorySlug]}`, demotedSlugs) && (
               <p className="text-sm text-slate-500">
                 Browse more{' '}
                 <Link href={`/compare/${CATEGORY_TO_HUB[categorySlug]}`} className="text-blue-600 hover:underline font-medium">

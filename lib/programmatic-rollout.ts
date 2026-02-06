@@ -17,6 +17,7 @@ import { HARD_CAP, ROLLOUT_CONFIG } from './rollout-config';
 import { ALL_COMPARISON_SLUGS, COMPARISON_HUB_SLUGS } from '@/data/comparisons';
 import { cardData } from '@/lib/card-data';
 import { categories } from '@/lib/categories';
+import { getDemotedPageSlugs, isPageDemoted } from './page-health';
 
 export type ProgrammaticPageType =
   | 'comparison'
@@ -152,11 +153,16 @@ export function shouldIncludeInSitemap(path: string): boolean {
   return isPromoted(path);
 }
 
-/** Should we link to this path from internal links? */
-export function shouldLinkTo(path: string): boolean {
+/** Should we link to this path from internal links? Excludes demoted when demotedSlugs provided. */
+export function shouldLinkTo(path: string, demotedSlugs?: Set<string>): boolean {
   const pageType = getPageType(path);
   if (!pageType) return true;
-  return isPromoted(path);
+  if (!isPromoted(path)) return false;
+  if (demotedSlugs?.size) {
+    const slug = getSlugFromPath(path, pageType);
+    if (slug && demotedSlugs.has(slug)) return false;
+  }
+  return true;
 }
 
 /** Get robots meta for a programmatic page. */
@@ -167,24 +173,32 @@ export function getRobotsForProgrammaticPage(path: string): { index: boolean; fo
   return { index: false, follow: true };
 }
 
-/** Filter comparison links to only promoted pages. */
-export function filterPromotedComparisonLinks<T extends { slug: string }>(links: T[]): T[] {
-  return links.filter((l) => shouldLinkTo(`/compare/${l.slug}`));
+/** Get robots meta with auto-demotion check. Use for review/comparison pages. */
+export async function getRobotsForProgrammaticPageAsync(path: string): Promise<{ index: boolean; follow: boolean }> {
+  if (!shouldIndex(path)) return { index: false, follow: true };
+  const demoted = await isPageDemoted(path);
+  if (demoted) return { index: false, follow: true };
+  return { index: true, follow: true };
 }
 
-/** Filter review links to only promoted pages. */
-export function filterPromotedReviewLinks<T extends { href: string }>(links: T[]): T[] {
-  return links.filter((l) => shouldLinkTo(l.href));
+/** Filter comparison links to only promoted (and non-demoted) pages. */
+export function filterPromotedComparisonLinks<T extends { slug: string }>(links: T[], demotedSlugs?: Set<string>): T[] {
+  return links.filter((l) => shouldLinkTo(`/compare/${l.slug}`, demotedSlugs));
+}
+
+/** Filter review links to only promoted (and non-demoted) pages. */
+export function filterPromotedReviewLinks<T extends { href: string }>(links: T[], demotedSlugs?: Set<string>): T[] {
+  return links.filter((l) => shouldLinkTo(l.href, demotedSlugs));
 }
 
 /** Filter items by path. Use when items have a path/slug that maps to a URL. */
-export function filterByPromotedPath<T>(items: T[], getPath: (item: T) => string): T[] {
-  return items.filter((item) => shouldLinkTo(getPath(item)));
+export function filterByPromotedPath<T>(items: T[], getPath: (item: T) => string, demotedSlugs?: Set<string>): T[] {
+  return items.filter((item) => shouldLinkTo(getPath(item), demotedSlugs));
 }
 
 /** Filter category links to only promoted pages. */
-export function filterPromotedCategoryLinks<T extends { slug: string }>(links: T[]): T[] {
-  return links.filter((l) => shouldLinkTo(`/credit-cards/category/${l.slug}`));
+export function filterPromotedCategoryLinks<T extends { slug: string }>(links: T[], demotedSlugs?: Set<string>): T[] {
+  return links.filter((l) => shouldLinkTo(`/credit-cards/category/${l.slug}`, demotedSlugs));
 }
 
 /** Effective sitemap limit = min(sitemapLimitTier, HARD_CAP). */
@@ -200,10 +214,50 @@ export function getPromotedPagesForSitemap(): Array<{ path: string; pageType: Pr
   const limit = getEffectiveSitemapLimit();
   const out: Array<{ path: string; pageType: ProgrammaticPageType }> = [];
 
-  const add = (path: string, pageType: ProgrammaticPageType) => {
-    if (shouldIncludeInSitemap(path) && out.length < limit) {
-      out.push({ path, pageType });
+  const add = (path: string, pageType: ProgrammaticPageType, demotedSlugs?: Set<string>) => {
+    if (!shouldIncludeInSitemap(path) || out.length >= limit) return;
+    if (demotedSlugs?.size) {
+      const slug = getSlugFromPath(path, pageType);
+      if (slug && demotedSlugs.has(slug)) return;
     }
+    out.push({ path, pageType });
+  };
+
+  for (const slug of COMPARISON_HUB_SLUGS) {
+    add(`/compare/${slug}`, 'hub');
+  }
+  for (const slug of ALL_COMPARISON_SLUGS) {
+    add(`/compare/${slug}`, 'comparison');
+  }
+  for (const slug of Object.keys(categories)) {
+    add(`/credit-cards/category/${slug}`, 'category');
+  }
+  for (const card of cardData) {
+    add(card.reviewUrl, 'review');
+  }
+  for (const slug of Array.from(PROMOTED_EDUCATION)) {
+    add(`/education/${slug}`, 'education');
+  }
+
+  return out.slice(0, limit);
+}
+
+/**
+ * Get promoted programmatic pages for sitemap, excluding demoted.
+ * Use for dynamic sitemap generation.
+ */
+export async function getPromotedPagesForSitemapAsync(): Promise<Array<{ path: string; pageType: ProgrammaticPageType }>> {
+  const demotedSlugs = await getDemotedPageSlugs();
+  const limit = getEffectiveSitemapLimit();
+  const out: Array<{ path: string; pageType: ProgrammaticPageType }> = [];
+
+  const add = (path: string, pageType: ProgrammaticPageType) => {
+    if (!shouldIncludeInSitemap(path) || out.length >= limit) return;
+    if (demotedSlugs.size) {
+      const slug = getSlugFromPath(path, pageType);
+      if (slug && demotedSlugs.has(slug)) return;
+    }
+    out.push({ path, pageType });
   };
 
   for (const slug of COMPARISON_HUB_SLUGS) {
