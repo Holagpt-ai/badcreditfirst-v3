@@ -1,0 +1,57 @@
+{
+  "hybrid_seo_v4": {
+    "intent_score_formula": "(search_demand * epc * approval_rate * device_bias) / competition",
+    "index_threshold": 0.65,
+    "noindex_below": 0.65,
+    "archive_days_no_clicks": 30
+  },
+  "page_tiers": {
+    "tier_a": {
+      "index": true,
+      "crawl_priority": "high",
+      "internal_links_from": ["tier_b"]
+    },
+    "tier_b": {
+      "index": "conditional",
+      "crawl_priority": "medium",
+      "promote_if": {
+        "epc": ">= tier_a_avg",
+        "approval_rate": ">= 0.4"
+      }
+    }
+  },
+  "affiliate_throttling": {
+    "epc_floor": 0.75,
+    "issuer_cap_percent_per_day": 35,
+    "spike_detection": {
+      "enabled": true,
+      "max_hourly_increase_percent": 25
+    }
+  },
+  "cta_rules": {
+    "mobile": {
+      "max_ctas": 1,
+      "sticky": true
+    },
+    "desktop": {
+      "comparison_table_required": true,
+      "secondary_ctas_below_fold": true
+    }
+  },
+  "geo_filtering": {
+    "allow_affiliate_country": ["US"],
+    "non_us_behavior": {
+      "affiliate_links": false,
+      "email_capture": true
+    }
+  },
+  "page_types_allowed": [
+    "bad_credit",
+    "no_credit",
+    "secured",
+    "guaranteed_approval",
+    "credit_score",
+    "state",
+    "situation"
+  ]
+}

@@ -11,6 +11,7 @@ import { getProductSchema, getReviewSchema, getBreadcrumbSchema } from '../../..
 import { getPrimaryOffer, buildOfferFromHref } from '@/lib/offer-rotation';
 import { getVariantFromHeaders, VARIANT_HEADER } from '@/lib/ab-guardrails';
 import { isBot } from '@/lib/is-bot';
+import { getAllowAffiliateFromHeaders, AFFILIATE_HEADER } from '@/lib/hybrid-seo-rules';
 import { cookies } from 'next/headers';
 import CreditRebuildTimeline from '@/components/CreditRebuildTimeline';
 import TrustBadges from '@/components/TrustBadges';
@@ -58,6 +59,7 @@ export default async function CreditCardReviewPage({
   const userAgent = headersList.get('user-agent');
   const sessionId = cookieStore.get('bcf_session')?.value ?? 'static';
   const bot = isBot(userAgent);
+  const allowAffiliate = getAllowAffiliateFromHeaders(headersList.get(AFFILIATE_HEADER));
   const offers = [
     buildOfferFromHref(slug, getAffiliateLink(slug), isComingSoon ? 'paused' : 'active'),
   ];
@@ -67,7 +69,7 @@ export default async function CreditCardReviewPage({
     isBot: bot,
     offers,
   });
-  const applyHref = offer?.href ?? getAffiliateLink(slug);
+  const applyHref = allowAffiliate ? (offer?.href ?? getAffiliateLink(slug)) : undefined;
   const abVariant = getVariantFromHeaders(headersList.get(VARIANT_HEADER));
   const reviewUrl = `${baseUrl}${card.reviewUrl}`;
   const ratingValue = '4.5';
@@ -257,7 +259,7 @@ export default async function CreditCardReviewPage({
                   variant="primary"
                   disabled
                 />
-              ) : (
+              ) : applyHref ? (
                 <AffiliateCTA
                   href={applyHref}
                   label="Apply"
@@ -265,6 +267,10 @@ export default async function CreditCardReviewPage({
                   abVariant={abVariant}
                   after={<ConversionTrustLayer variant="compact" />}
                 />
+              ) : (
+                <p className="text-sm text-slate-600 py-4">
+                  Offers available to US visitors. <Link href="/education/how-credit-scores-work" className="text-blue-600 hover:underline">Learn about credit building</Link>.
+                </p>
               )}
               <TrustBadges />
             </div>

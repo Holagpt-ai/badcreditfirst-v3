@@ -7,6 +7,7 @@ import { getCardBySlug, getAffiliateLink } from '@/lib/card-data';
 import { getPrimaryOffer, buildOfferFromHref } from '@/lib/offer-rotation';
 import { getVariantFromHeaders, VARIANT_HEADER } from '@/lib/ab-guardrails';
 import { isBot } from '@/lib/is-bot';
+import { getAllowAffiliateFromHeaders, AFFILIATE_HEADER } from '@/lib/hybrid-seo-rules';
 import { filterPromotedComparisonLinks, filterPromotedReviewLinks, getRobotsForProgrammaticPage, shouldLinkTo } from '@/lib/programmatic-rollout';
 import { getWebPageSchema } from '@/lib/schema';
 import ComparisonHero from '@/components/compare/ComparisonHero';
@@ -61,6 +62,7 @@ export default async function ComparePage({ params }: Props) {
     const userAgent = headersList.get('user-agent');
     const sessionId = cookieStore.get('bcf_session')?.value ?? 'static';
     const bot = isBot(userAgent);
+    const allowAffiliate = getAllowAffiliateFromHeaders(headersList.get(AFFILIATE_HEADER));
     const offers = [
       buildOfferFromHref(activeCard.slug, getAffiliateLink(activeCard.slug), 'active'),
     ];
@@ -70,7 +72,7 @@ export default async function ComparePage({ params }: Props) {
       isBot: bot,
       offers,
     });
-    affiliateHref = offer?.href;
+    affiliateHref = allowAffiliate ? offer?.href : undefined;
     abVariant = getVariantFromHeaders(headersList.get(VARIANT_HEADER));
   }
 

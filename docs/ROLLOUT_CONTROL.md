@@ -48,3 +48,12 @@ Edit `lib/rollout-config.ts` and promotion registries in `lib/programmatic-rollo
 ## No Per-Page Hacks
 
 All control flows through `lib/programmatic-rollout.ts`. Pages do not contain inline index logic or promotion checks beyond calling the exported helpers.
+
+## Hybrid SEO V4 + Affiliate Throttling
+
+Additional rules from `config/rules.config.json`:
+
+- **Geo filtering**: Affiliate CTAs suppressed for non-US traffic. Middleware sets `x-bcf-allow-affiliate`; review/compare pages respect it.
+- **Affiliate throttling**: EPC floor, issuer caps, spike detection — see `lib/affiliate-throttling.ts`.
+- **CTA rules**: Mobile = 1 sticky CTA; desktop = comparison table + secondary CTAs below fold.
+- **Go-live gate**: See `docs/go_live_gate.md` before launch.

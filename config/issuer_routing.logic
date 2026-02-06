@@ -1,0 +1,20 @@
+# Issuer Routing Logic
+# Human-readable logic for dev sanity. Machine-enforced via lib/hybrid-seo-rules.ts
+
+IF credit_score < 500:
+  show secured + guaranteed approval issuers only
+
+IF credit_score 500–579:
+  hybrid secured/unsecured
+
+IF credit_score >= 580:
+  entry unsecured
+
+IF mobile:
+  suppress secondary monetization until scroll > 60%
+
+IF EPC < floor:
+  remove issuer immediately
+
+IF approval rate drops:
+  throttle issuer before network flags
