@@ -36,6 +36,19 @@ export default function AboutPage() {
           <p className="text-slate-600 leading-relaxed mb-8 text-sm italic">
             BadCreditFirst is not a credit card issuer, lender, or financial advisor and does not make credit approval decisions.
           </p>
+          <h2 className="text-lg font-bold text-slate-900 mt-6 mb-2">Helpful resources</h2>
+          <p className="text-slate-600 leading-relaxed mb-3">
+            For more information about our site and policies:
+          </p>
+          <ul className="text-slate-600 leading-relaxed space-y-1 mb-8">
+            <li><Link href="/contact" className="text-blue-600 hover:underline">Contact us</Link></li>
+            <li><Link href="/terms" className="text-blue-600 hover:underline">Terms of Use</Link></li>
+            <li><Link href="/privacy" className="text-blue-600 hover:underline">Privacy Policy</Link></li>
+            <li><Link href="/your-privacy-choices" className="text-blue-600 hover:underline">Your Privacy Choices</Link></li>
+            <li><Link href="/state-privacy-law-notice" className="text-blue-600 hover:underline">State Privacy Law Notice</Link></li>
+            <li><Link href="/accessibility-statement" className="text-blue-600 hover:underline">Accessibility Statement</Link></li>
+            <li><Link href="/site-map" className="text-blue-600 hover:underline">Site map</Link></li>
+          </ul>
           <Link href="/" className="text-blue-600 hover:underline text-sm font-medium">
             ← Return to Home
           </Link>
