@@ -1,5 +1,7 @@
 import { MetadataRoute } from 'next';
 import { getPromotedPagesForSitemapAsync } from '@/lib/programmatic-rollout';
+import { getPageHealth } from '@/lib/page-health';
+import { SITEMAP_CONTROL } from '@/lib/hybrid-seo-rules';
 
 const BASE_URL = 'https://badcreditfirst.com';
 
@@ -12,29 +14,10 @@ const STATIC_PAGES: { path: string; changeFrequency: 'monthly' | 'yearly'; prior
   { path: '/terms', changeFrequency: 'yearly', priority: 0.3 },
 ];
 
-function priorityForType(pageType: string): number {
-  switch (pageType) {
-    case 'hub':
-      return 0.85;
-    case 'comparison':
-      return 0.75;
-    case 'category':
-    case 'review':
-    case 'education':
-      return 0.7;
-    default:
-      return 0.7;
-  }
-}
-
-function changeFreqForType(pageType: string): 'weekly' | 'monthly' {
-  return pageType === 'hub' || pageType === 'comparison' ? 'weekly' : 'monthly';
-}
-
 /**
- * Sitemap: static pages + promoted programmatic pages only.
- * Gated by lib/programmatic-rollout (promotion + staged limits + hard cap 1,000).
- * Excludes auto-demoted pages.
+ * Sitemap: static pages + promoted programmatic pages.
+ * Health-aware: excludes demoted, prioritizes tier A.
+ * Uses SITEMAP_CONTROL for priority and changefreq.
  */
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const now = new Date();
@@ -47,12 +30,23 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   ];
 
   const promoted = await getPromotedPagesForSitemapAsync();
-  for (const { path, pageType } of promoted) {
+
+  for (const { path } of promoted) {
+    const health = await getPageHealth(path);
+
+    if (SITEMAP_CONTROL.excludeStatus.includes(health.status)) {
+      continue; // prune demoted
+    }
+
+    const tierKey = health.status === 'demoted' ? 'demoted' : health.tier === 'A' ? 'tier_a' : 'tier_b';
+    const priority = SITEMAP_CONTROL.priorityMap[tierKey];
+    const changeFrequency = SITEMAP_CONTROL.changefreqMap[tierKey] as 'daily' | 'weekly' | 'monthly';
+
     entries.push({
       url: `${BASE_URL}${path}`,
       lastModified: now,
-      changeFrequency: changeFreqForType(pageType),
-      priority: priorityForType(pageType),
+      changeFrequency,
+      priority,
     });
   }
 

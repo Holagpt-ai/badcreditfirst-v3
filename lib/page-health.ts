@@ -136,6 +136,39 @@ export async function upsertPageHealth(
   `;
 }
 
+/** Page health for sitemap: status (healthy/demoted) + tier (A/B). Uses affiliate_page_health + issuer_performance. */
+export interface PageHealthForSitemap {
+  status: PageHealthStatus;
+  tier: 'A' | 'B';
+}
+
+/** Get health for a page path. Hub/category/education default to healthy + tier B. */
+export async function getPageHealth(path: string): Promise<PageHealthForSitemap> {
+  const slug = getPageSlugFromPath(path);
+  if (!slug) return { status: 'healthy', tier: 'B' };
+
+  try {
+    const { rows: healthRows } = await sql`
+      SELECT status, issuer_id FROM affiliate_page_health WHERE page_slug = ${slug} LIMIT 1
+    `;
+    const status = (healthRows[0]?.status as PageHealthStatus) ?? 'healthy';
+    const issuerId = healthRows[0]?.issuer_id as string | undefined;
+
+    let tier: 'A' | 'B' = 'B';
+    if (issuerId) {
+      const { rows: perfRows } = await sql`
+        SELECT tier FROM issuer_performance WHERE issuer_id = ${issuerId} LIMIT 1
+      `;
+      tier = perfRows[0]?.tier === 'A' ? 'A' : 'B';
+    }
+
+    return { status, tier };
+  } catch (err) {
+    console.error('[page-health] getPageHealth failed:', err);
+    return { status: 'healthy', tier: 'B' };
+  }
+}
+
 /** All demoted page slugs. Use for internal link filtering and sitemap. */
 export async function getDemotedPageSlugs(): Promise<Set<string>> {
   try {
