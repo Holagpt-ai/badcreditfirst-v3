@@ -118,6 +118,11 @@ export default async function ComparePage({ params }: Props) {
               </section>
             );
           })()}
+          <div className="mb-8 rounded-lg border border-slate-200 bg-slate-50 p-4 text-sm text-slate-600 leading-relaxed">
+            <p className="mb-2">BadCreditFirst.com is an independent, advertising-supported website. We may receive compensation from credit card issuers and financial partners when users click on links or apply for offers on our site.</p>
+            <p className="mb-2">Compensation may influence how and where offers appear, but it does not affect our editorial opinions, reviews, or evaluations. All content is created independently to help consumers make informed decisions.</p>
+            <p>BadCreditFirst.com is not a lender and does not guarantee approval for any credit card or financial product. All applications are subject to the issuer&apos;s terms, conditions, and approval criteria.</p>
+          </div>
           <ComparisonCTAs data={comparison} affiliateHref={affiliateHref} abVariant={abVariant} />
           <MethodologyFooter />
 

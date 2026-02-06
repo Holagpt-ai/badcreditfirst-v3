@@ -243,6 +243,11 @@ export default async function CreditCardReviewPage({
 
           {/* Editorial content ends above. Affiliate/CTA section below. Disclosure before first monetized CTA. */}
           <div className="px-8 pb-8 border-t border-slate-200 bg-slate-50/50">
+            <div className="rounded-lg border border-slate-200 bg-slate-50 p-4 text-sm text-slate-600 leading-relaxed mb-6">
+              <p className="mb-2">BadCreditFirst.com is an independent, advertising-supported website. We may receive compensation from credit card issuers and financial partners when users click on links or apply for offers on our site.</p>
+              <p className="mb-2">Compensation may influence how and where offers appear, but it does not affect our editorial opinions, reviews, or evaluations. All content is created independently to help consumers make informed decisions.</p>
+              <p>BadCreditFirst.com is not a lender and does not guarantee approval for any credit card or financial product. All applications are subject to the issuer&apos;s terms, conditions, and approval criteria.</p>
+            </div>
             <ReviewDisclosure variant="full" />
             <div className="mt-6">
               {isComingSoon ? (
