@@ -12,6 +12,7 @@ import { shouldSuppressIssuer } from '@/lib/affiliate-throttling';
 import { getOutboundRedirectUrl } from '@/lib/outbound-tracking';
 import { filterPromotedComparisonLinks, filterPromotedReviewLinks, getRobotsForProgrammaticPageAsync, shouldLinkTo } from '@/lib/programmatic-rollout';
 import { getDemotedPageSlugs } from '@/lib/page-health';
+import { getIssuerTiersAndEpc, sortByTierAndEpc } from '@/lib/issuer-promotion';
 import { getWebPageSchema } from '@/lib/schema';
 import ComparisonHero from '@/components/compare/ComparisonHero';
 import SnapshotTable from '@/components/compare/SnapshotTable';
@@ -51,13 +52,13 @@ export default async function ComparePage({ params }: Props) {
     notFound();
   }
 
-  const demotedSlugs = await getDemotedPageSlugs();
+  const [demotedSlugs, tiers] = await Promise.all([getDemotedPageSlugs(), getIssuerTiersAndEpc()]);
 
   const cardA = getCardBySlug(comparison.entityA.slug);
   const cardB = getCardBySlug(comparison.entityB.slug);
-  const activeCard = [cardA, cardB]
-    .filter((c) => c?.status === 'active')
-    .sort((a, b) => (b?.editorialScore ?? 0) - (a?.editorialScore ?? 0))[0];
+  const candidates = [cardA, cardB].filter((c): c is NonNullable<typeof c> => c != null && c.status === 'active');
+  const sorted = sortByTierAndEpc(candidates, tiers);
+  const activeCard = sorted[0];
 
   let affiliateHref: string | undefined;
   let abVariant: 'A' | 'B' = 'A';
@@ -134,7 +135,7 @@ export default async function ComparePage({ params }: Props) {
             <p className="mb-2">Compensation may influence how and where offers appear, but it does not affect our editorial opinions, reviews, or evaluations. All content is created independently to help consumers make informed decisions.</p>
             <p>BadCreditFirst.com is not a lender and does not guarantee approval for any credit card or financial product. All applications are subject to the issuer&apos;s terms, conditions, and approval criteria.</p>
           </div>
-          <ComparisonCTAs data={comparison} affiliateHref={affiliateHref} abVariant={abVariant} demotedSlugs={demotedSlugs} />
+          <ComparisonCTAs data={comparison} affiliateHref={affiliateHref} abVariant={abVariant} demotedSlugs={demotedSlugs} activeCardSlug={activeCard?.slug} />
           <MethodologyFooter />
 
           {(() => {

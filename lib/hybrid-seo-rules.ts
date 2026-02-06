@@ -30,11 +30,20 @@ export const AFFILIATE_THROTTLING = {
 } as const;
 
 const autoDemotion = (rulesConfig as Record<string, unknown>).auto_demotion as Record<string, number> | undefined;
+const issuerPromotion = (rulesConfig as Record<string, unknown>).issuer_promotion as Record<string, number> | undefined;
 export const AUTO_DEMOTION = {
   epcDropPercent: autoDemotion?.epc_drop_percent ?? 30,
   approvalRateFloor: autoDemotion?.approval_rate_floor ?? 0.25,
   evaluationWindowDays: autoDemotion?.evaluation_window_days ?? 3,
   recoveryWindowDays: autoDemotion?.recovery_window_days ?? 5,
+} as const;
+
+export const ISSUER_PROMOTION = {
+  promotionEpcMultiplier: issuerPromotion?.promotion_epc_multiplier ?? 1.25,
+  minClicks: issuerPromotion?.min_clicks ?? 50,
+  minApprovalRate: issuerPromotion?.min_approval_rate ?? 0.35,
+  evaluationDays: issuerPromotion?.evaluation_days ?? 3,
+  maxTierAIssuers: issuerPromotion?.max_tier_a_issuers ?? 3,
 } as const;
 
 export const CTA_RULES = rulesConfig.cta_rules;

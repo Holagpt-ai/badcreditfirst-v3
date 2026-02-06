@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { getHubBySlug, getComparisonsForHub, HUB_TO_CATEGORY } from '@/data/comparisons';
 import { filterPromotedComparisonLinks, filterByPromotedPath, getRobotsForProgrammaticPage, shouldLinkTo } from '@/lib/programmatic-rollout';
 import { getDemotedPageSlugs } from '@/lib/page-health';
+import { getIssuerTiersAndEpc, sortByTierAndEpcSlugOnly } from '@/lib/issuer-promotion';
 import { getTopReviewsForCategory } from '@/lib/card-data';
 import { categories } from '@/lib/categories';
 import ComparisonHubList from '@/components/compare/ComparisonHubList';
@@ -25,11 +26,12 @@ export const metadata: Metadata = {
 
 export default async function SecuredCreditCardsHubPage() {
   const hub = getHubBySlug(HUB_SLUG);
-  const demotedSlugs = await getDemotedPageSlugs();
+  const [demotedSlugs, tiers] = await Promise.all([getDemotedPageSlugs(), getIssuerTiersAndEpc()]);
   const comparisonLinks = filterPromotedComparisonLinks(getComparisonsForHub(HUB_SLUG), demotedSlugs);
   const categorySlug = HUB_TO_CATEGORY[HUB_SLUG];
   const topReviewsRaw = categorySlug ? getTopReviewsForCategory(categorySlug, 3) : [];
-  const topReviews = filterByPromotedPath(topReviewsRaw, (r) => r.reviewUrl, demotedSlugs);
+  const topReviewsFiltered = filterByPromotedPath(topReviewsRaw, (r) => r.reviewUrl, demotedSlugs);
+  const topReviews = sortByTierAndEpcSlugOnly(topReviewsFiltered, tiers);
   const category = categorySlug ? categories[categorySlug] : null;
 
   if (!hub) return null;

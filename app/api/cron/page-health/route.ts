@@ -7,6 +7,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { evaluatePageHealth, upsertPageHealth } from '@/lib/page-health';
 import { getActiveCardSlugForComparison } from '@/data/comparisons';
+import { getIssuerTiersAndEpc } from '@/lib/issuer-promotion';
 import { sql } from '@vercel/postgres';
 import { ALL_COMPARISON_SLUGS } from '@/data/comparisons';
 import { cardData } from '@/lib/card-data';
@@ -24,6 +25,7 @@ export async function GET(req: NextRequest) {
   try {
     let evaluated = 0;
     const today = new Date();
+    const tiers = await getIssuerTiersAndEpc();
 
     // Review pages
     for (const card of cardData) {
@@ -44,7 +46,7 @@ export async function GET(req: NextRequest) {
 
     // Comparison pages
     for (const compSlug of ALL_COMPARISON_SLUGS) {
-      const issuerId = getActiveCardSlugForComparison(compSlug);
+      const issuerId = getActiveCardSlugForComparison(compSlug, tiers);
       if (!issuerId) continue;
 
       const pageSlug = compSlug;
