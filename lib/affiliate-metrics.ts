@@ -1,8 +1,9 @@
 /**
  * Affiliate Metrics Provider
- * Fetches daily aggregates from affiliate_metrics_daily (Impact API exports / webhook → DB).
- * Replace fetchFromDB with actual DB query.
+ * Fetches daily aggregates from affiliate_metrics_daily (Impact webhook + outbound clicks).
  */
+
+import { sql } from '@vercel/postgres';
 
 export type AffiliateMetrics = {
   epc: number;
@@ -20,49 +21,57 @@ export async function getAffiliateMetrics(
   issuerId: string,
   date: Date = new Date()
 ): Promise<AffiliateMetrics | null> {
-  const dateStr = date.toISOString().slice(0, 10); // YYYY-MM-DD
-  const row = await fetchFromDB(issuerId, dateStr);
+  try {
+    const dateStr = date.toISOString().slice(0, 10);
 
-  if (!row || row.clicks === 0) return null;
+    const { rows } = await sql`
+      SELECT epc, approval_rate, clicks
+      FROM affiliate_metrics_daily
+      WHERE issuer_id = ${issuerId}
+        AND date = ${dateStr}
+      LIMIT 1
+    `;
 
-  return {
-    epc: row.epc,
-    approvalRate: row.approval_rate,
-    clicks: row.clicks,
-  };
+    if (!rows.length || !rows[0] || Number(rows[0].clicks) === 0) return null;
+
+    const row = rows[0];
+    return {
+      epc: Number(row.epc),
+      approvalRate: Number(row.approval_rate),
+      clicks: Number(row.clicks),
+    };
+  } catch (err) {
+    console.error('[affiliate-metrics] getAffiliateMetrics failed:', err);
+    return null; // fallback: suppress issuer (never guess)
+  }
 }
 
 /** Fetch daily click summary for cap checks. Returns { total, byIssuer }. */
 export async function getDailyClicksSummary(
   date: Date = new Date()
 ): Promise<DailyClicksSummary> {
-  const dateStr = date.toISOString().slice(0, 10);
-  const rows = await fetchDailyAggregatesFromDB(dateStr);
+  try {
+    const dateStr = date.toISOString().slice(0, 10);
 
-  let total = 0;
-  const byIssuer: Record<string, number> = {};
-  for (const row of rows) {
-    byIssuer[row.issuer_id] = row.clicks;
-    total += row.clicks;
+    const { rows } = await sql`
+      SELECT issuer_id, clicks
+      FROM affiliate_metrics_daily
+      WHERE date = ${dateStr}
+    `;
+
+    let total = 0;
+    const byIssuer: Record<string, number> = {};
+
+    for (const row of rows) {
+      const issuerId = String(row.issuer_id);
+      const clicks = Number(row.clicks);
+      byIssuer[issuerId] = clicks;
+      total += clicks;
+    }
+
+    return { total, byIssuer };
+  } catch (err) {
+    console.error('[affiliate-metrics] getDailyClicksSummary failed:', err);
+    return { total: 0, byIssuer: {} }; // fallback: no caps applied
   }
-
-  return { total, byIssuer };
-}
-
-/** Stub: replace with actual DB query. */
-async function fetchFromDB(
-  issuerId: string,
-  dateStr: string
-): Promise<{ epc: number; approval_rate: number; clicks: number } | null> {
-  // TODO: SELECT epc, approval_rate, clicks FROM affiliate_metrics_daily
-  //       WHERE issuer_id = ? AND date = ?
-  return null;
-}
-
-/** Stub: replace with actual DB query. */
-async function fetchDailyAggregatesFromDB(
-  dateStr: string
-): Promise<Array<{ issuer_id: string; clicks: number }>> {
-  // TODO: SELECT issuer_id, clicks FROM affiliate_metrics_daily WHERE date = ?
-  return [];
 }
