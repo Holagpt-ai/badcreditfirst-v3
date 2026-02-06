@@ -1,51 +1,46 @@
 /**
  * Affiliate Throttling Engine
- * EPC caps, spike detection, issuer suppression.
- * Config from config/rules.config.json via lib/hybrid-seo-rules.ts
+ * EPC floor, approval rate, issuer caps. Powered by affiliate_metrics_daily.
  */
 
 import { AFFILIATE_THROTTLING } from './hybrid-seo-rules';
+import { getAffiliateMetrics, getDailyClicksSummary } from './affiliate-metrics';
 
-const { epcFloor, issuerCapPercentPerDay, spikeDetection } = AFFILIATE_THROTTLING;
-
-export type IssuerId = string;
-
-/** In-memory stub. Replace with Redis/DB for production. */
-const issuerEpcByDay = new Map<string, Map<string, number>>();
-const issuerVolumeByHour = new Map<string, number[]>();
+const { epcFloor, issuerCapPercentPerDay } = AFFILIATE_THROTTLING;
 
 /** Check if issuer EPC meets floor. Below floor → suppress. */
 export function meetsEpcFloor(epc: number): boolean {
   return epc >= epcFloor;
 }
 
-/** Check if issuer has exceeded daily cap (percent of total volume). */
-export function isWithinIssuerCap(issuerId: IssuerId, volumeToday: number, totalVolumeToday: number): boolean {
-  if (totalVolumeToday === 0) return true;
-  const percent = (volumeToday / totalVolumeToday) * 100;
-  return percent <= issuerCapPercentPerDay;
-}
-
-/** Spike detection: max hourly increase percent. */
-export function isSpikeDetected(issuerId: IssuerId, currentHourlyVolume: number, prevHourlyVolume: number): boolean {
-  if (!spikeDetection.enabled || prevHourlyVolume === 0) return false;
-  const increasePercent = ((currentHourlyVolume - prevHourlyVolume) / prevHourlyVolume) * 100;
-  return increasePercent > spikeDetection.max_hourly_increase_percent;
-}
-
-/** Should we suppress this issuer? (EPC below floor, cap exceeded, or spike.) */
-export function shouldSuppressIssuer(
-  issuerId: IssuerId,
-  epc: number,
-  approvalRate: number,
-  volumeToday: number,
-  totalVolumeToday: number,
-  currentHourlyVolume: number,
-  prevHourlyVolume: number
+/** Check if issuer is within daily cap (percent of total volume). */
+export function isWithinIssuerCap(
+  issuerClicksToday: number,
+  totalClicksToday: number
 ): boolean {
-  if (!meetsEpcFloor(epc)) return true;
-  if (approvalRate < 0.4) return true;
-  if (!isWithinIssuerCap(issuerId, volumeToday, totalVolumeToday)) return true;
-  if (isSpikeDetected(issuerId, currentHourlyVolume, prevHourlyVolume)) return true;
+  if (totalClicksToday === 0) return true;
+  const cap = issuerCapPercentPerDay / 100;
+  return issuerClicksToday / totalClicksToday <= cap;
+}
+
+/**
+ * Should we suppress this issuer?
+ * - No metrics → suppress (never guess, never rotate blindly)
+ * - EPC below floor → suppress
+ * - Approval rate < 0.25 → suppress
+ * - Over daily cap → suppress
+ */
+export async function shouldSuppressIssuer(issuerId: string): Promise<boolean> {
+  const metrics = await getAffiliateMetrics(issuerId);
+
+  if (!metrics) return true;
+
+  if (metrics.epc < epcFloor) return true;
+  if (metrics.approvalRate < 0.25) return true;
+
+  const { total, byIssuer } = await getDailyClicksSummary();
+  const issuerClicks = byIssuer[issuerId] ?? 0;
+  if (!isWithinIssuerCap(issuerClicks, total)) return true;
+
   return false;
 }
