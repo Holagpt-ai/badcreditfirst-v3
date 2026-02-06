@@ -18,7 +18,13 @@ export const metadata: Metadata = {
   title: "BadCreditFirst | Build Credit with Confidence (2026)",
   description: "Compare the best secured credit cards and credit builder loans for 2026. Independent reviews for bad credit, no credit, and bankruptcy recovery.",
   icons: {
-    icon: "/favicon.ico",
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
+      { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+    ],
+    apple: "/apple-touch-icon.png",
+    shortcut: "/favicon.ico",
   },
 };
 
