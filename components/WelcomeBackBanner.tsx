@@ -27,18 +27,33 @@ export default function WelcomeBackBanner() {
       if (typeof window === 'undefined') return;
       if (window.sessionStorage.getItem(SESSION_KEY) === 'true') return;
       const saved = window.localStorage.getItem(STORAGE_KEY);
-      const ts = window.localStorage.getItem(TIMESTAMP_KEY);
-      if (saved && SEGMENT_DISPLAY[saved]) {
-        if (ts) {
-          const age = (Date.now() - parseInt(ts, 10)) / (1000 * 60 * 60);
-          if (age >= RESET_HOURS) {
-            window.localStorage.removeItem(STORAGE_KEY);
-            window.localStorage.removeItem(TIMESTAMP_KEY);
-            return;
-          }
+      const tsRaw = window.localStorage.getItem(TIMESTAMP_KEY);
+
+      if (!saved || !SEGMENT_DISPLAY[saved] || !tsRaw) {
+        if (saved || tsRaw) {
+          window.localStorage.removeItem(STORAGE_KEY);
+          window.localStorage.removeItem(TIMESTAMP_KEY);
         }
-        setSegment(saved);
+        return;
       }
+
+      const ts = parseInt(tsRaw, 10);
+      if (Number.isNaN(ts)) {
+        window.localStorage.removeItem(STORAGE_KEY);
+        window.localStorage.removeItem(TIMESTAMP_KEY);
+        return;
+      }
+
+      const age = (Date.now() - ts) / (1000 * 60 * 60);
+      if (age >= RESET_HOURS) {
+        window.localStorage.removeItem(STORAGE_KEY);
+        window.localStorage.removeItem(TIMESTAMP_KEY);
+        window.sessionStorage.removeItem(SESSION_KEY);
+        return;
+      }
+
+      setSegment(saved);
+      window.sessionStorage.setItem(SESSION_KEY, 'true');
     } catch {
       // ignore
     }
