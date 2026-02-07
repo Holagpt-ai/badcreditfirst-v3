@@ -31,6 +31,7 @@ export const AFFILIATE_THROTTLING = {
 
 const autoDemotion = (rulesConfig as Record<string, unknown>).auto_demotion as Record<string, number> | undefined;
 const issuerPromotion = (rulesConfig as Record<string, unknown>).issuer_promotion as Record<string, number> | undefined;
+const sitemapControl = (rulesConfig as Record<string, unknown>).sitemap_control as Record<string, unknown> | undefined;
 export const AUTO_DEMOTION = {
   epcDropPercent: autoDemotion?.epc_drop_percent ?? 30,
   approvalRateFloor: autoDemotion?.approval_rate_floor ?? 0.25,
@@ -44,6 +45,14 @@ export const ISSUER_PROMOTION = {
   minApprovalRate: issuerPromotion?.min_approval_rate ?? 0.35,
   evaluationDays: issuerPromotion?.evaluation_days ?? 3,
   maxTierAIssuers: issuerPromotion?.max_tier_a_issuers ?? 3,
+} as const;
+
+const priorityMap = (sitemapControl?.priority_map ?? { tier_a: 1, tier_b: 0.6, demoted: 0.1 }) as Record<string, number>;
+const changefreqMap = (sitemapControl?.changefreq_map ?? { tier_a: 'daily', tier_b: 'weekly', demoted: 'monthly' }) as Record<string, string>;
+export const SITEMAP_CONTROL = {
+  excludeStatus: ((sitemapControl?.exclude_status as string[]) ?? ['demoted']) as string[],
+  priorityMap: { tier_a: priorityMap.tier_a ?? 1, tier_b: priorityMap.tier_b ?? 0.6, demoted: priorityMap.demoted ?? 0.1 },
+  changefreqMap: { tier_a: (changefreqMap.tier_a ?? 'daily') as 'daily' | 'weekly' | 'monthly', tier_b: (changefreqMap.tier_b ?? 'weekly') as 'weekly' | 'monthly', demoted: (changefreqMap.demoted ?? 'monthly') as 'monthly' },
 } as const;
 
 export const CTA_RULES = rulesConfig.cta_rules;

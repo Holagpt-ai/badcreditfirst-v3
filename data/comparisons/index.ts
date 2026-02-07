@@ -65,6 +65,30 @@ export function getComparisonBySlug(slug: string): ComparisonPage | undefined {
   return comparisons[slug];
 }
 
+/** Active card slug for a comparison. With tiers: Tier A first, then EPC. Else: editorialScore. */
+export function getActiveCardSlugForComparison(
+  compSlug: string,
+  tiers?: Map<string, { tier: 'A' | 'B'; epc: number }>
+): string | undefined {
+  const comp = comparisons[compSlug];
+  if (!comp) return undefined;
+  const cardA = getCardBySlug(comp.entityA.slug);
+  const cardB = getCardBySlug(comp.entityB.slug);
+  const candidates = [cardA, cardB].filter((c) => c?.status === 'active');
+  if (candidates.length === 0) return undefined;
+  if (tiers?.size) {
+    candidates.sort((a, b) => {
+      const aData = tiers.get(a!.slug) ?? { tier: 'B' as const, epc: 0 };
+      const bData = tiers.get(b!.slug) ?? { tier: 'B' as const, epc: 0 };
+      if (aData.tier !== bData.tier) return aData.tier === 'A' ? -1 : 1;
+      return bData.epc - aData.epc;
+    });
+  } else {
+    candidates.sort((a, b) => (b?.editorialScore ?? 0) - (a?.editorialScore ?? 0));
+  }
+  return candidates[0]?.slug;
+}
+
 /** All comparison slugs for sitemap and other explicit listing. */
 export const ALL_COMPARISON_SLUGS = Object.keys(comparisons) as string[];
 

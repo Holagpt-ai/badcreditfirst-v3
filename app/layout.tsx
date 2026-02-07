@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Shield, Check } from "lucide-react";
 import { getOrganizationSchema, getWebSiteSchema, AUTHOR_SCHEMA } from "@/lib/schema";
 import TrustSignals from "@/components/TrustSignals";
+import NavHeader from "@/components/NavHeader";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -56,31 +57,7 @@ export default function RootLayout({
         />
       </head>
       <body className={inter.className}>
-        {/* Header */}
-        <header className="border-b border-slate-200 sticky top-0 bg-white z-10">
-          <div className="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between">
-            <Link href="/">
-              <span className="text-2xl font-black tracking-tighter text-blue-900 flex items-center gap-2">
-                <span className="relative inline-block w-8 h-8 shrink-0" aria-hidden="true">
-                  <Shield className="w-8 h-8 text-slate-600" />
-                  <Check className="w-4 h-4 text-green-600 absolute inset-0 m-auto" style={{ filter: "drop-shadow(0 0 4px rgba(34,197,94,0.35))" }} strokeWidth={3} />
-                </span>
-                BadCreditFirst
-              </span>
-            </Link>
-            <nav className="flex items-center gap-8">
-              <Link href="/credit-cards" className="text-sm font-medium text-slate-600 hover:text-blue-600 transition-colors">
-                Compare Cards
-              </Link>
-              <Link href="/education" className="text-sm font-medium text-slate-600 hover:text-blue-600 transition-colors">
-                Education
-              </Link>
-              <Link href="/about" className="text-sm font-medium text-slate-600 hover:text-blue-600 transition-colors">
-                About
-              </Link>
-            </nav>
-          </div>
-        </header>
+        <NavHeader />
         {/* Google Analytics (gtag.js) */}
         <Script
           strategy="afterInteractive"

@@ -1,0 +1,12 @@
+{
+  "crons": [
+    {
+      "path": "/api/cron/page-health",
+      "schedule": "0 6 * * *"
+    },
+    {
+      "path": "/api/cron/issuer-promotion",
+      "schedule": "30 6 * * *"
+    }
+  ]
+}

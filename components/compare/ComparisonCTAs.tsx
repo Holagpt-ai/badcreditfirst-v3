@@ -12,6 +12,10 @@ interface Props {
   affiliateHref?: string;
   /** A/B variant for CTA color. */
   abVariant?: ABVariant;
+  /** Demoted page slugs for internal link filtering. */
+  demotedSlugs?: Set<string>;
+  /** Slug of the active card (tier+EPC sorted). Used for Apply CTA label. */
+  activeCardSlug?: string;
 }
 
 /**
@@ -19,13 +23,13 @@ interface Props {
  * Internal CTAs (view full review) + optional soft affiliate CTA (max 1).
  * Disclosure before first monetized CTA.
  */
-export default function ComparisonCTAs({ data, affiliateHref, abVariant = 'A' }: Props) {
+export default function ComparisonCTAs({ data, affiliateHref, abVariant = 'A', demotedSlugs, activeCardSlug }: Props) {
   const { ctaMap, entityA, entityB } = data;
-  const cardA = getCardBySlug(entityA.slug);
-  const cardB = getCardBySlug(entityB.slug);
-  const activeCard = [cardA, cardB]
-    .filter((c) => c?.status === 'active')
-    .sort((a, b) => (b?.editorialScore ?? 0) - (a?.editorialScore ?? 0))[0];
+  const activeCard = activeCardSlug
+    ? getCardBySlug(activeCardSlug)
+    : [getCardBySlug(entityA.slug), getCardBySlug(entityB.slug)]
+        .filter((c) => c?.status === 'active')
+        .sort((a, b) => (b?.editorialScore ?? 0) - (a?.editorialScore ?? 0))[0];
 
   return (
     <section className="mb-8">
@@ -34,7 +38,7 @@ export default function ComparisonCTAs({ data, affiliateHref, abVariant = 'A' }:
         Compare fees, approval odds, and credit-building value before applying.
       </p>
       <div className="flex flex-wrap gap-4">
-        {shouldLinkTo(ctaMap.entityA.href) && (
+        {shouldLinkTo(ctaMap.entityA.href, demotedSlugs) && (
           <Link
             href={ctaMap.entityA.href}
             className="inline-flex items-center justify-center px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-colors"
@@ -42,7 +46,7 @@ export default function ComparisonCTAs({ data, affiliateHref, abVariant = 'A' }:
             {ctaMap.entityA.label}
           </Link>
         )}
-        {shouldLinkTo(ctaMap.entityB.href) && (
+        {shouldLinkTo(ctaMap.entityB.href, demotedSlugs) && (
           <Link
             href={ctaMap.entityB.href}
             className="inline-flex items-center justify-center px-6 py-3 bg-slate-200 hover:bg-slate-300 text-slate-800 font-semibold rounded-lg transition-colors"
