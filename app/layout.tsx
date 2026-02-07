@@ -9,6 +9,7 @@ import MainNav from "@/components/navigation/MainNav";
 import { CONTACT_EMAIL } from "@/lib/contact";
 import "./globals.css";
 import "@/styles/navigation.css";
+import "@/styles/globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
 

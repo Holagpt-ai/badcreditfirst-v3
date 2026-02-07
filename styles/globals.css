@@ -1,0 +1,21 @@
+.snippet-anchor {
+  margin: 16px 0 24px;
+}
+
+.snippet-anchor h2 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.snippet-anchor p {
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #111;
+}
+
+.snippet-anchor .trust-line {
+  font-size: 0.875rem;
+  color: #555;
+  margin-top: 6px;
+}
