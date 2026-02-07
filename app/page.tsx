@@ -1,8 +1,17 @@
+import type { Metadata } from 'next';
 import DetailedCardRow from '../components/DetailedCardRow';
 import FunnelSelector from '../components/FunnelSelector';
+import SnippetAnchor from '../components/SnippetAnchor';
 import TrustBadges from '../components/TrustBadges';
 import WelcomeBackBanner from '../components/WelcomeBackBanner';
 import { cardData } from '../lib/card-data';
+
+const SNIPPET_DESCRIPTION =
+  'BadCreditFirst is an independent credit education and comparison platform that helps individuals with poor or limited credit understand their options, compare credit cards, and take practical steps to rebuild credit responsibly.';
+
+export const metadata: Metadata = {
+  description: SNIPPET_DESCRIPTION,
+};
 
 function MethodologySection() {
   return (
@@ -32,6 +41,7 @@ export default function Home() {
           <h1 className="text-4xl font-bold tracking-tight text-slate-900 mb-4">
             Credit Card Options for Bad or Limited Credit
           </h1>
+          <SnippetAnchor description={SNIPPET_DESCRIPTION} />
           <p className="text-lg text-slate-500 max-w-2xl mx-auto">
             Compare secured cards and credit-builder accounts designed for scores under 600. No lender bias. No obligation.
           </p>

@@ -1,11 +1,14 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { CreditCard, Shield, Building2 } from 'lucide-react';
+import SnippetAnchor from '@/components/SnippetAnchor';
+
+const SNIPPET_DESCRIPTION =
+  'BadCreditFirst is an independent credit education and comparison platform that helps individuals with poor or limited credit understand their options, compare credit cards, and take practical steps to rebuild credit responsibly.';
 
 export const metadata: Metadata = {
   title: 'Credit Card Reviews & Comparisons (2026) | BadCreditFirst',
-  description:
-    'Compare secured credit cards and credit-building products for bad or limited credit. Independent reviews, fees, and approval tips.',
+  description: SNIPPET_DESCRIPTION,
 };
 
 const CATEGORY_ENTRIES = [
@@ -33,6 +36,12 @@ export default function CreditCardsIndexPage() {
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900">
       <main className="max-w-4xl mx-auto px-6 py-12">
+        <header className="mb-10">
+          <h1 className="text-3xl font-bold tracking-tight text-slate-900 mb-4">
+            Credit Card Reviews & Comparisons
+          </h1>
+          <SnippetAnchor description={SNIPPET_DESCRIPTION} />
+        </header>
         {/* Category entry points — clear options before explainer */}
         <section className="mb-10" aria-label="Browse by category">
           <h2 className="text-lg font-bold text-slate-900 mb-4 sr-only">
@@ -66,9 +75,9 @@ export default function CreditCardsIndexPage() {
 
         {/* Explainer content — kept below tiles */}
         <div className="bg-white border border-slate-200 rounded-xl shadow-sm p-8">
-          <h1 className="text-3xl font-bold tracking-tight text-slate-900 mb-6">
-            Credit Card Reviews & Comparisons
-          </h1>
+          <h2 className="text-2xl font-bold tracking-tight text-slate-900 mb-6">
+            How We Review Credit Cards
+          </h2>
           <p className="text-slate-600 leading-relaxed mb-6">
             BadCreditFirst provides reviews and comparisons of credit cards and credit-building products designed for consumers with bad or limited credit.
           </p>
@@ -77,9 +86,9 @@ export default function CreditCardsIndexPage() {
             <li>Help establish or rebuild credit history.</li>
             <li>Offer transparent fees and terms.</li>
           </ul>
-          <h2 className="text-xl font-bold text-slate-900 mb-4">
+          <h3 className="text-xl font-bold text-slate-900 mb-4">
             Types of Products Reviewed
-          </h2>
+          </h3>
           <ul className="list-disc list-inside text-slate-600 leading-relaxed space-y-2 mb-8">
             <li>Secured credit cards</li>
             <li>Credit builder accounts</li>
