@@ -6,31 +6,19 @@ import { Shield, Check } from 'lucide-react';
 import MegaMenu from './MegaMenu';
 import MobileNav from './MobileNav';
 
-type PanelKey = 'compare' | 'build' | 'learn' | 'tools' | null;
+type PanelKey = 'compare' | 'build' | 'learn' | 'cards' | null;
 
 const TOP_LINKS: { key: PanelKey; href: string; label: string }[] = [
   { key: 'compare', href: '/compare', label: 'Compare Cards' },
-  { key: 'build', href: '/education', label: 'Build Credit' },
+  { key: 'build', href: '/credit-cards', label: 'Build Credit' },
   { key: 'learn', href: '/education', label: 'Learn' },
-  { key: 'tools', href: '/credit-cards', label: 'Tools' },
+  { key: 'cards', href: '/credit-cards', label: 'Cards' },
 ];
 
 export default function MainNav() {
   const [activePanel, setActivePanel] = useState<PanelKey>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [trustOpen, setTrustOpen] = useState(false);
   const navRef = useRef<HTMLDivElement>(null);
-  const trustRefDesktop = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const handleClickOutside = (e: MouseEvent) => {
-      if (trustRefDesktop.current && !trustRefDesktop.current.contains(e.target as Node)) {
-        setTrustOpen(false);
-      }
-    };
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, []);
 
   useEffect(() => {
     document.body.style.overflow = mobileOpen ? 'hidden' : '';
@@ -48,8 +36,6 @@ export default function MainNav() {
             open={mobileOpen}
             onOpen={() => setMobileOpen(true)}
             onClose={() => setMobileOpen(false)}
-            trustOpen={trustOpen}
-            onTrustToggle={() => setTrustOpen(!trustOpen)}
           />
         </div>
 
@@ -97,36 +83,6 @@ export default function MainNav() {
                   </div>
                 ))}
               </nav>
-            </div>
-            <div className="relative" ref={trustRefDesktop}>
-              <button
-                type="button"
-                onMouseEnter={() => setTrustOpen(true)}
-                onMouseLeave={() => setTrustOpen(false)}
-                onClick={() => setTrustOpen(!trustOpen)}
-                className="p-1.5 text-slate-400 hover:text-slate-600 transition-colors rounded"
-                aria-label="Trust information"
-              >
-                <Shield className="w-5 h-5" />
-              </button>
-              {trustOpen && (
-                <div
-                  className="absolute right-0 top-full mt-1 py-2 px-3 bg-white border border-slate-200 rounded-lg shadow-lg text-left min-w-[180px] z-30"
-                  role="tooltip"
-                >
-                  {['No impact to credit score', 'Pre-qualified offers', 'Secure application'].map(
-                    (line) => (
-                      <div
-                        key={line}
-                        className="flex items-center gap-2 text-xs text-slate-700 py-0.5"
-                      >
-                        <Check className="w-3.5 h-3.5 text-green-600 shrink-0" />
-                        {line}
-                      </div>
-                    )
-                  )}
-                </div>
-              )}
             </div>
           </div>
           <MegaMenu

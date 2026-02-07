@@ -28,7 +28,7 @@ export const LEARN_LINKS: NavCard[] = [
   { href: '/faq', label: 'FAQs' },
 ];
 
-export const TOOLS_LINKS: NavCard[] = [
+export const CARDS_LINKS: NavCard[] = [
   { href: '/credit-cards', label: 'Card Navigator' },
   { href: '/education/how-is-my-score-calculated', label: 'Credit Tools' },
   { href: '/site-map', label: 'Site Map' },

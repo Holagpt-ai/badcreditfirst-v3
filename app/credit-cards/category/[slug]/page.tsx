@@ -69,7 +69,7 @@ export default async function CreditCardCategoryPage({
       )}
       <main className="max-w-5xl mx-auto px-6 py-12">
         <article aria-labelledby="category-title">
-          <header className="mb-10">
+          <header className="mb-6">
             <h1 id="category-title" className="text-4xl font-bold tracking-tight text-slate-900 mb-3">
               {category.title}
             </h1>
@@ -77,6 +77,29 @@ export default async function CreditCardCategoryPage({
               {TRUST_SIGNAL_DATE}
             </p>
           </header>
+
+          <section id="card-list" className="mb-10" aria-label="Product comparison">
+            <h2 className="text-xl font-bold text-slate-900 mb-2">
+              Compare Options
+            </h2>
+            <div className="divide-y divide-slate-200 border border-slate-200 rounded-xl overflow-hidden bg-white shadow-sm">
+              {filteredCards.map((c) => (
+                <DetailedCardRow
+                  key={c.slug}
+                  title={c.title}
+                  label={c.label}
+                  highlights={c.highlights}
+                  fees={c.fees}
+                  creditScore={c.creditScore}
+                  slug={c.slug}
+                  reviewUrl={c.reviewUrl}
+                  editorialScore={c.editorialScore}
+                  status={c.status}
+                  whyRecommended={c.whyRecommended}
+                />
+              ))}
+            </div>
+          </section>
 
           <section id="quick-answer" className="mb-10 p-6 bg-slate-50 border border-slate-200 rounded-xl">
             <h2 className="text-lg font-bold text-slate-900 mb-3">
@@ -146,32 +169,6 @@ export default async function CreditCardCategoryPage({
               </Link>
             </section>
           )}
-
-          <section id="card-list" className="mb-12" aria-label="Product comparison">
-            <h2 className="text-xl font-bold text-slate-900 mb-2">
-              Compare Options
-            </h2>
-            <p className="text-slate-600 text-sm mb-4">
-              Browse cards below. Click &quot;View Full Review&quot; to learn more before applying.
-            </p>
-            <div className="divide-y divide-slate-200 border border-slate-200 rounded-xl overflow-hidden bg-white shadow-sm">
-              {filteredCards.map((c) => (
-                <DetailedCardRow
-                  key={c.slug}
-                  title={c.title}
-                  label={c.label}
-                  highlights={c.highlights}
-                  fees={c.fees}
-                  creditScore={c.creditScore}
-                  slug={c.slug}
-                  reviewUrl={c.reviewUrl}
-                  editorialScore={c.editorialScore}
-                  status={c.status}
-                  whyRecommended={c.whyRecommended}
-                />
-              ))}
-            </div>
-          </section>
 
           <section id="deep-education" className="mb-10">
             <h2 className="text-xl font-bold text-slate-900 mb-4">

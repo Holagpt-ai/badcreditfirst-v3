@@ -2,27 +2,23 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { Shield, Check, Menu, ChevronDown } from 'lucide-react';
+import { Menu, ChevronDown } from 'lucide-react';
 import {
   COMPARE_CARDS,
   BUILD_CREDIT_CARDS,
   LEARN_LINKS,
-  TOOLS_LINKS,
+  CARDS_LINKS,
 } from './nav-data';
 
-const TRUST_LINES = ['No impact to credit score', 'Pre-qualified offers', 'Secure application'];
-
-type Section = 'compare' | 'build' | 'learn' | 'tools' | null;
+type Section = 'compare' | 'build' | 'learn' | 'cards' | null;
 
 interface MobileNavProps {
   open: boolean;
   onOpen: () => void;
   onClose: () => void;
-  trustOpen: boolean;
-  onTrustToggle: () => void;
 }
 
-export default function MobileNav({ open, onOpen, onClose, trustOpen, onTrustToggle }: MobileNavProps) {
+export default function MobileNav({ open, onOpen, onClose }: MobileNavProps) {
   const [expanded, setExpanded] = useState<Section>(null);
 
   const toggle = (s: Section) => setExpanded((prev) => (prev === s ? null : s));
@@ -85,14 +81,7 @@ export default function MobileNav({ open, onOpen, onClose, trustOpen, onTrustTog
         >
           Compare Cards
         </Link>
-        <button
-          type="button"
-          onClick={onTrustToggle}
-          className="p-2 -mr-2 text-slate-600 hover:text-slate-900"
-          aria-label="Trust information"
-        >
-          <Shield className="w-6 h-6" />
-        </button>
+        <div className="w-10" />
       </div>
 
       {/* Overlay */}
@@ -114,20 +103,10 @@ export default function MobileNav({ open, onOpen, onClose, trustOpen, onTrustTog
         aria-label="Navigation"
       >
         <div className="pt-14 pb-8 px-4">
-          {trustOpen && (
-            <div className="mb-4 rounded-lg border border-slate-200 bg-slate-50 p-3">
-              {TRUST_LINES.map((line) => (
-                <div key={line} className="flex items-center gap-2 text-xs text-slate-700 py-1">
-                  <Check className="w-3.5 h-3.5 text-green-600 shrink-0" />
-                  {line}
-                </div>
-              ))}
-            </div>
-          )}
           <SectionBlock id="compare" label="Compare Cards" links={COMPARE_CARDS} />
           <SectionBlock id="build" label="Build Credit" links={BUILD_CREDIT_CARDS} />
           <SectionBlock id="learn" label="Learn" links={LEARN_LINKS} />
-          <SectionBlock id="tools" label="Tools" links={TOOLS_LINKS} />
+          <SectionBlock id="cards" label="Cards" links={CARDS_LINKS} />
           <div className="border-b border-slate-200 pt-2">
             <Link
               href="/about"

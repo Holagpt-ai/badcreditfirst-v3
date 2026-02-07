@@ -51,7 +51,10 @@ export default function FunnelSelector() {
     const segment = `${situation}-${id}`;
     trackEvent('funnel_complete', 'Funnel', segment);
     try {
-      if (typeof window !== 'undefined') window.localStorage.setItem('bcf_segment', segment);
+      if (typeof window !== 'undefined') {
+        window.localStorage.setItem('bcf_segment', segment);
+        window.localStorage.setItem('bcf_segment_at', String(Date.now()));
+      }
     } catch {
       // ignore
     }

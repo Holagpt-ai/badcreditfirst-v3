@@ -5,9 +5,10 @@ import Link from "next/link";
 import { Shield, Check } from "lucide-react";
 import { getOrganizationSchema, getWebSiteSchema, AUTHOR_SCHEMA } from "@/lib/schema";
 import TrustSignals from "@/components/TrustSignals";
-import NavHeader from "@/components/NavHeader";
+import MainNav from "@/components/navigation/MainNav";
 import { CONTACT_EMAIL } from "@/lib/contact";
 import "./globals.css";
+import "@/styles/navigation.css";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -58,7 +59,7 @@ export default function RootLayout({
         />
       </head>
       <body className={inter.className}>
-        <NavHeader />
+        <MainNav />
         {/* Google Analytics (gtag.js) */}
         <Script
           strategy="afterInteractive"
