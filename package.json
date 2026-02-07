@@ -4,9 +4,10 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "npm run validate:programmatic && next build",
+    "build": "npm run validate:emails && npm run validate:programmatic && next build",
     "start": "next start",
     "lint": "next lint",
+    "validate:emails": "npx tsx scripts/validate-emails.ts",
     "validate:programmatic": "npx tsx scripts/validate-programmatic.ts",
     "validate:rollout": "npx tsx scripts/validate-rollout.ts",
     "validate:internal-links": "npx tsx scripts/validate-internal-links.ts"

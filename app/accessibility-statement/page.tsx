@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import { CONTACT_EMAIL } from '@/lib/contact';
 
 export const metadata: Metadata = {
   title: 'Accessibility Statement | BadCreditFirst',
@@ -26,8 +27,8 @@ export default function AccessibilityStatementPage() {
           <h2 className="text-lg font-bold text-slate-900 mt-6 mb-2">Contact Us</h2>
           <p className="text-slate-600 leading-relaxed mb-8">
             If you have questions or feedback about accessibility, please contact us at{' '}
-            <a href="mailto:accessibility@badcreditfirst.com" className="text-blue-600 hover:underline">
-              accessibility@badcreditfirst.com
+            <a href={`mailto:${CONTACT_EMAIL}`} className="text-blue-600 hover:underline">
+              {CONTACT_EMAIL}
             </a>
             .
           </p>

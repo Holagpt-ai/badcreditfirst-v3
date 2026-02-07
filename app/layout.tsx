@@ -6,6 +6,7 @@ import { Shield, Check } from "lucide-react";
 import { getOrganizationSchema, getWebSiteSchema, AUTHOR_SCHEMA } from "@/lib/schema";
 import TrustSignals from "@/components/TrustSignals";
 import NavHeader from "@/components/NavHeader";
+import { CONTACT_EMAIL } from "@/lib/contact";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -142,7 +143,7 @@ export default function RootLayout({
               <p className="text-xs text-slate-500 mb-3">
                 Author & Founder: <Link href="/author/carlos-acosta" className="text-slate-300 hover:text-white transition-colors underline underline-offset-2">Carlos Acosta</Link>
                 {' · '}
-                Contact: carlos.acosta@badcreditfirst.com
+                Contact: {CONTACT_EMAIL}
               </p>
               <div className="mb-4">
                 <TrustSignals variant="compact" />

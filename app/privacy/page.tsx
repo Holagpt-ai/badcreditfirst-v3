@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import { CONTACT_EMAIL } from '@/lib/contact';
 
 export const metadata: Metadata = {
   alternates: {
@@ -34,11 +35,11 @@ export default function PrivacyPage() {
           </ul>
           <h2 className="text-lg font-bold text-slate-900 mt-6 mb-2">Your Privacy Rights</h2>
           <p className="text-slate-600 leading-relaxed mb-4">
-            Residents of certain states may have rights regarding their personal information, including the right to request access or deletion. BadCreditFirst does not sell personal information. Requests related to privacy may be submitted by contacting carlos.acosta@badcreditfirst.com.
+            Residents of certain states may have rights regarding their personal information, including the right to request access or deletion. BadCreditFirst does not sell personal information. Requests related to privacy may be submitted by contacting {CONTACT_EMAIL}.
           </p>
           <h2 className="text-lg font-bold text-slate-900 mt-6 mb-2">Contact Information</h2>
           <p className="text-slate-600 leading-relaxed mb-8">
-            For privacy-related questions, contact us at carlos.acosta@badcreditfirst.com or write to 1631 Del Prado Blvd S #1124, Cape Coral, FL 33990.
+            For privacy-related questions, contact us at {CONTACT_EMAIL} or write to 1631 Del Prado Blvd S #1124, Cape Coral, FL 33990.
           </p>
           <Link href="/" className="text-blue-600 hover:underline text-sm font-medium">
             ← Return to Home

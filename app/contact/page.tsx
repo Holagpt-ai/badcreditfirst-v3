@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { getWebPageSchema } from '@/lib/schema';
+import { CONTACT_EMAIL } from '@/lib/contact';
 
 export const metadata: Metadata = {
   alternates: {
@@ -34,8 +35,8 @@ export default function ContactPage() {
             For general inquiries:
           </p>
           <p className="text-slate-600 leading-relaxed mb-2">
-            <a href="mailto:carlos.acosta@badcreditfirst.com" className="text-blue-600 hover:underline">
-              carlos.acosta@badcreditfirst.com
+            <a href={`mailto:${CONTACT_EMAIL}`} className="text-blue-600 hover:underline">
+              {CONTACT_EMAIL}
             </a>
           </p>
           <p className="text-slate-600 leading-relaxed mb-4">

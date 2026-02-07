@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import { CONTACT_EMAIL } from '@/lib/contact';
 
 export const metadata: Metadata = {
   title: 'State Privacy Law Notice | BadCreditFirst',
@@ -30,8 +31,8 @@ export default function StatePrivacyLawNoticePage() {
           <h2 className="text-lg font-bold text-slate-900 mt-6 mb-2">Contact Us</h2>
           <p className="text-slate-600 leading-relaxed mb-8">
             For questions about this notice or to exercise your privacy rights, contact us at{' '}
-            <a href="mailto:carlos.acosta@badcreditfirst.com" className="text-blue-600 hover:underline">
-              carlos.acosta@badcreditfirst.com
+            <a href={`mailto:${CONTACT_EMAIL}`} className="text-blue-600 hover:underline">
+              {CONTACT_EMAIL}
             </a>
             .
           </p>
