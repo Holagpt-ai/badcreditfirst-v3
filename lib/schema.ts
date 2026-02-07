@@ -104,6 +104,8 @@ export function getOrganizationSchema(siteUrl: string = SITE_URL) {
     '@type': 'Organization',
     '@id': `${siteUrl}/#organization`,
     name: 'BadCreditFirst',
+    description:
+      'Independent credit education and comparison platform helping individuals with poor or limited credit rebuild responsibly.',
     url: siteUrl,
     logo: `${siteUrl}/logo.png`,
     address: {
