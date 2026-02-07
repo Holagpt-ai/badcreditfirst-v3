@@ -78,6 +78,15 @@ export default async function CreditCardCategoryPage({
             </p>
           </header>
 
+          <section id="quick-answer" className="mb-6 p-4 bg-slate-50 border border-slate-200 rounded-xl">
+            <h2 className="text-lg font-bold text-slate-900 mb-2">
+              Quick Answer
+            </h2>
+            <p className="text-slate-700 leading-relaxed line-clamp-4">
+              {content.quickAnswer}
+            </p>
+          </section>
+
           <section id="card-list" className="mb-10" aria-label="Product comparison">
             <h2 className="text-xl font-bold text-slate-900 mb-2">
               Compare Options
@@ -99,15 +108,6 @@ export default async function CreditCardCategoryPage({
                 />
               ))}
             </div>
-          </section>
-
-          <section id="quick-answer" className="mb-10 p-6 bg-slate-50 border border-slate-200 rounded-xl">
-            <h2 className="text-lg font-bold text-slate-900 mb-3">
-              Quick Answer
-            </h2>
-            <p className="text-slate-700 leading-relaxed">
-              {content.quickAnswer}
-            </p>
           </section>
 
           <section id="who-this-is-for" className="mb-10 grid grid-cols-1 md:grid-cols-2 gap-8">
