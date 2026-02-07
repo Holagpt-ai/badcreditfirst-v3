@@ -5,6 +5,7 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server';
+import { hasPostgres } from '@/lib/db-safe';
 import { evaluatePageHealth, upsertPageHealth } from '@/lib/page-health';
 import { getActiveCardSlugForComparison } from '@/data/comparisons';
 import { getIssuerTiersAndEpc } from '@/lib/issuer-promotion';
@@ -20,6 +21,9 @@ export async function GET(req: NextRequest) {
   const authHeader = req.headers.get('authorization');
   if (authHeader !== `Bearer ${process.env.CRON_SECRET}`) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  }
+  if (!hasPostgres()) {
+    return NextResponse.json({ ok: true, skipped: true, message: 'No database configured' });
   }
 
   try {

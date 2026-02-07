@@ -4,6 +4,7 @@
  */
 
 import { sql } from '@vercel/postgres';
+import { hasPostgres } from './db-safe';
 import type { AffiliateMetrics } from './affiliate-metrics';
 import { ISSUER_PROMOTION } from './hybrid-seo-rules';
 
@@ -18,6 +19,7 @@ export function qualifiesForTierA(metrics: AffiliateMetrics, baselineEpc: number
 
 /** Get tier for a single issuer. Returns 'B' if no data. */
 export async function getIssuerTier(issuerId: string): Promise<IssuerTier> {
+  if (!hasPostgres()) return 'B';
   try {
     const { rows } = await sql`
       SELECT tier FROM issuer_performance WHERE issuer_id = ${issuerId} LIMIT 1
@@ -32,6 +34,7 @@ export async function getIssuerTier(issuerId: string): Promise<IssuerTier> {
 
 /** Get tier + EPC for all issuers. Use for batch sort. */
 export async function getIssuerTiersAndEpc(): Promise<Map<string, { tier: IssuerTier; epc: number }>> {
+  if (!hasPostgres()) return new Map();
   try {
     const { rows } = await sql`
       SELECT issuer_id, tier, avg_epc FROM issuer_performance

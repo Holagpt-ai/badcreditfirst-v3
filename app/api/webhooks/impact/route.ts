@@ -6,6 +6,7 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import { sql } from '@vercel/postgres';
+import { hasPostgres } from '@/lib/db-safe';
 
 // TODO: Validate Impact signature or IP allowlist before going live
 // if (!validateImpactSignature(req)) return NextResponse.json({ ok: false }, { status: 401 });
@@ -24,7 +25,7 @@ export async function POST(req: NextRequest) {
 
     const date = new Date(occurred_at || Date.now()).toISOString().slice(0, 10);
 
-    if (event_type === 'action.conversion' && data?.status === 'APPROVED') {
+    if (hasPostgres() && event_type === 'action.conversion' && data?.status === 'APPROVED') {
       await sql`
         INSERT INTO affiliate_metrics_daily (issuer_id, date, conversions, revenue)
         VALUES (${issuerId}, ${date}, 1, ${payout})

@@ -4,6 +4,7 @@
  */
 
 import { sql } from '@vercel/postgres';
+import { hasPostgres } from './db-safe';
 
 export type AffiliateMetrics = {
   epc: number;
@@ -21,6 +22,7 @@ export async function getAffiliateMetrics(
   issuerId: string,
   date: Date = new Date()
 ): Promise<AffiliateMetrics | null> {
+  if (!hasPostgres()) return null;
   try {
     const dateStr = date.toISOString().slice(0, 10);
 
@@ -50,6 +52,7 @@ export async function getAffiliateMetrics(
 export async function getDailyClicksSummary(
   date: Date = new Date()
 ): Promise<DailyClicksSummary> {
+  if (!hasPostgres()) return { total: 0, byIssuer: {} };
   try {
     const dateStr = date.toISOString().slice(0, 10);
 
@@ -82,6 +85,7 @@ export async function getAffiliateMetricsRolling(
   days: number,
   endDate: Date = new Date()
 ): Promise<AffiliateMetrics | null> {
+  if (!hasPostgres()) return null;
   try {
     const endStr = endDate.toISOString().slice(0, 10);
     const startDate = new Date(endDate);

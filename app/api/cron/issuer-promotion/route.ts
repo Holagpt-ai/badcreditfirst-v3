@@ -6,6 +6,7 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import { sql } from '@vercel/postgres';
+import { hasPostgres } from '@/lib/db-safe';
 import { qualifiesForTierA } from '@/lib/issuer-promotion';
 import { getAffiliateMetricsRolling } from '@/lib/affiliate-metrics';
 import { cardData } from '@/lib/card-data';
@@ -18,6 +19,9 @@ export async function GET(req: NextRequest) {
   const authHeader = req.headers.get('authorization');
   if (authHeader !== `Bearer ${process.env.CRON_SECRET}`) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  }
+  if (!hasPostgres()) {
+    return NextResponse.json({ ok: true, skipped: true, message: 'No database configured' });
   }
 
   try {

@@ -4,6 +4,7 @@
  */
 
 import { sql } from '@vercel/postgres';
+import { hasPostgres } from './db-safe';
 import { getAffiliateMetricsRolling } from './affiliate-metrics';
 import { AUTO_DEMOTION } from './hybrid-seo-rules';
 
@@ -25,6 +26,7 @@ export async function evaluatePageHealth(
   issuerId: string,
   baselineEpc: number | null
 ): Promise<PageHealthStatus> {
+  if (!hasPostgres()) return 'demoted';
   const windowDays = AUTO_DEMOTION.evaluationWindowDays;
   const metrics = await getAffiliateMetricsRolling(issuerId, windowDays);
 
@@ -48,6 +50,7 @@ export async function evaluatePageHealth(
 
 /** Is this page currently demoted? Reads from affiliate_page_health. */
 export async function isPageDemoted(path: string): Promise<boolean> {
+  if (!hasPostgres()) return false;
   try {
     const slug = getPageSlugFromPath(path);
     if (!slug) return false;
@@ -89,6 +92,7 @@ export async function upsertPageHealth(
   newStatus: PageHealthStatus,
   lastEpc: number | null
 ): Promise<void> {
+  if (!hasPostgres()) return;
   const today = new Date().toISOString().slice(0, 10);
 
   const { rows: existing } = await sql`
@@ -146,6 +150,7 @@ export interface PageHealthForSitemap {
 export async function getPageHealth(path: string): Promise<PageHealthForSitemap> {
   const slug = getPageSlugFromPath(path);
   if (!slug) return { status: 'healthy', tier: 'B' };
+  if (!hasPostgres()) return { status: 'healthy', tier: 'B' };
 
   try {
     const { rows: healthRows } = await sql`
@@ -171,6 +176,7 @@ export async function getPageHealth(path: string): Promise<PageHealthForSitemap>
 
 /** All demoted page slugs. Use for internal link filtering and sitemap. */
 export async function getDemotedPageSlugs(): Promise<Set<string>> {
+  if (!hasPostgres()) return new Set();
   try {
     const { rows } = await sql`
       SELECT page_slug FROM affiliate_page_health WHERE status = 'demoted'

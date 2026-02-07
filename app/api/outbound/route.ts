@@ -5,6 +5,7 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import { sql } from '@vercel/postgres';
+import { hasPostgres } from '@/lib/db-safe';
 
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
@@ -20,17 +21,19 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ error: 'invalid destination' }, { status: 400 });
   }
 
-  try {
-    await sql`
+  if (hasPostgres()) {
+    try {
+      await sql`
       INSERT INTO affiliate_metrics_daily (issuer_id, date, clicks)
       VALUES (${issuerId}, CURRENT_DATE, 1)
       ON CONFLICT (issuer_id, date)
       DO UPDATE SET
         clicks = affiliate_metrics_daily.clicks + 1
     `;
-  } catch (err) {
-    console.error('[outbound] click increment failed:', err);
-    // Still redirect - don't block user
+    } catch (err) {
+      console.error('[outbound] click increment failed:', err);
+      // Still redirect - don't block user
+    }
   }
 
   return NextResponse.redirect(destination, 302);
