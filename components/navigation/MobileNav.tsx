@@ -3,14 +3,9 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { Menu, ChevronDown } from 'lucide-react';
-import {
-  COMPARE_CARDS,
-  BUILD_CREDIT_CARDS,
-  LEARN_LINKS,
-  CARDS_LINKS,
-} from './nav-data';
+import { BUILD_CREDIT_HREF, LEARN_LINKS, ABOUT_LINKS } from './nav-data';
 
-type Section = 'compare' | 'build' | 'learn' | 'cards' | null;
+type Section = 'learn' | 'about' | null;
 
 interface MobileNavProps {
   open: boolean;
@@ -51,7 +46,7 @@ export default function MobileNav({ open, onOpen, onClose }: MobileNavProps) {
               key={l.href}
               href={l.href}
               onClick={onClose}
-              className="block w-full py-3 px-4 text-center text-sm font-medium bg-slate-100 text-slate-800 rounded-lg hover:bg-blue-600 hover:text-white transition-colors"
+              className="block py-2.5 px-4 text-sm font-medium text-slate-700 hover:text-blue-600"
             >
               {l.label}
             </Link>
@@ -75,11 +70,11 @@ export default function MobileNav({ open, onOpen, onClose }: MobileNavProps) {
           <Menu className="w-6 h-6" />
         </button>
         <Link
-          href="/compare"
+          href={BUILD_CREDIT_HREF}
           className="text-sm font-semibold text-slate-800 hover:text-blue-600"
           onClick={onClose}
         >
-          Compare Cards
+          Build Credit
         </Link>
         <div className="w-10" />
       </div>
@@ -103,19 +98,15 @@ export default function MobileNav({ open, onOpen, onClose }: MobileNavProps) {
         aria-label="Navigation"
       >
         <div className="pt-14 pb-8 px-4">
-          <SectionBlock id="compare" label="Compare Cards" links={COMPARE_CARDS} />
-          <SectionBlock id="build" label="Build Credit" links={BUILD_CREDIT_CARDS} />
+          <Link
+            href={BUILD_CREDIT_HREF}
+            onClick={onClose}
+            className="block py-3 text-sm font-bold text-slate-900 hover:text-blue-600 border-b border-slate-200"
+          >
+            Build Credit
+          </Link>
           <SectionBlock id="learn" label="Learn" links={LEARN_LINKS} />
-          <SectionBlock id="cards" label="Cards" links={CARDS_LINKS} />
-          <div className="border-b border-slate-200 pt-2">
-            <Link
-              href="/about"
-              onClick={onClose}
-              className="block py-3 text-sm font-medium text-slate-700 hover:text-blue-600"
-            >
-              About
-            </Link>
-          </div>
+          <SectionBlock id="about" label="About" links={ABOUT_LINKS} />
         </div>
       </div>
     </>
