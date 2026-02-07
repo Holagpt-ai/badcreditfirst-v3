@@ -59,6 +59,29 @@ export const NAV_ITEMS: NavItem[] = [
 
 export const NAV_ABOUT: NavLink = { href: '/about', label: 'About' };
 
+/** Desktop flat nav (no dropdowns): logo left, links, trust right. */
+export const DESKTOP_NAV_LINKS: NavLink[] = [
+  { href: '/compare', label: 'Compare Cards' },
+  { href: '/education', label: 'Build Credit' },
+  { href: '/education', label: 'Learn' },
+  { href: '/credit-cards', label: 'Tools' },
+];
+
+/** Mobile menu: top buttons + simple grouped links (no accordion). */
+export const MOBILE_TOP_BUTTONS: NavLink[] = [
+  { href: '/compare', label: 'Compare Cards' },
+  { href: '/education', label: 'Build Credit' },
+];
+export const MOBILE_LINKS: NavLink[] = [
+  { href: '/compare/bad-credit-cards', label: 'Bad Credit Cards' },
+  { href: '/compare/credit-builder-cards', label: 'Credit Builder Cards' },
+  { href: '/compare/secured-credit-cards', label: 'Secured Cards' },
+  { href: '/compare/no-deposit-alternatives', label: 'No Deposit Options' },
+  { href: '/education', label: 'Education' },
+  { href: '/faq', label: 'FAQ' },
+  { href: '/credit-cards', label: 'Tools' },
+];
+
 export const TRUST_TOOLTIP_LINES = [
   'No impact to credit score',
   'Pre-qualified offers',
