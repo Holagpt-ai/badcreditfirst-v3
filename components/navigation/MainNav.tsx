@@ -22,7 +22,7 @@ export default function MainNav() {
   return (
     <header className="border-b border-slate-200 sticky top-0 bg-white z-50">
       <div className="max-w-5xl mx-auto px-4 lg:px-6">
-        {/* Mobile */}
+        {/* Mobile: logo left, hamburger right */}
         <div className="lg:hidden">
           <MobileNav
             open={mobileOpen}
@@ -31,7 +31,7 @@ export default function MainNav() {
           />
         </div>
 
-        {/* Desktop: Logo | Build Credit | Learn | About — no duplicate logo, dropdowns under labels */}
+        {/* Desktop: Logo | Build Credit | Learn | About */}
         <div
           className="hidden lg:flex items-center justify-between py-4"
           onMouseLeave={closePanel}
@@ -42,10 +42,10 @@ export default function MainNav() {
             aria-label="BadCreditFirst home"
           >
             <span className="relative inline-block w-7 h-7 shrink-0" aria-hidden>
-              <Shield className="w-7 h-7 text-slate-900" />
+              <Shield className="w-7 h-7 text-slate-600" />
               <Check
-                className="w-3.5 h-3.5 text-emerald-500 absolute inset-0 m-auto"
-                style={{ filter: 'drop-shadow(0 0 4px rgba(16,185,129,0.35))' }}
+                className="w-3.5 h-3.5 text-green-600 absolute inset-0 m-auto"
+                style={{ filter: 'drop-shadow(0 0 4px rgba(34,197,94,0.35))' }}
                 strokeWidth={3}
               />
             </span>
@@ -76,7 +76,7 @@ export default function MainNav() {
                 Learn
               </Link>
               {activePanel === 'learn' && (
-                <div className="absolute left-0 top-full mt-2 z-20">
+                <div className="absolute left-0 top-full pt-1 z-20">
                   <div className="bg-white border border-slate-200 rounded-lg shadow-lg py-1 min-w-[180px]">
                     {LEARN_LINKS.map((l) => (
                       <Link
@@ -105,7 +105,7 @@ export default function MainNav() {
                 About
               </Link>
               {activePanel === 'about' && (
-                <div className="absolute left-0 top-full mt-2 z-20">
+                <div className="absolute left-0 top-full pt-1 z-20">
                   <div className="bg-white border border-slate-200 rounded-lg shadow-lg py-1 min-w-[180px]">
                     {ABOUT_LINKS.map((l) => (
                       <Link

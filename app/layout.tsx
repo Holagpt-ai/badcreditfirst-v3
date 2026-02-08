@@ -92,7 +92,7 @@ export default function RootLayout({
                 <h3 className="font-bold text-slate-300 mb-3">Learn</h3>
                 <ul className="space-y-2">
                   <li><Link href="/education" className="hover:text-white transition-colors">Education Center</Link></li>
-                  <li><Link href="/education" className="hover:text-white transition-colors">How Credit Scores Work</Link></li>
+                  <li><Link href="/education/how-credit-scores-work" className="hover:text-white transition-colors">How Credit Scores Work</Link></li>
                   <li><Link href="/how-we-rank-cards" className="hover:text-white transition-colors">How We Rank Cards</Link></li>
                 </ul>
               </div>

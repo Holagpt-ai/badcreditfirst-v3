@@ -1,8 +1,12 @@
 'use client';
 
+import { useState } from 'react';
 import Link from 'next/link';
-import { Menu, X, Shield, Check } from 'lucide-react';
-import { MOBILE_NAV_SECTIONS } from './nav-data';
+import { Menu, ChevronDown } from 'lucide-react';
+import { Shield, Check } from 'lucide-react';
+import { BUILD_CREDIT_HREF, LEARN_LINKS, ABOUT_LINKS } from './nav-data';
+
+type Section = 'learn' | 'about' | null;
 
 interface MobileNavProps {
   open: boolean;
@@ -11,73 +15,88 @@ interface MobileNavProps {
 }
 
 export default function MobileNav({ open, onOpen, onClose }: MobileNavProps) {
+  const [expanded, setExpanded] = useState<Section>(null);
+
+  const toggle = (s: Section) => setExpanded((prev) => (prev === s ? null : s));
+
   const SectionBlock = ({
-    title,
+    id,
+    label,
     href,
     links,
   }: {
-    title: string;
-    href?: string;
+    id: Section;
+    label: string;
+    href: string;
     links: { href: string; label: string }[];
   }) => (
-    <div className="border-b border-slate-200 pb-4 last:border-b-0">
-      {href ? (
+    <div className="border-b border-slate-200">
+      <div className="flex items-center justify-between">
         <Link
           href={href}
           onClick={onClose}
-          className="block py-2 text-sm font-semibold text-slate-900 hover:text-blue-600"
+          className="block py-3 text-sm font-semibold text-slate-900 hover:text-blue-600"
         >
-          {title}
+          {label}
         </Link>
-      ) : (
-        <div className="py-2 text-sm font-semibold text-slate-900">{title}</div>
-      )}
-      <div className="space-y-1">
-        {links.map((l) => (
-          <Link
-            key={l.href}
-            href={l.href}
-            onClick={onClose}
-            className="block py-2.5 pl-2 text-sm font-medium text-slate-700 hover:text-blue-600"
-          >
-            {l.label}
-          </Link>
-        ))}
+        <button
+          type="button"
+          onClick={() => toggle(id)}
+          className="p-3 text-slate-500 hover:text-slate-700"
+          aria-expanded={expanded === id}
+        >
+          <ChevronDown
+            className={`w-4 h-4 transition-transform ${expanded === id ? 'rotate-180' : ''}`}
+          />
+        </button>
       </div>
+      {expanded === id && (
+        <div className="pb-3 pl-2 space-y-1">
+          {links.map((l) => (
+            <Link
+              key={l.href}
+              href={l.href}
+              onClick={onClose}
+              className="block py-2 text-sm font-medium text-slate-700 hover:text-blue-600"
+            >
+              {l.label}
+            </Link>
+          ))}
+        </div>
+      )}
     </div>
   );
 
   return (
     <>
-      {/* Header bar */}
-      <div className="flex lg:hidden items-center justify-between h-16 px-4">
+      {/* Header: Logo left, Hamburger right (competitor pattern) */}
+      <div className="flex lg:hidden items-center justify-between h-14 px-4">
         <Link
           href="/"
-          className="flex items-center gap-2 shrink-0"
+          className="flex items-center gap-2 shrink-0 min-w-0"
           aria-label="BadCreditFirst home"
           onClick={onClose}
         >
-          <span className="relative inline-block w-8 h-8 sm:w-10 sm:h-10 shrink-0" aria-hidden>
-            <Shield className="w-8 h-8 sm:w-10 sm:h-10 text-slate-900" />
+          <span className="relative inline-block w-7 h-7 shrink-0" aria-hidden>
+            <Shield className="w-7 h-7 text-slate-600" />
             <Check
-              className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-500 absolute inset-0 m-auto"
-              style={{ filter: 'drop-shadow(0 0 6px rgba(16,185,129,0.35))' }}
+              className="w-3.5 h-3.5 text-green-600 absolute inset-0 m-auto"
+              style={{ filter: 'drop-shadow(0 0 4px rgba(34,197,94,0.35))' }}
               strokeWidth={3}
             />
           </span>
-          <span className="text-lg sm:text-xl font-bold text-slate-900 tracking-tight">
+          <span className="text-base font-semibold text-slate-900 tracking-tight truncate">
             BadCreditFirst
           </span>
         </Link>
         <button
           type="button"
           onClick={() => (open ? onClose() : onOpen())}
-          className="flex items-center gap-2 p-2 -mr-2 text-slate-700 hover:text-slate-900"
+          className="p-2 -mr-2 text-slate-600 hover:text-slate-900 shrink-0"
           aria-label={open ? 'Close menu' : 'Open menu'}
           aria-expanded={open}
         >
-          {open ? <X className="w-5 h-5" aria-hidden="true" /> : <Menu className="w-5 h-5" aria-hidden="true" />}
-          <span className="text-xs sm:text-sm font-semibold">Menu</span>
+          <Menu className="w-6 h-6" />
         </button>
       </div>
 
@@ -92,22 +111,23 @@ export default function MobileNav({ open, onOpen, onClose }: MobileNavProps) {
 
       {/* Slide-out */}
       <div
-        className={`fixed inset-y-0 left-0 w-80 max-w-[90vw] bg-white shadow-xl z-50 transform transition-transform duration-200 lg:hidden overflow-y-auto ${
-          open ? 'translate-x-0' : '-translate-x-full'
+        className={`fixed inset-y-0 right-0 w-80 max-w-[90vw] bg-white shadow-xl z-50 transform transition-transform duration-200 lg:hidden overflow-y-auto ${
+          open ? 'translate-x-0' : 'translate-x-full'
         }`}
         role="dialog"
         aria-modal
         aria-label="Navigation"
       >
-        <div className="pt-16 pb-8 px-4 space-y-5">
-          {MOBILE_NAV_SECTIONS.map((section) => (
-            <SectionBlock
-              key={section.title}
-              title={section.title}
-              href={section.href}
-              links={section.links}
-            />
-          ))}
+        <div className="pt-14 pb-8 px-4">
+          <Link
+            href={BUILD_CREDIT_HREF}
+            onClick={onClose}
+            className="block py-3 text-sm font-bold text-slate-900 hover:text-blue-600 border-b border-slate-200"
+          >
+            Build Credit
+          </Link>
+          <SectionBlock id="learn" label="Learn" href="/education" links={LEARN_LINKS} />
+          <SectionBlock id="about" label="About" href="/about" links={ABOUT_LINKS} />
         </div>
       </div>
     </>
