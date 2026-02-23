@@ -74,8 +74,10 @@ export default async function CreditCardReviewPage({
     isBot: bot,
     offers,
   });
-  const rawApplyHref = allowAffiliate && !suppressed ? (offer?.href ?? getAffiliateLink(slug)) : undefined;
-  const applyHref = rawApplyHref ? getOutboundRedirectUrl(slug, rawApplyHref) : undefined;
+  // PRE-APPROVAL MODE
+  // Always render CTA using direct issuer link
+  const rawApplyHref =
+    offer?.issuerUrl ?? offer?.href ?? '';
   const abVariant = getVariantFromHeaders(headersList.get(VARIANT_HEADER));
   const reviewUrl = `${baseUrl}${card.reviewUrl}`;
   const ratingValue = '4.5';
@@ -265,18 +267,14 @@ export default async function CreditCardReviewPage({
                   variant="primary"
                   disabled
                 />
-              ) : applyHref ? (
+              ) : (
                 <AffiliateCTA
-                  href={applyHref}
+                  href={rawApplyHref}
                   label="Apply"
                   variant="primary"
                   abVariant={abVariant}
                   after={<ConversionTrustLayer variant="compact" />}
                 />
-              ) : (
-                <p className="text-sm text-slate-600 py-4">
-                  Offers available to US visitors. <Link href="/education/how-credit-scores-work" className="text-blue-600 hover:underline">Learn about credit building</Link>.
-                </p>
               )}
               <TrustBadges />
             </div>

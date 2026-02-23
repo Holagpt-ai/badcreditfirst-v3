@@ -63,7 +63,7 @@ export default function AffiliateCTA({
       <a
         href={href}
         target="_blank"
-        rel="nofollow noreferrer"
+        rel="nofollow noopener noreferrer"
         className={classes}
       >
         {label}
