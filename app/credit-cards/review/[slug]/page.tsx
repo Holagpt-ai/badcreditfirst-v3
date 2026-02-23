@@ -74,10 +74,8 @@ export default async function CreditCardReviewPage({
     isBot: bot,
     offers,
   });
-  // PRE-APPROVAL MODE
-  // Always render CTA using direct issuer link
-  const rawApplyHref =
-    offer?.issuerUrl ?? offer?.href ?? '';
+  // PRE-APPROVAL SAFE MODE: Always use existing offer.href
+  const rawApplyHref = offer?.href ?? '';
   const abVariant = getVariantFromHeaders(headersList.get(VARIANT_HEADER));
   const reviewUrl = `${baseUrl}${card.reviewUrl}`;
   const ratingValue = '4.5';
