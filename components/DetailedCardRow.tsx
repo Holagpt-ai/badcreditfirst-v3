@@ -11,7 +11,7 @@ interface DetailedCardRowProps {
   fees: string;
   creditScore: string;
   slug: string;
-  /** Path to the single-card review page, e.g. /credit-cards/review/opensky-secured-visa */
+  /** Path to the single-card review page (use /credit-cards/review/${slug}); kept for backward compatibility. */
   reviewUrl: string;
   /** Optional: segment from funnel (passed to parent for analytics). */
   segment?: string;
@@ -32,6 +32,7 @@ export default function DetailedCardRow({ title, label, highlights, fees, credit
   const fullStars = Math.floor(score);
   const partialOpacity = score - fullStars;
   const isComingSoon = status === 'coming-soon';
+  const reviewHref = `/credit-cards/review/${slug}`;
 
   return (
 
@@ -50,7 +51,7 @@ export default function DetailedCardRow({ title, label, highlights, fees, credit
         <div>
           <div className="flex items-start justify-between mb-2">
             <h3 className="text-lg font-bold text-slate-900 leading-tight hover:text-blue-600 transition-colors">
-              <Link href={reviewUrl}>
+              <Link href={reviewHref}>
                 {title}
               </Link>
             </h3>
@@ -98,7 +99,7 @@ export default function DetailedCardRow({ title, label, highlights, fees, credit
         ) : (
           <>
             <Link
-              href={reviewUrl}
+              href={reviewHref}
               className="w-full py-4 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-lg shadow-sm hover:shadow-md transition-all text-center flex items-center justify-center group"
             >
               View Full Review
