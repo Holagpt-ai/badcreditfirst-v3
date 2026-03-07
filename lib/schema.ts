@@ -176,6 +176,37 @@ export function getFAQSchema(faq: FAQItem[], siteUrl: string = SITE_URL) {
   };
 }
 
+/** FinancialProduct schema for credit card review pages. Maps name, issuer, fees, APR for Google. */
+export function getFinancialProductSchema(options: {
+  name: string;
+  issuerName?: string;
+  issuerUrl?: string;
+  fees?: string;
+  apr?: string;
+  siteUrl?: string;
+}) {
+  const siteUrl = options.siteUrl ?? SITE_URL;
+  const schema: Record<string, unknown> = {
+    '@context': 'https://schema.org',
+    '@type': 'FinancialProduct',
+    name: options.name,
+  };
+  if (options.issuerName) {
+    schema.provider = {
+      '@type': 'Organization',
+      name: options.issuerName,
+      ...(options.issuerUrl && { url: options.issuerUrl }),
+    };
+  }
+  if (options.fees) {
+    schema.feesAndCommissionsSpecification = options.fees;
+  }
+  if (options.apr) {
+    schema.annualPercentageRate = options.apr;
+  }
+  return schema;
+}
+
 /** Product schema (for review pages). ratingValue as string (e.g. "4.5"); reviewCount omitted per Google guidance. */
 export function getProductSchema(options: {
   siteUrl?: string;

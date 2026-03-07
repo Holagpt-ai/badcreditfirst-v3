@@ -13,6 +13,10 @@ export interface CardItem {
   reviewUrl: string;
   /** Issuer application URL (external). */
   issuerUrl: string;
+  /** Issuer name for schema (e.g., "OpenSky", "First Progress"). */
+  issuerName?: string;
+  /** APR for schema (e.g., "24.99%"; use "Varies by applicant" if unknown). */
+  apr?: string;
   /** Affiliate/tracking apply link. Use getAffiliateLink(slug) for future network switching. */
   applyLink: string;
   /** Approval odds, e.g. "Fair/Poor (580+)". */
@@ -33,6 +37,10 @@ export interface CardItem {
   editorialScore: number;
   /** Why we recommend this card (editorial, one sentence). */
   whyRecommended?: string;
+  /** Pros list for review page (green checkmarks). */
+  pros: string[];
+  /** Cons list for review page (red X's). */
+  cons: string[];
   /** One-line risk summary (optional). */
   riskSummary?: string;
   /** Who this product is a bad fit for (optional; use badFor for canonical). */
@@ -49,6 +57,8 @@ export const cardData: CardItem[] = [
     slug: 'opensky-secured-visa',
     reviewUrl: '/credit-cards/review/opensky-secured-visa',
     issuerUrl: 'https://openskycc.com',
+    issuerName: 'OpenSky',
+    apr: 'Varies by applicant',
     applyLink: 'https://openskycc.com',
     approvalOdds: 'Fair/Poor (580+)',
     realWorldUseCase: 'Best for renting and building payment history.',
@@ -59,6 +69,8 @@ export const cardData: CardItem[] = [
     status: 'active',
     editorialScore: 4.5,
     whyRecommended: 'Recommended for predictable approval and reporting to all three bureaus.',
+    pros: ['No credit check to apply', 'Refundable deposit starts at $200', 'Reports to all 3 credit bureaus', 'Predictable approval for bad credit'],
+    cons: ['$35 annual fee charged upfront', 'Not for people who need rewards', 'Deposit ties up funds until graduation'],
     riskSummary: 'Annual fee is charged upfront; missing a payment can hurt your new credit file.',
     whoThisIsBadFor: 'Not for people who need a high credit limit or rewards.',
   },
@@ -71,6 +83,8 @@ export const cardData: CardItem[] = [
     slug: 'first-progress-platinum',
     reviewUrl: '/credit-cards/review/first-progress-platinum',
     issuerUrl: 'https://firstprogress.com',
+    issuerName: 'First Progress',
+    apr: 'Varies by applicant',
     applyLink: 'https://firstprogress.com',
     approvalOdds: 'Poor/No Credit (500+)',
     realWorldUseCase: 'Best for thin or damaged credit with budget for fee and deposit.',
@@ -81,6 +95,8 @@ export const cardData: CardItem[] = [
     status: 'active',
     editorialScore: 4.3,
     whyRecommended: 'Included as a low-risk option for users with no or limited credit history.',
+    pros: ['Reports to all 3 bureaus', 'No credit history required', '24/7 online account access', 'Accepts poor or no credit'],
+    cons: ['$49 annual fee in first year', 'Higher fee than some competitors', 'Non-refundable annual fee'],
     riskSummary: 'High fee risk in year one; the $49 annual fee is non-refundable.',
     whoThisIsBadFor: 'Not for people who can qualify for a no-annual-fee secured card elsewhere.',
   },
@@ -93,6 +109,8 @@ export const cardData: CardItem[] = [
     slug: 'self-credit-builder',
     reviewUrl: '/credit-cards/review/self-credit-builder',
     issuerUrl: 'https://www.self.inc',
+    issuerName: 'Self',
+    apr: 'N/A (credit builder)',
     applyLink: 'https://www.self.inc',
     approvalOdds: 'High (no credit check)',
     realWorldUseCase: 'Best for building a tradeline without a credit card.',
@@ -103,6 +121,8 @@ export const cardData: CardItem[] = [
     status: 'active',
     editorialScore: 4.6,
     whyRecommended: 'Chosen for its no hard pull and suitability when credit cards are not an option.',
+    pros: ['No hard pull on your credit', 'Build credit while you save', 'Plans start at $25/mo', 'No credit check required'],
+    cons: ['Funds not available until term ends', 'Monthly commitment required', 'Not ideal if you need revolving credit'],
     riskSummary: 'You do not get the money until the term ends; not suitable if you need cash now.',
     whoThisIsBadFor: 'Not for people who already have several positive tradelines and want revolving credit.',
   },
@@ -115,6 +135,8 @@ export const cardData: CardItem[] = [
     slug: 'mission-lane',
     reviewUrl: '/credit-cards/review/mission-lane',
     issuerUrl: 'https://www.missionlane.com',
+    issuerName: 'Mission Lane',
+    apr: 'Varies by applicant',
     applyLink: 'https://www.missionlane.com',
     approvalOdds: 'Fair (600+)',
     realWorldUseCase: 'Best for fair credit wanting unsecured option without deposit.',
@@ -125,6 +147,8 @@ export const cardData: CardItem[] = [
     status: 'coming-soon',
     editorialScore: 4.2,
     whyRecommended: 'Chosen for its simple structure and suitability after recent denials.',
+    pros: ['Unsecured option', 'No security deposit', 'Clear fee structure', 'Good for fair credit'],
+    cons: ['Requires fair credit (600+)', 'Variable rates and fees', 'Not for no-credit or very low scores'],
     riskSummary: 'Unsecured cards for fair credit can have variable rates and fees; check the offer.',
     whoThisIsBadFor: 'Not for people with no credit history or very low scores.',
   },
@@ -137,6 +161,8 @@ export const cardData: CardItem[] = [
     slug: 'credit-one-platinum',
     reviewUrl: '/credit-cards/review/credit-one-platinum',
     issuerUrl: 'https://www.creditonebank.com',
+    issuerName: 'Credit One Bank',
+    apr: 'Varies by applicant',
     applyLink: 'https://www.creditonebank.com',
     approvalOdds: 'Fair/Poor (580+)',
     realWorldUseCase: 'Best for limited credit wanting rewards and account reviews.',
@@ -147,6 +173,8 @@ export const cardData: CardItem[] = [
     status: 'coming-soon',
     editorialScore: 4.4,
     whyRecommended: 'Included for rewards and account reviews once you have limited credit.',
+    pros: ['Cash back rewards', 'Regular account reviews', 'Free credit score access', 'Potential for unsecured approval'],
+    cons: ['Fees vary by applicant', 'Less transparent fee structure', 'May not suit those wanting single annual fee'],
     riskSummary: 'Fees vary by applicant; your offer may differ from marketing.',
     whoThisIsBadFor: 'Not for people who want a single, transparent annual fee.',
   },

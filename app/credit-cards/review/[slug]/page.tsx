@@ -2,13 +2,13 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { headers } from 'next/headers';
-import { Star, CreditCard } from 'lucide-react';
+import { Star, CreditCard, Check, X } from 'lucide-react';
 import { getCardBySlug, getAffiliateLink } from '../../../../lib/card-data';
 import { categories } from '../../../../lib/categories';
 import { getComparisonsForCard, CATEGORY_TO_HUB } from '@/data/comparisons';
 import { filterPromotedComparisonLinks, getRobotsForProgrammaticPageAsync, shouldLinkTo } from '@/lib/programmatic-rollout';
 import { getDemotedPageSlugs } from '@/lib/page-health';
-import { getProductSchema, getReviewSchema, getBreadcrumbSchema } from '../../../../lib/schema';
+import { getProductSchema, getReviewSchema, getBreadcrumbSchema, getFinancialProductSchema } from '../../../../lib/schema';
 import { getPrimaryOffer, buildOfferFromHref } from '@/lib/offer-rotation';
 import { getVariantFromHeaders, VARIANT_HEADER } from '@/lib/ab-guardrails';
 import { isBot } from '@/lib/is-bot';
@@ -34,11 +34,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!card) return { title: 'Review Not Found' };
   const path = card.reviewUrl;
   return {
-    title: `${card.title} Review (2026) | BadCreditFirst`,
-    description: `Independent review of ${card.title}. ${card.label}. Compare fees, approval odds, and credit-building value.`,
+    title: `${card.title} Review (2026) | Approval Odds & Fees | BadCreditFirst`,
+    description: `Read our comprehensive review of the ${card.title}. Discover approval odds, hidden fees, pros, cons, and if it is the right card to rebuild your credit.`,
     robots: await getRobotsForProgrammaticPageAsync(path),
     alternates: {
-      canonical: `https://www.badcreditfirst.com${path}`,
+      canonical: `${baseUrl}${path}`,
     },
   };
 }
@@ -118,10 +118,22 @@ export default async function CreditCardReviewPage({
     { name: title, url: card.reviewUrl },
   ]);
 
+  const financialProductSchema = getFinancialProductSchema({
+    name: title,
+    issuerName: card.issuerName,
+    issuerUrl: card.issuerUrl,
+    fees: fees,
+    apr: card.apr,
+  });
+
   const compareLinks = filterPromotedComparisonLinks(getComparisonsForCard(slug, 3), demotedSlugs);
 
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(financialProductSchema) }}
+      />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(reviewSchema) }}
@@ -132,34 +144,27 @@ export default async function CreditCardReviewPage({
       />
       <main className="max-w-4xl mx-auto px-6 py-12">
         <div className="mb-6">
-          <h1 className="text-3xl font-bold tracking-tight text-slate-900 mb-1">
+          <h1 className="text-3xl font-bold tracking-tight text-slate-900 mb-2">
             {title}
           </h1>
-          <p className="text-slate-500 font-medium">Review & Details</p>
-          <p className="mt-2 text-sm text-slate-600">
+          <p className="text-sm text-slate-600 mb-4">
             By <Link href="/author/carlos-acosta" className="text-blue-600 hover:underline font-medium">Carlos Acosta</Link>
             {' · '}
             <Link href="/how-we-rank-cards" className="text-blue-600 hover:underline">How we rank cards</Link>
           </p>
-        </div>
-
-        <div className="mb-6 p-6 bg-blue-50 border border-blue-200 rounded-xl">
-          <h2 className="text-lg font-bold text-slate-900 mb-4">
-            BadCreditFirst Verdict
-          </h2>
-          <div className="space-y-3 text-slate-700">
-            {approvalOdds && (
-              <p>
-                <strong className="text-slate-900">Approval odds:</strong>{' '}
-                {approvalOdds}
-              </p>
-            )}
-            {realWorldUseCase && (
-              <p>
-                <strong className="text-slate-900">Real-world use:</strong>{' '}
-                {realWorldUseCase}
-              </p>
-            )}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 p-6 bg-slate-100 border border-slate-200 rounded-xl">
+            <div>
+              <p className="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-1">Approval Odds</p>
+              <p className="text-slate-800 font-medium">{approvalOdds || '—'}</p>
+            </div>
+            <div>
+              <p className="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-1">Fee Risk</p>
+              <p className="text-slate-800 font-medium">{feeRisk || '—'}</p>
+            </div>
+            <div>
+              <p className="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-1">Best For</p>
+              <p className="text-slate-800 font-medium">{realWorldUseCase || '—'}</p>
+            </div>
           </div>
         </div>
 
@@ -201,47 +206,50 @@ export default async function CreditCardReviewPage({
             </p>
           </section>
 
-          {feeRisk && (
-            <div className="px-8 py-6 border-t border-slate-100">
-              <h2 className="text-lg font-bold text-slate-900 mb-4">
-                Risks & Downsides
-              </h2>
-              <div className="bg-amber-50 border border-amber-200 rounded-lg p-4 text-amber-900">
-                <p className="text-sm font-semibold mb-2">⚠ Honest take</p>
-                <p className="text-slate-700">{feeRisk}</p>
-              </div>
-            </div>
-          )}
-
           <div className="px-8 py-6 border-t border-slate-100">
             <h2 className="text-lg font-bold text-slate-900 mb-4">Pros & Cons</h2>
-            <div className="space-y-3 text-slate-600">
-              <p>Good for building credit. Reports to all bureaus. Designed for limited or no credit history.</p>
-              <p>Consider fees and deposit requirements before applying. Terms and conditions apply.</p>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div>
+                <ul className="space-y-2">
+                  {card.pros.map((item, i) => (
+                    <li key={i} className="flex items-start gap-2 text-slate-700">
+                      <Check className="w-5 h-5 text-green-600 shrink-0 mt-0.5" aria-hidden="true" />
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div>
+                <ul className="space-y-2">
+                  {card.cons.map((item, i) => (
+                    <li key={i} className="flex items-start gap-2 text-slate-700">
+                      <X className="w-5 h-5 text-red-600 shrink-0 mt-0.5" aria-hidden="true" />
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
           </div>
 
-          {upgradePath && (
+          {realWorldUseCase && (
             <div className="px-8 py-6 border-t border-slate-100">
-              <h2 className="text-lg font-bold text-slate-900 mb-4">Upgrade Path</h2>
-              <p className="text-slate-600 leading-relaxed">{upgradePath}</p>
+              <h2 className="text-lg font-bold text-slate-900 mb-4">Who is the {title} Best For?</h2>
+              <p className="text-slate-600 leading-relaxed">{realWorldUseCase}</p>
             </div>
           )}
 
-          {(realWorldUseCase || badFor) && (
-            <div className="px-8 py-6 border-t border-slate-100 grid grid-cols-1 md:grid-cols-2 gap-6">
-              {realWorldUseCase && (
-                <div>
-                  <h2 className="text-lg font-bold text-slate-900 mb-2">Who this card is for</h2>
-                  <p className="text-slate-600 leading-relaxed">{realWorldUseCase}</p>
-                </div>
-              )}
-              {badFor && (
-                <div>
-                  <h2 className="text-lg font-bold text-slate-900 mb-2">Who this card is NOT for</h2>
-                  <p className="text-slate-600 leading-relaxed">{badFor}</p>
-                </div>
-              )}
+          {badFor && (
+            <div className="px-8 py-6 border-t border-slate-100">
+              <h2 className="text-lg font-bold text-slate-900 mb-4">What to Watch Out For</h2>
+              <p className="text-slate-600 leading-relaxed">{badFor}</p>
+            </div>
+          )}
+
+          {upgradePath && (
+            <div className="px-8 py-6 border-t border-slate-100">
+              <h2 className="text-lg font-bold text-slate-900 mb-4">The Upgrade Path</h2>
+              <p className="text-slate-600 leading-relaxed">{upgradePath}</p>
             </div>
           )}
 
