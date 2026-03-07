@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   title: 'Carlos Acosta | Author & Founder',
   description: 'Fintech entrepreneur and credit education writer. Founder of BadCreditFirst. Learn how we review credit cards and our methodology.',
   alternates: {
-    canonical: 'https://badcreditfirst.com/author/carlos-acosta',
+    canonical: 'https://www.badcreditfirst.com/author/carlos-acosta',
   },
 };
 

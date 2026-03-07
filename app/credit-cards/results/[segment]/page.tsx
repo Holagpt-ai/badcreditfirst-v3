@@ -20,7 +20,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       follow: true,
     },
     alternates: {
-      canonical: 'https://badcreditfirst.com/credit-cards',
+      canonical: 'https://www.badcreditfirst.com/credit-cards',
     },
   };
 }

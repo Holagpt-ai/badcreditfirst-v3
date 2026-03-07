@@ -37,12 +37,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: `Compare ${comparison.entityA.name} and ${comparison.entityB.name} for ${comparison.intent}. Independent comparison.`,
     robots: await getRobotsForProgrammaticPageAsync(path),
     alternates: {
-      canonical: `https://badcreditfirst.com${path}`,
+      canonical: `https://www.badcreditfirst.com${path}`,
     },
   };
 }
 
-const SITE_URL = 'https://badcreditfirst.com';
+const SITE_URL = 'https://www.badcreditfirst.com';
 
 export default async function ComparePage({ params }: Props) {
   const { slug } = params;

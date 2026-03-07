@@ -4,14 +4,14 @@ import { getWebPageSchema } from '@/lib/schema';
 
 export const metadata: Metadata = {
   alternates: {
-    canonical: 'https://badcreditfirst.com/how-we-rank-cards',
+    canonical: 'https://www.badcreditfirst.com/how-we-rank-cards',
   },
 };
 
 export default function HowWeRankCardsPage() {
   const webPageSchema = getWebPageSchema({
     name: 'How We Rank Cards',
-    url: 'https://badcreditfirst.com/how-we-rank-cards',
+    url: 'https://www.badcreditfirst.com/how-we-rank-cards',
     description: 'BadCreditFirst methodology: fee transparency, bureau reporting, and approval odds for credit card rankings.',
   });
 

@@ -8,7 +8,7 @@
  * Product + Review + Breadcrumb (review); Article (education); WebPage (compare).
  */
 
-const SITE_URL = 'https://badcreditfirst.com';
+const SITE_URL = 'https://www.badcreditfirst.com';
 
 /**
  * Deterministic phrasing pools for schema descriptions (anti-duplication).

@@ -5,14 +5,14 @@ import { CONTACT_EMAIL } from '@/lib/contact';
 
 export const metadata: Metadata = {
   alternates: {
-    canonical: 'https://badcreditfirst.com/contact',
+    canonical: 'https://www.badcreditfirst.com/contact',
   },
 };
 
 export default function ContactPage() {
   const webPageSchema = getWebPageSchema({
     name: 'Contact BadCreditFirst',
-    url: 'https://badcreditfirst.com/contact',
+    url: 'https://www.badcreditfirst.com/contact',
     description: 'Contact BadCreditFirst. Mailing address and email for questions about our content and recommendations.',
   });
 

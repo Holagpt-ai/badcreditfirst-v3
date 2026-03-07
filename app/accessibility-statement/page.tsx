@@ -5,7 +5,7 @@ import { CONTACT_EMAIL } from '@/lib/contact';
 export const metadata: Metadata = {
   title: 'Accessibility Statement | BadCreditFirst',
   alternates: {
-    canonical: 'https://badcreditfirst.com/accessibility-statement',
+    canonical: 'https://www.badcreditfirst.com/accessibility-statement',
   },
 };
 

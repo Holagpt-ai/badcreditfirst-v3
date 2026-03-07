@@ -5,7 +5,7 @@ import { CONTACT_EMAIL } from '@/lib/contact';
 export const metadata: Metadata = {
   title: 'Your Privacy Choices | BadCreditFirst',
   alternates: {
-    canonical: 'https://badcreditfirst.com/your-privacy-choices',
+    canonical: 'https://www.badcreditfirst.com/your-privacy-choices',
   },
 };
 

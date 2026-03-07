@@ -23,7 +23,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: `Compare ${category.title.toLowerCase()} for bad credit and no credit. Independent reviews, fees, and approval tips.`,
     robots: getRobotsForProgrammaticPage(path),
     alternates: {
-      canonical: `https://badcreditfirst.com${path}`,
+      canonical: `https://www.badcreditfirst.com${path}`,
     },
   };
 }

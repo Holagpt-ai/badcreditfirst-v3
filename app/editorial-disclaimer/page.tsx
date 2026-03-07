@@ -4,14 +4,14 @@ import { getWebPageSchema } from '@/lib/schema';
 
 export const metadata: Metadata = {
   alternates: {
-    canonical: 'https://badcreditfirst.com/editorial-disclaimer',
+    canonical: 'https://www.badcreditfirst.com/editorial-disclaimer',
   },
 };
 
 export default function EditorialDisclaimerPage() {
   const webPageSchema = getWebPageSchema({
     name: 'Editorial Disclaimer',
-    url: 'https://badcreditfirst.com/editorial-disclaimer',
+    url: 'https://www.badcreditfirst.com/editorial-disclaimer',
     description: 'BadCreditFirst editorial independence, content accuracy, and no-guarantee disclaimers.',
   });
 

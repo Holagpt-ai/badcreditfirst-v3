@@ -10,7 +10,7 @@ import ComparisonHubList from '@/components/compare/ComparisonHubList';
 import { getWebPageSchema, getBreadcrumbSchema, getItemListSchema } from '@/lib/schema';
 
 const HUB_SLUG = 'bad-credit-cards';
-const SITE_URL = 'https://badcreditfirst.com';
+const SITE_URL = 'https://www.badcreditfirst.com';
 
 const path = `/compare/${HUB_SLUG}`;
 

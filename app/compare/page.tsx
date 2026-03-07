@@ -11,11 +11,11 @@ export const metadata: Metadata = {
   description:
     'Side-by-side comparisons of secured cards, no-deposit alternatives, and credit-building products. Independent reviews for bad credit and no credit.',
   alternates: {
-    canonical: 'https://badcreditfirst.com/compare',
+    canonical: 'https://www.badcreditfirst.com/compare',
   },
 };
 
-const SITE_URL = 'https://badcreditfirst.com';
+const SITE_URL = 'https://www.badcreditfirst.com';
 
 export default async function CompareHubPage() {
   const demotedSlugs = await getDemotedPageSlugs();

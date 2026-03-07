@@ -3,7 +3,7 @@ import { getPromotedPagesForSitemapAsync } from '@/lib/programmatic-rollout';
 import { getPageHealth } from '@/lib/page-health';
 import { SITEMAP_CONTROL } from '@/lib/hybrid-seo-rules';
 
-const BASE_URL = 'https://badcreditfirst.com';
+const BASE_URL = 'https://www.badcreditfirst.com';
 
 /** Static pages (always included, not programmatic). */
 const STATIC_PAGES: { path: string; changeFrequency: 'monthly' | 'yearly'; priority: number }[] = [

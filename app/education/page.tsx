@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 export default function EducationPage() {
   const webPageSchema = getWebPageSchema({
     name: 'Credit Education Center',
-    url: 'https://badcreditfirst.com/education',
+    url: 'https://www.badcreditfirst.com/education',
     description: 'Expert guides on credit scores, FICO vs VantageScore, secured cards, and credit-building. Learn before you apply.',
   });
 

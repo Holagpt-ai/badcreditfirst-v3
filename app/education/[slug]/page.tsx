@@ -495,7 +495,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: article.quickAnswer ?? `Learn about ${article.title} and credit-building strategies.`,
     robots: getRobotsForProgrammaticPage(path),
     alternates: {
-      canonical: `https://badcreditfirst.com${path}`,
+      canonical: `https://www.badcreditfirst.com${path}`,
     },
   };
 }

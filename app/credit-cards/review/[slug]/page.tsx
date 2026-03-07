@@ -22,7 +22,7 @@ import ReviewDisclosure from '@/components/ReviewDisclosure';
 import AffiliateCTA from '@/components/AffiliateCTA';
 import ConversionTrustLayer from '@/components/ConversionTrustLayer';
 
-const baseUrl = 'https://badcreditfirst.com';
+const baseUrl = 'https://www.badcreditfirst.com';
 
 /** Contextual education link shown on every review. */
 const EDUCATION_LINK = { href: '/education/how-is-my-score-calculated', label: 'How Credit Scores Work' };
@@ -38,7 +38,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: `Independent review of ${card.title}. ${card.label}. Compare fees, approval odds, and credit-building value.`,
     robots: await getRobotsForProgrammaticPageAsync(path),
     alternates: {
-      canonical: `https://badcreditfirst.com${path}`,
+      canonical: `https://www.badcreditfirst.com${path}`,
     },
   };
 }

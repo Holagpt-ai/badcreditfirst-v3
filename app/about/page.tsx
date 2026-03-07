@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 export const metadata: Metadata = {
   alternates: {
-    canonical: 'https://badcreditfirst.com/about',
+    canonical: 'https://www.badcreditfirst.com/about',
   },
 };
 

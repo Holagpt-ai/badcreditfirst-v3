@@ -20,7 +20,7 @@ const FAQ_ITEMS = [
 
 export const metadata: Metadata = {
   alternates: {
-    canonical: 'https://badcreditfirst.com/faq',
+    canonical: 'https://www.badcreditfirst.com/faq',
   },
 };
 

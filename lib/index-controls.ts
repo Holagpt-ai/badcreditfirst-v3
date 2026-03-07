@@ -8,7 +8,7 @@
 
 import { getRobotsForProgrammaticPage, shouldIndex } from './programmatic-rollout';
 
-const DEFAULT_BASE_URL = 'https://badcreditfirst.com';
+const DEFAULT_BASE_URL = 'https://www.badcreditfirst.com';
 
 /** Page types for index decision. */
 export type PageType = 'hub' | 'comparison' | 'review' | 'category' | 'education' | 'thin_variant' | 'results';
