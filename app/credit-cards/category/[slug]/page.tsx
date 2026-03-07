@@ -18,9 +18,18 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const content = categoryContent[params.slug];
   if (!category || !content) return { title: 'Category Not Found' };
   const path = `/credit-cards/category/${params.slug}`;
+  const title =
+    params.slug === 'secured-cards'
+      ? 'Best Secured Credit Cards to Rebuild Credit | BadCreditFirst'
+      : params.slug === 'credit-builder'
+        ? 'Best Credit Builder Accounts to Rebuild Credit | BadCreditFirst'
+        : params.slug === 'bad-credit'
+          ? 'Best Credit Cards for Bad Credit (2026) | BadCreditFirst'
+          : `Best ${category.title} | BadCreditFirst`;
+  const description = `Compare the best ${category.title.toLowerCase()} for bad credit and no credit. Independent reviews, fees, approval odds, and expert tips to rebuild your score.`;
   return {
-    title: `${category.title} (2026) | BadCreditFirst`,
-    description: `Compare ${category.title.toLowerCase()} for bad credit and no credit. Independent reviews, fees, and approval tips.`,
+    title,
+    description,
     robots: getRobotsForProgrammaticPage(path),
     alternates: {
       canonical: `https://www.badcreditfirst.com${path}`,
@@ -71,8 +80,11 @@ export default async function CreditCardCategoryPage({
         <article aria-labelledby="category-title">
           <header className="mb-6">
             <h1 id="category-title" className="text-4xl font-bold tracking-tight text-slate-900 mb-3">
-              {category.title}
+              Top {category.title} of 2026
             </h1>
+            <p className="text-lg text-slate-600 leading-relaxed mb-2">
+              {content.intro}
+            </p>
             <p className="text-sm text-slate-500 font-medium">
               {TRUST_SIGNAL_DATE}
             </p>
@@ -99,6 +111,15 @@ export default async function CreditCardCategoryPage({
                 />
               ))}
             </div>
+          </section>
+
+          <section id="how-to-choose" className="mb-10 p-6 bg-slate-50 border border-slate-200 rounded-xl">
+            <h2 className="text-xl font-bold text-slate-900 mb-4">
+              How to Choose a {category.title} Card
+            </h2>
+            <p className="text-slate-600 leading-relaxed">
+              {content.howToChoose}
+            </p>
           </section>
 
           <section id="quick-answer" className="mb-10 p-6 bg-slate-50 border border-slate-200 rounded-xl">
