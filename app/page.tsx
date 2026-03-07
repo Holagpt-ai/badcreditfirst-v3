@@ -1,10 +1,14 @@
 import type { Metadata } from 'next';
+import Link from 'next/link';
 import DetailedCardRow from '../components/DetailedCardRow';
 import FunnelSelector from '../components/FunnelSelector';
 import SnippetAnchor from '../components/SnippetAnchor';
 import TrustBadges from '../components/TrustBadges';
 import WelcomeBackBanner from '../components/WelcomeBackBanner';
 import { cardData } from '../lib/card-data';
+import { categories } from '../lib/categories';
+
+const FEATURED_CARD_COUNT = 3;
 
 const SNIPPET_DESCRIPTION =
   'BadCreditFirst is an independent credit education and comparison platform that helps individuals with poor or limited credit understand their options, compare credit cards, and take practical steps to rebuild credit responsibly.';
@@ -39,18 +43,61 @@ export default function Home() {
         {/* Hero */}
         <section className="max-w-5xl mx-auto px-6 py-12 text-center">
           <h1 className="text-4xl font-bold tracking-tight text-slate-900 mb-4">
-            Credit Card Options for Bad or Limited Credit
+            Rebuild Your Credit: Best Credit Cards for Bad Credit in 2026
           </h1>
           <SnippetAnchor description={SNIPPET_DESCRIPTION} />
-          <p className="text-lg text-slate-500 max-w-2xl mx-auto">
-            Compare secured cards and credit-builder accounts designed for scores under 600. No lender bias. No obligation.
+          <p className="text-lg text-slate-600 max-w-2xl mx-auto">
+            Independent reviews, approval odds, and fee breakdowns to help you choose the right card. No lender bias. No obligation.
           </p>
         </section>
 
-        {/* Offer Stack - Sandwich Layout */}
-        <section className="max-w-5xl mx-auto px-6 pb-12">
+        {/* Browse by Category */}
+        <section className="max-w-5xl mx-auto px-6 pb-12" aria-labelledby="browse-by-category">
+          <h2 id="browse-by-category" className="text-2xl font-bold text-slate-900 mb-6 text-center">
+            Browse by Category
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <Link
+              href="/credit-cards/category/secured-cards"
+              className="block p-6 bg-slate-50 border border-slate-200 rounded-xl hover:border-blue-300 hover:bg-blue-50/50 transition-colors"
+            >
+              <h3 className="text-lg font-bold text-slate-900 mb-2">{categories['secured-cards']?.title ?? 'Secured Credit Cards'}</h3>
+              <p className="text-sm text-slate-600">
+                Cards that require a deposit but offer high approval odds. Reports to all three bureaus.
+              </p>
+            </Link>
+            <Link
+              href="/credit-cards/category/bad-credit"
+              className="block p-6 bg-slate-50 border border-slate-200 rounded-xl hover:border-blue-300 hover:bg-blue-50/50 transition-colors"
+            >
+              <h3 className="text-lg font-bold text-slate-900 mb-2">{categories['bad-credit']?.title ?? 'Credit Cards for Bad Credit'}</h3>
+              <p className="text-sm text-slate-600">
+                Secured and unsecured options for scores under 600. Compare fees, approval odds, and reporting.
+              </p>
+            </Link>
+            <Link
+              href="/credit-cards/category/credit-builder"
+              className="block p-6 bg-slate-50 border border-slate-200 rounded-xl hover:border-blue-300 hover:bg-blue-50/50 transition-colors"
+            >
+              <h3 className="text-lg font-bold text-slate-900 mb-2">{categories['credit-builder']?.title ?? 'Credit Builder Accounts'}</h3>
+              <p className="text-sm text-slate-600">
+                Build credit without a credit card. No hard pull, fixed payments, bureau reporting.
+              </p>
+            </Link>
+          </div>
+        </section>
+
+        {/* Top Picks / Featured Cards */}
+        <section className="max-w-5xl mx-auto px-6 pb-12" aria-labelledby="top-picks">
+          <h2 id="top-picks" className="text-2xl font-bold text-slate-900 mb-6">
+            Our Top Picks for 2026
+          </h2>
           <div className="divide-y divide-slate-200 border border-slate-200 rounded-xl overflow-hidden bg-white shadow-sm">
-            {cardData.map((card) => (
+            {cardData
+              .filter((c) => c.status === 'active')
+              .sort((a, b) => (b.editorialScore ?? 0) - (a.editorialScore ?? 0))
+              .slice(0, FEATURED_CARD_COUNT)
+              .map((card) => (
               <DetailedCardRow
                 key={card.slug}
                 title={card.title}
@@ -70,6 +117,21 @@ export default function Home() {
 
         {/* Methodology */}
         <MethodologySection />
+
+        {/* E-E-A-T Trust Signals */}
+        <section className="max-w-5xl mx-auto px-6 py-12 border-t border-slate-200" aria-labelledby="why-trust">
+          <h2 id="why-trust" className="text-2xl font-bold text-slate-900 mb-6">
+            Why Trust BadCreditFirst?
+          </h2>
+          <div className="space-y-4 text-slate-600 leading-relaxed">
+            <p>
+              Our editorial guidelines ensure every review is written for you, not for issuers. We rank cards based on fee transparency, approval odds, and bureau reporting—not compensation. Our writers and researchers independently evaluate each product.
+            </p>
+            <p>
+              We explain how we rank cards so you can make informed decisions. Our data is regularly reviewed and updated. BadCreditFirst is committed to helping people with bad or limited credit rebuild responsibly—with clear, unbiased information.
+            </p>
+          </div>
+        </section>
       </main>
     </div>
   );
