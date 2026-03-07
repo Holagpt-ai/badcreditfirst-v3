@@ -227,7 +227,7 @@ export default async function ComparePage({ params }: Props) {
     const allowAffiliate = getAllowAffiliateFromHeaders(headersList.get(AFFILIATE_HEADER));
     const suppressed = allowAffiliate && (await shouldSuppressIssuer(activeCard.slug));
     const offers = [
-      buildOfferFromHref(activeCard.slug, getAffiliateLink(activeCard.slug), 'active'),
+      buildOfferFromHref(activeCard.slug, activeCard.issuerUrl ?? '', 'active'),
     ];
     const offer = getPrimaryOffer({
       pageId: `compare:${slug}`,
