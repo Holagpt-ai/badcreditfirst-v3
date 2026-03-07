@@ -97,9 +97,11 @@ export default function Home() {
               .filter((c) => c.status === 'active')
               .sort((a, b) => (b.editorialScore ?? 0) - (a.editorialScore ?? 0))
               .slice(0, FEATURED_CARD_COUNT)
-              .map((card) => (
+              .map((card, index) => (
               <DetailedCardRow
                 key={card.slug}
+                position={index}
+                priority={index < 3}
                 title={card.title}
                 label={card.label}
                 highlights={card.highlights}

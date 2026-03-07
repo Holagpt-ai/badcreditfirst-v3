@@ -15,8 +15,10 @@ interface DetailedCardRowProps {
   reviewUrl: string;
   /** Optional: segment from funnel (passed to parent for analytics). */
   segment?: string;
-  /** Optional: position in list (passed to parent for analytics). */
+  /** Optional: position in list (0-based). Top 3 get priority loading. */
   position?: number;
+  /** If true, hint LCP; used for Top 3 cards on homepage. */
+  priority?: boolean;
   /** Editorial star rating for display only (4.1–4.6). */
   editorialScore?: number;
   /** Card availability: active (Apply CTA) or coming-soon (no issuer link). */
@@ -27,7 +29,7 @@ interface DetailedCardRowProps {
 
 const BEST_RATING = 5;
 
-export default function DetailedCardRow({ title, label, highlights, fees, creditScore, slug, reviewUrl, editorialScore = 4.5, status = 'active', whyRecommended }: DetailedCardRowProps) {
+export default function DetailedCardRow({ title, label, highlights, fees, creditScore, slug, reviewUrl, editorialScore = 4.5, status = 'active', whyRecommended, position, priority }: DetailedCardRowProps) {
   const score = Math.min(BEST_RATING, Math.max(4.1, editorialScore));
   const fullStars = Math.floor(score);
   const partialOpacity = score - fullStars;
@@ -37,9 +39,9 @@ export default function DetailedCardRow({ title, label, highlights, fees, credit
   return (
 
   <div className={`flex flex-col md:flex-row ${isComingSoon ? 'opacity-75 bg-slate-50/80' : ''}`}>
-    {/* LEFT: Compliant Image Placeholder (No Logos) */}
+    {/* LEFT: Compliant Image Placeholder (No Logos) — explicit dims for CLS */}
     <div className="w-full md:w-[220px] p-6 flex flex-col items-center justify-center border-b md:border-b-0 md:border-r border-slate-100 bg-slate-50">
-       <div className="w-full aspect-[1.586] rounded-xl bg-gradient-to-br from-slate-200 via-slate-100 to-slate-300 shadow-inner border border-slate-300 flex items-center justify-center relative overflow-hidden">
+       <div className="w-full aspect-[1.586] min-h-[114px] rounded-xl bg-gradient-to-br from-slate-200 via-slate-100 to-slate-300 shadow-inner border border-slate-300 flex items-center justify-center relative overflow-hidden" aria-hidden="true">
           <div className="absolute inset-0 bg-white/10" aria-hidden="true" />
           <CreditCard className="w-10 h-10 text-slate-400 opacity-50" aria-hidden="true" />
        </div>

@@ -11,7 +11,7 @@ import "./globals.css";
 import "@/styles/navigation.css";
 import "@/styles/globals.css";
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({ subsets: ["latin"], display: "swap" });
 
 const SITE_URL = "https://badcreditfirst.com";
 const organizationSchema = getOrganizationSchema(SITE_URL);
