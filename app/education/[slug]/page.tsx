@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import type { ReactNode } from 'react';
-import { getArticleSchema } from '../../../lib/schema';
+import { getArticleSchema, getFAQSchema } from '../../../lib/schema';
 import { CATEGORY_TO_HUB } from '@/data/comparisons';
 import { getTopReviewsForCategory } from '@/lib/card-data';
 import { filterByPromotedPath, getRobotsForProgrammaticPage, shouldLinkTo } from '@/lib/programmatic-rollout';
@@ -11,7 +11,16 @@ import CreditReportResourceBox from '@/components/Education/CreditReportResource
 import CreditReportErrorsChecklist from '@/components/CreditReportErrorsChecklist';
 import CreditRebuildTimeline from '@/components/CreditRebuildTimeline';
 
-const articleContent: Record<string, { title: string; quickAnswer?: string; body: ReactNode }> = {
+type ArticleFAQ = { q: string; a: string };
+
+type Article = {
+  title: string;
+  quickAnswer?: string;
+  body: ReactNode;
+  faqs?: ArticleFAQ[];
+};
+
+const articleContent: Record<string, Article> = {
   'what-is-a-good-credit-score': {
     title: 'What Is a Good Credit Score? (2026 Guide)',
     quickAnswer:
@@ -62,6 +71,20 @@ const articleContent: Record<string, { title: string; quickAnswer?: string; body
         </div>
       </>
     ),
+    faqs: [
+      {
+        q: 'What is considered a good credit score?',
+        a: 'Most lenders consider a FICO® score of 670 or higher to be good, 740+ to be very good, and 800+ to be exceptional.',
+      },
+      {
+        q: 'Can I rebuild a fair or poor score into a good score?',
+        a: 'Yes. With on-time payments, lower utilization, and avoiding new debt, many people can move from fair or poor scores into the good range within 12–24 months.',
+      },
+      {
+        q: 'Do all lenders use the same score range?',
+        a: 'Most lenders use 300–850 based models, but individual lenders may have different approval cutoffs and internal rules.',
+      },
+    ],
   },
   'how-credit-scores-work': {
     title: 'How Credit Scores Work',
@@ -521,6 +544,7 @@ export default async function EducationArticlePage({
     datePublished: DATE_PUBLISHED,
     dateModified: DATE_MODIFIED,
   });
+  const faqSchema = article.faqs && article.faqs.length ? getFAQSchema(article.faqs) : null;
 
   return (
     <div className="min-h-screen bg-white text-slate-900">
@@ -528,13 +552,19 @@ export default async function EducationArticlePage({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
       />
+      {faqSchema && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+        />
+      )}
       <article className="max-w-3xl mx-auto px-6 py-12 prose prose-slate">
         {/* Hero */}
         <header className="mb-8">
           <h1 className="text-3xl md:text-4xl font-bold tracking-tight text-slate-900 mb-4">
             {article.title}
           </h1>
-          <p className="text-slate-500 text-sm mb-1">By Carlos Acosta</p>
+          <p className="text-slate-500 text-sm mb-1">By Carlos Acosta | Fact checked</p>
           <p className="text-slate-400 text-sm">Last Updated: February 2026</p>
         </header>
 
@@ -646,6 +676,22 @@ export default async function EducationArticlePage({
             })()}
           </div>
         </section>
+
+        {article.faqs && article.faqs.length > 0 && (
+          <section className="mb-12" aria-labelledby="education-faq">
+            <h2 id="education-faq" className="text-xl font-bold text-slate-900 mb-4">
+              Frequently Asked Questions
+            </h2>
+            <dl className="space-y-4">
+              {article.faqs.map((item, index) => (
+                <div key={index} className="border-b border-slate-100 pb-4 last:border-0">
+                  <dt className="font-semibold text-slate-900 mb-1">{item.q}</dt>
+                  <dd className="text-slate-600 leading-relaxed">{item.a}</dd>
+                </div>
+              ))}
+            </dl>
+          </section>
+        )}
 
         {/* Author Bio */}
         <footer className="border-t border-slate-200 pt-8 mt-12">
