@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { headers, cookies } from 'next/headers';
 import { getComparisonBySlug, getRelatedComparisons, getReviewLinksForComparison, getHubForComparison, getHubBySlug } from '@/data/comparisons';
-import { getCardBySlug, getAffiliateLink } from '@/lib/card-data';
+import { getCardBySlug } from '@/lib/card-data';
 import { getPrimaryOffer, buildOfferFromHref } from '@/lib/offer-rotation';
 import { getVariantFromHeaders, VARIANT_HEADER } from '@/lib/ab-guardrails';
 import { isBot } from '@/lib/is-bot';
@@ -13,7 +13,7 @@ import { getOutboundRedirectUrl } from '@/lib/outbound-tracking';
 import { filterPromotedComparisonLinks, filterPromotedReviewLinks, getRobotsForProgrammaticPageAsync, shouldLinkTo } from '@/lib/programmatic-rollout';
 import { getDemotedPageSlugs } from '@/lib/page-health';
 import { getIssuerTiersAndEpc, sortByTierAndEpc } from '@/lib/issuer-promotion';
-import { getWebPageSchema } from '@/lib/schema';
+import { getWebPageSchema, getFAQSchema } from '@/lib/schema';
 import ComparisonHero from '@/components/compare/ComparisonHero';
 import SnapshotTable from '@/components/compare/SnapshotTable';
 import DecisionLogicSection from '@/components/compare/DecisionLogicSection';
@@ -25,13 +25,34 @@ import MethodologyFooter from '@/components/compare/MethodologyFooter';
 import CreditReportErrorsChecklist from '@/components/CreditReportErrorsChecklist';
 import CreditRebuildTimeline from '@/components/CreditRebuildTimeline';
 import TrustBadges from '@/components/TrustBadges';
+import AffiliateCTA from '@/components/AffiliateCTA';
 
 type Props = { params: { slug: string } };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const comparison = getComparisonBySlug(params.slug);
+  const { slug } = params;
+
+  if (slug.includes('-vs-')) {
+    const [slugA, slugB] = slug.split('-vs-');
+    const cardA = slugA ? getCardBySlug(slugA) : undefined;
+    const cardB = slugB ? getCardBySlug(slugB) : undefined;
+    if (!cardA || !cardB) {
+      return { title: 'Comparison Not Found' };
+    }
+    const path = `/compare/${slug}`;
+    return {
+      title: `${cardA.title} vs ${cardB.title}: Which is Better? (2026)`,
+      description: `Side-by-side comparison of the ${cardA.title} and ${cardB.title}. Compare approval odds, hidden fees, APR, and choose the best card to rebuild your credit.`,
+      robots: await getRobotsForProgrammaticPageAsync(path),
+      alternates: {
+        canonical: `https://www.badcreditfirst.com${path}`,
+      },
+    };
+  }
+
+  const comparison = getComparisonBySlug(slug);
   if (!comparison) return { title: 'Comparison Not Found' };
-  const path = `/compare/${params.slug}`;
+  const path = `/compare/${slug}`;
   return {
     title: `${comparison.entityA.name} vs ${comparison.entityB.name} | BadCreditFirst`,
     description: `Compare ${comparison.entityA.name} and ${comparison.entityB.name} for ${comparison.intent}. Independent comparison.`,
@@ -46,6 +67,141 @@ const SITE_URL = 'https://www.badcreditfirst.com';
 
 export default async function ComparePage({ params }: Props) {
   const { slug } = params;
+
+  if (slug.includes('-vs-')) {
+    const [slugA, slugB] = slug.split('-vs-');
+    if (!slugA || !slugB) {
+      notFound();
+    }
+    const cardA = getCardBySlug(slugA);
+    const cardB = getCardBySlug(slugB);
+    if (!cardA || !cardB) {
+      notFound();
+    }
+
+    const faqSchema = getFAQSchema([
+      {
+        q: `What is the difference between ${cardA.title} and ${cardB.title}?`,
+        a: `The main differences are fees, approval odds, and how each card is used in real life. ${cardA.title}: ${cardA.feeRisk}. ${cardB.title}: ${cardB.feeRisk}.`,
+      },
+      {
+        q: `Which card has better approval odds?`,
+        a: `${cardA.title} lists approval odds as ${cardA.approvalOdds}, while ${cardB.title} lists approval odds as ${cardB.approvalOdds}.`,
+      },
+      {
+        q: `Who should choose ${cardA.title} vs ${cardB.title}?`,
+        a: `Choose ${cardA.title} if ${cardA.realWorldUseCase}. Choose ${cardB.title} if ${cardB.realWorldUseCase}.`,
+      },
+    ]);
+
+    const rows = [
+      {
+        label: 'Approval odds',
+        a: cardA.approvalOdds,
+        b: cardB.approvalOdds,
+      },
+      {
+        label: 'Fee risk',
+        a: cardA.feeRisk,
+        b: cardB.feeRisk,
+      },
+      {
+        label: 'APR',
+        a: cardA.apr ?? 'Varies by applicant',
+        b: cardB.apr ?? 'Varies by applicant',
+      },
+      {
+        label: 'Annual fee',
+        a: cardA.fees,
+        b: cardB.fees,
+      },
+      {
+        label: 'Best for',
+        a: cardA.realWorldUseCase,
+        b: cardB.realWorldUseCase,
+      },
+      {
+        label: 'Not ideal for',
+        a: cardA.badFor,
+        b: cardB.badFor,
+      },
+    ];
+
+    return (
+      <div className="min-h-screen bg-slate-50 text-slate-900">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+        />
+        <main className="max-w-4xl mx-auto px-6 py-12">
+          <section className="mb-8">
+            <h1 className="text-3xl font-bold tracking-tight text-slate-900 mb-2">
+              {cardA.title} vs {cardB.title}
+            </h1>
+            <p className="text-sm text-slate-600">
+              Compare approval odds, fees, APR, and who each card is best for before you apply.
+            </p>
+          </section>
+
+          <section className="mb-10">
+            <div className="overflow-x-auto rounded-xl border border-slate-200 bg-white shadow-sm">
+              <table className="min-w-full text-sm">
+                <thead className="bg-slate-50">
+                  <tr>
+                    <th className="px-4 py-3 text-left text-slate-500 font-semibold">Feature</th>
+                    <th className="px-4 py-3 text-left text-slate-900 font-semibold">{cardA.title}</th>
+                    <th className="px-4 py-3 text-left text-slate-900 font-semibold">{cardB.title}</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-slate-100">
+                  {rows.map((row) => (
+                    <tr key={row.label}>
+                      <td className="px-4 py-3 font-medium text-slate-700">{row.label}</td>
+                      <td className="px-4 py-3 text-slate-700">{row.a}</td>
+                      <td className="px-4 py-3 text-slate-700">{row.b}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <section className="mb-10 grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="border border-slate-200 rounded-xl bg-white p-6 shadow-sm flex flex-col">
+              <h2 className="text-lg font-bold text-slate-900 mb-1">{cardA.title}</h2>
+              <p className="text-sm text-slate-600 mb-4">{cardA.realWorldUseCase}</p>
+              <div className="mt-auto">
+                {cardA.status === 'coming-soon' ? (
+                  <AffiliateCTA href="#" label="Coming Soon" variant="primary" disabled />
+                ) : (
+                  <AffiliateCTA href={cardA.issuerUrl} label="Apply" variant="primary" />
+                )}
+              </div>
+            </div>
+            <div className="border border-slate-200 rounded-xl bg-white p-6 shadow-sm flex flex-col">
+              <h2 className="text-lg font-bold text-slate-900 mb-1">{cardB.title}</h2>
+              <p className="text-sm text-slate-600 mb-4">{cardB.realWorldUseCase}</p>
+              <div className="mt-auto">
+                {cardB.status === 'coming-soon' ? (
+                  <AffiliateCTA href="#" label="Coming Soon" variant="primary" disabled />
+                ) : (
+                  <AffiliateCTA href={cardB.issuerUrl} label="Apply" variant="primary" />
+                )}
+              </div>
+            </div>
+          </section>
+
+          <section className="mb-10">
+            <h2 className="text-2xl font-bold text-slate-900 mb-3">The Final Verdict</h2>
+            <p className="text-slate-600 leading-relaxed">
+              Choose {cardA.title} if {cardA.realWorldUseCase}. Choose {cardB.title} if {cardB.realWorldUseCase}.
+            </p>
+          </section>
+        </main>
+      </div>
+    );
+  }
+
   const comparison = getComparisonBySlug(slug);
 
   if (!comparison) {
