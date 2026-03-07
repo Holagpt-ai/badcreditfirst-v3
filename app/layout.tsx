@@ -18,7 +18,10 @@ const organizationSchema = getOrganizationSchema(SITE_URL);
 const websiteSchema = getWebSiteSchema(SITE_URL);
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://badcreditfirst.com"),
+  metadataBase: new URL("https://www.badcreditfirst.com"),
+  alternates: {
+    canonical: "/",
+  },
   title: "BadCreditFirst | Build Credit with Confidence (2026)",
   description: "Compare the best secured credit cards and credit builder loans for 2026. Independent reviews for bad credit, no credit, and bankruptcy recovery.",
   icons: {
