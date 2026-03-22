@@ -1,14 +1,16 @@
 type SnippetAnchorProps = {
   title?: string;
   description: string;
+  className?: string;
 };
 
 export default function SnippetAnchor({
   title = "What is BadCreditFirst?",
   description,
+  className,
 }: SnippetAnchorProps) {
   return (
-    <section className="snippet-anchor">
+    <section className={className ? `snippet-anchor ${className}` : "snippet-anchor"}>
       <h2>{title}</h2>
       <p>{description}</p>
       <p className="trust-line">
