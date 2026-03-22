@@ -34,21 +34,51 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-white text-slate-900 flex flex-col">
       <main className="flex-1">
-        {/* Segmentation Funnel — multi-step wizard at top (Step 1: situation, Step 2: deposit, Step 3: trust) */}
-        <FunnelSelector />
-        <TrustBadges />
-        {/* Welcome back: client component reads localStorage (bcf_segment from Funnel), links to results */}
-        <WelcomeBackBanner />
-
         {/* Hero */}
         <section className="max-w-5xl mx-auto px-6 py-12 text-center">
           <h1 className="text-4xl font-bold tracking-tight text-slate-900 mb-4">
             Rebuild Your Credit: Best Credit Cards for Bad Credit in 2026
           </h1>
-          <SnippetAnchor description={SNIPPET_DESCRIPTION} />
+          <SnippetAnchor description={SNIPPET_DESCRIPTION} className="sr-only" />
           <p className="text-lg text-slate-600 max-w-2xl mx-auto">
             Independent reviews, approval odds, and fee breakdowns to help you choose the right card. No lender bias. No obligation.
           </p>
+        </section>
+
+        {/* Segmentation Funnel — multi-step wizard at top (Step 1: situation, Step 2: deposit, Step 3: trust) */}
+        <FunnelSelector />
+        {/* Welcome back: client component reads localStorage (bcf_segment from Funnel), links to results */}
+        <WelcomeBackBanner />
+        <TrustBadges />
+
+        {/* Top Picks / Featured Cards */}
+        <section className="max-w-5xl mx-auto px-6 pb-12" aria-labelledby="top-picks">
+          <h2 id="top-picks" className="text-2xl font-bold text-slate-900 mb-6">
+            Our Top Picks for 2026
+          </h2>
+          <div className="divide-y divide-slate-200 border border-slate-200 rounded-xl overflow-hidden bg-white shadow-sm">
+            {cardData
+              .filter((c) => c.status === 'active')
+              .sort((a, b) => (b.editorialScore ?? 0) - (a.editorialScore ?? 0))
+              .slice(0, FEATURED_CARD_COUNT)
+              .map((card, index) => (
+              <DetailedCardRow
+                key={card.slug}
+                position={index}
+                priority={index < 3}
+                title={card.title}
+                label={card.label}
+                highlights={card.highlights}
+                fees={card.fees}
+                creditScore={card.creditScore}
+                slug={card.slug}
+                reviewUrl={card.reviewUrl}
+                editorialScore={card.editorialScore}
+                status={card.status}
+                whyRecommended={card.whyRecommended}
+              />
+            ))}
+          </div>
         </section>
 
         {/* Browse by Category */}
@@ -84,36 +114,6 @@ export default function Home() {
                 Build credit without a credit card. No hard pull, fixed payments, bureau reporting.
               </p>
             </Link>
-          </div>
-        </section>
-
-        {/* Top Picks / Featured Cards */}
-        <section className="max-w-5xl mx-auto px-6 pb-12" aria-labelledby="top-picks">
-          <h2 id="top-picks" className="text-2xl font-bold text-slate-900 mb-6">
-            Our Top Picks for 2026
-          </h2>
-          <div className="divide-y divide-slate-200 border border-slate-200 rounded-xl overflow-hidden bg-white shadow-sm">
-            {cardData
-              .filter((c) => c.status === 'active')
-              .sort((a, b) => (b.editorialScore ?? 0) - (a.editorialScore ?? 0))
-              .slice(0, FEATURED_CARD_COUNT)
-              .map((card, index) => (
-              <DetailedCardRow
-                key={card.slug}
-                position={index}
-                priority={index < 3}
-                title={card.title}
-                label={card.label}
-                highlights={card.highlights}
-                fees={card.fees}
-                creditScore={card.creditScore}
-                slug={card.slug}
-                reviewUrl={card.reviewUrl}
-                editorialScore={card.editorialScore}
-                status={card.status}
-                whyRecommended={card.whyRecommended}
-              />
-            ))}
           </div>
         </section>
 
