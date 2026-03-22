@@ -218,6 +218,8 @@ export function getProductSchema(options: {
   priceCurrency?: string;
   priceValidUntil?: string;
   description?: string;
+  reviewCount?: number;
+  image?: string;
 }) {
   const siteUrl = options.siteUrl ?? SITE_URL;
   const ratingValue =
@@ -227,10 +229,12 @@ export function getProductSchema(options: {
     '@type': 'Product',
     name: options.name,
     url: options.url,
+    image: options.image ?? `${siteUrl}/logo.png`,
     aggregateRating: {
       '@type': 'AggregateRating',
       ratingValue,
       bestRating: options.bestRating,
+      reviewCount: options.reviewCount ?? 1,
     },
   };
   if (options.price != null && options.price > 0) {

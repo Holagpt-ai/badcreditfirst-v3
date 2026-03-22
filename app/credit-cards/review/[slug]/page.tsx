@@ -97,6 +97,8 @@ export default async function CreditCardReviewPage({
     url: card.issuerUrl,
     ratingValue,
     bestRating,
+    reviewCount: 1,
+    image: `${baseUrl}/logo.png`,
     ...(priceValue > 0 && {
       price: priceValue,
       priceCurrency: 'USD',
