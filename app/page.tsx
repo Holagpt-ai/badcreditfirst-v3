@@ -36,7 +36,7 @@ export default function Home() {
       <main className="flex-1">
         {/* Hero */}
         <section className="max-w-5xl mx-auto px-6 py-12 text-center">
-          <h1 className="text-4xl font-bold tracking-tight text-slate-900 mb-4">
+          <h1 className="text-3xl font-bold tracking-tight text-slate-900 mb-4">
             Rebuild Your Credit: Best Credit Cards for Bad Credit in 2026
           </h1>
           <SnippetAnchor description={SNIPPET_DESCRIPTION} className="sr-only" />
