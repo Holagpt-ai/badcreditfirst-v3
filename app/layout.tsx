@@ -151,6 +151,27 @@ export default function RootLayout({
                 {' · '}
                 Contact: {CONTACT_EMAIL}
               </p>
+              <div className="mb-3">
+                <a
+                  href="https://www.facebook.com/badcreditfirst"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="BadCreditFirst on Facebook"
+                  className="inline-flex items-center gap-2 text-xs text-slate-400 hover:text-white transition-colors"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="14"
+                    height="14"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    aria-hidden="true"
+                  >
+                    <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
+                  </svg>
+                  <span>Facebook</span>
+                </a>
+              </div>
               <div className="mb-4">
                 <TrustSignals variant="compact" />
               </div>
