@@ -59,7 +59,7 @@ export const cardData: CardItem[] = [
     issuerUrl: 'https://openskycc.com',
     issuerName: 'OpenSky',
     apr: 'Varies by applicant',
-    applyLink: 'https://openskycc.com',
+    applyLink: 'https://sovrn.co/1acokmr',
     approvalOdds: 'Fair/Poor (580+)',
     realWorldUseCase: 'Best for renting and building payment history.',
     feeRisk: 'Annual fee charged immediately.',
