@@ -22,6 +22,11 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/",
   },
+  verification: {
+    other: {
+      "flexoffers-verification": '<meta name="fo-verify" content="61987137-3fcb-4075-8e5b-0ef4c9ff4e93" />',
+    },
+  },
   title: "BadCreditFirst | Build Credit with Confidence (2026)",
   description: "Compare the best secured credit cards and credit builder loans for 2026. Independent reviews for bad credit, no credit, and bankruptcy recovery.",
   icons: {
