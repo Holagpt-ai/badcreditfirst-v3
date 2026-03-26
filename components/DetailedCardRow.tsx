@@ -35,6 +35,8 @@ export default function DetailedCardRow({ title, label, highlights, fees, credit
   const partialOpacity = score - fullStars;
   const isComingSoon = status === 'coming-soon';
   const reviewHref = `/credit-cards/review/${slug}`;
+  const ctaHref = slug === 'opensky-secured-visa' ? 'https://sovrn.co/1acokmr' : reviewHref;
+  const isExternalCta = slug === 'opensky-secured-visa';
 
   return (
 
@@ -101,7 +103,9 @@ export default function DetailedCardRow({ title, label, highlights, fees, credit
         ) : (
           <>
             <Link
-              href={reviewHref}
+              href={ctaHref}
+              target={isExternalCta ? '_blank' : undefined}
+              rel={isExternalCta ? 'nofollow noopener noreferrer' : undefined}
               className="w-full py-4 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-lg shadow-sm hover:shadow-md transition-all text-center flex items-center justify-center group"
             >
               View Full Review
