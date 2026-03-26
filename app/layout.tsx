@@ -24,7 +24,7 @@ export const metadata: Metadata = {
   },
   verification: {
     other: {
-      "flexoffers-verification": '<meta name="fo-verify" content="61987137-3fcb-4075-8e5b-0ef4c9ff4e93" />',
+      "fo-verify": "61987137-3fcb-4075-8e5b-0ef4c9ff4e93",
     },
   },
   title: "BadCreditFirst | Build Credit with Confidence (2026)",
